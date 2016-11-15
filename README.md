@@ -1,6 +1,6 @@
 #FAVITES - FrAmework for VIral Transmission and Evolution Simulation
 
-GENERAL WORKFLOW
+General Workflow
 ===
 * The **Driver** module receives as input the Interaction Network
 * The **Driver** module then orchestrates the simulation process:
