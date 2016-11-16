@@ -8,37 +8,37 @@ from abc import ABCMeta, abstractmethod # for abstraction
 
 class Tree:
     '''
-    Abstract class defining a Tree object
+    Abstract class defining a ``Tree`` object
+
+    Attributes
+    ----------
+    None
+
+    Methods
+    -------
+    None
+
     '''
     __metaclass__ = ABCMeta
 
     @abstractmethod
     def __init__(self):
         '''
-        Construct a new Tree object
-
-        :return: None
+        Construct a new ``Tree`` object
         '''
         pass
 
 class Tree_Dendropy(Tree):
     '''
-    Implement the Tree abstract class using Dendropy
+    Implement the ``Tree`` abstract class using Dendropy
     '''
     def __init__(self):
-        '''
-        Construct a new Tree object using Dendropy
-
-        :return: None
-        '''
         import dendropy
         self.tree = dendropy.Tree(seed_node=dendropy.Node(label="root"))
 
 def check():
     '''
-    Check all Tree classes for validity
-
-    :return: None
+    Check all ``Tree`` classes for validity
     '''
     print("--- Testing Tree Module ---")
 
