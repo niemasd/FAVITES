@@ -1,9 +1,10 @@
+#! /usr/bin/env python3
 '''
 Niema Moshiri 2016
 
 "SeedSelection" module
 '''
-from abc import ABCMeta, abstractmethod # for abstraction
+import abc # for abstraction
 
 class SeedSelection:
     '''
@@ -19,4 +20,4 @@ class SeedSelection:
         perform an iteration over the edges in this ``ContactNetwork``
 
     '''
-    __metaclass__ = ABCMeta
+    __metaclass__ = abc.ABCMeta
