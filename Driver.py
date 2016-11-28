@@ -9,7 +9,16 @@ from ContactNetwork import ContactNetwork         # ContactNetwork module abstra
 from ContactNetworkNode import ContactNetworkNode # ContactNetworkNode module abstract class
 from SeedSelection import SeedSelection           # SeedSelection module abstract class
 
+# default settings
+def_ContactNetworkFile   = 'stdin'
+def_ContactNetworkModule = 'NetworkX'
+def_SeedSelectionModule  = 'Random'
+def_SeedSequenceModule   = 'FILL THIS' #TODO FILL THIS!!!
+
 def printMessage():
+    '''
+    Print author message
+    '''
     print("/---------------------------------------------------------------------\\")
     print("| FAVITES - FrAmework for VIral Transmission and Evolution Simulation |")
     print("|                        Moshiri & Mirarab 2016                       |")
@@ -29,16 +38,27 @@ def parseArgs():
     # use argparse to parse user arguments
     parser = argparse.ArgumentParser(description=__doc__,
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('--ContactNetworkFile', default='stdin',
+
+    parser.add_argument('--ContactNetworkFile',
+        default=def_ContactNetworkFile,
         help="Input contact network ('stdin' for standard input)")
-    parser.add_argument('--NumSeeds', required=True, type=int,
+
+    parser.add_argument('--NumSeeds',
+        required=True, type=int,
         help="Number of seed infection nodes desired")
-    parser.add_argument('--ContactNetworkModule', default='NetworkX',
+
+    parser.add_argument('--ContactNetworkModule',
+        default=def_ContactNetworkModule,
         help="ContactNetwork module implementation")
-    parser.add_argument('--SeedSelectionModule', default='Random',
+
+    parser.add_argument('--SeedSelectionModule',
+        default=def_SeedSelectionModule,
         help="SeedSelection module implementation")
-    parser.add_argument('--SeedSequenceModule', default='FILL THIS', #TODO FILL THIS!!!
+
+    parser.add_argument('--SeedSequenceModule',
+        default=def_SeedSequenceModule,
         help="SeedSequence module implementation")
+        
     args = parser.parse_args()
 
     # import modules
