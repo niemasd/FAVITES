@@ -9,7 +9,8 @@ General Workflow
     the form of an instance of the **[ContactNetwork](ContactNetwork.py)**
     module)
 2. The **[Driver](Driver.py)** module then orchestrates the simulation process:
-    1. The **[Driver](Driver.py)** module initializes the Transmission Network:
+    1. The **[Driver](Driver.py)** module initializes the Transmission Network
+       (in the form of an instance of the **TransmissionNetwork** module):
         * The **[Driver](Driver.py)** calls the **SeedSelection** module to
           choose which nodes in the **ContactNetwork** object to be initially
           infected
