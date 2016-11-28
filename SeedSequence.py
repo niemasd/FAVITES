@@ -12,7 +12,20 @@ class SeedSequence(metaclass=abc.ABCMeta):
 
     Methods
     -------
-    None
-
+    evolve(node)
+        Evolve a phylogeny and sequences on ``node''
     '''
-    pass
+
+    @abc.abstractmethod
+    def evolve(node):
+        '''
+        Evolve a phylogeny and sequences on ``node''
+
+        Parameters
+        ----------
+        node : ContactNetworkNode
+            ``ContactNetworkNode'' object on which to evolve phylogeny and
+            sequences
+
+        '''
+        pass

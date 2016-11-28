@@ -37,6 +37,8 @@ def parseArgs():
         help="ContactNetwork module implementation")
     parser.add_argument('--SeedSelectionModule', default='Random',
         help="SeedSelection module implementation")
+    parser.add_argument('--SeedSequenceModule', default='FILL THIS', #TODO FILL THIS!!!
+        help="SeedSequence module implementation")
     args = parser.parse_args()
 
     # import modules
@@ -66,6 +68,21 @@ def parseArgs():
         exit(-1)
     assert issubclass(module_SeedSelection, SeedSelection), "%r is not a SeedSelection" % module_SeedSelection
     print(args.SeedSelectionModule)
+
+    # import SeedSequence module
+    '''
+    print("SeedSequence Module:  ", end='')
+    if args.SeedSequenceModule == 'FILL THIS': # TODO FILL THIS!!!!!!!
+        global module_SeedSequence
+        from SeedSequence_FILLTHIS import SeedSequence_FILLTHIS as module_SeedSequence # TODO FILL THIS!!!!!
+        module_SeedSequence() # to force Python to check method implementations
+    else:
+        print('\n')
+        print("ERROR: Invalid choice for SeedSelectionModule: %r" % args.SeedSelectionModule)
+        exit(-1)
+    assert issubclass(module_SeedSelection, SeedSelection), "%r is not a SeedSelection" % module_SeedSelection
+    print(args.SeedSelectionModule)
+    '''
 
     print()
 
@@ -113,3 +130,9 @@ if __name__ == "__main__":
     for node in seed_nodes:
         assert isinstance(node, ContactNetworkNode), "seed_nodes contains items that are not ContactNetworkNode objects"
     assert len(seed_nodes) == user_input['num_seeds'], "seed_nodes contains more than NumSeeds nodes"
+
+    # evolve phylogeny + sequences on each seed node
+    '''
+    for node in seed_nodes:
+        SeedSequence.evolve(node)
+    '''
