@@ -5,15 +5,17 @@ Niema Moshiri 2016
 "Driver" module
 '''
 import argparse                                   # to parse user arguments
+from os.path import expanduser                    # to open paths with '~'
 from ContactNetwork import ContactNetwork         # ContactNetwork module abstract class
 from ContactNetworkNode import ContactNetworkNode # ContactNetworkNode module abstract class
 from SeedSelection import SeedSelection           # SeedSelection module abstract class
+from SeedSequence import SeedSequence             # SeedSequence module abstract class
 
 # default settings
 def_ContactNetworkFile   = 'stdin'
 def_ContactNetworkModule = 'NetworkX'
 def_SeedSelectionModule  = 'Random'
-def_SeedSequenceModule   = 'FILL THIS' #TODO FILL THIS!!!
+def_SeedSequenceModule   = 'DUMMY' # TODO FILL THIS!!!
 
 def printMessage():
     '''
@@ -64,7 +66,7 @@ def parseArgs():
     args = parser.parse_args()
 
     # import modules
-    print("=== Modules ===")
+    print("===   Module   ===")
 
     # import ContactNetwork module
     print("ContactNetwork Module: ", end='')
@@ -79,7 +81,7 @@ def parseArgs():
     print(args.ContactNetworkModule)
 
     # import SeedSelection module
-    print("SeedSelection Module:  ", end='')
+    print("SeedSelection  Module: ", end='')
     if args.SeedSelectionModule == 'Random':
         global module_SeedSelection
         from SeedSelection_Random import SeedSelection_Random as module_SeedSelection
@@ -92,19 +94,17 @@ def parseArgs():
     print(args.SeedSelectionModule)
 
     # import SeedSequence module
-    '''
-    print("SeedSequence Module:  ", end='')
-    if args.SeedSequenceModule == 'FILL THIS': # TODO FILL THIS!!!!!!!
+    print("SeedSequence   Module: ", end='')
+    if args.SeedSequenceModule == 'DUMMY': # TODO FILL THIS!!!!!!!
         global module_SeedSequence
-        from SeedSequence_FILLTHIS import SeedSequence_FILLTHIS as module_SeedSequence # TODO FILL THIS!!!!!
+        from SeedSequence_DUMMY import SeedSequence_DUMMY as module_SeedSequence # TODO FILL THIS!!!!!
         module_SeedSequence() # to force Python to check method implementations
     else:
         print('\n')
-        print("ERROR: Invalid choice for SeedSelectionModule: %r" % args.SeedSelectionModule)
+        print("ERROR: Invalid choice for SeedSequenceModule: %r" % args.SeedSequenceModule)
         exit(-1)
-    assert issubclass(module_SeedSelection, SeedSelection), "%r is not a SeedSelection" % module_SeedSelection
-    print(args.SeedSelectionModule)
-    '''
+    assert issubclass(module_SeedSequence, SeedSequence), "%r is not a SeedSequence" % module_SeedSequence
+    print(args.SeedSequenceModule)
 
     print()
 
@@ -113,20 +113,24 @@ def parseArgs():
     user_input = {}
 
     # read in Contact Network and add to input data
-    print("Reading contact network from: ", end='')
+    print("Reading contact network from ", end='')
     user_input['contact_network'] = []
     if args.ContactNetworkFile == 'stdin':
+        print('standard input...', end='')
         import sys
         user_input['contact_network'] = [i.strip() for i in sys.stdin if len(i.strip()) > 0]
-        print('standard input')
     else:
+        if args.ContactNetworkFile[0] == '~':
+            args.ContactNetworkFile = expanduser(args.ContactNetworkFile)
+        print('%r...' % args.ContactNetworkFile, end='')
         user_input['contact_network'] = open(args.ContactNetworkFile).readlines()
-        print(args.ContactNetworkFile)
+    print(' done')
 
     # add number of seed nodes to input data
     user_input['num_seeds'] = args.NumSeeds
 
     # return input data
+    print()
     return user_input
 
 if __name__ == "__main__":
@@ -144,9 +148,14 @@ if __name__ == "__main__":
     # parse user arguments
     user_input = parseArgs()
 
+    # begin simulation
+    print("=== Simulation ===")
+
     # create ContactNetwork object from input contact network edge list
+    print("Creating ContactNetwork object...",end='')
     contact_network = module_ContactNetwork(user_input['contact_network'])
     assert isinstance(contact_network, ContactNetwork), "contact_network is not a ContactNetwork object"
+    print(" done")
 
     # select seed nodes
     seed_nodes = module_SeedSelection.select_seed_nodes(user_input['num_seeds'],
@@ -157,7 +166,5 @@ if __name__ == "__main__":
     assert len(seed_nodes) == user_input['num_seeds'], "seed_nodes contains more than NumSeeds nodes"
 
     # evolve phylogeny + sequences on each seed node
-    '''
     for node in seed_nodes:
-        SeedSequence.evolve(node)
-    '''
+        module_SeedSequence.evolve(node)
