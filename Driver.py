@@ -47,6 +47,10 @@ def parseArgs():
     if args.ContactNetworkModule == 'NetworkX':
         global module_ContactNetwork
         from ContactNetwork_NetworkX import ContactNetwork_NetworkX as module_ContactNetwork
+    else:
+        print('\n')
+        print("ERROR: Invalid choice for ContactNetworkModule: %r" % args.ContactNetworkModule)
+        exit(-1)
     assert issubclass(module_ContactNetwork, ContactNetwork), "%r is not a ContactNetwork" % module_ContactNetwork
     print(args.ContactNetworkModule)
 
@@ -55,7 +59,11 @@ def parseArgs():
     if args.SeedSelectionModule == 'Random':
         global module_SeedSelection
         from SeedSelection_Random import SeedSelection_Random as module_SeedSelection
-        module_SeedSelection()
+        module_SeedSelection() # to force Python to check method implementations
+    else:
+        print('\n')
+        print("ERROR: Invalid choice for SeedSelectionModule: %r" % args.SeedSelectionModule)
+        exit(-1)
     assert issubclass(module_SeedSelection, SeedSelection), "%r is not a SeedSelection" % module_SeedSelection
     print(args.SeedSelectionModule)
 
@@ -65,7 +73,7 @@ def parseArgs():
     print("=== Input Data ===")
     user_input = {}
 
-    # read in Contact Network
+    # read in Contact Network and add to input data
     print("Reading contact network from: ", end='')
     user_input['contact_network'] = []
     if args.ContactNetworkFile == 'stdin':
@@ -76,7 +84,7 @@ def parseArgs():
         user_input['contact_network'] = open(args.ContactNetworkFile).readlines()
         print(args.ContactNetworkFile)
 
-    # add number of seed nodes to user input
+    # add number of seed nodes to input data
     user_input['num_seeds'] = args.NumSeeds
 
     # return input data
