@@ -6,17 +6,32 @@ Niema Moshiri 2016
 '''
 import abc # for abstraction
 
-class SeedSelection:
+class SeedSelection(metaclass=abc.ABCMeta):
     '''
-    Abstract class defining a ``SeedSelection`` object
-
-    Attributes
-    ----------
-    None
+    Abstract class defining the ``SeedSelection`` module
 
     Methods
     -------
-    None
-
+    select_seed_nodes(n, contact_network)
+        Select ``n'' nodes in ``contact_network'' to use as seed nodes
     '''
-    __metaclass__ = abc.ABCMeta
+
+    @abc.abstractmethod
+    def select_seed_nodes(n, contact_network):
+        '''
+        Select ``n'' nodes in ``contact_network'' to use as seed nodes
+
+        Parameters
+        ----------
+        n : int
+            Number of seed nodes desired
+        contact_network : ContactNetwork
+            ``ContactNetwork'' object from which to choose seed nodes
+
+        Returns
+        -------
+        seed_nodes : list of ContactNetworkNode
+            The nodes of the contact network to use as seeds (``n'' total)
+
+        '''
+        pass

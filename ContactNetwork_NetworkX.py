@@ -6,10 +6,24 @@ Niema Moshiri 2016
 '''
 from ContactNetwork import ContactNetwork # abstract ContactNetwork class
 import networkx as nx                     # using NetworkX to implement
+from ContactNetworkNode_NetworkX import ContactNetworkNode_NetworkX as Node # Node class
 
 class ContactNetwork_NetworkX(ContactNetwork):
     '''
     Implement the ``ContactNetwork`` abstract class using NetworkX
+
+    Attributes
+    ----------
+    contact_network : Graph
+        The NetworkX ``Graph'' object to represent this ``ContactNetwork''
+    infected_nodes : set of ContactNetworkNode
+        Set containing the nodes that have been infected
+    name_to_num : dict
+        Dictionary mapping original node names to numbers
+    num_to_name : dict
+        Dictionary mapping numbers to original node names
+    transmissions : list
+        List of transmission events as (u,v,time) tuples
     '''
     def __init__(self, edge_list):
         # set up NetworkX and graph
@@ -43,16 +57,20 @@ class ContactNetwork_NetworkX(ContactNetwork):
         return len(self.infected_nodes)
 
     def num_uninfected_nodes(self):
-        return self.contact_network.number_of_nodes() - len(self.infected_nodes)
+        return self.contact_network.number_of_nodes()-self.num_infected_nodes()
 
     def num_edges(self):
         return self.contact_network.number_of_edges()
 
     def nodes_iter(self):
-        return self.contact_network.nodes()
+        for node in self.contact_network.nodes():
+            yield Node(self.contact_network, self.num_to_name[node])
 
     def edges_iter(self):
         return self.contact_network.edges()
+
+    def get_transmissions(self):
+        return self.transmissions
 
 def check():
     '''

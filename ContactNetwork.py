@@ -6,18 +6,14 @@ Niema Moshiri 2016
 '''
 import abc # for abstraction
 
-class ContactNetwork:
+class ContactNetwork(metaclass=abc.ABCMeta):
     '''
     Abstract class defining a ``ContactNetwork`` object
-
-    Attributes
-    ----------
-    None
 
     Methods
     -------
     edges_iter()
-        perform an iteration over the edges in this ``ContactNetwork``
+        Perform an iteration over the edges in this ``ContactNetwork``
     nodes_iter()
         Perform an iteration over the nodes in this ``ContactNetwork``
     transmissions()
@@ -26,7 +22,7 @@ class ContactNetwork:
         Return the number of edges in this ``ContactNetwork``
     num_infected_nodes()
         Return the number of infected nodes in this ``ContactNetwork``
-    num_nodes()
+    ()
         Return the number of nodes in this ``ContactNetwork``
     num_transmissions()
         Return the number of transmission events that have happened thus far
@@ -34,7 +30,6 @@ class ContactNetwork:
         Return the number of uninfected nodes in this ``ContactNetwork``
 
     '''
-    __metaclass__ = abc.ABCMeta
 
     @abc.abstractmethod
     def __init__(self, edge_list):
@@ -117,7 +112,7 @@ class ContactNetwork:
         pass
 
     @abc.abstractmethod
-    def transmissions(self):
+    def get_transmissions(self):
         '''
         Return a list of (u,v,time) transmission events that have happened
 

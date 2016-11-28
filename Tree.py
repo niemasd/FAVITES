@@ -6,20 +6,15 @@ Niema Moshiri 2016
 '''
 import abc # for abstraction
 
-class Tree:
+class Tree(metaclass=abc.ABCMeta):
     '''
     Abstract class defining a ``Tree`` object
-
-    Attributes
-    ----------
-    None
 
     Methods
     -------
     None
 
     '''
-    __metaclass__ = abc.ABCMeta
 
     @abc.abstractmethod
     def __init__(self):
