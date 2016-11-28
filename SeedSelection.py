@@ -16,8 +16,7 @@ class SeedSelection:
 
     Methods
     -------
-    edges_iter()
-        perform an iteration over the edges in this ``ContactNetwork``
+    None
 
     '''
     __metaclass__ = abc.ABCMeta
