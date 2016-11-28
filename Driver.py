@@ -26,7 +26,9 @@ def printMessage():
 
 def parseArgs():
     '''
-    Parse user arguments
+    Parse user arguments. As a developer, if you create any of your own module
+    implementations, you should modify the corresponding module argument parser
+    and "import ____ module" section of this function accordingly.
 
     Returns
     -------
@@ -58,7 +60,7 @@ def parseArgs():
     parser.add_argument('--SeedSequenceModule',
         default=def_SeedSequenceModule,
         help="SeedSequence module implementation")
-        
+
     args = parser.parse_args()
 
     # import modules
@@ -129,7 +131,10 @@ def parseArgs():
 
 if __name__ == "__main__":
     '''
-    Simulation driver
+    Simulation driver. Even if you add your own modules, you probably shouldn't
+    need to modify this function. The one clear exception would be if your
+    module requires additional user input (e.g. custom evolution model modules),
+    which would then require you to call it with the required arguments.
     '''
 
     # print author message
