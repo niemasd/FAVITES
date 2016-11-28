@@ -30,7 +30,8 @@ class ContactNetwork_NetworkX(ContactNetwork):
                 self.contact_network.add_node(len(self.num_to_name))
                 self.name_to_num[v] = len(self.num_to_name)
                 self.num_to_name.append(v)
-            self.contact_network.add_edge(self.name_to_num[u],self.name_to_num[v])
+            self.contact_network.add_edge(self.name_to_num[u],
+                self.name_to_num[v])
 
     def num_transmissions(self):
         return len(self.transmissions)
