@@ -10,9 +10,10 @@ General Workflow
     module)
 2. The **[Driver](Driver.py)** module then orchestrates the simulation process:
     1. The **[Driver](Driver.py)** module initializes the Transmission Network:
-        * The **[Driver](Driver.py)** calls the **SeedSelection** module to
-          choose which nodes in the **[ContactNetwork](ContactNetwork.py)**
-          object to be initially infected
+        * The **[Driver](Driver.py)** calls the
+          **[SeedSelection](SeedSelection.py)** module to choose which nodes in
+          the **[ContactNetwork](ContactNetwork.py)** object to be initially
+          infected
         * Then, for each of these "seed" nodes, the **[Driver](Driver.py)**
           module calls the **[SeedSequence](SeedSequence.py)** module to
           generate initial infection sequence(s) and infection time for each
