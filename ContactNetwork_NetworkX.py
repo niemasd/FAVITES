@@ -35,15 +35,21 @@ class ContactNetwork_NetworkX(ContactNetwork):
 
         # read in Contact Network as edge list
         for line in edge_list:
-            u,v = line.split('\t') # TODO: PARSE u AND v FOR NODE ATTRIBUTES (e.g. MSM, etc.)
+            u,v = line.split('\t')
+            u,uAttr = u.split('|')
+            v,vAttr = v.split('|')
             if u not in self.name_to_num:
                 self.contact_network.add_node(len(self.num_to_name))
                 self.name_to_num[u] = len(self.num_to_name)
                 self.num_to_name.append(u)
+            self.contact_network.node[self.name_to_num[u]]['attribute'] = uAttr
+            self.contact_network.node[self.name_to_num[u]]['infections'] = []
             if v not in self.name_to_num:
                 self.contact_network.add_node(len(self.num_to_name))
                 self.name_to_num[v] = len(self.num_to_name)
                 self.num_to_name.append(v)
+            self.contact_network.node[self.name_to_num[v]]['attribute'] = vAttr
+            self.contact_network.node[self.name_to_num[v]]['infections'] = []
             self.contact_network.add_edge(self.name_to_num[u],
                 self.name_to_num[v])
 
@@ -64,7 +70,7 @@ class ContactNetwork_NetworkX(ContactNetwork):
 
     def nodes_iter(self):
         for node in self.contact_network.nodes():
-            yield Node(self.contact_network, self.num_to_name[node])
+            yield Node(self.contact_network, self.num_to_name[node], node)
 
     def edges_iter(self):
         return self.contact_network.edges()

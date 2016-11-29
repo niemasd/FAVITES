@@ -15,7 +15,8 @@ from SeedSequence import SeedSequence             # SeedSequence module abstract
 def_ContactNetworkFile   = 'stdin'
 def_ContactNetworkModule = 'NetworkX'
 def_SeedSelectionModule  = 'Random'
-def_SeedSequenceModule   = 'DUMMY' # TODO FILL THIS!!!
+def_SeedSequenceModule   = 'Random'
+def_SeedSequenceLength   = 100
 
 def printMessage():
     '''
@@ -63,10 +64,14 @@ def parseArgs():
         default=def_SeedSequenceModule,
         help="SeedSequence module implementation")
 
+    parser.add_argument('--SeedSequenceLength',
+        default=def_SeedSequenceLength, type=int,
+        help="Length of seed sequences")
+
     args = parser.parse_args()
 
     # import modules
-    print("===   Module   ===")
+    print("=============================   Modules   =============================")
 
     # import ContactNetwork module
     print("ContactNetwork Module: ", end='')
@@ -95,9 +100,9 @@ def parseArgs():
 
     # import SeedSequence module
     print("SeedSequence   Module: ", end='')
-    if args.SeedSequenceModule == 'DUMMY': # TODO FILL THIS!!!!!!!
+    if args.SeedSequenceModule == 'Random':
         global module_SeedSequence
-        from SeedSequence_DUMMY import SeedSequence_DUMMY as module_SeedSequence # TODO FILL THIS!!!!!
+        from SeedSequence_Random import SeedSequence_Random as module_SeedSequence
         module_SeedSequence() # to force Python to check method implementations
     else:
         print('\n')
@@ -109,7 +114,7 @@ def parseArgs():
     print()
 
     # read input data
-    print("=== Input Data ===")
+    print("============================   User Data   ============================")
     user_input = {}
 
     # read in Contact Network and add to input data
@@ -128,6 +133,11 @@ def parseArgs():
 
     # add number of seed nodes to input data
     user_input['num_seeds'] = args.NumSeeds
+    print("Number of seed nodes: %d" % user_input['num_seeds'])
+
+    # # add seed sequence length to input data
+    user_input['seed_sequence_length'] = args.SeedSequenceLength
+    print("Seed sequence length: %d" % user_input['seed_sequence_length'])
 
     # return input data
     print()
@@ -149,7 +159,7 @@ if __name__ == "__main__":
     user_input = parseArgs()
 
     # begin simulation
-    print("=== Simulation ===")
+    print("===========================   Simulations   ===========================")
 
     # create ContactNetwork object from input contact network edge list
     print("Creating ContactNetwork object...",end='')
@@ -158,7 +168,7 @@ if __name__ == "__main__":
     print(" done")
 
     # select seed nodes
-    seed_nodes = module_SeedSelection.select_seed_nodes(user_input['num_seeds'],
+    seed_nodes = module_SeedSelection.select_seed_nodes(user_input,
         contact_network)
     assert isinstance(seed_nodes, list), "seed_nodes is not a list"
     for node in seed_nodes:
@@ -167,4 +177,4 @@ if __name__ == "__main__":
 
     # evolve phylogeny + sequences on each seed node
     for node in seed_nodes:
-        module_SeedSequence.evolve(node)
+        module_SeedSequence.infect(user_input, node)

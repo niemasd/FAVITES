@@ -18,7 +18,7 @@ class ContactNetworkNode_NetworkX(ContactNetworkNode):
 
     '''
 
-    def __init__(self, graph, node):
+    def __init__(self, graph, name, num):
         '''
         Construct a new ``ContactNetworkNode_NetworkX`` object
 
@@ -31,13 +31,20 @@ class ContactNetworkNode_NetworkX(ContactNetworkNode):
 
         '''
         self.graph = graph
-        self.node = node
+        self.name = name
+        self.num = num
 
     def get_name(self):
         return self.node
 
     def get_attribute(self):
-        return self.graph.node[self.node]['attribute']
+        return self.graph.node[self.num]['attribute']
+
+    def get_infections(self):
+        return self.graph.node[self.num]['infections']
+
+    def infect(self, time, sequence):
+        self.graph.node[self.num]['infections'].append((time,sequence))
 
 if __name__ == '__main__':
     '''

@@ -12,20 +12,21 @@ class SeedSequence(metaclass=abc.ABCMeta):
 
     Methods
     -------
-    evolve(node)
-        Evolve a phylogeny and sequences on ``node''
+    infect(user_input, node)
+        Infect ``node'' with an initial seed sequence(s)
     '''
 
     @abc.abstractmethod
-    def evolve(node):
+    def infect(user_input, node):
         '''
-        Evolve a phylogeny and sequences on ``node''
+        Infect ``node'' with an initial seed sequence(s)
 
         Parameters
         ----------
+        user_input : dict
+            ``user_input'' parsed by ``Driver''
         node : ContactNetworkNode
-            ``ContactNetworkNode'' object on which to evolve phylogeny and
-            sequences
+            ``ContactNetworkNode'' object to infect with seed sequence(s)
 
         '''
         pass

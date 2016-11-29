@@ -13,7 +13,8 @@ class SeedSelection_Random(SeedSelection):
     Implement the ``SeedSelection'' module with uniform distribution on nodes
     '''
 
-    def select_seed_nodes(n, contact_network):
-        assert isinstance(contact_network, ContactNetwork), "contact_network is not a ContactNetwork object"
+    def select_seed_nodes(user_input, contact_network):
+        n = user_input['num_seeds']
+        assert isinstance(contact_network, ContactNetwork), "ERROR: contact_network is not a ContactNetwork object"
         nodes = [node for node in contact_network.nodes_iter()]
         return sample(nodes, n)

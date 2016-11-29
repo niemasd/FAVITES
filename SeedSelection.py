@@ -12,26 +12,26 @@ class SeedSelection(metaclass=abc.ABCMeta):
 
     Methods
     -------
-    select_seed_nodes(n, contact_network)
-        Select ``n'' nodes in ``contact_network'' to use as seed nodes
+    select_seed_nodes(user_input, contact_network)
+        Select nodes in ``contact_network'' to use as seed nodes
     '''
 
     @abc.abstractmethod
-    def select_seed_nodes(n, contact_network):
+    def select_seed_nodes(user_input, contact_network):
         '''
-        Select ``n'' nodes in ``contact_network'' to use as seed nodes
+        Select nodes in ``contact_network'' to use as seed nodes
 
         Parameters
         ----------
-        n : int
-            Number of seed nodes desired
+        user_input : dict
+            ``user_input'' parsed by ``Driver''
         contact_network : ContactNetwork
             ``ContactNetwork'' object from which to choose seed nodes
 
         Returns
         -------
         seed_nodes : list of ContactNetworkNode
-            The nodes of the contact network to use as seeds (``n'' total)
+            The nodes of the contact network to use as seeds
 
         '''
         pass
