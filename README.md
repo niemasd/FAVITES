@@ -49,3 +49,36 @@ General Workflow
        module (passing in the output of the **NodeSampleError** module), which
        simulates sequencing imperfections (sequence subsampling per individual,
        sequencing error, post-processing, consensus, ambiguity, etc.)
+
+Contact Network Input Format
+===
+For robustness to future development, we designed a file format similar to an
+edge list that must be used for the input Contact Network. The first portion of
+the file is a list of the nodes, and the second portion of the file is a list of
+the edges.
+* "Node" lines have three tab-delimited sections:
+    1. NODE (i.e., just the string "NODE")
+    2. This node's label
+    3. Attributes of this node as comma-separated values, or a period (i.e.,
+       '.') if this node has no attributes
+* "Edge" lines have four tab-delimited sections:
+    1. EDGE (i.e., just the string "EDGE")
+    2. The label of the node from which this edge leaves
+    3. The label of the node to which this edge goes
+    4. Attributes of this edge as comma-separated values, or a period (i.e.,
+       '.') if this edge has no attributes
+    5. d (for directed) or e (for undirected) to denote whether or not this edge
+       is directed (i.e., u -> v vs. u <-> v)
+* Lines beginning with the pound symbol (i.e., '#') and empty lines are ignored
+Below is an example of this file format. Note that `<TAB>` is referring to a
+single tab character (i.e., `'\t'`).
+    ```bash
+    #NODE<TAB>label<TAB>attributes (csv or .)
+    #EDGE<TAB>u<TAB>v<TAB>attributes (csv or .)<TAB>(d)irected or (u)ndirected
+
+    NODE<TAB>Bill<TAB>USA,Mexico
+    NODE<TAB>Eric<TAB>USA
+    NODE<TAB>Curt<TAB>.
+    EDGE<TAB>Bill<TAB>Eric<TAB>.<TAB>d
+    EDGE<TAB>Curt<TAB>Eric<TAB>Friends<TAB>u
+    ```
