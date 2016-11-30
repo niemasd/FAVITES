@@ -5,6 +5,7 @@ Niema Moshiri 2016
 "ContactNetworkEdge" module, implemented with NetworkX
 '''
 from ContactNetworkEdge import ContactNetworkEdge # abstract ContactNetworkEdge class
+from ContactNetworkNode import ContactNetworkNode # to verify nodes
 import networkx as nx                             # using NetworkX to implement
 
 class ContactNetworkEdge_NetworkX(ContactNetworkEdge):
@@ -34,6 +35,11 @@ class ContactNetworkEdge_NetworkX(ContactNetworkEdge):
             The NetworkX node encapsulated by this object
 
         '''
+        assert isinstance(u, ContactNetworkNode), "u is not a ContactNetworkNode"
+        assert isinstance(v, ContactNetworkNode), "v is not a ContactNetworkNode"
+        assert isinstance(attr, set), "attr is not a set"
+        for item in attr:
+            assert isinstance(item, str), "attr contains a non-string item"
         self.u = u
         self.v = v
         self.attr = attr

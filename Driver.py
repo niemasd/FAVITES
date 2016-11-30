@@ -8,15 +8,19 @@ import argparse                                   # to parse user arguments
 from os.path import expanduser                    # to open paths with '~'
 from ContactNetwork import ContactNetwork         # ContactNetwork module abstract class
 from ContactNetworkNode import ContactNetworkNode # ContactNetworkNode module abstract class
+from NodeEvolution import NodeEvolution           # NodeEvolution module abstract class
 from SeedSelection import SeedSelection           # SeedSelection module abstract class
 from SeedSequence import SeedSequence             # SeedSequence module abstract class
+from Tree import Tree                             # Tree module abstract class
 
 # default settings
 def_ContactNetworkFile   = 'stdin'
 def_ContactNetworkModule = 'NetworkX'
+def_NodeEvolutionModule  = 'Dummy' # TODO: Create actual NodeEvolution module implementation
 def_SeedSelectionModule  = 'Random'
-def_SeedSequenceModule   = 'Random'
 def_SeedSequenceLength   = 100
+def_SeedSequenceModule   = 'Random'
+def_TreeModule           = 'DendroPy'
 
 def printMessage():
     '''
@@ -56,17 +60,25 @@ def parseArgs():
         default=def_ContactNetworkModule,
         help="ContactNetwork module implementation")
 
+    parser.add_argument('--NodeEvolutionModule',
+        default=def_NodeEvolutionModule,
+        help="NodeEvolution module implementation")
+
     parser.add_argument('--SeedSelectionModule',
         default=def_SeedSelectionModule,
         help="SeedSelection module implementation")
+
+    parser.add_argument('--SeedSequenceLength',
+        default=def_SeedSequenceLength, type=int,
+        help="Length of seed sequences")
 
     parser.add_argument('--SeedSequenceModule',
         default=def_SeedSequenceModule,
         help="SeedSequence module implementation")
 
-    parser.add_argument('--SeedSequenceLength',
-        default=def_SeedSequenceLength, type=int,
-        help="Length of seed sequences")
+    parser.add_argument('--TreeModule',
+        default=def_TreeModule,
+        help="Tree module implementation")
 
     args = parser.parse_args()
 
@@ -75,8 +87,8 @@ def parseArgs():
 
     # import ContactNetwork module
     print("ContactNetwork Module: ", end='')
+    global module_ContactNetwork
     if args.ContactNetworkModule == 'NetworkX':
-        global module_ContactNetwork
         from ContactNetwork_NetworkX import ContactNetwork_NetworkX as module_ContactNetwork
     else:
         print('\n')
@@ -85,10 +97,22 @@ def parseArgs():
     assert issubclass(module_ContactNetwork, ContactNetwork), "%r is not a ContactNetwork" % module_ContactNetwork
     print(args.ContactNetworkModule)
 
+    # import NodeEvolution module
+    print("NodeEvolution  Module: ", end='')
+    global module_NodeEvolution
+    if args.NodeEvolutionModule == 'Dummy':
+        from NodeEvolution_Dummy import NodeEvolution_Dummy as module_NodeEvolution
+    else:
+        print('\n')
+        print("ERROR: Invalid choice for NodeEvolutionModule: %r" % args.NodeEvolutionModule)
+        exit(-1)
+    assert issubclass(module_NodeEvolution, NodeEvolution), "%r is not a NodeEvolution" % module_NodeEvolution
+    print(args.NodeEvolutionModule)
+
     # import SeedSelection module
     print("SeedSelection  Module: ", end='')
+    global module_SeedSelection
     if args.SeedSelectionModule == 'Random':
-        global module_SeedSelection
         from SeedSelection_Random import SeedSelection_Random as module_SeedSelection
         module_SeedSelection() # to force Python to check method implementations
     else:
@@ -100,8 +124,8 @@ def parseArgs():
 
     # import SeedSequence module
     print("SeedSequence   Module: ", end='')
+    global module_SeedSequence
     if args.SeedSequenceModule == 'Random':
-        global module_SeedSequence
         from SeedSequence_Random import SeedSequence_Random as module_SeedSequence
         module_SeedSequence() # to force Python to check method implementations
     else:
@@ -110,6 +134,18 @@ def parseArgs():
         exit(-1)
     assert issubclass(module_SeedSequence, SeedSequence), "%r is not a SeedSequence" % module_SeedSequence
     print(args.SeedSequenceModule)
+
+    # import Tree module
+    print("Tree           Module: ", end='')
+    global module_Tree
+    if args.TreeModule == 'DendroPy':
+        from Tree_DendroPy import Tree_DendroPy as module_Tree
+    else:
+        print('\n')
+        print("ERROR: Invalid choice for TreeModule: %r" % args.TreeModule)
+        exit(-1)
+    assert issubclass(module_Tree, Tree), "%r is not a Tree" % module_Tree
+    print(args.TreeModule)
 
     print()
 
@@ -162,21 +198,34 @@ if __name__ == "__main__":
     print("===========================   Simulations   ===========================")
 
     # create ContactNetwork object from input contact network edge list
-    print("Creating ContactNetwork object...",end='')
+    print("Creating ContactNetwork object...", end='')
     contact_network = module_ContactNetwork(user_input['contact_network'])
     assert isinstance(contact_network, ContactNetwork), "contact_network is not a ContactNetwork object"
     print(" done")
 
     # select seed nodes
-    print("Selecting seed nodes...",end='')
-    seed_nodes = module_SeedSelection.select_seed_nodes(user_input,
-        contact_network)
+    print("Selecting seed nodes...", end='')
+    seed_nodes = module_SeedSelection.select_seed_nodes(user_input, contact_network)
     assert isinstance(seed_nodes, list), "seed_nodes is not a list"
     for node in seed_nodes:
         assert isinstance(node, ContactNetworkNode), "seed_nodes contains items that are not ContactNetworkNode objects"
-    assert len(seed_nodes) == user_input['num_seeds'], "seed_nodes contains more than NumSeeds nodes"
+    assert len(seed_nodes) == user_input['num_seeds'], "seed_nodes contains a different number of nodes than NumSeeds"
     print(" done")
 
-    # evolve phylogeny + sequences on each seed node
+    # infect seed nodes
+    print("Infecting seed nodes...", end='')
     for node in seed_nodes:
+        num_infections_before = node.num_infections()
         module_SeedSequence.infect(user_input, node)
+        num_infections_after = node.num_infections()
+        assert num_infections_after == num_infections_before + 1
+    print(" done")
+
+    # evolve tree on seed nodes
+    print("Evolving phylogeny on seed nodes...", end='')
+    for node in seed_nodes:
+        num_trees_before = node.num_infection_trees()
+        module_NodeEvolution.evolve(node, module_Tree) # should add a parameter for how much time to simulate tree for (i.e., height)
+        num_trees_after = node.num_infection_trees()
+        assert num_trees_after == num_trees_before + 1
+    print(" done")

@@ -16,7 +16,7 @@ class ContactNetwork(metaclass=abc.ABCMeta):
         Perform an iteration over the edges in this ``ContactNetwork``
     nodes_iter()
         Perform an iteration over the nodes in this ``ContactNetwork``
-    transmissions()
+    get_transmissions()
         Return a list of (u,v,time) transmission events that have happened
     num_edges()
         Return the number of edges in this ``ContactNetwork``

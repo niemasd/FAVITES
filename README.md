@@ -19,7 +19,7 @@ General Workflow
           generate initial infection sequence(s) and infection time for each
           seed node
         * Then, for each "seed" node, the **[Driver](Driver.py)** module calls
-          the **NodeEvolution** module, which simulates the evolution (phylogeny
+          the **[NodeEvolution](NodeEvolution.py)** module, which simulates the evolution (phylogeny
           and sequence) for the node given its seed sequence(s)
     2. The **[Driver](Driver.py)** module then repeatedly creates transmission
        events:
@@ -30,7 +30,7 @@ General Workflow
           on the source node, passing in the time of transmission, and the
           **SourceSample** module will choose which edge(s) of the source node's
           phylogenetic tree to transmit (and thus which sequence(s))
-        * The **[Driver](Driver.py)** module calls the **NodeEvolution** module
+        * The **[Driver](Driver.py)** module calls the **[NodeEvolution](NodeEvolution.py)** module
           on the destination node, feeding in the sequences obtained from the
           **SourceSample** module as the initial sequence
     3. Once the transmission iterations have completed, the

@@ -16,8 +16,10 @@ class SeedSequence_Random(SeedSequence):
     '''
 
     def infect(user_input, node):
-        assert isinstance(node, ContactNetworkNode), "ERROR: node is not a ContactNetworkNode object"
-        assert 'seed_sequence_length' in user_input, "ERROR: User did not specify SeedSequenceLength"
+        assert isinstance(user_input, dict), "user_input is not a dictionary"
+        assert isinstance(node, ContactNetworkNode), "node is not a ContactNetworkNode object"
+        assert 'seed_sequence_length' in user_input, "User did not specify SeedSequenceLength"
         k = user_input['seed_sequence_length']
+        assert isinstance(k, int), "Specified SeedSequenceLength is not an integer"
         sequence = ''.join([choice('ACGT') for _ in range(k)])
-        node.infect(0,sequence)
+        node.add_infection(0,sequence)

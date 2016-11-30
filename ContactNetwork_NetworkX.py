@@ -5,7 +5,7 @@ Niema Moshiri 2016
 "ContactNetwork" module, implemented with NetworkX
 '''
 from ContactNetwork import ContactNetwork # abstract ContactNetwork class
-import networkx as nx                     # using NetworkX to implement
+from networkx import DiGraph              # using NetworkX to implement
 from ContactNetworkNode_NetworkX import ContactNetworkNode_NetworkX as Node # Node class
 from ContactNetworkEdge_NetworkX import ContactNetworkEdge_NetworkX as Edge # Edge class
 
@@ -28,7 +28,7 @@ class ContactNetwork_NetworkX(ContactNetwork):
     '''
     def __init__(self, edge_list):
         # set up NetworkX and graph
-        self.contact_network = nx.DiGraph()
+        self.contact_network = DiGraph()
         self.name_to_num = {}       # map original node names to numbers
         self.num_to_name = []       # map numbers to original node names
         self.infected_nodes = set() # store numbers of infected nodes
@@ -55,6 +55,7 @@ class ContactNetwork_NetworkX(ContactNetwork):
                 else:
                     self.contact_network.node[num]['attribute'] = set(parts[2].split(','))
                 self.contact_network.node[num]['infections'] = []
+                self.contact_network.node[num]['infection_trees'] = []
 
             # add edge to contact network
             elif parts[0] == 'EDGE':
