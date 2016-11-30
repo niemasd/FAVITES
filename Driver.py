@@ -168,12 +168,14 @@ if __name__ == "__main__":
     print(" done")
 
     # select seed nodes
+    print("Selecting seed nodes...",end='')
     seed_nodes = module_SeedSelection.select_seed_nodes(user_input,
         contact_network)
     assert isinstance(seed_nodes, list), "seed_nodes is not a list"
     for node in seed_nodes:
         assert isinstance(node, ContactNetworkNode), "seed_nodes contains items that are not ContactNetworkNode objects"
     assert len(seed_nodes) == user_input['num_seeds'], "seed_nodes contains more than NumSeeds nodes"
+    print(" done")
 
     # evolve phylogeny + sequences on each seed node
     for node in seed_nodes:

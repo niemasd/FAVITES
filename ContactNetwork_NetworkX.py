@@ -113,17 +113,7 @@ def check():
     '''
     Check ``ContactNetwork_NetworkX`` for validity
     '''
-    print("--- Testing ContactNetwork_NetworkX Module ---")
-    print("Instantiation: ",end='')
-    g = ContactNetwork_NetworkX(['A\tB','A\tC','B\tC','A\tD','C\tD'])
-    status = "Success"
-    if not isinstance(g, ContactNetwork):
-        status = "Failure"
-    elif g.num_nodes() != 4:
-        status = "Failure"
-    elif g.num_edges() != 5:
-        status = "Failure"
-    print(status)
+    pass
 
 if __name__ == '__main__':
     '''
