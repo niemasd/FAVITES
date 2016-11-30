@@ -13,7 +13,7 @@ class ContactNetworkNode(metaclass=abc.ABCMeta):
     Methods
     -------
     get_attribute()
-        Return the attribute of this ``ContactNetworkNode'' object
+        Return the attribute(s) of this ``ContactNetworkNode'' object
     get_infections()
         Return a list of infections as (time,sequence) tuples
     get_name()
@@ -41,12 +41,12 @@ class ContactNetworkNode(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def get_attribute(self):
         '''
-        Return the attribute of this ``ContactNetworkNode'' object
+        Return the attribute(s) of this ``ContactNetworkNode'' object
 
         Returns
         -------
         attribute : str
-            The attribute of this ``ContactNetworkNode'' object
+            The attribute(s) of this ``ContactNetworkNode'' object
         '''
         pass
 

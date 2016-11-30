@@ -13,8 +13,12 @@ class ContactNetworkNode_NetworkX(ContactNetworkNode):
 
     Attributes
     ----------
-    node : node
-        The NetworkX node encapsulated by this object
+    graph : DiGraph
+        The NetworkX DiGraph in which this node exists
+    name : str
+        The name of this node
+    num : int
+        The number of this node
 
     '''
 
@@ -34,8 +38,11 @@ class ContactNetworkNode_NetworkX(ContactNetworkNode):
         self.name = name
         self.num = num
 
+    def __str__(self):
+        return self.name
+
     def get_name(self):
-        return self.node
+        return self.name
 
     def get_attribute(self):
         return self.graph.node[self.num]['attribute']

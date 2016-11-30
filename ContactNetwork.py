@@ -22,7 +22,7 @@ class ContactNetwork(metaclass=abc.ABCMeta):
         Return the number of edges in this ``ContactNetwork``
     num_infected_nodes()
         Return the number of infected nodes in this ``ContactNetwork``
-    ()
+    num_nodes()
         Return the number of nodes in this ``ContactNetwork``
     num_transmissions()
         Return the number of transmission events that have happened thus far
