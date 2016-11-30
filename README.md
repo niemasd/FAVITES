@@ -61,7 +61,7 @@ the edges.
     2. This node's label
     3. Attributes of this node as comma-separated values, or a period (i.e.,
        `'.'`) if this node has no attributes
-* "Edge" lines have four tab-delimited sections:
+* "Edge" lines have five tab-delimited sections:
     1. EDGE (i.e., just the string `EDGE`)
     2. The label of the node from which this edge leaves
     3. The label of the node to which this edge goes
