@@ -54,8 +54,8 @@ Contact Network Input Format
 ===
 For robustness to future development, we designed a file format similar to an
 edge list that must be used for the input Contact Network. The first portion of
-the file is a list of the nodes, and the second portion of the file is a list of
-the edges.
+the file is a list of nodes, and the second portion of the file is a list of
+edges.
 * "Node" lines have three tab-delimited sections:
     1. NODE (i.e., just the string `NODE`)
     2. This node's label
