@@ -7,9 +7,9 @@ Niema Moshiri 2016
 import argparse                                   # to parse user arguments
 from os.path import expanduser                    # to open paths with '~'
 import FAVITES_Global                             # for global access variables
-import Driver_Default                             # default Driver module
 from ContactNetwork import ContactNetwork         # ContactNetwork module abstract class
 from ContactNetworkNode import ContactNetworkNode # ContactNetworkNode module abstract class
+from Driver import Driver                         # Driver module abstract class
 from NodeEvolution import NodeEvolution           # NodeEvolution module abstract class
 from SeedSelection import SeedSelection           # SeedSelection module abstract class
 from SeedSequence import SeedSequence             # SeedSequence module abstract class
@@ -18,6 +18,7 @@ from Tree import Tree                             # Tree module abstract class
 # default settings
 def_ContactNetworkFile   = 'stdin'
 def_ContactNetworkModule = 'NetworkX'
+def_DriverModule         = 'Default'
 def_NodeEvolutionModule  = 'Dummy' # TODO: Create actual NodeEvolution module implementation
 def_SeedSelectionModule  = 'Random'
 def_SeedSequenceLength   = 100
@@ -62,6 +63,10 @@ def parseArgs():
         default=def_ContactNetworkModule,
         help="ContactNetwork module implementation")
 
+    parser.add_argument('--DriverModule',
+        default=def_DriverModule,
+        help="Driver module implementation")
+
     parser.add_argument('--NodeEvolutionModule',
         default=def_NodeEvolutionModule,
         help="NodeEvolution module implementation")
@@ -89,7 +94,6 @@ def parseArgs():
 
     # import ContactNetwork module
     print("ContactNetwork Module: ", end='')
-    global module_ContactNetwork
     if args.ContactNetworkModule == 'NetworkX':
         from ContactNetwork_NetworkX import ContactNetwork_NetworkX as module_ContactNetwork
     else:
@@ -100,9 +104,20 @@ def parseArgs():
     print(args.ContactNetworkModule)
     FAVITES_Global.modules['ContactNetwork'] = module_ContactNetwork
 
+    # import Driver module
+    print("Driver         Module: ", end='')
+    if args.DriverModule == 'Default':
+        from Driver_Default import Driver_Default as module_Driver
+    else:
+        print('\n')
+        print("ERROR: Invalid choice for DriverModule: %r" % args.DriverModule)
+        exit(-1)
+    assert issubclass(module_Driver, Driver), "%r is not a Driver" % module_Driver
+    print(args.DriverModule)
+    FAVITES_Global.modules['Driver'] = module_Driver
+
     # import NodeEvolution module
     print("NodeEvolution  Module: ", end='')
-    global module_NodeEvolution
     if args.NodeEvolutionModule == 'Dummy':
         from NodeEvolution_Dummy import NodeEvolution_Dummy as module_NodeEvolution
     else:
@@ -115,7 +130,6 @@ def parseArgs():
 
     # import SeedSelection module
     print("SeedSelection  Module: ", end='')
-    global module_SeedSelection
     if args.SeedSelectionModule == 'Random':
         from SeedSelection_Random import SeedSelection_Random as module_SeedSelection
         module_SeedSelection() # to force Python to check method implementations
@@ -129,7 +143,6 @@ def parseArgs():
 
     # import SeedSequence module
     print("SeedSequence   Module: ", end='')
-    global module_SeedSequence
     if args.SeedSequenceModule == 'Random':
         from SeedSequence_Random import SeedSequence_Random as module_SeedSequence
         module_SeedSequence() # to force Python to check method implementations
@@ -143,7 +156,6 @@ def parseArgs():
 
     # import Tree module
     print("Tree           Module: ", end='')
-    global module_Tree
     if args.TreeModule == 'DendroPy':
         from Tree_DendroPy import Tree_DendroPy as module_Tree
     else:
@@ -195,4 +207,4 @@ if __name__ == "__main__":
     parseArgs()
 
     # run Driver
-    Driver_Default.run()
+    FAVITES_Global.modules['Driver'].run()
