@@ -8,6 +8,18 @@ def init():
     '''
     Initialize global access variables.
     '''
+    # dictionary to store which implementations of each module are available
+    global list_modules
+    list_modules = {
+        'ContactNetwork': ['NetworkX'],
+        'Driver':         ['Default'],
+        'EndCriteria':    ['Time'],
+        'NodeEvolution':  ['Dummy'],
+        'SeedSelection':  ['Random'],
+        'SeedSequence':   ['Random'],
+        'Tree':           ['DendroPy']
+    }
+
     # dictionary to store which implementation of each module was chosen
     global modules
     modules = {}

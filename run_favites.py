@@ -26,15 +26,6 @@ def_SeedSequenceLength   = 100
 def_SeedSequenceModule   = 'Random'
 def_TreeModule           = 'DendroPy'
 
-# lists of currently implemented modules
-list_ContactNetworkModule = ['NetworkX']
-list_DriverModule         = ['Default']
-list_EndCriteriaModule    = ['Time']
-list_NodeEvolutionModule  = ['Dummy']
-list_SeedSelectionModule  = ['Random']
-list_SeedSequenceModule   = ['Random']
-list_TreeModule           = ['DendroPy']
-
 def printMessage():
     '''
     Print author message
@@ -74,23 +65,28 @@ def parseArgs():
         help="End time stopping criterion of simulation. Needed for EndCriteria_Time")
 
     parser.add_argument('--ContactNetworkModule',
-        default=def_ContactNetworkModule, choices=list_ContactNetworkModule,
+        default=def_ContactNetworkModule,
+        choices=FAVITES_Global.list_modules['ContactNetwork'],
         help="ContactNetwork module implementation")
 
     parser.add_argument('--DriverModule',
-        default=def_DriverModule, choices=list_DriverModule,
+        default=def_DriverModule,
+        choices=FAVITES_Global.list_modules['Driver'],
         help="Driver module implementation")
 
     parser.add_argument('--EndCriteriaModule',
-        required=True, choices=list_EndCriteriaModule,
+        required=True,
+        choices=FAVITES_Global.list_modules['EndCriteria'],
         help="Simulation ending criteria")
 
     parser.add_argument('--NodeEvolutionModule',
-        default=def_NodeEvolutionModule, choices=list_NodeEvolutionModule,
+        default=def_NodeEvolutionModule,
+        choices=FAVITES_Global.list_modules['NodeEvolution'],
         help="NodeEvolution module implementation")
 
     parser.add_argument('--SeedSelectionModule',
-        default=def_SeedSelectionModule, choices=list_SeedSelectionModule,
+        default=def_SeedSelectionModule,
+        choices=FAVITES_Global.list_modules['SeedSelection'],
         help="SeedSelection module implementation")
 
     parser.add_argument('--SeedSequenceLength',
@@ -98,11 +94,13 @@ def parseArgs():
         help="Length of seed sequences")
 
     parser.add_argument('--SeedSequenceModule',
-        default=def_SeedSequenceModule, choices=list_SeedSequenceModule,
+        default=def_SeedSequenceModule,
+        choices=FAVITES_Global.list_modules['SeedSequence'],
         help="SeedSequence module implementation")
 
     parser.add_argument('--TreeModule',
-        default=def_TreeModule, choices=list_TreeModule,
+        default=def_TreeModule,
+        choices=FAVITES_Global.list_modules['Tree'],
         help="Tree module implementation")
 
     args = parser.parse_args()
