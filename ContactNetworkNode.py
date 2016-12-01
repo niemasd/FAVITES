@@ -14,19 +14,14 @@ class ContactNetworkNode(metaclass=abc.ABCMeta):
     -------
     get_attribute()
         Return the attribute(s) of this ``ContactNetworkNode'' object
-    get_infections()
-        Return a list of infections as (time,sequence) tuples
-    get_infection_trees()
-        Return a list of ``Tree'' objects, where ``get_infection_trees()[i]''
-        corresponds to ``get_infections()[i]''
+    get_infection()
+        Return a list of infection(s) as (time,initial_sequence,tree) tuples
     get_name()
         Return the name of this ``ContactNetworkNode'' object
     infect(time, sequence)
         Infect this ``ContactNetworkNode'' object with ``sequence'' at ``time''
     num_infections()
         Return the number of infections
-    num_infection_trees()
-        Return the number of infection trees
     '''
 
     @abc.abstractmethod
@@ -81,35 +76,10 @@ class ContactNetworkNode(metaclass=abc.ABCMeta):
         pass
 
     @abc.abstractmethod
-    def get_infection_trees(self):
+    def infect(self, time, sequence):
         '''
-        Return a list of ``Tree'' objects, where ``get_infection_trees()[i]''
-        corresponds to ``get_infections()[i]''
-
-        Returns
-        -------
-        trees : list of Tree
-            List of ``Tree'' objects, where ``trees[i]'' corresponds to
-            ``get_infections()[i]''
-        '''
-        pass
-
-    @abc.abstractmethod
-    def num_infection_trees(self):
-        '''
-        Return the number of infection trees
-
-        Returns
-        -------
-        num_infection_trees : int
-            The number of infection trees
-        '''
-        pass
-
-    @abc.abstractmethod
-    def add_infection(self, time, sequence):
-        '''
-        Infect this ``ContactNetworkNode'' object with ``sequence'' at ``time''
+        Infect this ``ContactNetworkNode'' object with ``sequence'' at ``time''.
+        Will create the initial ``Tree'' for this infection as well.
 
         Parameters
         ----------
@@ -117,17 +87,5 @@ class ContactNetworkNode(metaclass=abc.ABCMeta):
             The time of infection
         sequence : str
             The infecting virus sequence
-        '''
-        pass
-
-    @abc.abstractmethod
-    def add_infection_tree(self, tree):
-        '''
-        Add tree that corresponds to ``infection[i]''
-
-        Parameters
-        ----------
-        tree : Tree
-            The tree corresponding to ``infection[i]''
         '''
         pass

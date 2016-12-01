@@ -22,7 +22,8 @@ General Workflow
           the **[NodeEvolution](NodeEvolution.py)** module, which simulates the evolution (phylogeny
           and sequence) for the node given its seed sequence(s)
     2. The **[Driver](Driver.py)** module then repeatedly creates transmission
-       events:
+       events until the ending criteria in the **[EndCriteria](EndCriteria.py)**
+       module are reached:
         * The **[Driver](Driver.py)** module calls the **TransmissionSample**
           module to choose two nodes to be involved in a transmission event as
           well as the time of the transmission:

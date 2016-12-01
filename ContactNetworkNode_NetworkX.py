@@ -4,6 +4,7 @@ Niema Moshiri 2016
 
 "ContactNetworkNode" module, implemented with NetworkX
 '''
+import FAVITES_Global                             # for global access variables
 from ContactNetworkNode import ContactNetworkNode # abstract ContactNetworkNode class
 from Tree import Tree                             # to validate trees
 from networkx import DiGraph                      # to validate graph
@@ -55,19 +56,14 @@ class ContactNetworkNode_NetworkX(ContactNetworkNode):
     def num_infections(self):
         return len(self.get_infections())
 
-    def get_infection_trees(self):
-        return self.graph.node[self.num]['infection_trees']
-
-    def num_infection_trees(self):
-        return len(self.get_infection_trees())
-
-    def add_infection(self, time, sequence):
+    def infect(self, time, sequence):
         assert isinstance(time, int)
         assert isinstance(sequence, str)
         n_inf = len(self.graph.node[self.num]['infections'])
         n_tre = len(self.graph.node[self.num]['infection_trees'])
         assert n_inf == n_tre, "You may have infections you haven't created trees for"
-        self.graph.node[self.num]['infections'].append((time,sequence))
+        Tree = FAVITES_Global.modules['Tree']
+        self.graph.node[self.num]['infections'].append((time, sequence, Tree()))
 
     def add_infection_tree(self, tree):
         assert isinstance(tree, Tree), "tree is not a Tree object"

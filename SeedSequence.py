@@ -16,11 +16,12 @@ class SeedSequence(metaclass=abc.ABCMeta):
         Infect ``node'' with an initial seed sequence(s)
     '''
 
+    @staticmethod
     @abc.abstractmethod
     def infect(node):
         '''
-        Infect ``node'' with an initial seed sequence(s). Will probably want to
-        use FAVITES_Global.seed_sequence_length.
+        Infect ``node'' with an initial seed sequence(s) and tree(s).
+        Will probably want to use FAVITES_Global.seed_sequence_length.
 
         Parameters
         ----------

@@ -23,3 +23,7 @@ def init():
     # seed sequence length
     global seed_sequence_length
     seed_sequence_length = None
+
+    # global time
+    global time
+    time = 0

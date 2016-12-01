@@ -16,6 +16,7 @@ class SeedSelection(metaclass=abc.ABCMeta):
         Select nodes in ``contact_network'' to use as seed nodes
     '''
 
+    @staticmethod
     @abc.abstractmethod
     def select_seed_nodes():
         '''

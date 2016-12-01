@@ -10,6 +10,7 @@ import FAVITES_Global                             # for global access variables
 from ContactNetwork import ContactNetwork         # ContactNetwork module abstract class
 from ContactNetworkNode import ContactNetworkNode # ContactNetworkNode module abstract class
 from Driver import Driver                         # Driver module abstract class
+from EndCriteria import EndCriteria               # EndCriteria module abstract class
 from NodeEvolution import NodeEvolution           # NodeEvolution module abstract class
 from SeedSelection import SeedSelection           # SeedSelection module abstract class
 from SeedSequence import SeedSequence             # SeedSequence module abstract class
@@ -24,6 +25,15 @@ def_SeedSelectionModule  = 'Random'
 def_SeedSequenceLength   = 100
 def_SeedSequenceModule   = 'Random'
 def_TreeModule           = 'DendroPy'
+
+# lists of currently implemented modules
+list_ContactNetworkModule = ['NetworkX']
+list_DriverModule         = ['Default']
+list_EndCriteriaModule    = ['Time']
+list_NodeEvolutionModule  = ['Dummy']
+list_SeedSelectionModule  = ['Random']
+list_SeedSequenceModule   = ['Random']
+list_TreeModule           = ['DendroPy']
 
 def printMessage():
     '''
@@ -59,20 +69,28 @@ def parseArgs():
         required=True, type=int,
         help="Number of seed infection nodes desired")
 
+    parser.add_argument('--EndTime',
+        default=None, type=int,
+        help="End time stopping criterion of simulation. Needed for EndCriteria_Time")
+
     parser.add_argument('--ContactNetworkModule',
-        default=def_ContactNetworkModule,
+        default=def_ContactNetworkModule, choices=list_ContactNetworkModule,
         help="ContactNetwork module implementation")
 
     parser.add_argument('--DriverModule',
-        default=def_DriverModule,
+        default=def_DriverModule, choices=list_DriverModule,
         help="Driver module implementation")
 
+    parser.add_argument('--EndCriteriaModule',
+        required=True, choices=list_EndCriteriaModule,
+        help="Simulation ending criteria")
+
     parser.add_argument('--NodeEvolutionModule',
-        default=def_NodeEvolutionModule,
+        default=def_NodeEvolutionModule, choices=list_NodeEvolutionModule,
         help="NodeEvolution module implementation")
 
     parser.add_argument('--SeedSelectionModule',
-        default=def_SeedSelectionModule,
+        default=def_SeedSelectionModule, choices=list_SeedSelectionModule,
         help="SeedSelection module implementation")
 
     parser.add_argument('--SeedSequenceLength',
@@ -80,11 +98,11 @@ def parseArgs():
         help="Length of seed sequences")
 
     parser.add_argument('--SeedSequenceModule',
-        default=def_SeedSequenceModule,
+        default=def_SeedSequenceModule, choices=list_SeedSequenceModule,
         help="SeedSequence module implementation")
 
     parser.add_argument('--TreeModule',
-        default=def_TreeModule,
+        default=def_TreeModule, choices=list_TreeModule,
         help="Tree module implementation")
 
     args = parser.parse_args()
@@ -116,10 +134,30 @@ def parseArgs():
     print(args.DriverModule)
     FAVITES_Global.modules['Driver'] = module_Driver
 
+    # import EndCriteria module
+    print("EndCriteria    Module: ", end='')
+    if args.EndCriteriaModule == 'Time':
+        if args.EndTime == None:
+            print('\n')
+            print("ERROR: EndCriteria_Time requires --EndTime stopping criterion")
+            exit(-1)
+        else:
+            FAVITES_Global.end_time = args.EndTime
+        from EndCriteria_Time import EndCriteria_Time as module_EndCriteria
+        module_EndCriteria() # to force Python to check method implementations
+    else:
+        print('\n')
+        print("ERROR: Invalid choice for EndCriteriaModule: %r" % args.EndCriteriaModule)
+        exit(-1)
+    assert issubclass(module_EndCriteria, EndCriteria), "%r is not an EndCriteria" % module_EndCriteria
+    print(args.EndCriteriaModule)
+    FAVITES_Global.modules['EndCriteria'] = module_EndCriteria
+
     # import NodeEvolution module
     print("NodeEvolution  Module: ", end='')
     if args.NodeEvolutionModule == 'Dummy':
         from NodeEvolution_Dummy import NodeEvolution_Dummy as module_NodeEvolution
+        module_NodeEvolution() # to force Python to check method implementations
     else:
         print('\n')
         print("ERROR: Invalid choice for NodeEvolutionModule: %r" % args.NodeEvolutionModule)

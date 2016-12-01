@@ -50,13 +50,6 @@ class Driver_Default(Driver):
             assert num_infections_after == num_infections_before + 1
         print(" done")
 
-        # evolve tree on seed nodes
-        print("Evolving phylogeny on seed nodes...", end='')
-        for node in seed_nodes:
-            num_trees_before = node.num_infection_trees()
-            FAVITES_Global.modules['NodeEvolution'].evolve(node) # should add a parameter for how much time to simulate tree for (i.e., height)
-            num_trees_after = node.num_infection_trees()
-            assert num_trees_after == num_trees_before + 1
-        print(" done")
-
         # iterative step of transmissions
+        while FAVITES_Global.modules['EndCriteria'].not_done():
+            FAVITES_Global.time += 50 # DO THE TRANSMISSIONS

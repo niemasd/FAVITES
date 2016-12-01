@@ -21,4 +21,4 @@ class SeedSequence_Random(SeedSequence):
         k = FAVITES_Global.seed_sequence_length
         assert isinstance(k, int), "Specified SeedSequenceLength is not an integer"
         sequence = ''.join([choice('ACGT') for _ in range(k)])
-        node.add_infection(0,sequence)
+        node.infect(0,sequence)

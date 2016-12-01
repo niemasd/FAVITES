@@ -16,6 +16,7 @@ class Driver(metaclass=abc.ABCMeta):
         Run the simulation
     '''
 
+    @staticmethod
     @abc.abstractmethod
     def run():
         '''

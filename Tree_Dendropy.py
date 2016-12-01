@@ -10,10 +10,21 @@ import dendropy       # using Dendropy to implement
 class Tree_DendroPy(Tree):
     '''
     Implement the ``Tree`` abstract class using DendroPy
+
+    Attributes
+    ----------
+    tree : Tree
+        The DendroPy ``Tree'' object to represent this tree
+    end_time : int
+        The end time to which this ``Tree'' has been evolved
     '''
     def __init__(self):
         import dendropy
         self.tree = dendropy.Tree(seed_node=dendropy.Node(label="root"))
+        self.end_time = 0
+
+    def get_end_time(self):
+        return self.end_time
 
 def check():
     '''
