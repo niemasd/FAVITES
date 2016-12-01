@@ -17,7 +17,7 @@ class NodeEvolution(metaclass=abc.ABCMeta):
     '''
 
     @abc.abstractmethod
-    def evolve(node, module_Tree):
+    def evolve(node):
         '''
         Simulate phylogeny evolution on ``node''
 

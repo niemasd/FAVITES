@@ -12,19 +12,18 @@ class SeedSequence(metaclass=abc.ABCMeta):
 
     Methods
     -------
-    infect(user_input, node)
+    infect(node)
         Infect ``node'' with an initial seed sequence(s)
     '''
 
     @abc.abstractmethod
-    def infect(user_input, node):
+    def infect(node):
         '''
-        Infect ``node'' with an initial seed sequence(s)
+        Infect ``node'' with an initial seed sequence(s). Will probably want to
+        use FAVITES_Global.seed_sequence_length.
 
         Parameters
         ----------
-        user_input : dict
-            ``user_input'' parsed by ``Driver''
         node : ContactNetworkNode
             ``ContactNetworkNode'' object to infect with seed sequence(s)
 

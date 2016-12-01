@@ -2,10 +2,12 @@
 '''
 Niema Moshiri 2016
 
-"Driver" module
+"Viewer": Command Line Interface for FAVITES
 '''
 import argparse                                   # to parse user arguments
 from os.path import expanduser                    # to open paths with '~'
+import FAVITES_Global                             # for global access variables
+import Driver_Default                             # default Driver module
 from ContactNetwork import ContactNetwork         # ContactNetwork module abstract class
 from ContactNetworkNode import ContactNetworkNode # ContactNetworkNode module abstract class
 from NodeEvolution import NodeEvolution           # NodeEvolution module abstract class
@@ -82,7 +84,7 @@ def parseArgs():
 
     args = parser.parse_args()
 
-    # import modules
+    # import modules and store in global access variables
     print("=============================   Modules   =============================")
 
     # import ContactNetwork module
@@ -96,6 +98,7 @@ def parseArgs():
         exit(-1)
     assert issubclass(module_ContactNetwork, ContactNetwork), "%r is not a ContactNetwork" % module_ContactNetwork
     print(args.ContactNetworkModule)
+    FAVITES_Global.modules['ContactNetwork'] = module_ContactNetwork
 
     # import NodeEvolution module
     print("NodeEvolution  Module: ", end='')
@@ -108,6 +111,7 @@ def parseArgs():
         exit(-1)
     assert issubclass(module_NodeEvolution, NodeEvolution), "%r is not a NodeEvolution" % module_NodeEvolution
     print(args.NodeEvolutionModule)
+    FAVITES_Global.modules['NodeEvolution'] = module_NodeEvolution
 
     # import SeedSelection module
     print("SeedSelection  Module: ", end='')
@@ -121,6 +125,7 @@ def parseArgs():
         exit(-1)
     assert issubclass(module_SeedSelection, SeedSelection), "%r is not a SeedSelection" % module_SeedSelection
     print(args.SeedSelectionModule)
+    FAVITES_Global.modules['SeedSelection'] = module_SeedSelection
 
     # import SeedSequence module
     print("SeedSequence   Module: ", end='')
@@ -134,6 +139,7 @@ def parseArgs():
         exit(-1)
     assert issubclass(module_SeedSequence, SeedSequence), "%r is not a SeedSequence" % module_SeedSequence
     print(args.SeedSequenceModule)
+    FAVITES_Global.modules['SeedSequence'] = module_SeedSequence
 
     # import Tree module
     print("Tree           Module: ", end='')
@@ -146,86 +152,47 @@ def parseArgs():
         exit(-1)
     assert issubclass(module_Tree, Tree), "%r is not a Tree" % module_Tree
     print(args.TreeModule)
+    FAVITES_Global.modules['Tree'] = module_Tree
 
     print()
 
     # read input data
     print("============================   User Data   ============================")
-    user_input = {}
 
     # read in Contact Network and add to input data
     print("Reading contact network from ", end='')
-    user_input['contact_network'] = []
     if args.ContactNetworkFile == 'stdin':
         print('standard input...', end='')
         import sys
-        user_input['contact_network'] = [i.strip() for i in sys.stdin if len(i.strip()) > 0]
+        FAVITES_Global.edge_list = [i.strip() for i in sys.stdin if len(i.strip()) > 0]
     else:
         if args.ContactNetworkFile[0] == '~':
             args.ContactNetworkFile = expanduser(args.ContactNetworkFile)
         print('%r...' % args.ContactNetworkFile, end='')
-        user_input['contact_network'] = open(args.ContactNetworkFile).readlines()
+        FAVITES_Global.edge_list = [i.strip() for i in open(args.ContactNetworkFile) if len(i.strip()) > 0]
     print(' done')
 
     # add number of seed nodes to input data
-    user_input['num_seeds'] = args.NumSeeds
-    print("Number of seed nodes: %d" % user_input['num_seeds'])
+    FAVITES_Global.num_seeds = args.NumSeeds
+    print("Number of seed nodes: %d" % args.NumSeeds)
 
     # # add seed sequence length to input data
-    user_input['seed_sequence_length'] = args.SeedSequenceLength
-    print("Seed sequence length: %d" % user_input['seed_sequence_length'])
+    FAVITES_Global.seed_sequence_length = args.SeedSequenceLength
+    print("Seed sequence length: %d" % args.SeedSequenceLength)
 
     # return input data
     print()
-    return user_input
 
 if __name__ == "__main__":
-    '''
-    Simulation driver. Even if you add your own modules, you probably shouldn't
-    need to modify this function. The one clear exception would be if your
-    module requires additional user input (e.g. custom evolution model modules),
-    which would then require you to call it with the required arguments.
-    '''
-
     # print author message
     printMessage()
     print()
 
+    # initialize global access variables
+    FAVITES_Global.init()
+
     # parse user arguments
-    user_input = parseArgs()
+    parseArgs()
 
-    # begin simulation
-    print("===========================   Simulations   ===========================")
-
-    # create ContactNetwork object from input contact network edge list
-    print("Creating ContactNetwork object...", end='')
-    contact_network = module_ContactNetwork(user_input['contact_network'])
-    assert isinstance(contact_network, ContactNetwork), "contact_network is not a ContactNetwork object"
-    print(" done")
-
-    # select seed nodes
-    print("Selecting seed nodes...", end='')
-    seed_nodes = module_SeedSelection.select_seed_nodes(user_input, contact_network)
-    assert isinstance(seed_nodes, list), "seed_nodes is not a list"
-    for node in seed_nodes:
-        assert isinstance(node, ContactNetworkNode), "seed_nodes contains items that are not ContactNetworkNode objects"
-    assert len(seed_nodes) == user_input['num_seeds'], "seed_nodes contains a different number of nodes than NumSeeds"
-    print(" done")
-
-    # infect seed nodes
-    print("Infecting seed nodes...", end='')
-    for node in seed_nodes:
-        num_infections_before = node.num_infections()
-        module_SeedSequence.infect(user_input, node)
-        num_infections_after = node.num_infections()
-        assert num_infections_after == num_infections_before + 1
-    print(" done")
-
-    # evolve tree on seed nodes
-    print("Evolving phylogeny on seed nodes...", end='')
-    for node in seed_nodes:
-        num_trees_before = node.num_infection_trees()
-        module_NodeEvolution.evolve(node, module_Tree) # should add a parameter for how much time to simulate tree for (i.e., height)
-        num_trees_after = node.num_infection_trees()
-        assert num_trees_after == num_trees_before + 1
-    print(" done")
+    # run Driver
+    Driver_Default.run()
