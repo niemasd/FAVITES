@@ -9,7 +9,6 @@ from EndCriteria import EndCriteria # abstract EndCriteria class
 
 class EndCriteria_Time(EndCriteria):
     def done():
-        assert FAVITES_Global.end_time is not None, "end_time was never set!"
         return FAVITES_Global.time >= FAVITES_Global.end_time
 
     def not_done():

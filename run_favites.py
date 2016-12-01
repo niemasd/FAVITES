@@ -64,6 +64,10 @@ def parseArgs():
         default=None, type=int,
         help="End time stopping criterion of simulation. Needed for EndCriteria_Time")
 
+    parser.add_argument('--EndTransmissions',
+        default=None, type=int,
+        help="Number of transmission events stopping criterion of simulation. Needed for EndCriteria_Transmissions")
+
     parser.add_argument('--ContactNetworkModule',
         default=def_ContactNetworkModule,
         choices=FAVITES_Global.list_modules['ContactNetwork'],
@@ -141,12 +145,28 @@ def parseArgs():
             exit(-1)
         else:
             FAVITES_Global.end_time = args.EndTime
+        if args.EndTransmissions != None:
+            print('\n')
+            print("ERROR: --EndTransmissions was specified for EndCriteria_Time. Only use --EndTime")
+            exit(-1)
         from EndCriteria_Time import EndCriteria_Time as module_EndCriteria
-        module_EndCriteria() # to force Python to check method implementations
+    elif args.EndCriteriaModule == 'Transmissions':
+        if args.EndTransmissions == None:
+            print('\n')
+            print("ERROR: EndCriteria_Transmissions requires --EndTransmissions stopping criterion")
+            exit(-1)
+        else:
+            FAVITES_Global.end_transmissions = args.EndTransmissions
+        if args.EndTime != None:
+            print('\n')
+            print("ERROR: --EndTime was specified for EndCriteria_Transmissions. Only use --EndTransmissions")
+            exit(-1)
+        from EndCriteria_Transmissions import EndCriteria_Transmissions as module_EndCriteria
     else:
         print('\n')
         print("ERROR: Invalid choice for EndCriteriaModule: %r" % args.EndCriteriaModule)
         exit(-1)
+    module_EndCriteria() # to force Python to check method implementations
     assert issubclass(module_EndCriteria, EndCriteria), "%r is not an EndCriteria" % module_EndCriteria
     print(args.EndCriteriaModule)
     FAVITES_Global.modules['EndCriteria'] = module_EndCriteria
@@ -155,11 +175,11 @@ def parseArgs():
     print("NodeEvolution  Module: ", end='')
     if args.NodeEvolutionModule == 'Dummy':
         from NodeEvolution_Dummy import NodeEvolution_Dummy as module_NodeEvolution
-        module_NodeEvolution() # to force Python to check method implementations
     else:
         print('\n')
         print("ERROR: Invalid choice for NodeEvolutionModule: %r" % args.NodeEvolutionModule)
         exit(-1)
+    module_NodeEvolution() # to force Python to check method implementations
     assert issubclass(module_NodeEvolution, NodeEvolution), "%r is not a NodeEvolution" % module_NodeEvolution
     print(args.NodeEvolutionModule)
     FAVITES_Global.modules['NodeEvolution'] = module_NodeEvolution
@@ -168,11 +188,11 @@ def parseArgs():
     print("SeedSelection  Module: ", end='')
     if args.SeedSelectionModule == 'Random':
         from SeedSelection_Random import SeedSelection_Random as module_SeedSelection
-        module_SeedSelection() # to force Python to check method implementations
     else:
         print('\n')
         print("ERROR: Invalid choice for SeedSelectionModule: %r" % args.SeedSelectionModule)
         exit(-1)
+    module_SeedSelection() # to force Python to check method implementations
     assert issubclass(module_SeedSelection, SeedSelection), "%r is not a SeedSelection" % module_SeedSelection
     print(args.SeedSelectionModule)
     FAVITES_Global.modules['SeedSelection'] = module_SeedSelection
@@ -181,11 +201,11 @@ def parseArgs():
     print("SeedSequence   Module: ", end='')
     if args.SeedSequenceModule == 'Random':
         from SeedSequence_Random import SeedSequence_Random as module_SeedSequence
-        module_SeedSequence() # to force Python to check method implementations
     else:
         print('\n')
         print("ERROR: Invalid choice for SeedSequenceModule: %r" % args.SeedSequenceModule)
         exit(-1)
+    module_SeedSequence() # to force Python to check method implementations
     assert issubclass(module_SeedSequence, SeedSequence), "%r is not a SeedSequence" % module_SeedSequence
     print(args.SeedSequenceModule)
     FAVITES_Global.modules['SeedSequence'] = module_SeedSequence
