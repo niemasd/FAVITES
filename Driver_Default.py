@@ -66,3 +66,9 @@ class Driver_Default(Driver):
             v.infect(FAVITES_Global.time, seq)
             FAVITES_Global.contact_network.add_transmission(u,v,t)
         print(" done")
+
+        # evolve all infected nodes to final time
+        print("Evolving all nodes to final time...", end='')
+        for node in FAVITES_Global.contact_network.get_infected_nodes():
+            FAVITES_Global.modules['NodeEvolution'].evolve_to_current_time(node)
+        print(" done")

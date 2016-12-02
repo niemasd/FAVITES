@@ -25,18 +25,20 @@ General Workflow
        events until the ending criteria in the **[EndCriteria](EndCriteria.py)**
        module are reached:
         * The **[Driver](Driver.py)** module calls the
-          **TransmissionNodeSample** module to choose two nodes to be involved
-          in a transmission event
+          **[TransmissionNodeSample](TransmissionNodeSample.py)** module to
+          choose two nodes to be involved in a transmission event
         * The **[Driver](Driver.py)** module calls the
-          **TransmissionTimeSample** module to choose the time of the
-          transmission event
-        * The **[Driver](Driver.py)** module calls the **SourceSample** module
-          on the source node, passing in the time of transmission, and the
-          **SourceSample** module will choose which edge(s) of the source node's
-          phylogenetic tree to transmit (and thus which sequence(s))
-        * The **[Driver](Driver.py)** module calls the **[NodeEvolution](NodeEvolution.py)** module
-          on the destination node, feeding in the sequences obtained from the
-          **SourceSample** module as the initial sequence
+          **[TransmissionTimeSample](TransmissionTimeSample.py)** module to
+          choose the time of the transmission event
+        * The **[Driver](Driver.py)** module calls the
+          **[NodeEvolution](NodeEvolution.py)** module on the source node to
+          ensure the source node is evolved until the transmission time
+        * The **[Driver](Driver.py)** module calls the
+          **[SourceSample](SourceSample.py)** module on the source node, passing
+          in the time of transmission, and the
+          **[SourceSample](SourceSample.py)** module will choose which edge(s)
+          of the source node's phylogenetic tree to transmit (and thus which
+          sequence(s))
     3. Once the transmission iterations have completed, the
        **[Driver](Driver.py)** module outputs the full Transmission Network, the
        full phylogenetic tree(s), the full population size profile, and the full

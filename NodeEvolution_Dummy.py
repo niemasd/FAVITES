@@ -6,8 +6,7 @@ Niema Moshiri 2016
 '''
 import FAVITES_Global                   # for global access variables
 from NodeEvolution import NodeEvolution # abstract NodeEvolution class
-from sys import stderr                  # to write to standard error
 
 class NodeEvolution_Dummy(NodeEvolution):
     def evolve_to_current_time(node):
-        print('\nWARNING: Using dummy NodeEvolution implementation!', file=stderr)
+        print('\nWARNING: Using dummy NodeEvolution implementation!')
