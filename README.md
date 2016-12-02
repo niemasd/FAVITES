@@ -74,7 +74,7 @@ the file is a list of nodes, and the second portion is a list of edges.
     3. The label of the node to which this edge goes
     4. Attributes of this edge as comma-separated values, or a period (i.e.,
        `'.'`) if this edge has no attributes
-    5. `d` (for directed) or `u` (for undirected) to denote whether or not this edge
+    5. `d` (directed) or `u` (undirected) to denote whether or not this edge
        is directed (i.e., `u -> v` vs. `u <-> v`)
 * Lines beginning with the pound symbol (i.e., `'#'`) and empty lines are ignored
 Below is an example of this file format. Note that `<TAB>` is referring to a
