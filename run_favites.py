@@ -13,6 +13,7 @@ from ContactNetworkNode import ContactNetworkNode         # ContactNetworkNode m
 from Driver import Driver                                 # Driver module abstract class
 from EndCriteria import EndCriteria                       # EndCriteria module abstract class
 from NodeEvolution import NodeEvolution                   # NodeEvolution module abstract class
+from PostValidation import PostValidation                 # PostValidation module abstract class
 from SeedSelection import SeedSelection                   # SeedSelection module abstract class
 from SeedSequence import SeedSequence                     # SeedSequence module abstract class
 from SourceSample import SourceSample                     # SourceSample module abstract class
@@ -25,6 +26,7 @@ def_ContactNetworkFile           = 'stdin'
 def_ContactNetworkModule         = 'NetworkX'
 def_DriverModule                 = 'Default'
 def_NodeEvolutionModule          = 'Dummy' # TODO: Create actual NodeEvolution module implementation
+def_PostValidationModule         = 'Dummy' # TODO: Create actual PostValidation module implementation
 def_SeedSelectionModule          = 'Random'
 def_SeedSequenceLength           = 100
 def_SeedSequenceModule           = 'Random'
@@ -115,6 +117,11 @@ def parseArgs():
         default=def_NodeEvolutionModule,
         choices=FAVITES_Global.list_modules['NodeEvolution'],
         help="NodeEvolution module implementation")
+
+    parser.add_argument('--PostValidationModule',
+        default=def_PostValidationModule,
+        choices=FAVITES_Global.list_modules['PostValidation'],
+        help="PostValidation module implementation")
 
     parser.add_argument('--SeedSelectionModule',
         default=def_SeedSelectionModule,
@@ -240,6 +247,19 @@ def parseArgs():
     print(args.NodeEvolutionModule)
     assert issubclass(module_NodeEvolution, NodeEvolution), "%r is not a NodeEvolution" % module_NodeEvolution
     FAVITES_Global.modules['NodeEvolution'] = module_NodeEvolution
+
+    # import PostValidation module
+    print("PostValidation         Module: ", end='')
+    if args.PostValidationModule == 'Dummy':
+        from PostValidation_Dummy import PostValidation_Dummy as module_PostValidation
+    else:
+        print('\n')
+        print("ERROR: Invalid choice for PostValidationModule: %r" % args.PostValidationModule)
+        exit(-1)
+    module_PostValidation() # to force Python to check method implementations
+    print(args.PostValidationModule)
+    assert issubclass(module_PostValidation, PostValidation), "%r is not a PostValidation" % module_PostValidation
+    FAVITES_Global.modules['PostValidation'] = module_PostValidation
 
     # import SeedSelection module
     print("SeedSelection          Module: ", end='')

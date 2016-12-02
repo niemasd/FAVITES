@@ -12,6 +12,7 @@ from NodeEvolution import NodeEvolution           # NodeEvolution module abstrac
 from SeedSelection import SeedSelection           # SeedSelection module abstract class
 from SeedSequence import SeedSequence             # SeedSequence module abstract class
 from Tree import Tree                             # Tree module abstract class
+import os                                         # to write output files
 from sys import stdout                            # to flush print buffer
 
 class Driver_Default(Driver):
@@ -25,6 +26,17 @@ class Driver_Default(Driver):
 
         # begin simulation
         print("===========================   Simulations   ===========================")
+        orig_dir = os.getcwd()
+        out_dir = orig_dir + "/Output"
+        try:
+            #os.makedirs(out_dir) # TODO UNCOMMENT WHEN DONE!!!
+            pass # TODO REMOVE THIS WHEN DONE!!!
+        except:
+            print("ERROR: Unable to create output folder in current directory. Perhaps it already exists?")
+            exit(-1)
+        #os.chdir(out_dir) # TODO UNCOMMENT WHEN DONE!!!
+        #os.makedirs("error_free_files") # TODO UNCOMMENT WHEN DONE!!!
+        #os.makedirs("error_prone_files") # TODO UNCOMMENT WHEN DONE!!!
 
         # create ContactNetwork object from input contact network edge list
         print("Creating ContactNetwork object...", end='')
@@ -72,3 +84,19 @@ class Driver_Default(Driver):
         for node in FAVITES_Global.contact_network.get_infected_nodes():
             FAVITES_Global.modules['NodeEvolution'].evolve_to_current_time(node)
         print(" done")
+
+        # output error-free files
+        print("\n========================   Simulation Output   ========================")
+
+        # post-validation of transmission network
+        print("Transmission network had a final score of: %f" % FAVITES_Global.modules['PostValidation'].score_transmission_network())
+
+        # write transmission network as edge list
+        true_transmission_network = '\n'.join([("%s\t%s\t%d" % e) for e in FAVITES_Global.contact_network.get_transmissions()])
+        #f = open('error_free_files/transmission_network.txt','w')
+        #f.write(true_transmission_network)
+        #f.close()
+        print("True transmission network was written to: %s/Output/error_free_files/transmission_network.txt" % orig_dir)
+
+        # return to original directory
+        os.chdir(orig_dir)

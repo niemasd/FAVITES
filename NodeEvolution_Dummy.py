@@ -9,4 +9,5 @@ from NodeEvolution import NodeEvolution # abstract NodeEvolution class
 
 class NodeEvolution_Dummy(NodeEvolution):
     def evolve_to_current_time(node):
-        print('\nWARNING: Using dummy NodeEvolution implementation!')
+        #print('\nWARNING: Using dummy NodeEvolution implementation!')
+        pass

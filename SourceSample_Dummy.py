@@ -9,5 +9,5 @@ from SourceSample import SourceSample # abstract SourceSample class
 
 class SourceSample_Dummy(SourceSample):
     def sample_virus(node):
-        print('\nWARNING: Using dummy SourceSample implementation!')
+        #print('\nWARNING: Using dummy SourceSample implementation!')
         return node.get_infections()[0][1]
