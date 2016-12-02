@@ -6,6 +6,7 @@ Niema Moshiri 2016
 '''
 import argparse                                   # to parse user arguments
 from os.path import expanduser                    # to open paths with '~'
+from sys import stdout,stdin                      # standard input/output
 import FAVITES_Global                             # for global access variables
 from ContactNetwork import ContactNetwork         # ContactNetwork module abstract class
 from ContactNetworkNode import ContactNetworkNode # ContactNetworkNode module abstract class
@@ -114,6 +115,7 @@ def parseArgs():
 
     # import ContactNetwork module
     print("ContactNetwork Module: ", end='')
+    stdout.flush()
     if args.ContactNetworkModule == 'NetworkX':
         from ContactNetwork_NetworkX import ContactNetwork_NetworkX as module_ContactNetwork
     else:
@@ -126,6 +128,7 @@ def parseArgs():
 
     # import Driver module
     print("Driver         Module: ", end='')
+    stdout.flush()
     if args.DriverModule == 'Default':
         from Driver_Default import Driver_Default as module_Driver
     else:
@@ -138,6 +141,7 @@ def parseArgs():
 
     # import EndCriteria module
     print("EndCriteria    Module: ", end='')
+    stdout.flush()
     if args.EndCriteriaModule == 'Time':
         if args.EndTime == None:
             print('\n')
@@ -173,6 +177,7 @@ def parseArgs():
 
     # import NodeEvolution module
     print("NodeEvolution  Module: ", end='')
+    stdout.flush()
     if args.NodeEvolutionModule == 'Dummy':
         from NodeEvolution_Dummy import NodeEvolution_Dummy as module_NodeEvolution
     else:
@@ -186,6 +191,7 @@ def parseArgs():
 
     # import SeedSelection module
     print("SeedSelection  Module: ", end='')
+    stdout.flush()
     if args.SeedSelectionModule == 'Random':
         from SeedSelection_Random import SeedSelection_Random as module_SeedSelection
     else:
@@ -199,6 +205,7 @@ def parseArgs():
 
     # import SeedSequence module
     print("SeedSequence   Module: ", end='')
+    stdout.flush()
     if args.SeedSequenceModule == 'Random':
         from SeedSequence_Random import SeedSequence_Random as module_SeedSequence
     else:
@@ -212,6 +219,7 @@ def parseArgs():
 
     # import Tree module
     print("Tree           Module: ", end='')
+    stdout.flush()
     if args.TreeModule == 'DendroPy':
         from Tree_DendroPy import Tree_DendroPy as module_Tree
     else:
@@ -229,14 +237,16 @@ def parseArgs():
 
     # read in Contact Network and add to input data
     print("Reading contact network from ", end='')
+    stdout.flush()
     if args.ContactNetworkFile == 'stdin':
         print('standard input...', end='')
-        import sys
-        FAVITES_Global.edge_list = [i.strip() for i in sys.stdin if len(i.strip()) > 0]
+        stdout.flush()
+        FAVITES_Global.edge_list = [i.strip() for i in stdin if len(i.strip()) > 0]
     else:
         if args.ContactNetworkFile[0] == '~':
             args.ContactNetworkFile = expanduser(args.ContactNetworkFile)
         print('%r...' % args.ContactNetworkFile, end='')
+        stdout.flush()
         FAVITES_Global.edge_list = [i.strip() for i in open(args.ContactNetworkFile) if len(i.strip()) > 0]
     print(' done')
 

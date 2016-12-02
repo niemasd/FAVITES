@@ -12,6 +12,7 @@ from NodeEvolution import NodeEvolution           # NodeEvolution module abstrac
 from SeedSelection import SeedSelection           # SeedSelection module abstract class
 from SeedSequence import SeedSequence             # SeedSequence module abstract class
 from Tree import Tree                             # Tree module abstract class
+from sys import stdout                            # to flush print buffer
 
 class Driver_Default(Driver):
     def run():
@@ -27,6 +28,7 @@ class Driver_Default(Driver):
 
         # create ContactNetwork object from input contact network edge list
         print("Creating ContactNetwork object...", end='')
+        stdout.flush()
         contact_network = FAVITES_Global.modules['ContactNetwork'](FAVITES_Global.edge_list)
         assert isinstance(contact_network, ContactNetwork), "contact_network is not a ContactNetwork object"
         FAVITES_Global.contact_network = contact_network
@@ -34,6 +36,7 @@ class Driver_Default(Driver):
 
         # select seed nodes
         print("Selecting seed nodes...", end='')
+        stdout.flush()
         seed_nodes = FAVITES_Global.modules['SeedSelection'].select_seed_nodes()
         assert isinstance(seed_nodes, list), "seed_nodes is not a list"
         for node in seed_nodes:
@@ -43,6 +46,7 @@ class Driver_Default(Driver):
 
         # infect seed nodes
         print("Infecting seed nodes...", end='')
+        stdout.flush()
         for node in seed_nodes:
             num_infections_before = node.num_infections()
             FAVITES_Global.modules['SeedSequence'].infect(node)
@@ -51,5 +55,8 @@ class Driver_Default(Driver):
         print(" done")
 
         # iterative step of transmissions
+        print("Performing transmission simulations...", end='')
+        stdout.flush()
         while FAVITES_Global.modules['EndCriteria'].not_done():
             FAVITES_Global.time += 50 # DO THE TRANSMISSIONS
+        print(" done")
