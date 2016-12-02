@@ -9,6 +9,7 @@ from Driver import Driver                         # Driver module abstract class
 from ContactNetwork import ContactNetwork         # ContactNetwork module abstract class
 from ContactNetworkNode import ContactNetworkNode # ContactNetworkNode module abstract class
 from NodeEvolution import NodeEvolution           # NodeEvolution module abstract class
+from NodeSample import NodeSample                 # NodeSample module abstract class
 from SeedSelection import SeedSelection           # SeedSelection module abstract class
 from SeedSequence import SeedSequence             # SeedSequence module abstract class
 from Tree import Tree                             # Tree module abstract class
@@ -89,14 +90,44 @@ class Driver_Default(Driver):
         print("\n========================   Simulation Output   ========================")
 
         # post-validation of transmission network
-        print("Transmission network had a final score of: %f" % FAVITES_Global.modules['PostValidation'].score_transmission_network())
+        print("Scoring final transmission network...", end='')
+        score = FAVITES_Global.modules['PostValidation'].score_transmission_network()
+        print(" done")
+        print("Transmission network had a final score of: %f" % score)
 
         # write transmission network as edge list
-        true_transmission_network = '\n'.join([("%s\t%s\t%d" % e) for e in FAVITES_Global.contact_network.get_transmissions()])
+        print("Writing true transmission network to file...", end='')
+        transmissions = FAVITES_Global.contact_network.get_transmissions()
+        assert isinstance(transmissions, list), "get_transmissions() did not return a list!"
+        for u,v,t in transmissions:
+            assert isinstance(u, ContactNetworkNode), "get_transmissions() contains an invalid transmission event"
+            assert isinstance(v, ContactNetworkNode), "get_transmissions() contains an invalid transmission event"
+            assert isinstance(t, int), "get_transmissions() contains an invalid transmission event"
+        true_transmission_network = '\n'.join([("%s\t%s\t%d" % e) for e in transmissions])
         #f = open('error_free_files/transmission_network.txt','w')
         #f.write(true_transmission_network)
         #f.close()
+        print(" done")
         print("True transmission network was written to: %s/Output/error_free_files/transmission_network.txt" % orig_dir)
+
+        # introduce real data artifacts
+        print("\n=======================   Real Data Artifacts   =======================")
+
+        # subsample the transmission network
+        print("Subsampling transmission network...", end='')
+        subsampled_transmissions = FAVITES_Global.modules['NodeSample'].subsample_transmission_network()
+        for u,v,t in subsampled_transmissions:
+            assert isinstance(u, ContactNetworkNode), "subsample_transmission_network() contains an invalid transmission event"
+            assert isinstance(v, ContactNetworkNode), "subsample_transmission_network() contains an invalid transmission event"
+            assert isinstance(t, int), "subsample_transmission_network() contains an invalid transmission event"
+        print(" done")
+        print("Writing subsampled transmission network to file...", end='')
+        subsampled_transmission_network = '\n'.join([("%s\t%s\t%d" % e) for e in subsampled_transmissions])
+        #f = open('error_prone_files/transmission_network.txt','w')
+        #f.write(subsampled_transmission_network)
+        #f.close()
+        print(" done")
+        print("Subsampled transmission network was written to: %s/Output/error_prone_files/transmission_network.txt" % orig_dir)
 
         # return to original directory
         os.chdir(orig_dir)

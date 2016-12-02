@@ -15,6 +15,7 @@ def init():
         'Driver':                 ['Default'],
         'EndCriteria':            ['Time','Transmissions','FirstTimeTransmissions'],
         'NodeEvolution':          ['Dummy'],
+        'NodeSample':             ['Perfect'],
         'PostValidation':         ['Dummy'],
         'SeedSelection':          ['Random'],
         'SeedSequence':           ['Random'],

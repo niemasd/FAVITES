@@ -13,6 +13,7 @@ from ContactNetworkNode import ContactNetworkNode         # ContactNetworkNode m
 from Driver import Driver                                 # Driver module abstract class
 from EndCriteria import EndCriteria                       # EndCriteria module abstract class
 from NodeEvolution import NodeEvolution                   # NodeEvolution module abstract class
+from NodeSample import NodeSample                         # NodeSample module abstract class
 from PostValidation import PostValidation                 # PostValidation module abstract class
 from SeedSelection import SeedSelection                   # SeedSelection module abstract class
 from SeedSequence import SeedSequence                     # SeedSequence module abstract class
@@ -26,6 +27,7 @@ def_ContactNetworkFile           = 'stdin'
 def_ContactNetworkModule         = 'NetworkX'
 def_DriverModule                 = 'Default'
 def_NodeEvolutionModule          = 'Dummy' # TODO: Create actual NodeEvolution module implementation
+def_NodeSampleModule             = 'Perfect'
 def_PostValidationModule         = 'Dummy' # TODO: Create actual PostValidation module implementation
 def_SeedSelectionModule          = 'Random'
 def_SeedSequenceLength           = 100
@@ -117,6 +119,11 @@ def parseArgs():
         default=def_NodeEvolutionModule,
         choices=FAVITES_Global.list_modules['NodeEvolution'],
         help="NodeEvolution module implementation")
+
+    parser.add_argument('--NodeSampleModule',
+        default=def_NodeSampleModule,
+        choices=FAVITES_Global.list_modules['NodeSample'],
+        help="NodeSample module implementation")
 
     parser.add_argument('--PostValidationModule',
         default=def_PostValidationModule,
@@ -247,6 +254,19 @@ def parseArgs():
     print(args.NodeEvolutionModule)
     assert issubclass(module_NodeEvolution, NodeEvolution), "%r is not a NodeEvolution" % module_NodeEvolution
     FAVITES_Global.modules['NodeEvolution'] = module_NodeEvolution
+
+    # import NodeSample module
+    print("NodeSample:              ", end='')
+    if args.NodeSampleModule == 'Perfect':
+        from NodeSample_Perfect import NodeSample_Perfect as module_NodeSample
+    else:
+        print('\n')
+        print("ERROR: Invalid choice for NodeSampleModule: %r" % args.NodeSampleModule)
+        exit(-1)
+    module_NodeSample() # to force Python to check method implementations
+    print(args.NodeSampleModule)
+    assert issubclass(module_NodeSample, NodeSample), "%r is not a NodeSample" % module_NodeSample
+    FAVITES_Global.modules['NodeSample'] = module_NodeSample
 
     # import PostValidation module
     print("PostValidation:          ", end='')
