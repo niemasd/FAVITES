@@ -36,6 +36,15 @@ def printMessage():
     print("|                        Moshiri & Mirarab 2016                       |")
     print("\\---------------------------------------------------------------------/")
 
+def check_geZero(t):
+    try:
+        t = int(t)
+    except:
+        raise argparse.ArgumentTypeError("invalid int value: %r" % t)
+    if t < 0:
+        raise argparse.ArgumentTypeError("%s is not >= 0" % t)
+    return t
+
 def parseArgs():
     '''
     Parse user arguments. As a developer, if you create any of your own module
@@ -62,11 +71,11 @@ def parseArgs():
         help="Number of seed infection nodes desired")
 
     parser.add_argument('--EndTime',
-        default=None, type=int,
+        default=None, type=check_geZero,
         help="End time stopping criterion of simulation. Needed for EndCriteria_Time")
 
     parser.add_argument('--EndTransmissions',
-        default=None, type=int,
+        default=None, type=check_geZero,
         help="Number of transmission events stopping criterion of simulation. Needed for EndCriteria_Transmissions")
 
     parser.add_argument('--ContactNetworkModule',
@@ -115,7 +124,6 @@ def parseArgs():
 
     # import ContactNetwork module
     print("ContactNetwork Module: ", end='')
-    stdout.flush()
     if args.ContactNetworkModule == 'NetworkX':
         from ContactNetwork_NetworkX import ContactNetwork_NetworkX as module_ContactNetwork
     else:
@@ -128,7 +136,6 @@ def parseArgs():
 
     # import Driver module
     print("Driver         Module: ", end='')
-    stdout.flush()
     if args.DriverModule == 'Default':
         from Driver_Default import Driver_Default as module_Driver
     else:
@@ -141,7 +148,6 @@ def parseArgs():
 
     # import EndCriteria module
     print("EndCriteria    Module: ", end='')
-    stdout.flush()
     if args.EndCriteriaModule == 'Time':
         if args.EndTime == None:
             print('\n')
@@ -166,6 +172,20 @@ def parseArgs():
             print("ERROR: --EndTime was specified for EndCriteria_Transmissions. Only use --EndTransmissions")
             exit(-1)
         from EndCriteria_Transmissions import EndCriteria_Transmissions as module_EndCriteria
+    elif args.EndCriteriaModule == 'FirstTimeTransmissions':
+        if args.EndTime == None:
+            print('\n')
+            print("ERROR: EndCriteria_FirstTimeTransmissions requires both --EndTime and --EndTransmissions stopping criteria")
+            exit(-1)
+        else:
+            FAVITES_Global.end_time = args.EndTime
+        if args.EndTransmissions == None:
+            print('\n')
+            print("ERROR: EndCriteria_FirstTimeTransmissions requires both --EndTime and --EndTransmissions stopping criteria")
+            exit(-1)
+        else:
+            FAVITES_Global.end_transmissions = args.EndTransmissions
+        from EndCriteria_FirstTimeTransmissions import EndCriteria_FirstTimeTransmissions as module_EndCriteria
     else:
         print('\n')
         print("ERROR: Invalid choice for EndCriteriaModule: %r" % args.EndCriteriaModule)
@@ -177,7 +197,6 @@ def parseArgs():
 
     # import NodeEvolution module
     print("NodeEvolution  Module: ", end='')
-    stdout.flush()
     if args.NodeEvolutionModule == 'Dummy':
         from NodeEvolution_Dummy import NodeEvolution_Dummy as module_NodeEvolution
     else:
@@ -191,7 +210,6 @@ def parseArgs():
 
     # import SeedSelection module
     print("SeedSelection  Module: ", end='')
-    stdout.flush()
     if args.SeedSelectionModule == 'Random':
         from SeedSelection_Random import SeedSelection_Random as module_SeedSelection
     else:
@@ -205,7 +223,6 @@ def parseArgs():
 
     # import SeedSequence module
     print("SeedSequence   Module: ", end='')
-    stdout.flush()
     if args.SeedSequenceModule == 'Random':
         from SeedSequence_Random import SeedSequence_Random as module_SeedSequence
     else:
@@ -219,7 +236,6 @@ def parseArgs():
 
     # import Tree module
     print("Tree           Module: ", end='')
-    stdout.flush()
     if args.TreeModule == 'DendroPy':
         from Tree_DendroPy import Tree_DendroPy as module_Tree
     else:
@@ -237,7 +253,6 @@ def parseArgs():
 
     # read in Contact Network and add to input data
     print("Reading contact network from ", end='')
-    stdout.flush()
     if args.ContactNetworkFile == 'stdin':
         print('standard input...', end='')
         stdout.flush()

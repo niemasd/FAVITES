@@ -13,7 +13,7 @@ def init():
     list_modules = {
         'ContactNetwork': ['NetworkX'],
         'Driver':         ['Default'],
-        'EndCriteria':    ['Time','Transmissions'],
+        'EndCriteria':    ['Time','Transmissions','FirstTimeTransmissions'],
         'NodeEvolution':  ['Dummy'],
         'SeedSelection':  ['Random'],
         'SeedSequence':   ['Random'],
