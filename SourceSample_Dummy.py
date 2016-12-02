@@ -11,4 +11,4 @@ from sys import stderr                # to write to standard error
 class SourceSample_Dummy(SourceSample):
     def sample_virus(node):
         print('\nWARNING: Using dummy SourceSample implementation!', file=stderr)
-        return 'DUMMYSTRINGDUMMYSTRING'
+        return node.get_infections()[0][1]
