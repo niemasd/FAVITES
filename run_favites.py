@@ -163,7 +163,7 @@ def parseArgs():
     print("=============================   Modules   =============================")
 
     # import ContactNetwork module
-    print("ContactNetwork Module:         ", end='')
+    print("ContactNetwork:          ", end='')
     if args.ContactNetworkModule == 'NetworkX':
         from ContactNetwork_NetworkX import ContactNetwork_NetworkX as module_ContactNetwork
     else:
@@ -175,7 +175,7 @@ def parseArgs():
     FAVITES_Global.modules['ContactNetwork'] = module_ContactNetwork
 
     # import Driver module
-    print("Driver                 Module: ", end='')
+    print("Driver:                  ", end='')
     if args.DriverModule == 'Default':
         from Driver_Default import Driver_Default as module_Driver
     else:
@@ -187,7 +187,7 @@ def parseArgs():
     FAVITES_Global.modules['Driver'] = module_Driver
 
     # import EndCriteria module
-    print("EndCriteria            Module: ", end='')
+    print("EndCriteria:             ", end='')
     if args.EndCriteriaModule == 'Time':
         if args.EndTime == None:
             print('\n')
@@ -236,7 +236,7 @@ def parseArgs():
     FAVITES_Global.modules['EndCriteria'] = module_EndCriteria
 
     # import NodeEvolution module
-    print("NodeEvolution          Module: ", end='')
+    print("NodeEvolution:           ", end='')
     if args.NodeEvolutionModule == 'Dummy':
         from NodeEvolution_Dummy import NodeEvolution_Dummy as module_NodeEvolution
     else:
@@ -249,7 +249,7 @@ def parseArgs():
     FAVITES_Global.modules['NodeEvolution'] = module_NodeEvolution
 
     # import PostValidation module
-    print("PostValidation         Module: ", end='')
+    print("PostValidation:          ", end='')
     if args.PostValidationModule == 'Dummy':
         from PostValidation_Dummy import PostValidation_Dummy as module_PostValidation
     else:
@@ -262,7 +262,7 @@ def parseArgs():
     FAVITES_Global.modules['PostValidation'] = module_PostValidation
 
     # import SeedSelection module
-    print("SeedSelection          Module: ", end='')
+    print("SeedSelection:           ", end='')
     if args.SeedSelectionModule == 'Random':
         from SeedSelection_Random import SeedSelection_Random as module_SeedSelection
     else:
@@ -275,7 +275,7 @@ def parseArgs():
     FAVITES_Global.modules['SeedSelection'] = module_SeedSelection
 
     # import SeedSequence module
-    print("SeedSequence           Module: ", end='')
+    print("SeedSequence:            ", end='')
     if args.SeedSequenceModule == 'Random':
         from SeedSequence_Random import SeedSequence_Random as module_SeedSequence
     else:
@@ -288,7 +288,7 @@ def parseArgs():
     FAVITES_Global.modules['SeedSequence'] = module_SeedSequence
 
     # import SourceSample module
-    print("SourceSample           Module: ", end='')
+    print("SourceSample:            ", end='')
     if args.SourceSampleModule == 'Dummy':
         from SourceSample_Dummy import SourceSample_Dummy as module_SourceSample
     else:
@@ -301,7 +301,7 @@ def parseArgs():
     FAVITES_Global.modules['SourceSample'] = module_SourceSample
 
     # import TransmissionNodeSample module
-    print("TransmissionNodeSample Module: ", end='')
+    print("TransmissionNodeSample:  ", end='')
     if args.TransmissionNodeSampleModule == 'Random':
         from TransmissionNodeSample_Random import TransmissionNodeSample_Random as module_TransmissionNodeSample
     else:
@@ -314,7 +314,7 @@ def parseArgs():
     FAVITES_Global.modules['TransmissionNodeSample'] = module_TransmissionNodeSample
 
     # import TransmissionTimeSample module
-    print("TransmissionTimeSample Module: ", end='')
+    print("TransmissionTimeSample:  ", end='')
     if args.TransmissionTimeSampleModule == 'Fixed':
         if args.FixedTransmissionTimeDelta == None:
             print('\n')
@@ -333,7 +333,7 @@ def parseArgs():
     FAVITES_Global.modules['TransmissionTimeSample'] = module_TransmissionTimeSample
 
     # import Tree module
-    print("Tree                   Module: ", end='')
+    print("Tree:                    ", end='')
     if args.TreeModule == 'DendroPy':
         from Tree_DendroPy import Tree_DendroPy as module_Tree
     else:
@@ -363,13 +363,25 @@ def parseArgs():
         FAVITES_Global.edge_list = [i.strip() for i in open(args.ContactNetworkFile) if len(i.strip()) > 0]
     print(' done')
 
-    # add number of seed nodes to input data
+    # add number of seed nodes to user input
     FAVITES_Global.num_seeds = args.NumSeeds
-    print("Number of seed nodes: %d" % args.NumSeeds)
+    print("Number of seed nodes:           %d" % args.NumSeeds)
 
-    # # add seed sequence length to input data
+    # add seed sequence length to user input
     FAVITES_Global.seed_sequence_length = args.SeedSequenceLength
-    print("Seed sequence length: %d" % args.SeedSequenceLength)
+    print("Seed sequence length:           %d" % args.SeedSequenceLength)
+
+    # add end time to user input
+    if args.EndTime != None:
+        print("End time:                       %d" % args.EndTime)
+
+    # add end number of transmissions to user input
+    if args.EndTransmissions != None:
+        print("End number of transmissions:    %d" % args.EndTime)
+
+    # add fixed time delta to user input
+    if args.FixedTransmissionTimeDelta != None:
+        print("Fixed transmission time delta:  %d" % args.FixedTransmissionTimeDelta)
 
     # return input data
     print()
