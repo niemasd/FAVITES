@@ -59,7 +59,7 @@ class Driver_Default(Driver):
         while FAVITES_Global.modules['EndCriteria'].not_done():
             u,v = FAVITES_Global.modules['TransmissionNodeSample'].sample_nodes()
             t = FAVITES_Global.modules['TransmissionTimeSample'].sample_time(u,v)
-            assert t >= 0, "Transmission time cannot be negative!"
+            assert t >= FAVITES_Global.time, "Transmission cannot go back in time!"
             FAVITES_Global.time = t
             FAVITES_Global.modules['NodeEvolution'].evolve_to_current_time(u)
             seq = FAVITES_Global.modules['SourceSample'].sample_virus(u)
