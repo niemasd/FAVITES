@@ -18,15 +18,9 @@ class SeedSequence(metaclass=abc.ABCMeta):
 
     @staticmethod
     @abc.abstractmethod
-    def infect(node):
+    def generate(node):
         '''
-        Infect ``node'' with an initial seed sequence(s) and tree(s).
-        Will probably want to use FAVITES_Global.seed_sequence_length.
-
-        Parameters
-        ----------
-        node : ContactNetworkNode
-            ``ContactNetworkNode'' object to infect with seed sequence(s)
-
+        Generate an initial seed sequence(s). Will probably want to use
+        FAVITES_Global.seed_sequence_length.
         '''
         pass

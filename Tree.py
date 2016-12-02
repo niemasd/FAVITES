@@ -15,7 +15,6 @@ class Tree(metaclass=abc.ABCMeta): # TODO: Everything (define all functions)
     get_end_time()
         Return the end time to which this ``Tree'' has been evolved. In other
         words, return the height of the tree in unit of time
-
     '''
 
     @abc.abstractmethod
@@ -26,7 +25,7 @@ class Tree(metaclass=abc.ABCMeta): # TODO: Everything (define all functions)
         pass
 
     @abc.abstractmethod
-    def get_end_time():
+    def get_end_time(self):
         '''
         Return the end time to which this ``Tree'' has been evolved. In other
         words, return the height of the tree in unit of time

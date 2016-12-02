@@ -48,15 +48,21 @@ class Driver_Default(Driver):
         print("Infecting seed nodes...", end='')
         stdout.flush()
         for node in seed_nodes:
-            num_infections_before = node.num_infections()
-            FAVITES_Global.modules['SeedSequence'].infect(node)
-            num_infections_after = node.num_infections()
-            assert num_infections_after == num_infections_before + 1
+            seq = FAVITES_Global.modules['SeedSequence'].generate()
+            node.infect(0,seq)
+            FAVITES_Global.contact_network.add_to_infected(node)
         print(" done")
 
         # iterative step of transmissions
         print("Performing transmission simulations...", end='')
         stdout.flush()
         while FAVITES_Global.modules['EndCriteria'].not_done():
-            FAVITES_Global.time += 50 # DO THE TRANSMISSIONS
+            u,v = FAVITES_Global.modules['TransmissionNodeSample'].sample_nodes()
+            t = FAVITES_Global.modules['TransmissionTimeSample'].sample_time(u,v)
+            assert t >= 0, "Transmission time cannot be negative!"
+            FAVITES_Global.time = t
+            FAVITES_Global.modules['NodeEvolution'].evolve_to_current_time(u)
+            seq = FAVITES_Global.modules['SourceSample'].sample_virus(u)
+            v.infect(FAVITES_Global.time, seq)
+            FAVITES_Global.contact_network.add_transmission(u,v,t)
         print(" done")

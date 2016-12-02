@@ -16,9 +16,7 @@ class SeedSequence_Random(SeedSequence):
     and infecting ``node'' at time 0
     '''
 
-    def infect(node):
-        assert isinstance(node, ContactNetworkNode), "node is not a ContactNetworkNode object"
+    def generate():
         k = FAVITES_Global.seed_sequence_length
         assert isinstance(k, int), "Specified SeedSequenceLength is not an integer"
-        sequence = ''.join([choice('ACGT') for _ in range(k)])
-        node.infect(0,sequence)
+        return ''.join([choice('ACGT') for _ in range(k)])

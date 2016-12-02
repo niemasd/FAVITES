@@ -21,18 +21,24 @@ class ContactNetwork_NetworkX(ContactNetwork):
         Set containing the nodes that have been infected
     name_to_num : dict
         Dictionary mapping original node names to numbers
+    nodes : set of ContactNetworkNodes
+        Set containing all of the nodes in this ``ContactNetwork''
     num_to_name : dict
         Dictionary mapping numbers to original node names
     transmissions : list
         List of transmission events as (u,v,time) tuples
+    uninfected_nodes : set of ContactNetworkNodes
+        Set contianing the nodes that have not yet been infected
     '''
     def __init__(self, edge_list):
         # set up NetworkX and graph
         self.contact_network = DiGraph()
-        self.name_to_num = {}       # map original node names to numbers
-        self.num_to_name = []       # map numbers to original node names
-        self.infected_nodes = set() # store numbers of infected nodes
-        self.transmissions = []     # store u->v transmission as (u,v,time)
+        self.name_to_num = {}         # map original node names to numbers
+        self.num_to_name = []         # map numbers to original node names
+        self.nodes = set()            # store all nodes
+        self.uninfected_nodes = set() # store uninfected nodes
+        self.infected_nodes = set()   # store infected nodes
+        self.transmissions = []       # store u->v transmission as (u,v,time)
 
         # read in Contact Network as node+edge list
         for line in edge_list:
@@ -80,24 +86,39 @@ class ContactNetwork_NetworkX(ContactNetwork):
             else:
                 raise ValueError("Invalid type in list: %r" % parts[0])
 
+        # create sets of nodes
+        for node in self.contact_network.nodes():
+            self.nodes.add(Node(self.contact_network, self.num_to_name[node], node))
+        for node in self.nodes:
+            self.uninfected_nodes.add(node)
+
     def num_transmissions(self):
         return len(self.transmissions)
 
     def num_nodes(self):
-        return self.contact_network.number_of_nodes()
+        return len(self.nodes)
+
+    def get_nodes(self):
+        return self.nodes
 
     def num_infected_nodes(self):
         return len(self.infected_nodes)
 
+    def get_infected_nodes(self):
+        return self.infected_nodes
+
     def num_uninfected_nodes(self):
-        return self.contact_network.number_of_nodes()-self.num_infected_nodes()
+        return len(self.uninfected_nodes)
+
+    def get_uninfected_nodes(self):
+        return self.uninfected_nodes
 
     def num_edges(self):
         return self.contact_network.number_of_edges()
 
     def nodes_iter(self):
-        for node in self.contact_network.nodes():
-            yield Node(self.contact_network, self.num_to_name[node], node)
+        for node in self.nodes:
+            yield node
 
     def edges_iter(self):
         for edge in self.contact_network.edges():
@@ -109,6 +130,19 @@ class ContactNetwork_NetworkX(ContactNetwork):
 
     def get_transmissions(self):
         return self.transmissions
+
+    def add_transmission(self,u,v,time):
+        assert isinstance(u, Node), "u is not a ContactNetworNode_NetworkX"
+        assert isinstance(v, Node), "v is not a ContactNetworNode_NetworkX"
+        self.transmissions.append((u,v,time))
+        self.add_to_infected(v)
+
+    def add_to_infected(self,node):
+        assert isinstance(node, Node), "node is not a ContactNetworNode_NetworkX"
+        assert node.is_infected(), "node is not infected! Infect before moving"
+        if node in self.uninfected_nodes:
+            self.uninfected_nodes.remove(node)
+            self.infected_nodes.add(node)
 
 def check():
     '''

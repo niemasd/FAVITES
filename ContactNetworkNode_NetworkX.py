@@ -17,6 +17,8 @@ class ContactNetworkNode_NetworkX(ContactNetworkNode):
     ----------
     graph : DiGraph
         The NetworkX DiGraph in which this node exists
+    infected : bool
+        True if this node is infected, otherwise False
     name : str
         The name of this node
     num : int
@@ -40,6 +42,7 @@ class ContactNetworkNode_NetworkX(ContactNetworkNode):
         self.graph = graph
         self.name = name
         self.num = num
+        self.infected = False
 
     def __str__(self):
         return self.name
@@ -59,18 +62,12 @@ class ContactNetworkNode_NetworkX(ContactNetworkNode):
     def infect(self, time, sequence):
         assert isinstance(time, int)
         assert isinstance(sequence, str)
-        n_inf = len(self.graph.node[self.num]['infections'])
-        n_tre = len(self.graph.node[self.num]['infection_trees'])
-        assert n_inf == n_tre, "You may have infections you haven't created trees for"
         Tree = FAVITES_Global.modules['Tree']
         self.graph.node[self.num]['infections'].append((time, sequence, Tree()))
+        self.infected = True
 
-    def add_infection_tree(self, tree):
-        assert isinstance(tree, Tree), "tree is not a Tree object"
-        n_inf = len(self.graph.node[self.num]['infections'])
-        n_tre = len(self.graph.node[self.num]['infection_trees'])
-        assert n_inf == n_tre + 1, "There should be exactly one less tree than infections"
-        self.graph.node[self.num]['infection_trees'].append(tree)
+    def is_infected(self):
+        return self.infected
 
 if __name__ == '__main__':
     '''

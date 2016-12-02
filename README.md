@@ -24,9 +24,12 @@ General Workflow
     2. The **[Driver](Driver.py)** module then repeatedly creates transmission
        events until the ending criteria in the **[EndCriteria](EndCriteria.py)**
        module are reached:
-        * The **[Driver](Driver.py)** module calls the **TransmissionSample**
-          module to choose two nodes to be involved in a transmission event as
-          well as the time of the transmission:
+        * The **[Driver](Driver.py)** module calls the
+          **TransmissionNodeSample** module to choose two nodes to be involved
+          in a transmission event
+        * The **[Driver](Driver.py)** module calls the
+          **TransmissionTimeSample** module to choose the time of the
+          transmission event
         * The **[Driver](Driver.py)** module calls the **SourceSample** module
           on the source node, passing in the time of transmission, and the
           **SourceSample** module will choose which edge(s) of the source node's

@@ -11,13 +11,16 @@ def init():
     # dictionary to store which implementations of each module are available
     global list_modules
     list_modules = {
-        'ContactNetwork': ['NetworkX'],
-        'Driver':         ['Default'],
-        'EndCriteria':    ['Time','Transmissions','FirstTimeTransmissions'],
-        'NodeEvolution':  ['Dummy'],
-        'SeedSelection':  ['Random'],
-        'SeedSequence':   ['Random'],
-        'Tree':           ['DendroPy']
+        'ContactNetwork':         ['NetworkX'],
+        'Driver':                 ['Default'],
+        'EndCriteria':            ['Time','Transmissions','FirstTimeTransmissions'],
+        'NodeEvolution':          ['Dummy'],
+        'SeedSelection':          ['Random'],
+        'SeedSequence':           ['Random'],
+        'SourceSample':           ['Dummy'],
+        'TransmissionNodeSample': ['Random'],
+        'TransmissionTimeSample': ['Fixed'],
+        'Tree':                   ['DendroPy']
     }
 
     # dictionary to store which implementation of each module was chosen
@@ -36,6 +39,6 @@ def init():
     global seed_sequence_length
     seed_sequence_length = None
 
-    # global time
+    # global current time
     global time
     time = 0

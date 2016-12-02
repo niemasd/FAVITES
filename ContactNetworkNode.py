@@ -2,7 +2,7 @@
 '''
 Niema Moshiri 2016
 
-"ContactNetworNode" module
+"ContactNetworkNode" module
 '''
 import abc # for abstraction
 
@@ -20,6 +20,8 @@ class ContactNetworkNode(metaclass=abc.ABCMeta):
         Return the name of this ``ContactNetworkNode'' object
     infect(time, sequence)
         Infect this ``ContactNetworkNode'' object with ``sequence'' at ``time''
+    is_infected()
+        Return True if this node is infected, otherwise False
     num_infections()
         Return the number of infections
     '''
@@ -87,5 +89,17 @@ class ContactNetworkNode(metaclass=abc.ABCMeta):
             The time of infection
         sequence : str
             The infecting virus sequence
+        '''
+        pass
+
+    @abc.abstractmethod
+    def is_infected(self):
+        '''
+        Return True if this node is infected, otherwise False
+
+        Returns
+        -------
+        infected : bool
+            True if this node is infected, otherwise False
         '''
         pass
