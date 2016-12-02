@@ -8,6 +8,9 @@ import FAVITES_Global               # for global access variables
 from EndCriteria import EndCriteria # abstract EndCriteria class
 
 class EndCriteria_Transmissions(EndCriteria):
+    def __init__(self):
+        assert FAVITES_Global.end_transmissions != None, "Missing --EndTransmissions argument"
+
     def done():
         assert FAVITES_Global.end_transmissions >= 0, "end_transmissions is negative!"
         assert FAVITES_Global.contact_network is not None, "contact_network was never set!"

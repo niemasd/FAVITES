@@ -102,37 +102,37 @@ def parseArgs():
 
     parser.add_argument('--ContactNetworkModule',
         default=def_ContactNetworkModule,
-        choices=FAVITES_Global.list_modules['ContactNetwork'],
+        choices=sorted(list(FAVITES_Global.list_modules['ContactNetwork'].keys())),
         help="ContactNetwork module implementation")
 
     parser.add_argument('--DriverModule',
         default=def_DriverModule,
-        choices=FAVITES_Global.list_modules['Driver'],
+        choices=sorted(list(FAVITES_Global.list_modules['Driver'].keys())),
         help="Driver module implementation")
 
     parser.add_argument('--EndCriteriaModule',
         required=True,
-        choices=FAVITES_Global.list_modules['EndCriteria'],
+        choices=sorted(list(FAVITES_Global.list_modules['EndCriteria'].keys())),
         help="Simulation ending criteria")
 
     parser.add_argument('--NodeEvolutionModule',
         default=def_NodeEvolutionModule,
-        choices=FAVITES_Global.list_modules['NodeEvolution'],
+        choices=sorted(list(FAVITES_Global.list_modules['NodeEvolution'].keys())),
         help="NodeEvolution module implementation")
 
     parser.add_argument('--NodeSampleModule',
         default=def_NodeSampleModule,
-        choices=FAVITES_Global.list_modules['NodeSample'],
+        choices=sorted(list(FAVITES_Global.list_modules['NodeSample'].keys())),
         help="NodeSample module implementation")
 
     parser.add_argument('--PostValidationModule',
         default=def_PostValidationModule,
-        choices=FAVITES_Global.list_modules['PostValidation'],
+        choices=sorted(list(FAVITES_Global.list_modules['PostValidation'].keys())),
         help="PostValidation module implementation")
 
     parser.add_argument('--SeedSelectionModule',
         default=def_SeedSelectionModule,
-        choices=FAVITES_Global.list_modules['SeedSelection'],
+        choices=sorted(list(FAVITES_Global.list_modules['SeedSelection'].keys())),
         help="SeedSelection module implementation")
 
     parser.add_argument('--SeedSequenceLength',
@@ -141,27 +141,27 @@ def parseArgs():
 
     parser.add_argument('--SeedSequenceModule',
         default=def_SeedSequenceModule,
-        choices=FAVITES_Global.list_modules['SeedSequence'],
+        choices=sorted(list(FAVITES_Global.list_modules['SeedSequence'].keys())),
         help="SeedSequence module implementation")
 
     parser.add_argument('--SourceSampleModule',
         default=def_SourceSampleModule,
-        choices=FAVITES_Global.list_modules['SourceSample'],
+        choices=sorted(list(FAVITES_Global.list_modules['SourceSample'].keys())),
         help="SourceSample module implementation")
 
     parser.add_argument('--TransmissionNodeSampleModule',
         default=def_TransmissionNodeSampleModule,
-        choices=FAVITES_Global.list_modules['TransmissionNodeSample'],
+        choices=sorted(list(FAVITES_Global.list_modules['TransmissionNodeSample'].keys())),
         help="TransmissionNodeSample module implementation")
 
     parser.add_argument('--TransmissionTimeSampleModule',
         default=def_TransmissionTimeSampleModule,
-        choices=FAVITES_Global.list_modules['TransmissionTimeSample'],
+        choices=sorted(list(FAVITES_Global.list_modules['TransmissionTimeSample'].keys())),
         help="TransmissionTimeSample module implementation")
 
     parser.add_argument('--TreeModule',
         default=def_TreeModule,
-        choices=FAVITES_Global.list_modules['Tree'],
+        choices=sorted(list(FAVITES_Global.list_modules['Tree'].keys())),
         help="Tree module implementation")
 
     args = parser.parse_args()
@@ -169,197 +169,113 @@ def parseArgs():
     # import modules and store in global access variables
     print("=============================   Modules   =============================")
 
+    # read basic user input
+    FAVITES_Global.num_seeds = args.NumSeeds
+    FAVITES_Global.end_time = args.EndTime
+    FAVITES_Global.end_transmissions = args.EndTransmissions
+    FAVITES_Global.fixed_transmission_time_delta = args.FixedTransmissionTimeDelta
+
     # import ContactNetwork module
     print("ContactNetwork:          ", end='')
-    if args.ContactNetworkModule == 'NetworkX':
-        from ContactNetwork_NetworkX import ContactNetwork_NetworkX as module_ContactNetwork
-    else:
-        print('\n')
-        print("ERROR: Invalid choice for ContactNetworkModule: %r" % args.ContactNetworkModule)
-        exit(-1)
+    assert args.ContactNetworkModule in FAVITES_Global.list_modules['ContactNetwork'], "%r is not a valid ContactNetwork!" % args.ContactNetworkModule
+    module_ContactNetwork = FAVITES_Global.list_modules['ContactNetwork'][args.ContactNetworkModule]
     print(args.ContactNetworkModule)
     assert issubclass(module_ContactNetwork, ContactNetwork), "%r is not a ContactNetwork" % module_ContactNetwork
     FAVITES_Global.modules['ContactNetwork'] = module_ContactNetwork
 
     # import Driver module
     print("Driver:                  ", end='')
-    if args.DriverModule == 'Default':
-        from Driver_Default import Driver_Default as module_Driver
-    else:
-        print('\n')
-        print("ERROR: Invalid choice for DriverModule: %r" % args.DriverModule)
-        exit(-1)
+    assert args.DriverModule in FAVITES_Global.list_modules['Driver'], "%r is not a valid Driver!" % args.DriverModule
+    module_Driver = FAVITES_Global.list_modules['Driver'][args.DriverModule]
     print(args.DriverModule)
     assert issubclass(module_Driver, Driver), "%r is not a Driver" % module_Driver
     FAVITES_Global.modules['Driver'] = module_Driver
 
     # import EndCriteria module
     print("EndCriteria:             ", end='')
-    if args.EndCriteriaModule == 'Time':
-        if args.EndTime == None:
-            print('\n')
-            print("ERROR: EndCriteria_Time requires --EndTime stopping criterion")
-            exit(-1)
-        else:
-            FAVITES_Global.end_time = args.EndTime
-        if args.EndTransmissions != None:
-            print('\n')
-            print("ERROR: --EndTransmissions was specified for EndCriteria_Time. Only use --EndTime")
-            exit(-1)
-        from EndCriteria_Time import EndCriteria_Time as module_EndCriteria
-    elif args.EndCriteriaModule == 'Transmissions':
-        if args.EndTransmissions == None:
-            print('\n')
-            print("ERROR: EndCriteria_Transmissions requires --EndTransmissions stopping criterion")
-            exit(-1)
-        else:
-            FAVITES_Global.end_transmissions = args.EndTransmissions
-        if args.EndTime != None:
-            print('\n')
-            print("ERROR: --EndTime was specified for EndCriteria_Transmissions. Only use --EndTransmissions")
-            exit(-1)
-        from EndCriteria_Transmissions import EndCriteria_Transmissions as module_EndCriteria
-    elif args.EndCriteriaModule == 'FirstTimeTransmissions':
-        if args.EndTime == None:
-            print('\n')
-            print("ERROR: EndCriteria_FirstTimeTransmissions requires both --EndTime and --EndTransmissions stopping criteria")
-            exit(-1)
-        else:
-            FAVITES_Global.end_time = args.EndTime
-        if args.EndTransmissions == None:
-            print('\n')
-            print("ERROR: EndCriteria_FirstTimeTransmissions requires both --EndTime and --EndTransmissions stopping criteria")
-            exit(-1)
-        else:
-            FAVITES_Global.end_transmissions = args.EndTransmissions
-        from EndCriteria_FirstTimeTransmissions import EndCriteria_FirstTimeTransmissions as module_EndCriteria
-    else:
-        print('\n')
-        print("ERROR: Invalid choice for EndCriteriaModule: %r" % args.EndCriteriaModule)
-        exit(-1)
+    assert args.EndCriteriaModule in FAVITES_Global.list_modules['EndCriteria'], "%r is not a valid EndCriteria!" % args.EndCriteriaModule
+    module_EndCriteria = FAVITES_Global.list_modules['EndCriteria'][args.EndCriteriaModule]
     print(args.EndCriteriaModule)
-    module_EndCriteria() # to force Python to check method implementations
+    module_EndCriteria() # check for validity
     assert issubclass(module_EndCriteria, EndCriteria), "%r is not an EndCriteria" % module_EndCriteria
     FAVITES_Global.modules['EndCriteria'] = module_EndCriteria
 
     # import NodeEvolution module
     print("NodeEvolution:           ", end='')
-    if args.NodeEvolutionModule == 'Dummy':
-        from NodeEvolution_Dummy import NodeEvolution_Dummy as module_NodeEvolution
-    else:
-        print('\n')
-        print("ERROR: Invalid choice for NodeEvolutionModule: %r" % args.NodeEvolutionModule)
-        exit(-1)
-    module_NodeEvolution() # to force Python to check method implementations
+    assert args.NodeEvolutionModule in FAVITES_Global.list_modules['NodeEvolution'], "%r is not a valid NodeEvolution!" % args.NodeEvolutionModule
+    module_NodeEvolution = FAVITES_Global.list_modules['NodeEvolution'][args.NodeEvolutionModule]
     print(args.NodeEvolutionModule)
+    module_NodeEvolution() # check for validity
     assert issubclass(module_NodeEvolution, NodeEvolution), "%r is not a NodeEvolution" % module_NodeEvolution
     FAVITES_Global.modules['NodeEvolution'] = module_NodeEvolution
 
     # import NodeSample module
     print("NodeSample:              ", end='')
-    if args.NodeSampleModule == 'Perfect':
-        from NodeSample_Perfect import NodeSample_Perfect as module_NodeSample
-    else:
-        print('\n')
-        print("ERROR: Invalid choice for NodeSampleModule: %r" % args.NodeSampleModule)
-        exit(-1)
-    module_NodeSample() # to force Python to check method implementations
+    assert args.NodeSampleModule in FAVITES_Global.list_modules['NodeSample'], "%r is not a valid NodeSample!" % args.NodeSampleModule
+    module_NodeSample = FAVITES_Global.list_modules['NodeSample'][args.NodeSampleModule]
     print(args.NodeSampleModule)
+    module_NodeSample() # check for validity
     assert issubclass(module_NodeSample, NodeSample), "%r is not a NodeSample" % module_NodeSample
     FAVITES_Global.modules['NodeSample'] = module_NodeSample
 
     # import PostValidation module
     print("PostValidation:          ", end='')
-    if args.PostValidationModule == 'Dummy':
-        from PostValidation_Dummy import PostValidation_Dummy as module_PostValidation
-    else:
-        print('\n')
-        print("ERROR: Invalid choice for PostValidationModule: %r" % args.PostValidationModule)
-        exit(-1)
-    module_PostValidation() # to force Python to check method implementations
+    assert args.PostValidationModule in FAVITES_Global.list_modules['PostValidation'], "%r is not a valid PostValidation!" % args.PostValidationModule
+    module_PostValidation = FAVITES_Global.list_modules['PostValidation'][args.PostValidationModule]
     print(args.PostValidationModule)
+    module_PostValidation() # check for validity
     assert issubclass(module_PostValidation, PostValidation), "%r is not a PostValidation" % module_PostValidation
     FAVITES_Global.modules['PostValidation'] = module_PostValidation
 
     # import SeedSelection module
     print("SeedSelection:           ", end='')
-    if args.SeedSelectionModule == 'Random':
-        from SeedSelection_Random import SeedSelection_Random as module_SeedSelection
-    else:
-        print('\n')
-        print("ERROR: Invalid choice for SeedSelectionModule: %r" % args.SeedSelectionModule)
-        exit(-1)
-    module_SeedSelection() # to force Python to check method implementations
+    assert args.SeedSelectionModule in FAVITES_Global.list_modules['SeedSelection'], "%r is not a valid SeedSelection!" % args.SeedSelectionModule
+    module_SeedSelection = FAVITES_Global.list_modules['SeedSelection'][args.SeedSelectionModule]
     print(args.SeedSelectionModule)
+    module_SeedSelection() # check for validity
     assert issubclass(module_SeedSelection, SeedSelection), "%r is not a SeedSelection" % module_SeedSelection
     FAVITES_Global.modules['SeedSelection'] = module_SeedSelection
 
     # import SeedSequence module
     print("SeedSequence:            ", end='')
-    if args.SeedSequenceModule == 'Random':
-        from SeedSequence_Random import SeedSequence_Random as module_SeedSequence
-    else:
-        print('\n')
-        print("ERROR: Invalid choice for SeedSequenceModule: %r" % args.SeedSequenceModule)
-        exit(-1)
-    module_SeedSequence() # to force Python to check method implementations
+    assert args.SeedSequenceModule in FAVITES_Global.list_modules['SeedSequence'], "%r is not a valid SeedSequence!" % args.SeedSequenceModule
+    module_SeedSequence = FAVITES_Global.list_modules['SeedSequence'][args.SeedSequenceModule]
     print(args.SeedSequenceModule)
+    module_SeedSequence() # check for validity
     assert issubclass(module_SeedSequence, SeedSequence), "%r is not a SeedSequence" % module_SeedSequence
     FAVITES_Global.modules['SeedSequence'] = module_SeedSequence
 
     # import SourceSample module
     print("SourceSample:            ", end='')
-    if args.SourceSampleModule == 'Dummy':
-        from SourceSample_Dummy import SourceSample_Dummy as module_SourceSample
-    else:
-        print('\n')
-        print("ERROR: Invalid choice for SourceSampleModule: %r" % args.SourceSampleModule)
-        exit(-1)
-    module_SourceSample() # to force Python to check method implementations
+    assert args.SourceSampleModule in FAVITES_Global.list_modules['SourceSample'], "%r is not a valid SourceSample!" % args.SourceSampleModule
+    module_SourceSample = FAVITES_Global.list_modules['SourceSample'][args.SourceSampleModule]
     print(args.SourceSampleModule)
+    module_SourceSample() # check for validity
     assert issubclass(module_SourceSample, SourceSample), "%r is not a SourceSample" % module_SourceSample
     FAVITES_Global.modules['SourceSample'] = module_SourceSample
 
     # import TransmissionNodeSample module
     print("TransmissionNodeSample:  ", end='')
-    if args.TransmissionNodeSampleModule == 'Random':
-        from TransmissionNodeSample_Random import TransmissionNodeSample_Random as module_TransmissionNodeSample
-    else:
-        print('\n')
-        print("ERROR: Invalid choice for TransmissionNodeSampleModule: %r" % args.TransmissionNodeSampleModule)
-        exit(-1)
+    assert args.TransmissionNodeSampleModule in FAVITES_Global.list_modules['TransmissionNodeSample'], "%r is not a valid TransmissionNodeSample!" % args.TransmissionNodeSampleModule
+    module_TransmissionNodeSample = FAVITES_Global.list_modules['TransmissionNodeSample'][args.TransmissionNodeSampleModule]
     print(args.TransmissionNodeSampleModule)
-    module_TransmissionNodeSample() # to force Python to check method implementations
+    module_TransmissionNodeSample() # check for validity
     assert issubclass(module_TransmissionNodeSample, TransmissionNodeSample), "%r is not a TransmissionNodeSample" % module_TransmissionNodeSample
     FAVITES_Global.modules['TransmissionNodeSample'] = module_TransmissionNodeSample
 
     # import TransmissionTimeSample module
     print("TransmissionTimeSample:  ", end='')
-    if args.TransmissionTimeSampleModule == 'Fixed':
-        if args.FixedTransmissionTimeDelta == None:
-            print('\n')
-            print("ERROR: TransmissionTimeSample_Fixed requires --FixedTransmissionTimeDelta")
-            exit(-1)
-        else:
-            FAVITES_Global.fixed_transmission_time_delta = args.FixedTransmissionTimeDelta
-        from TransmissionTimeSample_Fixed import TransmissionTimeSample_Fixed as module_TransmissionTimeSample
-    else:
-        print('\n')
-        print("ERROR: Invalid choice for TransmissionTimeSampleModule: %r" % args.TransmissionTimeSampleModule)
-        exit(-1)
+    assert args.TransmissionTimeSampleModule in FAVITES_Global.list_modules['TransmissionTimeSample'], "%r is not a valid TransmissionTimeSample!" % args.TransmissionTimeSampleModule
+    module_TransmissionTimeSample = FAVITES_Global.list_modules['TransmissionTimeSample'][args.TransmissionTimeSampleModule]
     print(args.TransmissionTimeSampleModule)
-    module_TransmissionTimeSample() # to force Python to check method implementations
+    module_TransmissionTimeSample() # check for validity
     assert issubclass(module_TransmissionTimeSample, TransmissionTimeSample), "%r is not a TransmissionTimeSample" % module_TransmissionTimeSample
     FAVITES_Global.modules['TransmissionTimeSample'] = module_TransmissionTimeSample
 
     # import Tree module
     print("Tree:                    ", end='')
-    if args.TreeModule == 'DendroPy':
-        from Tree_DendroPy import Tree_DendroPy as module_Tree
-    else:
-        print('\n')
-        print("ERROR: Invalid choice for TreeModule: %r" % args.TreeModule)
-        exit(-1)
+    assert args.TreeModule in FAVITES_Global.list_modules['Tree'], "%r is not a valid Tree!" % args.TreeModule
+    module_Tree = FAVITES_Global.list_modules['Tree'][args.TreeModule]
     print(args.TreeModule)
     assert issubclass(module_Tree, Tree), "%r is not a Tree" % module_Tree
     FAVITES_Global.modules['Tree'] = module_Tree
@@ -384,7 +300,6 @@ def parseArgs():
     print(' done')
 
     # add number of seed nodes to user input
-    FAVITES_Global.num_seeds = args.NumSeeds
     print("Number of seed nodes:           %d" % args.NumSeeds)
 
     # add seed sequence length to user input

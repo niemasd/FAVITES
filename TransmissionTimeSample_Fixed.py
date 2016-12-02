@@ -15,5 +15,8 @@ class TransmissionTimeSample_Fixed(TransmissionTimeSample):
     Implement the ``TransmissionTimeSample'' with a fixed time delta
     '''
 
+    def __init__(self):
+        assert FAVITES_Global.fixed_transmission_time_delta != None, "Missing --FixedTransmissionTimeDelta argument"
+
     def sample_time(source,target):
         return FAVITES_Global.time + FAVITES_Global.fixed_transmission_time_delta

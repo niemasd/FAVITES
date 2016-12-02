@@ -11,6 +11,10 @@ from EndCriteria_Time import EndCriteria_Time                   # to reuse code
 from EndCriteria_Transmissions import EndCriteria_Transmissions # to reuse code
 
 class EndCriteria_FirstTimeTransmissions(EndCriteria):
+    def __init__(self):
+        EndCriteria_Time()          # check for validity
+        EndCriteria_Transmissions() # check for validity
+
     def done():
         return EndCriteria_Time.done() or EndCriteria_Transmissions.done()
 
