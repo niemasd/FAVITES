@@ -11,7 +11,7 @@ module implementation may have its own additional dependencies (see below). To
 guarantee that your setup works with *all* module implementations, here is a
 comprehensive list of dependencies across all current module implementations:
 * [DendroPy](http://www.dendropy.org/) (any version *should* work, but use the
-  newest version of DendroPy just in case)
+  newest version just in case)
 * [NetworkX](https://networkx.github.io/)
 
 Usage
@@ -191,4 +191,4 @@ Module Implementations
         * Implements the [Tree](Tree.py) module using the
           [DendroPy](http://www.dendropy.org/) Python package
         * Requires [DendroPy](http://www.dendropy.org/) (any version *should*
-          work, but use the newest version of DendroPy just in case)
+          work, but use the newest version just in case)
