@@ -28,6 +28,7 @@ def_ContactNetworkModule         = 'NetworkX'
 def_DriverModule                 = 'Default'
 def_NodeEvolutionModule          = 'Dummy' # TODO: Create actual NodeEvolution module implementation
 def_NodeSampleModule             = 'Perfect'
+def_NumSeeds                     = 1
 def_PostValidationModule         = 'Dummy' # TODO: Create actual PostValidation module implementation
 def_SeedSelectionModule          = 'Random'
 def_SeedSequenceLength           = 100
@@ -85,7 +86,7 @@ def parseArgs():
         help="Input contact network ('stdin' for standard input)")
 
     parser.add_argument('--NumSeeds',
-        required=True, type=int,
+        default=def_NumSeeds, type=int,
         help="Number of seed infection nodes desired")
 
     parser.add_argument('--EndTime',
@@ -312,7 +313,7 @@ def parseArgs():
 
     # add end number of transmissions to user input
     if args.EndTransmissions != None:
-        print("End number of transmissions:    %d" % args.EndTime)
+        print("End number of transmissions:    %d" % args.EndTransmissions)
 
     # add fixed time delta to user input
     if args.FixedTransmissionTimeDelta != None:

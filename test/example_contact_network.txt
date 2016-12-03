@@ -1,0 +1,8 @@
+#NODE	label	attributes (csv or .)
+#EDGE	u	v	attributes (csv or .)	(d)irected or (u)ndirected
+
+NODE	Bill	USA,Mexico
+NODE	Eric	USA
+NODE	Curt	.
+EDGE	Bill	Eric	.	d
+EDGE	Curt	Eric	Friends	u
