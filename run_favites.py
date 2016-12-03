@@ -5,7 +5,7 @@ Niema Moshiri 2016
 "Viewer": Command Line Interface for FAVITES
 '''
 import argparse                                           # to parse user arguments
-from os.path import expanduser                            # to open paths with '~'
+import os                                                 # to handle file stuff
 from sys import stdout,stdin                              # standard input/output
 import FAVITES_Global                                     # for global access variables
 from ContactNetwork import ContactNetwork                 # ContactNetwork module abstract class
@@ -29,6 +29,7 @@ def_DriverModule                 = 'Default'
 def_NodeEvolutionModule          = 'Dummy' # TODO: Create actual NodeEvolution module implementation
 def_NodeSampleModule             = 'Perfect'
 def_NumSeeds                     = 1
+def_OutDir                       = os.getcwd() + "/Output"
 def_PostValidationModule         = 'Dummy' # TODO: Create actual PostValidation module implementation
 def_SeedSelectionModule          = 'Random'
 def_SeedSequenceLength           = 100
@@ -84,6 +85,10 @@ def parseArgs():
     parser.add_argument('--ContactNetworkFile',
         default=def_ContactNetworkFile,
         help="Input contact network ('stdin' for standard input)")
+
+    parser.add_argument('--OutDir',
+        default=def_OutDir,
+        help="Output directory")
 
     parser.add_argument('--NumSeeds',
         default=def_NumSeeds, type=int,
@@ -175,6 +180,7 @@ def parseArgs():
     FAVITES_Global.end_time = args.EndTime
     FAVITES_Global.end_transmissions = args.EndTransmissions
     FAVITES_Global.fixed_transmission_time_delta = args.FixedTransmissionTimeDelta
+    FAVITES_Global.out_dir = args.OutDir
 
     # import ContactNetwork module
     print("ContactNetwork:          ", end='')
@@ -294,7 +300,7 @@ def parseArgs():
         FAVITES_Global.edge_list = [i.strip() for i in stdin if len(i.strip()) > 0]
     else:
         if args.ContactNetworkFile[0] == '~':
-            args.ContactNetworkFile = expanduser(args.ContactNetworkFile)
+            args.ContactNetworkFile = os.path.expanduser(args.ContactNetworkFile)
         print('%r...' % args.ContactNetworkFile, end='')
         stdout.flush()
         FAVITES_Global.edge_list = [i.strip() for i in open(args.ContactNetworkFile) if len(i.strip()) > 0]

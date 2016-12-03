@@ -28,10 +28,10 @@ class Driver_Default(Driver):
         # begin simulation
         print("===========================   Simulations   ===========================")
         orig_dir = os.getcwd()
-        out_dir = orig_dir + "/Output"
+        out_dir = FAVITES_Global.out_dir
         try:
-            #os.makedirs(out_dir) # TODO UNCOMMENT WHEN DONE!!!
-            pass # TODO REMOVE THIS WHEN DONE!!!
+            os.makedirs(out_dir) # TODO UNCOMMENT WHEN DONE!!!
+            #pass # TODO REMOVE THIS WHEN DONE!!!
         except:
             print("ERROR: Unable to create output folder in current directory. Perhaps it already exists?")
             exit(-1)
