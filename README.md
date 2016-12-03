@@ -9,7 +9,7 @@ Requirements
 To run FAVITES, you must use [Python 3](https://www.python.org/downloads/). Each
 module implementation may have its own additional dependencies:
 * **[ContactNetwork](ContactNetwork.py)**
-    * **[ContactNetwork_NetworkX](ContactNetwork_NetworkX.py)**
+    * [ContactNetwork_NetworkX](ContactNetwork_NetworkX.py)
         * [NetworkX](https://networkx.github.io/)
 
 Usage
