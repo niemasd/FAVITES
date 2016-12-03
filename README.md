@@ -111,5 +111,9 @@ Module Implementations
           implementation of the [ContactNetworkNode](ConContactNetworkNode.py)
           module
         * Requires [NetworkX](https://networkx.github.io/)
-* **[ContactNetwork](ContactNetwork.py)**
-    *
+* **[ContactNetworkEdge](ContactNetworkEdge.py)**
+    * [ContactNetworkEdge_NetworkX](ContactNetworkEdge_NetworkX.py)
+        * Requires [NetworkX](https://networkx.github.io/)
+* **[ContactNetworkNode](ContactNetworkNode.py)**
+    * [ContactNetworkNode_NetworkX](ContactNetworkNode_NetworkX.py)
+        * Requires [NetworkX](https://networkx.github.io/)
