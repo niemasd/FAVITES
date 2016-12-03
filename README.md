@@ -104,6 +104,8 @@ Module Implementations
 ===
 * **[ContactNetwork](ContactNetwork.py)**
     * [ContactNetwork_NetworkX](ContactNetwork_NetworkX.py)
+        * Implements the [ContactNetwork](ContactNetwork.py) module using
+          the [NetworkX](https://networkx.github.io/) Python package
         * Uses the [ContactNetworkEdge_NetworkX](ContactNetworkEdge_NetworkX.py)
           implementation of the [ContactNetworkEdge](ConContactNetworkEdge.py)
           module
@@ -113,10 +115,24 @@ Module Implementations
         * Requires [NetworkX](https://networkx.github.io/)
 * **[ContactNetworkEdge](ContactNetworkEdge.py)**
     * [ContactNetworkEdge_NetworkX](ContactNetworkEdge_NetworkX.py)
+        * Implements the [ContactNetworkEdge](ContactNetworkEdge.py) module
+          using the [NetworkX](https://networkx.github.io/) Python package
         * Requires [NetworkX](https://networkx.github.io/)
 * **[ContactNetworkNode](ContactNetworkNode.py)**
     * [ContactNetworkNode_NetworkX](ContactNetworkNode_NetworkX.py)
+        * Implements the [ContactNetworkNode](ContactNetworkNode.py) module
+          using the [NetworkX](https://networkx.github.io/) Python package
         * Requires [NetworkX](https://networkx.github.io/)
 * **[Driver](Driver.py)**
     * [Driver_Default](Driver_Default.py)
         * No additional dependencies
+* **[EndCriteria](EndCriteria.py)**
+    * [EndCriteria_FirstTimeTransmission](EndCriteria_FirstTimeTransmission.py)
+        * No additional dependencies
+    * [EndCriteria_Time](EndCriteria_Time.py)
+        * No additional dependencies
+    * [EndCriteria_Transmissions](EndCriteria_Transmissions.py)
+        * No additional dependencies
+* **[NodeEvolution](NodeEvolution.py)**
+    * [NodeEvolution_Dummy]
+        * Dummy implementation ()
