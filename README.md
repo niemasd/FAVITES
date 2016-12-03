@@ -7,7 +7,12 @@ FILL THIS OUT
 Requirements
 ===
 To run FAVITES, you must use [Python 3](https://www.python.org/downloads/). Each
-module implementation may have its own additional dependencies (see below).
+module implementation may have its own additional dependencies (see below). To
+guarantee that your setup works with *all* module implementations, here is a
+comprehensive list of dependencies across all current module implementations:
+* [DendroPy](http://www.dendropy.org/) (any version *should* work, but use the
+  newest version of DendroPy just in case)
+* [NetworkX](https://networkx.github.io/)
 
 Usage
 ===
