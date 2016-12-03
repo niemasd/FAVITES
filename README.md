@@ -22,7 +22,7 @@ a help message listing the arguments using ``run_favites.py -h`` or
 that you can use to test FAVITES. Below is an example in which we run FAVITES
 on [test/example_contact_network.txt](test/example_contact_network.txt)
 using defaults for everything possible, using the
-[EndCriteria_Transmissions.py](EndCriteria_Transmissions.py) module (ending
+[EndCriteria_Transmissions](EndCriteria_Transmissions.py) module (ending
 after 2 transmission events), and using a fixed transmission time delta of 10:
 
 ```
