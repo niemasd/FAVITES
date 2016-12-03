@@ -125,14 +125,65 @@ Module Implementations
         * Requires [NetworkX](https://networkx.github.io/)
 * **[Driver](Driver.py)**
     * [Driver_Default](Driver_Default.py)
+        * The default FAVITES driver
         * No additional dependencies
 * **[EndCriteria](EndCriteria.py)**
     * [EndCriteria_FirstTimeTransmission](EndCriteria_FirstTimeTransmission.py)
+        * The user can specify both an end time *and* a number of transmissions
+          as ending criteria, and the first to be reached will end the
+          simulation
         * No additional dependencies
     * [EndCriteria_Time](EndCriteria_Time.py)
+        * The user can specify an end time, and the simulation will end when the
+          time is reached
         * No additional dependencies
     * [EndCriteria_Transmissions](EndCriteria_Transmissions.py)
+        * The user can specify an ending number of transmissions, and the
+          simulation will end when the number of transmissions is reached
         * No additional dependencies
 * **[NodeEvolution](NodeEvolution.py)**
-    * [NodeEvolution_Dummy]
-        * Dummy implementation ()
+    * [NodeEvolution_Dummy](NodeEvolution_Dummy.py)
+        * Dummy implementation that will be removed once a legitimate
+          implementation is created
+        * No additional dependencies
+* **[NodeSample](NodeSample.py)**
+    * [NodeSample_Perfect](NodeSample_Perfect.py)
+        * Returns the complete transmission network (i.e., assumes perfect
+          epidemiological efforts in sampling the transmission network)
+        * No additional dependencies
+* **[PostValidation](PostValidation.py)**
+    * [PostValidation_Dummy](PostValidation_Dummy.py)
+        * Dummy implementation that will be removed once a legitimate
+          implementation is created
+        * No additional dependencies
+* **[SeedSelection](SeedSelection.py)**
+    * [SeedSelection_Random](SeedSelection_Random.py)
+        * Seed nodes are selected from the set of all nodes in the Contact
+          Network with equal probability
+        * No additional dependencies
+* **[SeedSequence](SeedSequence.py)**
+    * [SeedSequence_Random](SeedSequence_Random.py)
+        * Seed sequences are randomly generated from the DNA alphabet with equal
+          probability for each nucleotide
+        * No additional dependencies
+* **[SourceSample](SourceSample.py)**
+    * [SourceSample_Dummy](SourceSample_Dummy.py)
+        * Dummy implementation that will be removed once a legitimate
+          implementation is created
+        * No additional dependencies
+* **[TransmissionNodeSample](TransmissionNodeSample.py)**
+    * [TransmissionNodeSample_Random](TransmissionNodeSample_Random.py)
+        * For each transmission, the source node is selected from the set of all
+          infected nodes in the Contact Network with equal probability
+        * No additional dependencies
+* **[TransmissionTimeSample](TransmissionTimeSample.py)**
+    * [TransmissionTimeSample_Fixed](TransmissionTimeSample_Fixed.py)
+        * Each transmission occurs a fixed time delta after the previous
+          transmission
+        * No additional dependencies
+* **[Tree](Tree.py)**
+    * [Tree_DendroPy](Tree_DendroPy.py)
+        * Implements the [Tree](Tree.py) module using the
+          [DendroPy](http://www.dendropy.org/) Python package
+        * Requires [DendroPy](http://www.dendropy.org/) (any version *should*
+          work, but use the newest version of DendroPy just in case)

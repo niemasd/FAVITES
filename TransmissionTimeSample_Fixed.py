@@ -2,8 +2,8 @@
 '''
 Niema Moshiri 2016
 
-"TransmissionTimeSample" module, where nodes are randomly selected with equal
-probability
+"TransmissionTimeSample" module, where each transmission occurs a fixed time
+delta after the previous transmission
 '''
 import FAVITES_Global                                     # for global access variables
 from TransmissionTimeSample import TransmissionTimeSample # abstract TransmissionTimeSample class
