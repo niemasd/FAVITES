@@ -7,10 +7,7 @@ FILL THIS OUT
 Requirements
 ===
 To run FAVITES, you must use [Python 3](https://www.python.org/downloads/). Each
-module implementation may have its own additional dependencies:
-* **[ContactNetwork](ContactNetwork.py)**
-    * [ContactNetwork_NetworkX](ContactNetwork_NetworkX.py)
-        * [NetworkX](https://networkx.github.io/)
+module implementation may have its own additional dependencies (see below).
 
 Usage
 ===
@@ -102,3 +99,17 @@ single tab character (i.e., `'\t'`).
     EDGE<TAB>Bill<TAB>Eric<TAB>.<TAB>d
     EDGE<TAB>Curt<TAB>Eric<TAB>Friends<TAB>u
     ```
+
+Module Implementations
+===
+* **[ContactNetwork](ContactNetwork.py)**
+    * [ContactNetwork_NetworkX](ContactNetwork_NetworkX.py)
+        * Uses the [ContactNetworkEdge_NetworkX](ContactNetworkEdge_NetworkX.py)
+          implementation of the [ContactNetworkEdge](ConContactNetworkEdge.py)
+          module
+        * Uses the [ContactNetworkNode_NetworkX](ContactNetworkNode_NetworkX.py)
+          implementation of the [ContactNetworkNode](ConContactNetworkNode.py)
+          module
+        * Requires [NetworkX](https://networkx.github.io/)
+* **[ContactNetwork](ContactNetwork.py)**
+    *
