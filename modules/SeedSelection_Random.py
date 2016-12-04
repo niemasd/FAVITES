@@ -4,10 +4,10 @@ Niema Moshiri 2016
 
 "SeedSelection" module, where seeds are randomly selected with equal probability
 '''
-import FAVITES_Global                     # for global access variables
-from SeedSelection import SeedSelection   # abstract SeedSelection class
-from ContactNetwork import ContactNetwork # to verify contact_network
-from random import sample                 # to randomly sample seed nodes
+from modules import FAVITES_Global                # for global access variables
+from modules.SeedSelection import SeedSelection   # abstract SeedSelection class
+from modules.ContactNetwork import ContactNetwork # to verify contact_network
+from random import sample                         # to randomly sample seed nodes
 
 class SeedSelection_Random(SeedSelection):
     '''

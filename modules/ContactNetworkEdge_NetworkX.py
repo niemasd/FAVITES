@@ -4,9 +4,8 @@ Niema Moshiri 2016
 
 "ContactNetworkEdge" module, implemented with NetworkX
 '''
-from ContactNetworkEdge import ContactNetworkEdge # abstract ContactNetworkEdge class
-from ContactNetworkNode import ContactNetworkNode # to verify nodes
-import networkx as nx                             # using NetworkX to implement
+from modules.ContactNetworkEdge import ContactNetworkEdge # abstract ContactNetworkEdge class
+from modules.ContactNetworkNode import ContactNetworkNode # to verify nodes
 
 class ContactNetworkEdge_NetworkX(ContactNetworkEdge):
     '''

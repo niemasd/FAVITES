@@ -4,8 +4,8 @@ Niema Moshiri 2016
 
 "Tree" module, implemented with DendroPy
 '''
-from Tree import Tree # abstract Tree class
-import dendropy       # using Dendropy to implement
+from modules.Tree import Tree # abstract Tree class
+import dendropy               # using Dendropy to implement
 
 class Tree_DendroPy(Tree):
     '''

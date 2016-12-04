@@ -4,8 +4,8 @@ Niema Moshiri 2016
 
 "NodeSample" module, perfect sampling
 '''
-import FAVITES_Global             # for global access variables
-from NodeSample import NodeSample # abstract NodeSample class
+from modules import FAVITES_Global        # for global access variables
+from modules.NodeSample import NodeSample # abstract NodeSample class
 
 class NodeSample_Perfect(NodeSample):
     def subsample_transmission_network():

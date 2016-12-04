@@ -4,10 +4,10 @@ Niema Moshiri 2016
 
 "ContactNetwork" module, implemented with NetworkX
 '''
-from ContactNetwork import ContactNetwork # abstract ContactNetwork class
-from networkx import DiGraph              # using NetworkX to implement
-from ContactNetworkNode_NetworkX import ContactNetworkNode_NetworkX as Node # Node class
-from ContactNetworkEdge_NetworkX import ContactNetworkEdge_NetworkX as Edge # Edge class
+from networkx import DiGraph                      # using NetworkX to implement
+from modules.ContactNetwork import ContactNetwork # abstract ContactNetwork class
+from modules.ContactNetworkNode_NetworkX import ContactNetworkNode_NetworkX as Node # Node class
+from modules.ContactNetworkEdge_NetworkX import ContactNetworkEdge_NetworkX as Edge # Edge class
 
 class ContactNetwork_NetworkX(ContactNetwork):
     '''

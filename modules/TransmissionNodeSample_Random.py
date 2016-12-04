@@ -5,10 +5,10 @@ Niema Moshiri 2016
 "TransmissionNodeSample" module, where nodes are randomly selected with equal
 probability
 '''
-import FAVITES_Global                                     # for global access variables
-from TransmissionNodeSample import TransmissionNodeSample # abstract TransmissionNodeSample class
-from ContactNetwork import ContactNetwork                 # to verify contact_network
-from random import sample                                 # to randomly sample nodes
+from modules import FAVITES_Global                                # for global access variables
+from modules.TransmissionNodeSample import TransmissionNodeSample # abstract TransmissionNodeSample class
+from modules.ContactNetwork import ContactNetwork                 # to verify contact_network
+from random import sample                                         # to randomly sample nodes
 
 class TransmissionNodeSample_Random(TransmissionNodeSample):
     '''

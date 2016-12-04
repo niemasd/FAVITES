@@ -4,62 +4,62 @@ Niema Moshiri 2016
 Store global variables to be accessible by all FAVITES modules.
 '''
 # ContactNetwork module
-from ContactNetwork import ContactNetwork
-from ContactNetwork_NetworkX import ContactNetwork_NetworkX
+from modules.ContactNetwork import ContactNetwork
+from modules.ContactNetwork_NetworkX import ContactNetwork_NetworkX
 
 # ContactNetworkEdge module
-from ContactNetworkEdge import ContactNetworkEdge
-from ContactNetworkEdge_NetworkX import ContactNetworkEdge_NetworkX
+from modules.ContactNetworkEdge import ContactNetworkEdge
+from modules.ContactNetworkEdge_NetworkX import ContactNetworkEdge_NetworkX
 
 # ContactNetworkNode module
-from ContactNetworkNode import ContactNetworkNode
-from ContactNetworkNode_NetworkX import ContactNetworkNode_NetworkX
+from modules.ContactNetworkNode import ContactNetworkNode
+from modules.ContactNetworkNode_NetworkX import ContactNetworkNode_NetworkX
 
 # Driver module
-from Driver import Driver
-from Driver_Default import Driver_Default
+from modules.Driver import Driver
+from modules.Driver_Default import Driver_Default
 
 # EndCriteria module
-from EndCriteria import EndCriteria
-from EndCriteria_FirstTimeTransmissions import EndCriteria_FirstTimeTransmissions
-from EndCriteria_Time import EndCriteria_Time
-from EndCriteria_Transmissions import EndCriteria_Transmissions
+from modules.EndCriteria import EndCriteria
+from modules.EndCriteria_FirstTimeTransmissions import EndCriteria_FirstTimeTransmissions
+from modules.EndCriteria_Time import EndCriteria_Time
+from modules.EndCriteria_Transmissions import EndCriteria_Transmissions
 
 # NodeEvolution module
-from NodeEvolution import NodeEvolution
-from NodeEvolution_Dummy import NodeEvolution_Dummy
+from modules.NodeEvolution import NodeEvolution
+from modules.NodeEvolution_Dummy import NodeEvolution_Dummy
 
 # NodeSample module
-from NodeSample import NodeSample
-from NodeSample_Perfect import NodeSample_Perfect
+from modules.NodeSample import NodeSample
+from modules.NodeSample_Perfect import NodeSample_Perfect
 
 # PostValidation module
-from PostValidation import PostValidation
-from PostValidation_Dummy import PostValidation_Dummy
+from modules.PostValidation import PostValidation
+from modules.PostValidation_Dummy import PostValidation_Dummy
 
 # SeedSelection module
-from SeedSelection import SeedSelection
-from SeedSelection_Random import SeedSelection_Random
+from modules.SeedSelection import SeedSelection
+from modules.SeedSelection_Random import SeedSelection_Random
 
 # SeedSequence module
-from SeedSequence import SeedSequence
-from SeedSequence_Random import SeedSequence_Random
+from modules.SeedSequence import SeedSequence
+from modules.SeedSequence_Random import SeedSequence_Random
 
 # SourceSample module
-from SourceSample import SourceSample
-from SourceSample_Dummy import SourceSample_Dummy
+from modules.SourceSample import SourceSample
+from modules.SourceSample_Dummy import SourceSample_Dummy
 
 # TransmissionNodeSample module
-from TransmissionNodeSample import TransmissionNodeSample
-from TransmissionNodeSample_Random import TransmissionNodeSample_Random
+from modules.TransmissionNodeSample import TransmissionNodeSample
+from modules.TransmissionNodeSample_Random import TransmissionNodeSample_Random
 
 # TransmissionTimeSample module
-from TransmissionTimeSample import TransmissionTimeSample
-from TransmissionTimeSample_Fixed import TransmissionTimeSample_Fixed
+from modules.TransmissionTimeSample import TransmissionTimeSample
+from modules.TransmissionTimeSample_Fixed import TransmissionTimeSample_Fixed
 
 # Tree module
-from Tree import Tree
-from Tree_DendroPy import Tree_DendroPy
+from modules.Tree import Tree
+from modules.Tree_DendroPy import Tree_DendroPy
 
 def init():
     '''

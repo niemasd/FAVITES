@@ -5,10 +5,10 @@ Niema Moshiri 2016
 "EndCriteria" module, with a stopping criterion of end time or number of
 transmission events (whichever comes first)
 '''
-import FAVITES_Global                                           # for global access variables
-from EndCriteria import EndCriteria                             # abstract EndCriteria class
-from EndCriteria_Time import EndCriteria_Time                   # to reuse code
-from EndCriteria_Transmissions import EndCriteria_Transmissions # to reuse code
+from modules import FAVITES_Global                                      # for global access variables
+from modules.EndCriteria import EndCriteria                             # abstract EndCriteria class
+from modules.EndCriteria_Time import EndCriteria_Time                   # to reuse code
+from modules.EndCriteria_Transmissions import EndCriteria_Transmissions # to reuse code
 
 class EndCriteria_FirstTimeTransmissions(EndCriteria):
     def __init__(self):

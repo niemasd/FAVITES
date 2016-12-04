@@ -4,10 +4,10 @@ Niema Moshiri 2016
 
 "ContactNetworkNode" module, implemented with NetworkX
 '''
-import FAVITES_Global                             # for global access variables
-from ContactNetworkNode import ContactNetworkNode # abstract ContactNetworkNode class
-from Tree import Tree                             # to validate trees
-from networkx import DiGraph                      # to validate graph
+from modules import FAVITES_Global                        # for global access variables
+from modules.ContactNetworkNode import ContactNetworkNode # abstract ContactNetworkNode class
+from modules.Tree import Tree                             # to validate trees
+from networkx import DiGraph                              # to validate graph
 
 class ContactNetworkNode_NetworkX(ContactNetworkNode):
     '''

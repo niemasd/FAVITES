@@ -5,10 +5,10 @@ Niema Moshiri 2016
 "SeedSequence" module, where seed sequences are randomly generated and infect
 the node at time 0
 '''
-import FAVITES_Global                             # for global access variables
-from SeedSequence import SeedSequence             # abstract SeedSequence class
-from ContactNetworkNode import ContactNetworkNode # to verify node
-from random import choice                         # randomly choose nucleotides
+from modules import FAVITES_Global                        # for global access variables
+from modules.SeedSequence import SeedSequence             # abstract SeedSequence class
+from modules.ContactNetworkNode import ContactNetworkNode # to verify node
+from random import choice                                 # randomly choose nucleotides
 
 class SeedSequence_Random(SeedSequence):
     '''

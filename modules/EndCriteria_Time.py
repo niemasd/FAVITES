@@ -4,8 +4,8 @@ Niema Moshiri 2016
 
 "EndCriteria" module, with a stopping criterion of end time
 '''
-import FAVITES_Global               # for global access variables
-from EndCriteria import EndCriteria # abstract EndCriteria class
+from modules import FAVITES_Global          # for global access variables
+from modules.EndCriteria import EndCriteria # abstract EndCriteria class
 
 class EndCriteria_Time(EndCriteria):
     def __init__(self):

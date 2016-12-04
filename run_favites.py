@@ -4,23 +4,23 @@ Niema Moshiri 2016
 
 "Viewer": Command Line Interface for FAVITES
 '''
-import argparse                                           # to parse user arguments
-import os                                                 # to handle file stuff
-from sys import stdout,stdin                              # standard input/output
-import FAVITES_Global                                     # for global access variables
-from ContactNetwork import ContactNetwork                 # ContactNetwork module abstract class
-from ContactNetworkNode import ContactNetworkNode         # ContactNetworkNode module abstract class
-from Driver import Driver                                 # Driver module abstract class
-from EndCriteria import EndCriteria                       # EndCriteria module abstract class
-from NodeEvolution import NodeEvolution                   # NodeEvolution module abstract class
-from NodeSample import NodeSample                         # NodeSample module abstract class
-from PostValidation import PostValidation                 # PostValidation module abstract class
-from SeedSelection import SeedSelection                   # SeedSelection module abstract class
-from SeedSequence import SeedSequence                     # SeedSequence module abstract class
-from SourceSample import SourceSample                     # SourceSample module abstract class
-from TransmissionNodeSample import TransmissionNodeSample # TransmissionNodeSample module abstract class
-from TransmissionTimeSample import TransmissionTimeSample # TransmissionTimeSample module abstract class
-from Tree import Tree                                     # Tree module abstract class
+import argparse                                                   # to parse user arguments
+import os                                                         # to handle file stuff
+from sys import stdout,stdin                                      # standard input/output
+from modules import FAVITES_Global                                # for global access variables
+from modules.ContactNetwork import ContactNetwork                 # ContactNetwork module abstract class
+from modules.ContactNetworkNode import ContactNetworkNode         # ContactNetworkNode module abstract class
+from modules.Driver import Driver                                 # Driver module abstract class
+from modules.EndCriteria import EndCriteria                       # EndCriteria module abstract class
+from modules.NodeEvolution import NodeEvolution                   # NodeEvolution module abstract class
+from modules.NodeSample import NodeSample                         # NodeSample module abstract class
+from modules.PostValidation import PostValidation                 # PostValidation module abstract class
+from modules.SeedSelection import SeedSelection                   # SeedSelection module abstract class
+from modules.SeedSequence import SeedSequence                     # SeedSequence module abstract class
+from modules.SourceSample import SourceSample                     # SourceSample module abstract class
+from modules.TransmissionNodeSample import TransmissionNodeSample # TransmissionNodeSample module abstract class
+from modules.TransmissionTimeSample import TransmissionTimeSample # TransmissionTimeSample module abstract class
+from modules.Tree import Tree                                     # Tree module abstract class
 
 # default settings
 def_ContactNetworkFile           = 'stdin'

@@ -4,17 +4,17 @@ Niema Moshiri 2016
 
 "Driver" module
 '''
-import FAVITES_Global                             # for global access variables
-from Driver import Driver                         # Driver module abstract class
-from ContactNetwork import ContactNetwork         # ContactNetwork module abstract class
-from ContactNetworkNode import ContactNetworkNode # ContactNetworkNode module abstract class
-from NodeEvolution import NodeEvolution           # NodeEvolution module abstract class
-from NodeSample import NodeSample                 # NodeSample module abstract class
-from SeedSelection import SeedSelection           # SeedSelection module abstract class
-from SeedSequence import SeedSequence             # SeedSequence module abstract class
-from Tree import Tree                             # Tree module abstract class
-import os                                         # to write output files
-from sys import stdout                            # to flush print buffer
+from modules import FAVITES_Global                        # for global access variables
+from modules.Driver import Driver                         # Driver module abstract class
+from modules.ContactNetwork import ContactNetwork         # ContactNetwork module abstract class
+from modules.ContactNetworkNode import ContactNetworkNode # ContactNetworkNode module abstract class
+from modules.NodeEvolution import NodeEvolution           # NodeEvolution module abstract class
+from modules.NodeSample import NodeSample                 # NodeSample module abstract class
+from modules.SeedSelection import SeedSelection           # SeedSelection module abstract class
+from modules.SeedSequence import SeedSequence             # SeedSequence module abstract class
+from modules.Tree import Tree                             # Tree module abstract class
+import os                                                 # to write output files
+from sys import stdout                                    # to flush print buffer
 
 class Driver_Default(Driver):
     def run():
@@ -30,8 +30,8 @@ class Driver_Default(Driver):
         orig_dir = os.getcwd()
         out_dir = FAVITES_Global.out_dir
         try:
-            os.makedirs(out_dir) # TODO UNCOMMENT WHEN DONE!!!
-            #pass # TODO REMOVE THIS WHEN DONE!!!
+            #os.makedirs(out_dir) # TODO UNCOMMENT WHEN DONE!!!
+            pass # TODO REMOVE THIS WHEN DONE!!!
         except:
             print("ERROR: Unable to create output folder in current directory. Perhaps it already exists?")
             exit(-1)
