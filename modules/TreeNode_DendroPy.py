@@ -2,7 +2,7 @@
 '''
 Niema Moshiri 2016
 
-"Tree" module, implemented with DendroPy
+"TreeNode" module, implemented with DendroPy
 '''
 from TreeNode import TreeNode # abstract Tree class
 import dendropy               # using Dendropy to implement
@@ -13,10 +13,10 @@ class TreeNode_DendroPy(TreeNode):
 
     Attributes
     ----------
-    tree : Tree
+    tree : TreeNode
         The DendroPy ``Tree'' object to represent this tree
     end_time : int
-        The end time to which this ``Tree'' has been evolved
+        The end time to which this ``TreeNode'' has been evolved
     '''
     def __init__(self):
         import dendropy
@@ -28,15 +28,9 @@ class TreeNode_DendroPy(TreeNode):
 
 def check():
     '''
-    Check ``Tree_DendroPy`` for validity
+    Check ``TreeNode_DendroPy`` for validity
     '''
-    print("--- Testing Tree_DendroPy Module ---")
-    print("Instantiation class: ",end='')
-    tree = Tree_DendroPy()
-    status = "Success"
-    if not isinstance(tree, Tree):
-        status = "Failure"
-    print(status)
+    pass
 
 if __name__ == '__main__':
     '''
