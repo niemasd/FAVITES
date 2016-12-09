@@ -30,12 +30,12 @@ def parseArgs():
 
     # use argparse to parse user arguments
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('-c', '--config', required=True, help="Configuration file")
+    parser.add_argument('-c', '--config', required=True, type=argparse.FileType('r'), help="Configuration file")
     args = parser.parse_args()
 
     # import modules and store in global access variables
-    print("Reading user input configuration from: %r..." % args.config, end='')
-    MF.read_config(eval(open(args.config).read()))
+    print("Reading user input configuration from: %r..." % args.config.name, end='')
+    MF.read_config(eval(args.config.read()))
     print(" done")
 
 if __name__ == "__main__":
