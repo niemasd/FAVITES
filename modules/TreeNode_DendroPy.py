@@ -4,10 +4,10 @@ Niema Moshiri 2016
 
 "Tree" module, implemented with DendroPy
 '''
-from modules.Tree import Tree # abstract Tree class
+from TreeNode import TreeNode # abstract Tree class
 import dendropy               # using Dendropy to implement
 
-class Tree_DendroPy(Tree):
+class TreeNode_DendroPy(TreeNode):
     '''
     Implement the ``Tree`` abstract class using DendroPy
 

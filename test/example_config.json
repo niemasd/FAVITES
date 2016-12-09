@@ -1,0 +1,20 @@
+{
+    "ContactNetwork":                "NetworkX",
+    "Driver":                        "Default",
+    "EndCriteria":                   "Transmissions",
+    "NodeEvolution":                 "Dummy",
+    "NodeSample":                    "Perfect",
+    "PostValidation":                "Dummy",
+    "SeedSelection":                 "Random",
+    "SeedSequence":                  "Random",
+    "SourceSample":                  "Dummy",
+    "TransmissionNodeSample":        "Random",
+    "TransmissionTimeSample":        "Fixed",
+    "TreeNode":                      "DendroPy",
+    "contact_network_file":          "~/GitHub/FAVITES/test/example_contact_network.txt",
+    "end_transmissions":             2,
+    "fixed_transmission_time_delta": 10,
+    "num_seeds":                     1,
+    "out_dir":                       "~/FAVITES_output",
+    "seed_sequence_length":          100
+}

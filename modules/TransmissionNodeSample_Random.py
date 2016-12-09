@@ -5,9 +5,9 @@ Niema Moshiri 2016
 "TransmissionNodeSample" module, where nodes are randomly selected with equal
 probability
 '''
-from modules import FAVITES_Global                                # for global access variables
-from modules.TransmissionNodeSample import TransmissionNodeSample # abstract TransmissionNodeSample class
-from modules.ContactNetwork import ContactNetwork                 # to verify contact_network
+from TransmissionNodeSample import TransmissionNodeSample # abstract TransmissionNodeSample class
+from ContactNetwork import ContactNetwork                 # to verify contact_network
+import FAVITES_GlobalContext as GC
 from random import sample                                         # to randomly sample nodes
 
 class TransmissionNodeSample_Random(TransmissionNodeSample):
@@ -16,6 +16,6 @@ class TransmissionNodeSample_Random(TransmissionNodeSample):
     '''
 
     def sample_nodes():
-        source = sample(FAVITES_Global.contact_network.get_infected_nodes(), 1)[0]
-        target = sample(FAVITES_Global.contact_network.get_uninfected_nodes(), 1)[0]
+        source = sample(GC.contact_network.get_infected_nodes(), 1)[0]
+        target = sample(GC.contact_network.get_uninfected_nodes(), 1)[0]
         return source,target

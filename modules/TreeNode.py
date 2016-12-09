@@ -6,7 +6,7 @@ Niema Moshiri 2016
 '''
 import abc # for abstraction
 
-class Tree(metaclass=abc.ABCMeta): # TODO: Everything (define all functions)
+class TreeNode(metaclass=abc.ABCMeta): # TODO: Everything (define all functions)
     '''
     Abstract class defining a ``Tree`` object
 

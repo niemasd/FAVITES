@@ -4,9 +4,9 @@ Niema Moshiri 2016
 
 "ContactNetworkNode" module, implemented with NetworkX
 '''
-from modules import FAVITES_Global                        # for global access variables
-from modules.ContactNetworkNode import ContactNetworkNode # abstract ContactNetworkNode class
-from modules.Tree import Tree                             # to validate trees
+from ContactNetworkNode import ContactNetworkNode # abstract ContactNetworkNode class
+import FAVITES_GlobalContext as GC
+import modules.FAVITES_ModuleFactory as MF
 from networkx import DiGraph                              # to validate graph
 
 class ContactNetworkNode_NetworkX(ContactNetworkNode):
@@ -62,8 +62,8 @@ class ContactNetworkNode_NetworkX(ContactNetworkNode):
     def infect(self, time, sequence):
         assert isinstance(time, int)
         assert isinstance(sequence, str)
-        Tree = FAVITES_Global.modules['Tree']
-        self.graph.node[self.num]['infections'].append((time, sequence, Tree()))
+        TreeNode = MF.modules['TreeNode']
+        self.graph.node[self.num]['infections'].append((time, sequence, TreeNode()))
         self.infected = True
 
     def is_infected(self):

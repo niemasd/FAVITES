@@ -5,9 +5,9 @@ Niema Moshiri 2016
 "TransmissionTimeSample" module, where each transmission occurs a fixed time
 delta after the previous transmission
 '''
-from modules import FAVITES_Global                                # for global access variables
-from modules.TransmissionTimeSample import TransmissionTimeSample # abstract TransmissionTimeSample class
-from modules.ContactNetworkNode import ContactNetworkNode         # to verify u and v
+from TransmissionTimeSample import TransmissionTimeSample # abstract TransmissionTimeSample class
+from ContactNetworkNode import ContactNetworkNode         # to verify u and v
+import FAVITES_GlobalContext as GC
 from random import sample                                         # to randomly sample seed nodes
 
 class TransmissionTimeSample_Fixed(TransmissionTimeSample):
@@ -16,7 +16,7 @@ class TransmissionTimeSample_Fixed(TransmissionTimeSample):
     '''
 
     def __init__(self):
-        assert FAVITES_Global.fixed_transmission_time_delta != None, "Missing --FixedTransmissionTimeDelta argument"
+        assert GC.fixed_transmission_time_delta != None, "Missing --FixedTransmissionTimeDelta argument"
 
     def sample_time(source,target):
-        return FAVITES_Global.time + FAVITES_Global.fixed_transmission_time_delta
+        return GC.time + GC.fixed_transmission_time_delta

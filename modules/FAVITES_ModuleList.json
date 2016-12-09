@@ -1,0 +1,93 @@
+{
+    "ContactNetwork": {
+        "NetworkX": {
+            "req": ["contact_network_file"]
+        }
+    },
+
+    "ContactNetworkEdge": {
+        "NetworkX": {
+            "req": []
+        }
+    },
+
+    "ContactNetworkNode": {
+        "NetworkX": {
+            "req": []
+        }
+    },
+
+    "Driver": {
+        "Default": {
+            "req": ["out_dir"]
+        }
+    },
+
+    "EndCriteria": {
+        "FirstTimeTransmissions": {
+            "req": ["end_time", "end_transmissions"]
+        },
+
+        "Time": {
+            "req": ["end_time"]
+        },
+
+        "Transmissions": {
+            "req": ["end_transmissions"]
+        }
+    },
+
+    "NodeEvolution": {
+        "Dummy": {
+            "req": []
+        }
+    },
+
+    "NodeSample": {
+        "Perfect": {
+            "req": []
+        }
+    },
+
+    "PostValidation": {
+        "Dummy": {
+            "req": []
+        }
+    },
+
+    "SeedSelection": {
+        "Random": {
+            "req": ["num_seeds"]
+        }
+    },
+
+    "SeedSequence": {
+        "Random": {
+            "req": ["seed_sequence_length"]
+        }
+    },
+
+    "SourceSample": {
+        "Dummy": {
+            "req": []
+        }
+    },
+
+    "TransmissionNodeSample": {
+        "Random": {
+            "req": []
+        }
+    },
+
+    "TransmissionTimeSample": {
+        "Fixed": {
+            "req": ["fixed_transmission_time_delta"]
+        }
+    },
+
+    "TreeNode": {
+        "DendroPy": {
+            "req": []
+        }
+    }
+}

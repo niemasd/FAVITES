@@ -5,9 +5,11 @@ Niema Moshiri 2016
 "ContactNetwork" module, implemented with NetworkX
 '''
 from networkx import DiGraph                      # using NetworkX to implement
-from modules.ContactNetwork import ContactNetwork # abstract ContactNetwork class
-from modules.ContactNetworkNode_NetworkX import ContactNetworkNode_NetworkX as Node # Node class
-from modules.ContactNetworkEdge_NetworkX import ContactNetworkEdge_NetworkX as Edge # Edge class
+from ContactNetwork import ContactNetwork # abstract ContactNetwork class
+from ContactNetworkNode_NetworkX import ContactNetworkNode_NetworkX as Node # Node class
+from ContactNetworkEdge_NetworkX import ContactNetworkEdge_NetworkX as Edge # Edge class
+import FAVITES_GlobalContext as GC
+from os import path
 
 class ContactNetwork_NetworkX(ContactNetwork):
     '''
@@ -30,7 +32,10 @@ class ContactNetwork_NetworkX(ContactNetwork):
     uninfected_nodes : set of ContactNetworkNodes
         Set contianing the nodes that have not yet been infected
     '''
-    def __init__(self, edge_list):
+    def __init__(self):
+        # read edge list from file
+        edge_list = [i.strip() for i in open(path.expanduser(GC.contact_network_file)) if len(i.strip()) > 0]
+
         # set up NetworkX and graph
         self.contact_network = DiGraph()
         self.name_to_num = {}         # map original node names to numbers
