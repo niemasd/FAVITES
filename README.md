@@ -3,4 +3,4 @@
 Because of the modular nature of FAVITES, a single README would become too
 convoluted. As a result, all information, including installation information,
 requirements, usage, file format descriptions, etc., are located in the
-[FAVITES Wiki](../../wiki)
+[FAVITES Wiki](../../wiki).
