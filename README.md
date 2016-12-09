@@ -8,12 +8,5 @@ To run FAVITES, you can use [run_favites.py](run_favites.py). You can print out
 a help message listing the arguments using ``run_favites.py -h`` or
 ``run_favites.py --help``.
 
-We have also included a small example contact network that you can use to test
-FAVITES. Below is an example in which we run FAVITES on
-[test/example_contact_network.txt](test/example_contact_network.txt)
-using defaults for everything possible, using the
-[EndCriteria_Transmissions](../../wiki/Module:-EndCriteria) module (ending
-after 2 transmission events), and using a fixed transmission time delta of 10:
-
-```
-run_favites.py --ContactNetworkFile=test/example_contact_network.txt --EndCriteriaModule=Transmissions --EndTransmissions=2 --FixedTransmissionTimeDelta=10
+We have also included a small example configuration file and contact network in
+[example](example).
