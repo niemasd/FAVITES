@@ -17,3 +17,6 @@ class TransmissionNodeSample_RandomMultiInfection(TransmissionNodeSample):
         while target == source:
             target = sample(GC.contact_network.get_nodes(), 1)[0]
         return source,target
+
+    # THIS UNDERMINES THE CONTACT NETWORK! SHOULD INSTEAD RANDOMLY PICK EDGE
+    # FROM CONTACT NETWORK

@@ -51,7 +51,7 @@ class Driver_Default(Driver):
         # select seed nodes
         print("Selecting seed nodes...", end='')
         stdout.flush()
-        seed_nodes = MF.modules['SeedSelection'].select_seed_nodes()
+        seed_nodes,seed_times = MF.modules['SeedSelection'].select_seeds()
         assert isinstance(seed_nodes, list), "seed_nodes is not a list"
         for node in seed_nodes:
             assert isinstance(node, MF.module_abstract_classes['ContactNetworkNode']), "seed_nodes contains items that are not ContactNetworkNode objects"
@@ -62,11 +62,11 @@ class Driver_Default(Driver):
         print("Infecting seed nodes...", end='')
         stdout.flush()
         GC.root_viruses = []
-        for node in seed_nodes:
+        for i,node in enumerate(seed_nodes):
             seq = MF.modules['SeedSequence'].generate()
             virus = MF.modules['TreeNode'](time=0.0, seq=seq, contact_network_node=node)
             GC.root_viruses.append(virus)
-            node.infect(0.0,virus)
+            node.infect(seed_times[i],virus)
             GC.contact_network.add_to_infected(node)
         print(" done")
 

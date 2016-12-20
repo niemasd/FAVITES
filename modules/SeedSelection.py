@@ -18,7 +18,7 @@ class SeedSelection(metaclass=abc.ABCMeta):
 
     @staticmethod
     @abc.abstractmethod
-    def select_seed_nodes():
+    def select_seeds():
         '''
         Select nodes in ``contact_network'' to use as seed nodes. Will probably
         want to use FAVITES_Global.num_seeds and FAVITES_Global.contact_network.
@@ -27,5 +27,7 @@ class SeedSelection(metaclass=abc.ABCMeta):
         -------
         seed_nodes : list of ContactNetworkNode
             The nodes of the contact network to use as seeds
+        seed_times : list of float
+            The infection times for each seed node
         '''
         pass
