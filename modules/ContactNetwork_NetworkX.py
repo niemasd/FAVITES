@@ -34,6 +34,8 @@ class ContactNetwork_NetworkX(ContactNetwork):
     '''
     def __init__(self):
         # read edge list from file
+        if not hasattr(GC, "contact_network_file"):
+            return
         edge_list = [i.strip() for i in open(path.expanduser(GC.contact_network_file)) if len(i.strip()) > 0]
 
         # set up NetworkX and graph

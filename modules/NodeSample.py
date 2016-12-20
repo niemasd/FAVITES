@@ -24,7 +24,7 @@ class NodeSample(metaclass=abc.ABCMeta):
 
         Returns
         -------
-        nodes : set of ContactNetworkNode
-            A set of subsampled nodes from the transmission network
+        transmissions : list of (u,v,float) tuples
+            A subsampled list of (u,v,time) transmission events
         '''
         pass

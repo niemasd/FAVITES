@@ -16,6 +16,6 @@ def init(reqs):
     '''
 
     global time
-    time = 0
+    time = 0.0
     for req in reqs:
         globals()[req] = reqs[req]

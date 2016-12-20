@@ -150,7 +150,7 @@ class ContactNetwork(metaclass=abc.ABCMeta):
             The source of this transmission event
         v : ContactNetworkNode
             The target of this transmission event
-        time : int
+        time : float
             Time of the transmission event (in seconds from time = 0)
         '''
         pass
@@ -174,7 +174,7 @@ class ContactNetwork(metaclass=abc.ABCMeta):
 
         Returns
         -------
-        num_transmissions : list of (int,int,int) tuples
+        transmissions : list of (int,int,float) tuples
             A list of (u,v,time) transmission events that have happened
         '''
         pass

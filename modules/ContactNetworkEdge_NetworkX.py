@@ -19,7 +19,6 @@ class ContactNetworkEdge_NetworkX(ContactNetworkEdge):
         The ``ContactNetworkNode'' object to which this edge is going
     attr : set of str
         The attribute(s) of this ``ContactNetworkEdge'' object
-
     '''
 
     def __init__(self, u, v, attr):

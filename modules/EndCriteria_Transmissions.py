@@ -8,9 +8,6 @@ from EndCriteria import EndCriteria # abstract EndCriteria class
 import FAVITES_GlobalContext as GC
 
 class EndCriteria_Transmissions(EndCriteria):
-    def __init__(self):
-        assert GC.end_transmissions != None, "Missing --EndTransmissions argument"
-
     def done():
         assert GC.end_transmissions >= 0, "end_transmissions is negative!"
         assert GC.contact_network is not None, "contact_network was never set!"
@@ -18,3 +15,6 @@ class EndCriteria_Transmissions(EndCriteria):
 
     def not_done():
         return not EndCriteria_Transmissions.done()
+
+    def finalize_time():
+        pass

@@ -13,14 +13,16 @@ class SourceSample(metaclass=abc.ABCMeta):
     Methods
     -------
     sample_virus(node)
-        Samples a virus (or viruses) from ``node'' at FAVITES_Global.time.
+        Samples a virus (or viruses) from ``node`` at
+        ``FAVITES_GlobalContext.time``.
     '''
 
     @staticmethod
     @abc.abstractmethod
     def sample_virus(node):
         '''
-        Samples a virus (or viruses) from ``node'' at FAVITES_Global.time.
+        Samples a virus (or viruses) from ``node`` at
+        ``FAVITES_GlobalContext.time``.
 
         Parameters
         ----------
@@ -29,6 +31,8 @@ class SourceSample(metaclass=abc.ABCMeta):
 
         Returns
         -------
-        NOT SURE WHAT TO RETURN!!!!
+        virus : TreeNode
+            A ``TreeNode`` object representing the virus sampled from ``node``
+            at ``FAVITES_GlobalContext.time``.
         '''
         pass

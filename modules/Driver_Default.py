@@ -23,16 +23,19 @@ class Driver_Default(Driver):
         print("\n========================   Simulation Process  ========================")
         print("Beginning simulations...")
         orig_dir = os.getcwd()
-        out_dir = GC.out_dir
+        out_dir = os.path.expanduser(GC.out_dir)
         try:
-            #os.makedirs(out_dir) # TODO UNCOMMENT WHEN DONE!!!
-            pass # TODO REMOVE THIS WHEN DONE!!!
+            os.makedirs(out_dir)
+            pass
         except:
             print("ERROR: Unable to create output folder in current directory. Perhaps it already exists?")
             exit(-1)
-        #os.chdir(out_dir) # TODO UNCOMMENT WHEN DONE!!!
-        #os.makedirs("error_free_files") # TODO UNCOMMENT WHEN DONE!!!
-        #os.makedirs("error_prone_files") # TODO UNCOMMENT WHEN DONE!!!
+        os.chdir(out_dir)
+        os.makedirs("error_free_files")
+        os.makedirs("error_free_files/phylogenetic_trees")
+        os.makedirs("error_free_files/sequence_data")
+        os.makedirs("error_prone_files")
+        os.makedirs("error_prone_files/sequence_data")
 
         # create ContactNetwork object from input contact network edge list
         print("Reading contact network from: %r..." % GC.contact_network_file, end='')
@@ -55,55 +58,119 @@ class Driver_Default(Driver):
         # infect seed nodes
         print("Infecting seed nodes...", end='')
         stdout.flush()
+        GC.root_viruses = []
         for node in seed_nodes:
             seq = MF.modules['SeedSequence'].generate()
-            node.infect(0,seq)
+            virus = MF.modules['TreeNode'](time=0.0, seq=seq, contact_network_node=node)
+            GC.root_viruses.append(virus)
+            node.infect(0.0,virus)
             GC.contact_network.add_to_infected(node)
         print(" done")
 
         # iterative step of transmissions
         print("Performing transmission simulations...", end='')
         stdout.flush()
-        while MF.modules['EndCriteria'].not_done():
-            u,v = MF.modules['TransmissionNodeSample'].sample_nodes()
-            t = MF.modules['TransmissionTimeSample'].sample_time(u,v)
+        while True:
+            t = MF.modules['TransmissionTimeSample'].sample_time()
             assert t >= GC.time, "Transmission cannot go back in time!"
-            MF.time = t
+            GC.time = t
+            if MF.modules['EndCriteria'].done():
+                break
+            u,v = MF.modules['TransmissionNodeSample'].sample_nodes(t)
             MF.modules['NodeEvolution'].evolve_to_current_time(u)
-            seq = MF.modules['SourceSample'].sample_virus(u)
-            v.infect(MF.time, seq)
+            virus = MF.modules['SourceSample'].sample_virus(u)
+            u.remove_virus(virus)
+            v.infect(GC.time, virus)
             GC.contact_network.add_transmission(u,v,t)
         print(" done")
 
-        # evolve all infected nodes to final time
-        print("Evolving all nodes to final time...", end='')
-        for node in GC.contact_network.get_infected_nodes():
+        # finalize global time
+        print("Finalizing simulations...", end='')
+        stdout.flush()
+        MF.modules['EndCriteria'].finalize_time()
+        nodes = [node for node in GC.contact_network.get_infected_nodes()]
+        for node in nodes:
             MF.modules['NodeEvolution'].evolve_to_current_time(node)
-        print(" done")
+            MF.modules['SequenceEvolution'].evolve_to_current_time(node)
+        print(" done\n")
+
+        # get leaves
+        leaves = [[leaf for leaf in node.viruses()] for node in nodes]
+        for l in leaves:
+            for leaf in l:
+                assert abs(leaf.get_time()-GC.time) < 0.0000000000001, "Encountered a tree with leaves not at end time!"
 
         # output error-free files
         print("\n========================   Simulation Output   ========================")
 
         # post-validation of transmission network
         print("Scoring final transmission network...", end='')
+        stdout.flush()
+        transmissions = GC.contact_network.get_transmissions()
+        assert isinstance(transmissions, list), "get_transmissions() did not return a list!"
+        for u,v,t in transmissions:
+            assert isinstance(u, MF.module_abstract_classes['ContactNetworkNode']), "get_transmissions() contains an invalid transmission event"
+            assert isinstance(v, MF.module_abstract_classes['ContactNetworkNode']), "get_transmissions() contains an invalid transmission event"
+            assert isinstance(t, float), "get_transmissions() contains an invalid transmission event"
         score = MF.modules['PostValidation'].score_transmission_network()
         print(" done")
         print("Transmission network had a final score of: %f" % score)
 
         # write transmission network as edge list
         print("Writing true transmission network to file...", end='')
-        transmissions = GC.contact_network.get_transmissions()
-        assert isinstance(transmissions, list), "get_transmissions() did not return a list!"
-        for u,v,t in transmissions:
-            assert isinstance(u, MF.module_abstract_classes['ContactNetworkNode']), "get_transmissions() contains an invalid transmission event"
-            assert isinstance(v, MF.module_abstract_classes['ContactNetworkNode']), "get_transmissions() contains an invalid transmission event"
-            assert isinstance(t, int), "get_transmissions() contains an invalid transmission event"
+        stdout.flush()
         true_transmission_network = '\n'.join([("%s\t%s\t%d" % e) for e in transmissions])
-        #f = open('error_free_files/transmission_network.txt','w')
-        #f.write(true_transmission_network)
-        #f.close()
+        f = open('error_free_files/transmission_network.txt','w')
+        for e in transmissions:
+            f.write("%s\t%s\t%d\n" % e)
+        f.close()
         print(" done")
-        print("True transmission network was written to: %s/Output/error_free_files/transmission_network.txt" % orig_dir)
+        print("True transmission network was written to: %s/error_free_files/transmission_network.txt" % out_dir)
+        print()
+
+        # post-validation of phylogenetic trees
+        print("Scoring final phylogenetic trees...")
+        stdout.flush()
+        true_trees = [root.newick() for root in GC.root_viruses]
+        scores = [0 for i in range(len(true_trees))]
+        for i,tree in enumerate(true_trees):
+            scores[i] = MF.modules['PostValidation'].score_phylogenetic_tree(tree)
+            print("Phylogenetic tree %d had a final score of: %f" % (i,scores[i]))
+
+        # write phylogenetic trees as Newick files
+        print("Writing true phylogenetic trees to files...", end='')
+        stdout.flush()
+        for i,tree in enumerate(true_trees):
+            f = open('error_free_files/phylogenetic_trees/tree_%d.tre' % i,'w')
+            f.write(tree)
+            f.close()
+        print(" done")
+        print("True phylogenetic trees were written to: %s/error_free_files/phylogenetic_trees/" % out_dir)
+        print()
+
+        # post-validation of sequence data
+        print("Scoring final sequence data...")
+        stdout.flush()
+        seq_data = [[leaf.get_seq() for leaf in l] for l in leaves]
+        for seqs in seq_data:
+            for seq in seqs:
+                assert seq is not None, "Encountered a leaf without a sequence!"
+        scores = [0 for i in range(len(seq_data))]
+        for i,seqs in enumerate(seq_data):
+            scores[i] = MF.modules['PostValidation'].score_sequences(seqs)
+            print("Sequence data from individual %r had a final score of: %f" % (nodes[i].get_name(),scores[i]))
+
+        # write sequence data as FASTA files
+        print("Writing true sequence data to files...", end='')
+        stdout.flush()
+        for i,seqs in enumerate(seq_data):
+            f = open('error_free_files/sequence_data/seqs_%s.fasta' % nodes[i].get_name(), 'w')
+            for j,seq in enumerate(seqs):
+                f.write('>%s\n%s\n' % (leaves[i][j].get_label(),seq))
+            f.close()
+        print(" done")
+        print("True sequence data were written to: %s/error_free_files/sequence_data/" % out_dir)
+        print()
 
         # introduce real data artifacts
         print("\n=======================   Real Data Artifacts   =======================")
@@ -111,18 +178,33 @@ class Driver_Default(Driver):
         # subsample the transmission network
         print("Subsampling transmission network...", end='')
         subsampled_transmissions = MF.modules['NodeSample'].subsample_transmission_network()
-        for u,v,t in subsampled_transmissions:
+        for node in subsampled_transmissions:
             assert isinstance(u, MF.module_abstract_classes['ContactNetworkNode']), "subsample_transmission_network() contains an invalid transmission event"
             assert isinstance(v, MF.module_abstract_classes['ContactNetworkNode']), "subsample_transmission_network() contains an invalid transmission event"
-            assert isinstance(t, int), "subsample_transmission_network() contains an invalid transmission event"
+            assert isinstance(t, float), "subsample_transmission_network() contains an invalid transmission event"
         print(" done")
         print("Writing subsampled transmission network to file...", end='')
+        stdout.flush()
         subsampled_transmission_network = '\n'.join([("%s\t%s\t%d" % e) for e in subsampled_transmissions])
-        #f = open('error_prone_files/transmission_network.txt','w')
-        #f.write(subsampled_transmission_network)
-        #f.close()
+        f = open('error_prone_files/transmission_network.txt','w')
+        for e in subsampled_transmissions:
+            f.write("%s\t%s\t%d\n" % e)
+        f.close()
         print(" done")
-        print("Subsampled transmission network was written to: %s/Output/error_prone_files/transmission_network.txt" % orig_dir)
+        print("Subsampled transmission network was written to: %s/error_prone_files/transmission_network.txt" % out_dir)
+
+        # introduce sequencing error
+        print("Introducing sequence data sampling error...",end='')
+        subsampled_nodes = set()
+        for u,v,t in subsampled_transmissions:
+            subsampled_nodes.add(u)
+            subsampled_nodes.add(v)
+        for i,node in enumerate(subsampled_nodes):
+            f = open('error_prone_files/sequence_data/seqs_%s.fastq' % node.get_name(), 'w')
+            f.write(MF.modules['SequencingError'].introduce_sequencing_error(node))
+            f.close()
+        print(" done")
+        print("Error prone sequence data were written to: %s/error_prone_files/sequence_data/" % out_dir)
 
         # return to original directory
         os.chdir(orig_dir)

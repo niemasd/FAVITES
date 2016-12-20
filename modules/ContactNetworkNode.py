@@ -12,18 +12,27 @@ class ContactNetworkNode(metaclass=abc.ABCMeta):
 
     Methods
     -------
+    add_virus(virus)
+        Add ``virus'' to this ``ContactNetworkNode'' (NOT for infection, but for
+        viral evolution! Should be at current time)
     get_attribute()
         Return the attribute(s) of this ``ContactNetworkNode'' object
     get_infection()
-        Return a list of infection(s) as (time,initial_sequence,tree) tuples
+        Return a list of infection(s) as (time, virus) tuples
     get_name()
         Return the name of this ``ContactNetworkNode'' object
-    infect(time, sequence)
-        Infect this ``ContactNetworkNode'' object with ``sequence'' at ``time''
+    infect(time, virus)
+        Infect this ``ContactNetworkNode'' object with ``virus'' at ``time''
     is_infected()
         Return True if this node is infected, otherwise False
     num_infections()
         Return the number of infections
+    remove_virus(virus)
+        Remove ``virus'' from this ``ContactNetworkNode'' (should be at current
+        time)
+    viruses()
+        Iterate over the viruses that exist in this ``ContactNetworkNode''
+        object at the current time
     '''
 
     @abc.abstractmethod
@@ -59,9 +68,9 @@ class ContactNetworkNode(metaclass=abc.ABCMeta):
 
         Returns
         -------
-        infections : list of tuples
+        infections : list of (float, TreeNode) tuples
             The infections of this ``ContactNetworkNode'' object as
-            (time,sequence) tuples
+            (time, virus) tuples
         '''
         pass
 
@@ -85,7 +94,7 @@ class ContactNetworkNode(metaclass=abc.ABCMeta):
 
         Parameters
         ----------
-        time : int
+        time : float
             The time of infection
         sequence : str
             The infecting virus sequence
@@ -101,5 +110,38 @@ class ContactNetworkNode(metaclass=abc.ABCMeta):
         -------
         infected : bool
             True if this node is infected, otherwise False
+        '''
+        pass
+
+    @abc.abstractmethod
+    def add_virus(self, virus):
+        '''
+        Add ``virus'' to this ``ContactNetworkNode'' (NOT for infection, but for
+        viral evolution! Should be at current time)
+
+        Parameters
+        ----------
+        virus : TreeNode
+            The virus to add to this node (should be at current time)
+        '''
+        pass
+
+    @abc.abstractmethod
+    def remove_virus(self, virus):
+        '''
+        Return ``virus'' from this node
+
+        Parameters
+        ----------
+        virus : TreeNode
+            The virus to remove from this node (should be at current time)
+        '''
+        pass
+
+    @abc.abstractmethod
+    def viruses(self):
+        '''
+        Iterate over the viruses that exist in this ``ContactNetworkNode''
+        object at the current time
         '''
         pass

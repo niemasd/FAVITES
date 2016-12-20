@@ -14,6 +14,8 @@ class EndCriteria(metaclass=abc.ABCMeta):
     -------
     done()
         Returns True if this simulation is done, or False otherwise
+    finalize_time()
+        Finalize the global time
     not_done()
         Returns True if this simulation is not done, or False otherwise
     '''
@@ -28,6 +30,14 @@ class EndCriteria(metaclass=abc.ABCMeta):
         -------
         done : bool
             True if this simulation is done, or False otherwise
+        '''
+        pass
+
+    @staticmethod
+    @abc.abstractmethod
+    def finalize_time():
+        '''
+        Finalize the global time
         '''
         pass
 

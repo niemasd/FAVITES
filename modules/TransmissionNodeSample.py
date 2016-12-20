@@ -12,15 +12,20 @@ class TransmissionNodeSample(metaclass=abc.ABCMeta):
 
     Methods
     -------
-    sampleNodes()
-        Returns two nodes to be involved in a transmission event
+    sampleNodes(time)
+        Returns two nodes to be involved in a transmission event at ``time''
     '''
 
     @staticmethod
     @abc.abstractmethod
-    def sample_nodes():
+    def sample_nodes(time):
         '''
-        Returns two nodes to be involved in a transmission event
+        Returns two nodes to be involved in a transmission event at ``time''
+
+        Parameters
+        ----------
+        time : float
+            The time at which this transmission event will take place
 
         Returns
         -------

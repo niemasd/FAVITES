@@ -12,28 +12,19 @@ class TransmissionTimeSample(metaclass=abc.ABCMeta):
 
     Methods
     -------
-    sample_time(source, target)
-        Returns the time of the next transmission event, which is between
-        ``source'' and ``target''
+    sample_time()
+        Returns the time of the next transmission event
     '''
 
     @staticmethod
     @abc.abstractmethod
-    def sample_time(source, target):
+    def sample_time():
         '''
-        Returns the time of the next transmission event, which is between
-        ``source'' and ``target''
-
-        Parameters
-        ----------
-        source : ContactNetworkNode
-            The node that is the source of the transmission
-        target : ContactNetworkNode
-            The node that is the target of the transmission
+        Returns the time of the next transmission event
 
         Returns
         -------
-        time : int
+        time : float
             Time of the transmission event (in seconds from time = 0)
         '''
         pass

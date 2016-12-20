@@ -43,6 +43,9 @@ class ContactNetworkNode_NetworkX(ContactNetworkNode):
         self.name = name
         self.num = num
         self.infected = False
+        if not hasattr(GC, 'viruses'):
+            GC.viruses = {}
+        GC.viruses[self.num] = set()
 
     def __str__(self):
         return self.name
@@ -59,15 +62,30 @@ class ContactNetworkNode_NetworkX(ContactNetworkNode):
     def num_infections(self):
         return len(self.get_infections())
 
-    def infect(self, time, sequence):
-        assert isinstance(time, int)
-        assert isinstance(sequence, str)
+    def infect(self, time, virus):
+        assert isinstance(time, float)
+        assert isinstance(virus, MF.module_abstract_classes['TreeNode'])
+        assert time == virus.get_time(), "Virus time and transmission time do not match!"
         TreeNode = MF.modules['TreeNode']
-        self.graph.node[self.num]['infections'].append((time, sequence, TreeNode()))
+        self.graph.node[self.num]['infections'].append((time, virus))
+        virus.set_contact_network_node(self)
+        GC.viruses[self.num].add(virus)
         self.infected = True
 
     def is_infected(self):
         return self.infected
+
+    def add_virus(self, virus):
+        assert virus.get_contact_network_node() == self, "Cannot add a virus to a node it's not in"
+        GC.viruses[self.num].add(virus)
+
+    def remove_virus(self, virus):
+        assert virus.get_contact_network_node() == self, "Cannot remove a virus from a node it's not in"
+        GC.viruses[self.num].remove(virus)
+
+    def viruses(self):
+        for virus in GC.viruses[self.num]:
+            yield virus
 
 if __name__ == '__main__':
     '''

@@ -2,18 +2,18 @@
 '''
 Niema Moshiri 2016
 
-"NodeEvolution" module
+"SequenceEvolution" module
 '''
 import abc # for abstraction
 
-class NodeEvolution(metaclass=abc.ABCMeta):
+class SequenceEvolution(metaclass=abc.ABCMeta):
     '''
-    Abstract class defining the ``NodeEvolution`` module
+    Abstract class defining the ``SequenceEvolution`` module
 
     Methods
     -------
     evolve_to_current_time(node)
-        Simulate phylogeny evolution on ``node''
+        Simulate sequence evolution on ``node''
     '''
 
     @staticmethod

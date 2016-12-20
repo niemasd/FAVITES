@@ -38,8 +38,11 @@
     },
 
     "NodeEvolution": {
-        "Dummy": {
-            "req": []
+        "DualBirth": {
+            "req": ["rate_A", "rate_B"]
+        },
+        "Yule": {
+            "req": ["rate"]
         }
     },
 
@@ -67,14 +70,26 @@
         }
     },
 
+    "SequenceEvolution": {
+        "NoMutation": {
+            "req": []
+        }
+    },
+
+    "SequencingError": {
+        "Perfect": {
+            "req": []
+        }
+    },
+
     "SourceSample": {
-        "Dummy": {
+        "Random": {
             "req": []
         }
     },
 
     "TransmissionNodeSample": {
-        "Random": {
+        "RandomMultiInfection": {
             "req": []
         }
     },
@@ -86,7 +101,7 @@
     },
 
     "TreeNode": {
-        "DendroPy": {
+        "Simple": {
             "req": []
         }
     }
