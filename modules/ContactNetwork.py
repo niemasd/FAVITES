@@ -19,6 +19,8 @@ class ContactNetwork(metaclass=abc.ABCMeta):
         Add transmission event (u,v,time) to this ``ContactNetwork''
     edges_iter()
         Perform an iteration over the edges in this ``ContactNetwork''
+    get_edges_from(node)
+        Return a list of edges leaving ``node''
     get_infected_nodes()
         Return a set of all infected nodes in this ``ContactNetwork''
     get_nodes()
@@ -136,6 +138,18 @@ class ContactNetwork(metaclass=abc.ABCMeta):
         -------
         num_edges : int
             The number of edges in this `ContactNetwork`
+        '''
+        pass
+
+    @abc.abstractmethod
+    def get_edges_from(self, node):
+        '''
+        Return a list of edges leaving ``node''
+
+        Returns
+        -------
+        edges : list of ContactNetworkEdge
+            A list of edges leaving ``node''
         '''
         pass
 

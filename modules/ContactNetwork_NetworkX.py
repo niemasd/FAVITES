@@ -135,6 +135,10 @@ class ContactNetwork_NetworkX(ContactNetwork):
             v = Node(self.contact_network, self.num_to_name[vNum], vNum)
             yield Edge(u,v,attr)
 
+    def get_edges_from(self, node):
+        nx_edges = self.contact_network.edges(self.name_to_num[node.get_name()])
+        return [Edge(node, Node(self.contact_network, self.num_to_name[vNum], vNum), self.contact_network.edge[uNum][vNum]['attribute']) for uNum,vNum in nx_edges]
+
     def get_transmissions(self):
         return self.transmissions
 
