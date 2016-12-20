@@ -8,7 +8,7 @@
     "SeedSelection":                 "Random",
     "SeedSequence":                  "Random",
     "SequenceEvolution":             "NoMutation",
-    "SequencingError":               "Perfect",
+    "Sequencing":                    "Perfect",
     "SourceSample":                  "Random",
     "TransmissionNodeSample":        "RandomMultiInfection",
     "TransmissionTimeSample":        "Fixed",

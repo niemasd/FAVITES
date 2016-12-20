@@ -2,12 +2,12 @@
 '''
 Niema Moshiri 2016
 
-"SequencingError" module, perfect sequencing
+"Sequencing" module, perfect sequencing
 '''
-from SequencingError import SequencingError # abstract SequencingError class
+from Sequencing import Sequencing # abstract Sequencing class
 import FAVITES_GlobalContext as GC
 
-class SequencingError_Perfect(SequencingError):
+class Sequencing_Perfect(Sequencing):
     def introduce_sequencing_error(node):
         l = [leaf for leaf in node.viruses()]
         seq_data = [leaf.get_seq() for leaf in l]

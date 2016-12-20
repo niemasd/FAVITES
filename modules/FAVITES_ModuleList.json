@@ -76,7 +76,7 @@
         }
     },
 
-    "SequencingError": {
+    "Sequencing": {
         "Perfect": {
             "req": []
         }

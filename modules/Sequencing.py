@@ -2,13 +2,13 @@
 '''
 Niema Moshiri 2016
 
-"SequencingError" module
+"Sequencing" module
 '''
 import abc # for abstraction
 
-class SequencingError(metaclass=abc.ABCMeta):
+class Sequencing(metaclass=abc.ABCMeta):
     '''
-    Abstract class defining the ``SequencingError`` module
+    Abstract class defining the ``Sequencing`` module
 
     Methods
     -------
