@@ -24,6 +24,8 @@ class Driver_Default(Driver):
         print("Beginning simulations...")
         orig_dir = os.getcwd()
         out_dir = os.path.expanduser(GC.out_dir)
+        print("Attempting to create the user-specified output directory: %r..." % out_dir, end='')
+        stdout.flush()
         try:
             os.makedirs(out_dir)
             pass
@@ -36,9 +38,10 @@ class Driver_Default(Driver):
         os.makedirs("error_free_files/sequence_data")
         os.makedirs("error_prone_files")
         os.makedirs("error_prone_files/sequence_data")
+        print(" done")
 
         # create ContactNetwork object from input contact network edge list
-        print("Reading contact network from: %r..." % GC.contact_network_file, end='')
+        print("Reading contact network from: %r..." % os.path.expanduser(GC.contact_network_file), end='')
         stdout.flush()
         contact_network = MF.modules['ContactNetwork']()
         assert isinstance(contact_network, MF.module_abstract_classes['ContactNetwork']), "contact_network is not a ContactNetwork object"

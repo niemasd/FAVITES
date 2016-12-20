@@ -17,7 +17,7 @@
     "end_transmissions":             5,
     "fixed_transmission_time_delta": 1,
     "num_seeds":                     1,
-    "out_dir":                       "~/Desktop/FAVITES_output",
+    "out_dir":                       "~/FAVITES_output",
     "rate":                          1,
     "seed_sequence_length":          100
 }
