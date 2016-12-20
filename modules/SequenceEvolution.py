@@ -30,6 +30,9 @@ class SequenceEvolution(metaclass=abc.ABCMeta):
         node's tree(s) should continue from where they left off last time and
         evolve until the current time.
 
+        If finalize == True, that means we have finalized the transmission
+        network, so evolve to final time.
+
         Parameters
         ----------
         node : ContactNetworkNode
