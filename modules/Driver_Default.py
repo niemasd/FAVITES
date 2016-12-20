@@ -30,7 +30,7 @@ class Driver_Default(Driver):
             os.makedirs(out_dir)
             pass
         except:
-            print("ERROR: Unable to create output folder in current directory. Perhaps it already exists?")
+            print("ERROR: Unable to create the output directory. Perhaps it already exists?")
             exit(-1)
         os.chdir(out_dir)
         os.makedirs("error_free_files")
