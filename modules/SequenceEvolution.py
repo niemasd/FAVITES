@@ -18,7 +18,7 @@ class SequenceEvolution(metaclass=abc.ABCMeta):
 
     @staticmethod
     @abc.abstractmethod
-    def evolve_to_current_time(node):
+    def evolve_to_current_time(node, finalize=False):
         '''
         Simulate phylogeny evolution on ``node'' until FAVITES_Global.time.
 

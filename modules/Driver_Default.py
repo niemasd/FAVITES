@@ -93,8 +93,8 @@ class Driver_Default(Driver):
         MF.modules['EndCriteria'].finalize_time()
         nodes = [node for node in GC.contact_network.get_infected_nodes()]
         for node in nodes:
-            MF.modules['NodeEvolution'].evolve_to_current_time(node)
-            MF.modules['SequenceEvolution'].evolve_to_current_time(node)
+            MF.modules['NodeEvolution'].evolve_to_current_time(node, finalize=True)
+            MF.modules['SequenceEvolution'].evolve_to_current_time(node, finalize=True)
         print(" done\n")
 
         # get leaves

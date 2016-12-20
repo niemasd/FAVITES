@@ -11,7 +11,7 @@ from numpy.random import exponential
 import queue as Q
 
 class NodeEvolution_DualBirth(NodeEvolution):
-    def evolve_to_current_time(node):
+    def evolve_to_current_time(node, finalize=False):
         TreeNode = MF.modules['TreeNode']
         viruses = [virus for virus in node.viruses()]
         for virus in viruses:

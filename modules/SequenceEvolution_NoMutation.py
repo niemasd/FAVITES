@@ -9,7 +9,7 @@ from SequenceEvolution import SequenceEvolution # abstract SequenceEvolution cla
 import FAVITES_GlobalContext as GC
 
 class SequenceEvolution_NoMutation(SequenceEvolution):
-    def evolve_to_current_time(node):
+    def evolve_to_current_time(node, finalize=False):
         for time,virus in node.get_infections():
             for leaf in virus.leaves():
                 leaf.set_seq(leaf.get_root().get_seq())
