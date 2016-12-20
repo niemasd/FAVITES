@@ -115,9 +115,9 @@ class Driver_Default(Driver):
             assert isinstance(u, MF.module_abstract_classes['ContactNetworkNode']), "get_transmissions() contains an invalid transmission event"
             assert isinstance(v, MF.module_abstract_classes['ContactNetworkNode']), "get_transmissions() contains an invalid transmission event"
             assert isinstance(t, float), "get_transmissions() contains an invalid transmission event"
-        score = MF.modules['PostValidation'].score_transmission_network()
+        score = str(MF.modules['PostValidation'].score_transmission_network())
         print(" done")
-        print("Transmission network had a final score of: %f" % score)
+        print("Transmission network had a final score of: %s" % score)
 
         # write transmission network as edge list
         print("Writing true transmission network to file...", end='')
@@ -137,8 +137,8 @@ class Driver_Default(Driver):
         true_trees = [root.newick() for root in GC.root_viruses]
         scores = [0 for i in range(len(true_trees))]
         for i,tree in enumerate(true_trees):
-            scores[i] = MF.modules['PostValidation'].score_phylogenetic_tree(tree)
-            print("Phylogenetic tree %d had a final score of: %f" % (i,scores[i]))
+            scores[i] = str(MF.modules['PostValidation'].score_phylogenetic_tree(tree))
+            print("Phylogenetic tree %d had a final score of: %s" % (i,scores[i]))
 
         # write phylogenetic trees as Newick files
         print("Writing true phylogenetic trees to files...", end='')
@@ -160,8 +160,8 @@ class Driver_Default(Driver):
                 assert seq is not None, "Encountered a leaf without a sequence!"
         scores = [0 for i in range(len(seq_data))]
         for i,seqs in enumerate(seq_data):
-            scores[i] = MF.modules['PostValidation'].score_sequences(seqs)
-            print("Sequence data from individual %r had a final score of: %f" % (nodes[i].get_name(),scores[i]))
+            scores[i] = str(MF.modules['PostValidation'].score_sequences(seqs))
+            print("Sequence data from individual %r had a final score of: %s" % (nodes[i].get_name(),scores[i]))
 
         # write sequence data as FASTA files
         print("Writing true sequence data to files...", end='')

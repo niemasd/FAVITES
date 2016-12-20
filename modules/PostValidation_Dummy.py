@@ -8,10 +8,10 @@ from PostValidation import PostValidation # abstract PostValidation class
 
 class PostValidation_Dummy(PostValidation):
     def score_transmission_network():
-        return 0
+        return "DUMMY"
 
     def score_phylogenetic_tree(tree):
-        return 0
+        return "DUMMY"
 
     def score_sequences(seqs):
-        return 0
+        return "DUMMY"
