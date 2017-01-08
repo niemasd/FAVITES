@@ -81,6 +81,10 @@
     "SeedSequence": {
         "Random": {
             "req": ["seed_sequence_length"]
+        },
+
+        "User": {
+            "req": ["num_seeds", "seed_seqs"]
         }
     },
 
