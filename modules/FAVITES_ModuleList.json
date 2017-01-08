@@ -47,6 +47,10 @@
     },
 
     "NodeSample": {
+        "Bernoulli": {
+            "req": ["node_sample_prob"]
+        },
+
         "Perfect": {
             "req": []
         }
@@ -95,12 +99,12 @@
     },
 
     "TransmissionTimeSample": {
-        "Fixed": {
-            "req": ["fixed_transmission_time_delta"]
-        },
-
         "Exponential": {
             "req": ["time_sample_rate"]
+        },
+
+        "Fixed": {
+            "req": ["fixed_transmission_time_delta"]
         }
     },
 

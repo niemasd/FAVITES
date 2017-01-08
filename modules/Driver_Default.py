@@ -13,7 +13,7 @@ from sys import stdout                                    # to flush print buffe
 class Driver_Default(Driver):
     def init():
         pass
-        
+
     def run():
         '''
         Simulation driver. Even if you add your own modules, you probably shouldn't
@@ -24,6 +24,10 @@ class Driver_Default(Driver):
 
         # begin simulation
         print("\n========================   Simulation Process  ========================")
+        print("Initializing modules...", end='')
+        for module in MF.modules:
+            MF.modules[module].init()
+        print(" done")
         print("Beginning simulations...")
         orig_dir = os.getcwd()
         out_dir = os.path.expanduser(GC.out_dir)

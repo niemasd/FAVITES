@@ -12,8 +12,9 @@ import queue as Q
 
 class NodeEvolution_DualBirth(NodeEvolution):
     def init():
-        pass
-        
+        GC.rate_A = float(GC.rate_A)
+        GC.rate_B = float(GC.rate_B)
+
     def evolve_to_current_time(node, finalize=False):
         TreeNode = MF.modules['TreeNode']
         viruses = [virus for virus in node.viruses()]
