@@ -24,6 +24,10 @@ class ContactNetworkGenerator_RandomNumsNodeEdge(ContactNetworkGenerator):
         if GC.num_cn_edges > GC.num_cn_nodes * (GC.num_cn_nodes - 1):
             print("ERROR: If there are n contact network nodes, there cannot be more than n*(n-1) edges")
             exit(-1)
+        GC.d_or_u = GC.d_or_u.strip()
+        if GC.d_or_u != 'd' and GC.d_or_u != 'u':
+            print('ERROR: "d_or_u" must be either "d" or "u"')
+            exit(-1)
 
     def get_edge_list():
         nodes = [str(i) for i in range(GC.num_cn_nodes)]
@@ -32,7 +36,7 @@ class ContactNetworkGenerator_RandomNumsNodeEdge(ContactNetworkGenerator):
         for _ in range(GC.num_cn_edges):
             edge = sample(poss_edges,1)[0]
             poss_edges.remove(edge)
-            out.append("EDGE\t" + edge[0] + "\t" + edge[1] + "\t.\td")
+            out.append("EDGE\t" + edge[0] + "\t" + edge[1] + "\t.\t" + GC.d_or_u)
         f = open(path.expanduser(GC.out_dir + "/contact_network.txt"),'w')
         f.write('\n'.join(out))
         f.close()
