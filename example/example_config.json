@@ -1,5 +1,6 @@
 {
     "ContactNetwork":                "NetworkX",
+    "ContactNetworkGenerator":       "File",
     "Driver":                        "Default",
     "EndCriteria":                   "Transmissions",
     "NodeEvolution":                 "Yule",
@@ -18,6 +19,6 @@
     "fixed_transmission_time_delta": 1,
     "num_seeds":                     1,
     "out_dir":                       "~/FAVITES_output",
-    "yule_rate":                     1,
-    "seed_sequence_length":          100
+    "seed_sequence_length":          100,
+    "yule_rate":                     1
 }

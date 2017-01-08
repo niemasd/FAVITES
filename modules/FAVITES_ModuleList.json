@@ -1,13 +1,19 @@
 {
     "ContactNetwork": {
         "NetworkX": {
-            "req": ["contact_network_file"]
+            "req": []
         }
     },
 
     "ContactNetworkEdge": {
         "NetworkX": {
             "req": []
+        }
+    },
+
+    "ContactNetworkGenerator": {
+        "File": {
+            "req": ["contact_network_file"]
         }
     },
 

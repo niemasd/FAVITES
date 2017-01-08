@@ -48,9 +48,12 @@ class Driver_Default(Driver):
         print(" done")
 
         # create ContactNetwork object from input contact network edge list
-        print("Reading contact network from: %r..." % os.path.expanduser(GC.contact_network_file), end='')
+        print("Loading contact network edge list...", end='')
         stdout.flush()
-        contact_network = MF.modules['ContactNetwork']()
+        edge_list = MF.modules['ContactNetworkGenerator'].get_edge_list()
+        print(" done")
+        print("Creating ContactNetwork object...", end='')
+        contact_network = MF.modules['ContactNetwork'](edge_list)
         assert isinstance(contact_network, MF.module_abstract_classes['ContactNetwork']), "contact_network is not a ContactNetwork object"
         GC.contact_network = contact_network
         print(" done")

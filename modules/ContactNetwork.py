@@ -46,7 +46,7 @@ class ContactNetwork(metaclass=abc.ABCMeta):
     '''
 
     @abc.abstractmethod
-    def __init__(self, edge_list):
+    def __init__(self, edge_list=None):
         '''
         Construct a new ``ContactNetwork'' object
 
@@ -54,8 +54,8 @@ class ContactNetwork(metaclass=abc.ABCMeta):
         ----------
         edge_list : list of str
             The Contact Network from which to create this ``ContactNetwork''
-            object, where each line is a single edge in the specified edge-list
-            input format (see framework README)
+            object, where each element is a single edge in the specified
+            edge-list input format (see framework README)
         '''
         pass
 
