@@ -29,6 +29,8 @@ class ContactNetwork(metaclass=abc.ABCMeta):
         Return a set of all uninfected nodes in this ``ContactNetwork''
     get_transmissions()
         Return a list of (u,v,time) transmission events that have happened
+    init()
+        Initialize the module (if need be)
     nodes_iter()
         Perform an iteration over the nodes in this ``ContactNetwork''
     num_edges()
@@ -54,6 +56,14 @@ class ContactNetwork(metaclass=abc.ABCMeta):
             The Contact Network from which to create this ``ContactNetwork''
             object, where each line is a single edge in the specified edge-list
             input format (see framework README)
+        '''
+        pass
+
+    @staticmethod
+    @abc.abstractmethod
+    def init():
+        '''
+        Initialize the module (if need be)
         '''
         pass
 

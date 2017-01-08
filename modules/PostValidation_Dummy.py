@@ -7,6 +7,9 @@ Niema Moshiri 2016
 from PostValidation import PostValidation # abstract PostValidation class
 
 class PostValidation_Dummy(PostValidation):
+    def init():
+        pass
+
     def score_transmission_network():
         return "DUMMY"
 

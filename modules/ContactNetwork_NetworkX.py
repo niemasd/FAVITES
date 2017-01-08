@@ -32,6 +32,10 @@ class ContactNetwork_NetworkX(ContactNetwork):
     uninfected_nodes : set of ContactNetworkNodes
         Set contianing the nodes that have not yet been infected
     '''
+
+    def init():
+        pass
+
     def __init__(self):
         # read edge list from file
         if not hasattr(GC, "contact_network_file"):

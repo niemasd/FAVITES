@@ -16,6 +16,9 @@ class SeedSelection_Random(SeedSelection):
     all at time t = 0
     '''
 
+    def init():
+        pass
+
     def select_seeds():
         nodes = [node for node in GC.contact_network.nodes_iter()]
         seed_nodes = sample(nodes, GC.num_seeds)

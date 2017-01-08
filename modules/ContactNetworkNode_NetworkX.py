@@ -24,6 +24,9 @@ class ContactNetworkNode_NetworkX(ContactNetworkNode):
     num : int
         The number of this node
     '''
+    
+    def init():
+        pass
 
     def __init__(self, graph, name, num):
         '''

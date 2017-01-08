@@ -12,6 +12,8 @@ class PostValidation(metaclass=abc.ABCMeta):
 
     Methods
     -------
+    init()
+        Initialize the module (if need be)
     score_phylogenetic_tree(tree)
         Score phylogenetic tree ``tree''
     score_sequences(seqs)
@@ -19,6 +21,14 @@ class PostValidation(metaclass=abc.ABCMeta):
     score_transmission_network()
         Score the transmission network
     '''
+
+    @staticmethod
+    @abc.abstractmethod
+    def init():
+        '''
+        Initialize the module (if need be)
+        '''
+        pass
 
     @abc.abstractmethod
     def score_transmission_network():

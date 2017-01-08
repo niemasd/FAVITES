@@ -29,6 +29,8 @@ class TreeNode(metaclass=abc.ABCMeta):
         Return the sequence of this ``TreeNode'' object (or None if none)
     get_time()
         Return the time of this ``TreeNode'' object
+    init()
+        Initialize the module (if need be)
     leaves()
         Iterate over the leaf descendants of this ``TreeNode'' object
     newick()
@@ -46,6 +48,14 @@ class TreeNode(metaclass=abc.ABCMeta):
     def __init__(self, time, seq=None, parent=None):
         '''
         Construct a new ``TreeNode'' object
+        '''
+        pass
+
+    @staticmethod
+    @abc.abstractmethod
+    def init():
+        '''
+        Initialize the module (if need be)
         '''
         pass
 

@@ -14,7 +14,17 @@ class SeedSequence(metaclass=abc.ABCMeta):
     -------
     infect(node)
         Infect ``node'' with an initial seed sequence(s)
+    init()
+        Initialize the module (if need be)
     '''
+
+    @staticmethod
+    @abc.abstractmethod
+    def init():
+        '''
+        Initialize the module (if need be)
+        '''
+        pass
 
     @staticmethod
     @abc.abstractmethod

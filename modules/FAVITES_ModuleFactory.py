@@ -35,6 +35,7 @@ def read_config(config):
         assert config[module] in module_implementations[module], "%r is not a valid %r!" % (config[module], module)
         modules[module] = module_implementations[module][config[module]]['class']
         modules[module]() # instantiate to force check of abstract methods
+        modules[module].init() # initialize if needed
         for req in module_implementations[module][config[module]]['req']:
             assert req in config, "Parameter %r is not in the configuration file!" % req
             reqs[req] = config[req]

@@ -12,9 +12,19 @@ class Driver(metaclass=abc.ABCMeta):
 
     Methods
     -------
+    init()
+        Initialize the module (if need be)
     run()
         Run the simulation
     '''
+
+    @staticmethod
+    @abc.abstractmethod
+    def init():
+        '''
+        Initialize the module (if need be)
+        '''
+        pass
 
     @staticmethod
     @abc.abstractmethod

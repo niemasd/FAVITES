@@ -23,6 +23,8 @@ class ContactNetworkNode(metaclass=abc.ABCMeta):
         Return the name of this ``ContactNetworkNode'' object
     infect(time, virus)
         Infect this ``ContactNetworkNode'' object with ``virus'' at ``time''
+    init()
+        Initialize the module (if need be)
     is_infected()
         Return True if this node is infected, otherwise False
     num_infections()
@@ -34,6 +36,14 @@ class ContactNetworkNode(metaclass=abc.ABCMeta):
         Iterate over the viruses that exist in this ``ContactNetworkNode''
         object at the current time
     '''
+
+    @staticmethod
+    @abc.abstractmethod
+    def init():
+        '''
+        Initialize the module (if need be)
+        '''
+        pass
 
     @abc.abstractmethod
     def get_name(self):

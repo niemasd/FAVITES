@@ -8,6 +8,9 @@ from Sequencing import Sequencing # abstract Sequencing class
 import FAVITES_GlobalContext as GC
 
 class Sequencing_Perfect(Sequencing):
+    def init():
+        pass
+        
     def introduce_sequencing_error(node):
         l = [leaf for leaf in node.viruses()]
         seq_data = [leaf.get_seq() for leaf in l]

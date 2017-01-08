@@ -13,5 +13,8 @@ class TransmissionTimeSample_Fixed(TransmissionTimeSample):
     Implement the ``TransmissionTimeSample'' with a fixed time delta
     '''
 
+    def init():
+        pass
+
     def sample_time():
         return GC.time + GC.fixed_transmission_time_delta

@@ -12,10 +12,20 @@ class SourceSample(metaclass=abc.ABCMeta):
 
     Methods
     -------
+    init()
+        Initialize the module (if need be)
     sample_virus(node)
         Samples a virus (or viruses) from ``node`` at
         ``FAVITES_GlobalContext.time``.
     '''
+
+    @staticmethod
+    @abc.abstractmethod
+    def init():
+        '''
+        Initialize the module (if need be)
+        '''
+        pass
 
     @staticmethod
     @abc.abstractmethod

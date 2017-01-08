@@ -21,6 +21,9 @@ class ContactNetworkEdge_NetworkX(ContactNetworkEdge):
         The attribute(s) of this ``ContactNetworkEdge'' object
     '''
 
+    def init():
+        pass
+
     def __init__(self, u, v, attr):
         '''
         Construct a new ``ContactNetworkEdge_NetworkX`` object

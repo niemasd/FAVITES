@@ -12,9 +12,19 @@ class SeedSelection(metaclass=abc.ABCMeta):
 
     Methods
     -------
+    init()
+        Initialize the module (if need be)
     select_seed_nodes(user_input, contact_network)
         Select nodes in ``contact_network'' to use as seed nodes
     '''
+
+    @staticmethod
+    @abc.abstractmethod
+    def init():
+        '''
+        Initialize the module (if need be)
+        '''
+        pass
 
     @staticmethod
     @abc.abstractmethod

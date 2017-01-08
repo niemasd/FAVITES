@@ -9,6 +9,9 @@ import FAVITES_GlobalContext as GC
 from random import choice
 
 class SourceSample_Random(SourceSample):
+    def init():
+        pass
+        
     def sample_virus(node):
         viruses = []
         for virus in node.viruses():

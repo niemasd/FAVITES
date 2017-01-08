@@ -11,6 +11,9 @@ import os                                                 # to write output file
 from sys import stdout                                    # to flush print buffer
 
 class Driver_Default(Driver):
+    def init():
+        pass
+        
     def run():
         '''
         Simulation driver. Even if you add your own modules, you probably shouldn't

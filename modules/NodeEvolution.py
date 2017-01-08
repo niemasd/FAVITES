@@ -14,7 +14,17 @@ class NodeEvolution(metaclass=abc.ABCMeta):
     -------
     evolve_to_current_time(node)
         Simulate phylogeny evolution on ``node''
+    init()
+        Initialize the module (if need be)
     '''
+
+    @staticmethod
+    @abc.abstractmethod
+    def init():
+        '''
+        Initialize the module (if need be)
+        '''
+        pass
 
     @staticmethod
     @abc.abstractmethod

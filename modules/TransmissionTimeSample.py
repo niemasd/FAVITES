@@ -12,9 +12,19 @@ class TransmissionTimeSample(metaclass=abc.ABCMeta):
 
     Methods
     -------
+    init()
+        Initialize the module (if need be)
     sample_time()
         Returns the time of the next transmission event
     '''
+
+    @staticmethod
+    @abc.abstractmethod
+    def init():
+        '''
+        Initialize the module (if need be)
+        '''
+        pass
 
     @staticmethod
     @abc.abstractmethod

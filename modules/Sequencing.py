@@ -12,9 +12,19 @@ class Sequencing(metaclass=abc.ABCMeta):
 
     Methods
     -------
+    init()
+        Initialize the module (if need be)
     introduce_sequencing_error(node)
         Return a FASTQ format string representing realistic sequencing reads
     '''
+
+    @staticmethod
+    @abc.abstractmethod
+    def init():
+        '''
+        Initialize the module (if need be)
+        '''
+        pass
 
     @staticmethod
     @abc.abstractmethod

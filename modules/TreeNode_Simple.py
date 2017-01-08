@@ -18,6 +18,9 @@ class TreeNode_Simple(TreeNode):
     '''
     num_nodes = 0
 
+    def init():
+        pass
+
     def __init__(self, time=None, contact_network_node=None, seq=None):
         '''
         Note that time and contact_network_node are actually required

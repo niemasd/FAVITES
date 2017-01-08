@@ -42,7 +42,7 @@
             "req": ["rate_A", "rate_B"]
         },
         "Yule": {
-            "req": ["rate"]
+            "req": ["yule_rate"]
         }
     },
 

@@ -18,7 +18,17 @@ class ContactNetworkEdge(metaclass=abc.ABCMeta):
         Return the ``ContactNetworkNode'' object from which this edge is leaving
     get_to()
         Return the ``ContactNetworkNode'' object to which this edge is going
+    init()
+        Initialize the module (if need be)
     '''
+
+    @staticmethod
+    @abc.abstractmethod
+    def init():
+        '''
+        Initialize the module (if need be)
+        '''
+        pass
 
     @abc.abstractmethod
     def get_attribute(self):

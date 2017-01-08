@@ -16,9 +16,19 @@ class EndCriteria(metaclass=abc.ABCMeta):
         Returns True if this simulation is done, or False otherwise
     finalize_time()
         Finalize the global time
+    init()
+        Initialize the module (if need be)
     not_done()
         Returns True if this simulation is not done, or False otherwise
     '''
+
+    @staticmethod
+    @abc.abstractmethod
+    def init():
+        '''
+        Initialize the module (if need be)
+        '''
+        pass
 
     @staticmethod
     @abc.abstractmethod

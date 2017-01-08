@@ -9,8 +9,11 @@ from NodeEvolution_DualBirth import NodeEvolution_DualBirth
 import FAVITES_GlobalContext as GC
 
 class NodeEvolution_Yule(NodeEvolution):
+    def init():
+        pass
+
     def evolve_to_current_time(node, finalize=False):
         if not hasattr(GC, "rate_A"):
-            GC.rate_A = GC.rate
-            GC.rate_B = GC.rate
+            GC.rate_A = GC.yule_rate
+            GC.rate_B = GC.yule_rate
         NodeEvolution_DualBirth.evolve_to_current_time(node, finalize=finalize)

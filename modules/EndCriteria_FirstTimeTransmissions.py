@@ -10,6 +10,9 @@ from EndCriteria_Time import EndCriteria_Time                   # to reuse code
 from EndCriteria_Transmissions import EndCriteria_Transmissions # to reuse code
 
 class EndCriteria_FirstTimeTransmissions(EndCriteria):
+    def init():
+        pass
+        
     def done():
         return EndCriteria_Time.done() or EndCriteria_Transmissions.done()
 

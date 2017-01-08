@@ -16,6 +16,9 @@ class SeedSequence_Random(SeedSequence):
     and infecting ``node'' at time 0
     '''
 
+    def init():
+        pass
+
     def generate():
         k = GC.seed_sequence_length
         assert isinstance(k, int), "Specified SeedSequenceLength is not an integer"

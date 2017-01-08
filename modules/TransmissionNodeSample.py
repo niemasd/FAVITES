@@ -12,9 +12,19 @@ class TransmissionNodeSample(metaclass=abc.ABCMeta):
 
     Methods
     -------
+    init()
+        Initialize the module (if need be)
     sampleNodes(time)
         Returns two nodes to be involved in a transmission event at ``time''
     '''
+
+    @staticmethod
+    @abc.abstractmethod
+    def init():
+        '''
+        Initialize the module (if need be)
+        '''
+        pass
 
     @staticmethod
     @abc.abstractmethod
