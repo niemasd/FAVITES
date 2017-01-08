@@ -12,18 +12,14 @@ import queue as Q
 
 class NodeEvolution_DualBirth(NodeEvolution):
     def init():
-        GC.rate_A = float(GC.rate_A)
-        GC.rate_B = float(GC.rate_B)
+        GC.dualbirth_beta = 1/(float(GC.rate_B))
+        GC.dualbirth_betaP = 1/(float(GC.rate_A))
 
     def evolve_to_current_time(node, finalize=False):
         TreeNode = MF.modules['TreeNode']
         viruses = [virus for virus in node.viruses()]
         for virus in viruses:
             node.remove_virus(virus)
-
-            # numpy uses scale parameters for exponential (beta = 1/lambda)
-            beta = 1/(float(GC.rate_B))
-            betaP = 1/(float(GC.rate_A))
 
             # initialize simulation
             pq = Q.PriorityQueue()
@@ -34,13 +30,13 @@ class NodeEvolution_DualBirth(NodeEvolution):
             # perform simulation
             while currTime < GC.time:
                 # self propagation
-                leftLength = exponential(scale=betaP)
+                leftLength = exponential(scale=GC.dualbirth_betaP)
                 leftChild = TreeNode(time=currNode.get_time()+leftLength, contact_network_node=node)
                 currNode.add_child(leftChild)
                 pq.put((leftChild.get_time(), leftChild))
 
                 # newly created inactive child
-                rightLength = exponential(scale=beta)
+                rightLength = exponential(scale=GC.dualbirth_beta)
                 rightChild = TreeNode(time=currNode.get_time()+rightLength, contact_network_node=node)
                 currNode.add_child(rightChild)
                 pq.put((rightChild.get_time(), rightChild))
