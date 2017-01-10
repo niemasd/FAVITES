@@ -24,32 +24,33 @@ class NodeEvolution_DualBirth(NodeEvolution):
             # initialize simulation
             pq = Q.PriorityQueue()
             pq.put((virus.get_time(), virus))
-            currNode = virus
-            currTime = virus.get_time()
+
 
             # perform simulation
-            while currTime < GC.time:
+            done = []
+            while not pq.empty() > 0:
+                # get next node
+                currTime, currNode = pq.get()
+
                 # self propagation
                 leftLength = exponential(scale=GC.dualbirth_betaP)
                 leftChild = TreeNode(time=currNode.get_time()+leftLength, contact_network_node=node)
                 currNode.add_child(leftChild)
-                pq.put((leftChild.get_time(), leftChild))
+                if leftChild.get_time() < GC.time:
+                    pq.put((leftChild.get_time(), leftChild))
+                else:
+                    done.append(leftChild)
 
                 # newly created inactive child
                 rightLength = exponential(scale=GC.dualbirth_beta)
                 rightChild = TreeNode(time=currNode.get_time()+rightLength, contact_network_node=node)
                 currNode.add_child(rightChild)
-                pq.put((rightChild.get_time(), rightChild))
-
-                # get next node
-                currTime, currNode = pq.get()
-
-            # get leaves from pq
-            leaves = [currNode]
-            while not pq.empty():
-                leaves.append(pq.get()[1])
+                if rightChild.get_time() < GC.time:
+                    pq.put((rightChild.get_time(), rightChild))
+                else:
+                    done.append(rightChild)
 
             # truncate final edges to be same as shortest leaf and add back to node
-            for leaf in leaves:
+            for leaf in done:
                 leaf.set_time(GC.time)
                 node.add_virus(leaf)
