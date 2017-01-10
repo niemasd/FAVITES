@@ -12,7 +12,7 @@ from sys import stdout                                    # to flush print buffe
 
 class Driver_Default(Driver):
     def init():
-        pass
+        GC.out_dir = os.path.expanduser(GC.out_dir)
 
     def run():
         '''
@@ -30,16 +30,15 @@ class Driver_Default(Driver):
         print(" done")
         print("Beginning simulations...")
         orig_dir = os.getcwd()
-        out_dir = os.path.expanduser(GC.out_dir)
-        print("Attempting to create the user-specified output directory: %r..." % out_dir, end='')
+        print("Attempting to create the user-specified output directory: %r..." % GC.out_dir, end='')
         stdout.flush()
         try:
-            os.makedirs(out_dir)
+            os.makedirs(GC.out_dir)
             pass
         except:
             print("ERROR: Unable to create the output directory. Perhaps it already exists?")
             exit(-1)
-        os.chdir(out_dir)
+        os.chdir(GC.out_dir)
         os.makedirs("error_free_files")
         os.makedirs("error_free_files/phylogenetic_trees")
         os.makedirs("error_free_files/sequence_data")
@@ -139,7 +138,7 @@ class Driver_Default(Driver):
             f.write("%s\t%s\t%d\n" % e)
         f.close()
         print(" done")
-        print("True transmission network was written to: %s/error_free_files/transmission_network.txt" % out_dir)
+        print("True transmission network was written to: %s/error_free_files/transmission_network.txt" % GC.out_dir)
         print()
 
         # post-validation of phylogenetic trees
@@ -159,7 +158,7 @@ class Driver_Default(Driver):
             f.write(tree)
             f.close()
         print(" done")
-        print("True phylogenetic trees were written to: %s/error_free_files/phylogenetic_trees/" % out_dir)
+        print("True phylogenetic trees were written to: %s/error_free_files/phylogenetic_trees/" % GC.out_dir)
         print()
 
         # post-validation of sequence data
@@ -183,7 +182,7 @@ class Driver_Default(Driver):
                 f.write('>%s\n%s\n' % (leaves[i][j].get_label(),seq))
             f.close()
         print(" done")
-        print("True sequence data were written to: %s/error_free_files/sequence_data/" % out_dir)
+        print("True sequence data were written to: %s/error_free_files/sequence_data/" % GC.out_dir)
         print()
 
         # introduce real data artifacts
@@ -205,7 +204,7 @@ class Driver_Default(Driver):
             f.write("%s\t%s\t%d\n" % e)
         f.close()
         print(" done")
-        print("Subsampled transmission network was written to: %s/error_prone_files/transmission_network.txt" % out_dir)
+        print("Subsampled transmission network was written to: %s/error_prone_files/transmission_network.txt" % GC.out_dir)
 
         # introduce sequencing error
         print("Introducing sequence data sampling error...",end='')
@@ -218,7 +217,7 @@ class Driver_Default(Driver):
             f.write(MF.modules['Sequencing'].introduce_sequencing_error(node))
             f.close()
         print(" done")
-        print("Error prone sequence data were written to: %s/error_prone_files/sequence_data/" % out_dir)
+        print("Error prone sequence data were written to: %s/error_prone_files/sequence_data/" % GC.out_dir)
 
         # return to original directory
         os.chdir(orig_dir)
