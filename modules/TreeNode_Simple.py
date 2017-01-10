@@ -40,7 +40,7 @@ class TreeNode_Simple(TreeNode):
         self.num = TreeNode_Simple.num_nodes
         TreeNode_Simple.num_nodes += 1
         if hasattr(GC,"label_to_node"): # for initialization
-            GC.label_to_node[str(self.num)] = self
+            GC.label_to_node[self.get_label()] = self
 
     def __hash__(self):
         return hash(id(self))
@@ -101,7 +101,7 @@ class TreeNode_Simple(TreeNode):
         if len(self.children) != 0 and len(self.children) != 2:
             print("ERROR: Encountered node with number of children != 0 or 2")
             exit(-1)
-            
+
         # if leaf
         if len(self.children) == 0:
             return self.get_label()
