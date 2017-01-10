@@ -91,6 +91,10 @@
     "SequenceEvolution": {
         "NoMutation": {
             "req": []
+        },
+
+        "Pyvolve": {
+            "req": ["pyvolve_model_type", "pyvolve_custom_model_parameters_dictionary", "pyvolve_state_frequencies_class", "pyvolve_state_frequencies_parameters_dictionary"]
         }
     },
 
