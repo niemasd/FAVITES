@@ -31,6 +31,8 @@ class TreeNode(metaclass=abc.ABCMeta):
         Return the time of this ``TreeNode'' object
     init()
         Initialize the module (if need be)
+    label_to_node()
+        Return a dictionary mapping labels to ``TreeNode'' objects
     leaves()
         Iterate over the leaf descendants of this ``TreeNode'' object
     newick()
@@ -56,6 +58,19 @@ class TreeNode(metaclass=abc.ABCMeta):
     def init():
         '''
         Initialize the module (if need be)
+        '''
+        pass
+
+    @staticmethod
+    @abc.abstractmethod
+    def label_to_node():
+        '''
+        Return a dictionary mapping labels to ``TreeNode'' objects
+
+        Returns
+        -------
+        dic : dict
+            A dictionary mapping labels to ``TreeNode'' objects
         '''
         pass
 

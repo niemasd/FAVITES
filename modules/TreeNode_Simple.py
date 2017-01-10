@@ -20,6 +20,10 @@ class TreeNode_Simple(TreeNode):
 
     def init():
         GC.final_trees = {}
+        GC.label_to_node = {}
+
+    def label_to_node():
+        return GC.label_to_node
 
     def __init__(self, time=None, contact_network_node=None, seq=None):
         '''
@@ -35,6 +39,8 @@ class TreeNode_Simple(TreeNode):
         self.contact_network_node = contact_network_node
         self.num = TreeNode_Simple.num_nodes
         TreeNode_Simple.num_nodes += 1
+        if hasattr(GC,"label_to_node"): # for initialization
+            GC.label_to_node[str(self.num)] = self
 
     def __hash__(self):
         return hash(id(self))
@@ -57,10 +63,7 @@ class TreeNode_Simple(TreeNode):
         return self.time - self.parent.get_time()
 
     def get_label(self):
-        if len(self.children) == 0:
-            return "L" + str(self.num)
-        else:
-            return "I" + str(self.num)
+        return "N" + str(self.num)
 
     def get_parent(self):
         return self.parent
@@ -94,6 +97,11 @@ class TreeNode_Simple(TreeNode):
                 yield from child.leaves()
 
     def newick(self, redo=False):
+        # error message for invalid number of children
+        if len(self.children) != 0 and len(self.children) != 2:
+            print("ERROR: Encountered node with number of children != 0 or 2")
+            exit(-1)
+            
         # if leaf
         if len(self.children) == 0:
             return self.get_label()
