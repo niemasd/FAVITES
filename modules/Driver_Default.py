@@ -104,7 +104,8 @@ class Driver_Default(Driver):
         nodes = [node for node in GC.contact_network.get_infected_nodes()]
         for node in nodes:
             MF.modules['NodeEvolution'].evolve_to_current_time(node, finalize=True)
-            MF.modules['SequenceEvolution'].evolve_to_current_time(node, finalize=True)
+            MF.modules['SequenceEvolution'].evolve_to_current_time(node)
+        MF.modules['SequenceEvolution'].finalize() # in case the module creates all sequences at the end
         print(" done\n")
 
         # get leaves
