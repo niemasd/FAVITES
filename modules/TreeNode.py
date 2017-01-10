@@ -174,9 +174,16 @@ class TreeNode(metaclass=abc.ABCMeta):
         pass
 
     @abc.abstractmethod
-    def newick(self):
+    def newick(self, redo=False):
         '''
         Output the subtree of this ``TreeNode'' object in the Newick format
+
+        Parameters
+        ----------
+        redo : bool
+            True if you want to regenerate the newick string even if it has
+            already been generated for this ``TreeNode'' object, otherwise
+            False (default).
 
         Returns
         -------

@@ -19,7 +19,7 @@ class TreeNode_Simple(TreeNode):
     num_nodes = 0
 
     def init():
-        pass
+        GC.final_trees = {}
 
     def __init__(self, time=None, contact_network_node=None, seq=None):
         '''
@@ -93,10 +93,14 @@ class TreeNode_Simple(TreeNode):
             for child in self.children:
                 yield from child.leaves()
 
-    def newick(self):
+    def newick(self, redo=False):
         # if leaf
         if len(self.children) == 0:
             return self.get_label()
+
+        # if root node that's already gotten newick:
+        elif self in GC.final_trees and not redo:
+            return GC.final_trees[self]
 
         # if internal node
         else:
@@ -104,6 +108,7 @@ class TreeNode_Simple(TreeNode):
             out = '(' + ','.join(parts) + ')' + self.get_label()
             if self.parent == None: # if root, need semicolon (entire tree)
                 out += ';'
+                GC.final_trees[self] = out
             return out
 
 def check():
