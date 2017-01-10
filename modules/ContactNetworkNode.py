@@ -46,6 +46,27 @@ class ContactNetworkNode(metaclass=abc.ABCMeta):
         pass
 
     @abc.abstractmethod
+    def __eq__(self, other):
+        '''
+        Overloaded equality check
+        '''
+        pass
+
+    @abc.abstractmethod
+    def __ne__(self, other):
+        '''
+        Overloaded not equals check
+        '''
+        pass
+
+    @abc.abstractmethod
+    def __hash__(self):
+        '''
+        Overloaded hash function
+        '''
+        pass
+
+    @abc.abstractmethod
     def get_name(self):
         '''
         Return the name of this ``ContactNetworkNode'' object

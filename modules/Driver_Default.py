@@ -93,6 +93,7 @@ class Driver_Default(Driver):
             virus = MF.modules['SourceSample'].sample_virus(u)
             u.remove_virus(virus)
             v.infect(GC.time, virus)
+            GC.contact_network.add_to_infected(v)
             GC.contact_network.add_transmission(u,v,t)
         print(" done")
 

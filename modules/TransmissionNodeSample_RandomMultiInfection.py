@@ -14,7 +14,7 @@ from random import sample                                         # to randomly 
 class TransmissionNodeSample_RandomMultiInfection(TransmissionNodeSample):
     def init():
         pass
-        
+
     def sample_nodes(time):
         source = sample(GC.contact_network.get_infected_nodes(), 1)[0]
         target = sample(GC.contact_network.get_edges_from(source), 1)[0].get_to()
