@@ -14,8 +14,8 @@ class NodeSample(metaclass=abc.ABCMeta):
     -------
     init()
         Initialize the module (if need be)
-    subsample_transmission_network()
-        Return a subsampled list of (u,v,time) transmission events
+    subsample_nodes()
+        Return a subsampled list of nodes
     '''
 
     @staticmethod
@@ -30,11 +30,11 @@ class NodeSample(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def subsample_transmission_network():
         '''
-        Return a set of subsampled nodes from the transmission network
+        Return a subsampled list of nodes
 
         Returns
         -------
-        transmissions : list of (u,v,float) tuples
-            A subsampled list of (u,v,time) transmission events
+        nodes : list of ``ContactNetworkNode''
+            A subsampled list of nodes
         '''
         pass

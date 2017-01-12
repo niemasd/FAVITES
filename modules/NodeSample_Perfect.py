@@ -12,4 +12,4 @@ class NodeSample_Perfect(NodeSample):
         pass
 
     def subsample_transmission_network():
-        return GC.contact_network.get_transmissions()
+        return GC.contact_network.get_infected_nodes()

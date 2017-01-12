@@ -16,15 +16,5 @@ class NodeSample_Bernoulli(NodeSample):
         GC.node_sample_prob = float(GC.node_sample_prob)
 
     def subsample_transmission_network():
-        all_transmissions = GC.contact_network.get_transmissions()
-        source_trans = {}
-        for t in all_transmissions:
-            if t[0] not in source_trans:
-                source_trans[t[0]] = []
-            source_trans[t[0]].append(t)
-        out = []
-        for source in source_trans:
-            if random() < GC.node_sample_prob:
-                for t in source_trans[source]:
-                    out.append(t)
-        return out
+        nodes = GC.contact_network.get_infected_nodes()
+        return [n for n in nodes if random() < GC.node_sample_prob]

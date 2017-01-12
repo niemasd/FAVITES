@@ -189,31 +189,14 @@ class Driver_Default(Driver):
         # introduce real data artifacts
         print("\n=======================   Real Data Artifacts   =======================")
 
-        # subsample the transmission network
-        print("Subsampling transmission network...", end='')
-        subsampled_transmissions = MF.modules['NodeSample'].subsample_transmission_network()
-        for node in subsampled_transmissions:
-            assert isinstance(u, MF.module_abstract_classes['ContactNetworkNode']), "subsample_transmission_network() contains an invalid transmission event"
-            assert isinstance(v, MF.module_abstract_classes['ContactNetworkNode']), "subsample_transmission_network() contains an invalid transmission event"
-            assert isinstance(t, float), "subsample_transmission_network() contains an invalid transmission event"
+        # subsample the contact network nodes
+        print("Subsampling contact network nodes...", end='')
+        subsampled_nodes = MF.modules['NodeSample'].subsample_transmission_network()
         print(" done")
-        print("Writing subsampled transmission network to file...", end='')
-        stdout.flush()
-        subsampled_transmission_network = '\n'.join([("%s\t%s\t%d" % e) for e in subsampled_transmissions])
-        f = open('error_prone_files/transmission_network.txt','w')
-        for e in subsampled_transmissions:
-            f.write("%s\t%s\t%d\n" % e)
-        f.close()
-        print(" done")
-        print("Subsampled transmission network was written to: %s/error_prone_files/transmission_network.txt" % GC.out_dir)
 
         # introduce sequencing error
-        print("Introducing sequence data sampling error...",end='')
-        subsampled_nodes = set()
-        for u,v,t in subsampled_transmissions:
-            subsampled_nodes.add(u)
-            subsampled_nodes.add(v)
-        for i,node in enumerate(subsampled_nodes):
+        print("Simulating sequencing error...",end='')
+        for node in subsampled_nodes:
             MF.modules['Sequencing'].introduce_sequencing_error(node)
         print(" done")
         print("Error prone sequence data were written to: %s/error_prone_files/sequence_data/" % GC.out_dir)
