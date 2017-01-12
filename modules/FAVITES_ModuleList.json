@@ -104,7 +104,7 @@
         },
 
         "Perfect": {
-            "req": []
+            "req": ["out_dir"]
         }
     },
 
