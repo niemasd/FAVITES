@@ -16,9 +16,6 @@ class Sequencing_DWGSIM(Sequencing):
         GC.dwgsim_options = [i.strip() for i in GC.dwgsim_options.strip().split()]
 
     def introduce_sequencing_error(node):
-        # run DWGSIM, it will create a FASTQ I think,
-        # then read the FASTQ as a single string and return it
-        # this is called on each ContactNetwork node individuallyt
         command = [GC.dwgsim_path] + GC.dwgsim_options
         command.append(GC.out_dir + "/error_free_files/sequence_data/seqs_" + node.get_name() + ".fasta")
         command.append(node.get_name())
