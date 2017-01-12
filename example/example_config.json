@@ -9,12 +9,14 @@
     "SeedSelection":                                   "Random",
     "SeedSequence":                                    "Random",
     "SequenceEvolution":                               "Pyvolve",
-    "Sequencing":                                      "Perfect",
+    "Sequencing":                                      "DWGSIM",
     "SourceSample":                                    "Random",
     "TransmissionNodeSample":                          "RandomMultiInfection",
     "TransmissionTimeSample":                          "Fixed",
     "TreeNode":                                        "Simple",
     "contact_network_file":                            "~/GitHub/FAVITES/example/example_contact_network.txt",
+    "dwgsim_options":                                  "",
+    "dwgsim_path":                                     "dwgsim",
     "end_transmissions":                               5,
     "fixed_transmission_time_delta":                   1,
     "num_seeds":                                       1,
@@ -23,6 +25,6 @@
     "pyvolve_model_type":                              "nucleotide",
     "pyvolve_state_frequencies_class":                 "EqualFrequencies",
     "pyvolve_state_frequencies_parameters_dictionary": {"alphabet":"nucleotide"},
-    "seed_sequence_length":                            100,
+    "seed_sequence_length":                            1000,
     "yule_rate":                                       0.5
 }

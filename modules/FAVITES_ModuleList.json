@@ -99,6 +99,10 @@
     },
 
     "Sequencing": {
+        "DWGSIM": {
+            "req": ["dwgsim_path", "dwgsim_options", "out_dir"]
+        },
+
         "Perfect": {
             "req": []
         }

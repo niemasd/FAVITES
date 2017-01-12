@@ -214,9 +214,7 @@ class Driver_Default(Driver):
             subsampled_nodes.add(u)
             subsampled_nodes.add(v)
         for i,node in enumerate(subsampled_nodes):
-            f = open('error_prone_files/sequence_data/seqs_%s.fastq' % node.get_name(), 'w')
-            f.write(MF.modules['Sequencing'].introduce_sequencing_error(node))
-            f.close()
+            MF.modules['Sequencing'].introduce_sequencing_error(node)
         print(" done")
         print("Error prone sequence data were written to: %s/error_prone_files/sequence_data/" % GC.out_dir)
 
