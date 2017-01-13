@@ -79,6 +79,10 @@
     },
 
     "SeedSequence": {
+        "HMMEmit": {
+            "req": ["hmmemit_path", "hmmemit_hmmfile", "hmmemit_options"]
+        },
+
         "Random": {
             "req": ["seed_sequence_length"]
         },

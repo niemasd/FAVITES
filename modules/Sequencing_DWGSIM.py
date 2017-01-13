@@ -12,7 +12,7 @@ import os
 class Sequencing_DWGSIM(Sequencing):
     def init():
         GC.out_dir = os.path.expanduser(GC.out_dir)
-        GC.dwgsim_path = GC.dwgsim_path.strip()
+        GC.dwgsim_path = os.path.expanduser(GC.dwgsim_path.strip())
         GC.dwgsim_options = [i.strip() for i in GC.dwgsim_options.strip().split()]
 
     def introduce_sequencing_error(node):
