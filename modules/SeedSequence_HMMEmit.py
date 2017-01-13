@@ -28,4 +28,4 @@ class SeedSequence_HMMEmit(SeedSequence):
 
     def generate():
         command = [GC.hmmemit_path] + GC.hmmemit_options + [GC.hmmemit_hmmfile]
-        return ''.join(choice(check_output(command).decode("ascii").strip().split('>')[1:]).splitlines()[1:])
+        return ''.join(choice(check_output(command).decode("ascii").strip().replace('-','').split('>')[1:]).splitlines()[1:])
