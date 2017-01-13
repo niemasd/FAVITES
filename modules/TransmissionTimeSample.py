@@ -4,7 +4,7 @@ Niema Moshiri 2016
 
 "TransmissionTimeSample" module
 '''
-import abc # for abstraction
+import abc
 
 class TransmissionTimeSample(metaclass=abc.ABCMeta):
     '''

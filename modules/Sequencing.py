@@ -4,7 +4,7 @@ Niema Moshiri 2016
 
 "Sequencing" module
 '''
-import abc # for abstraction
+import abc
 
 class Sequencing(metaclass=abc.ABCMeta):
     '''

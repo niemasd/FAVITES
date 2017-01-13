@@ -4,7 +4,7 @@ Niema Moshiri 2016
 
 "NodeEvolution" module, implemented with the Yule model
 '''
-from NodeEvolution import NodeEvolution # abstract NodeEvolution class
+from NodeEvolution import NodeEvolution
 from NodeEvolution_DualBirth import NodeEvolution_DualBirth
 import FAVITES_GlobalContext as GC
 

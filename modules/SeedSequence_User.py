@@ -4,7 +4,7 @@ Niema Moshiri 2016
 
 "SeedSequence" module, where the user specifies the seed sequences
 '''
-from SeedSequence import SeedSequence             # abstract SeedSequence class
+from SeedSequence import SeedSequence
 import FAVITES_GlobalContext as GC
 
 class SeedSequence_User(SeedSequence):

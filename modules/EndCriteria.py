@@ -4,7 +4,7 @@ Niema Moshiri 2016
 
 "EndCriteria" module
 '''
-import abc # for abstraction
+import abc
 
 class EndCriteria(metaclass=abc.ABCMeta):
     '''

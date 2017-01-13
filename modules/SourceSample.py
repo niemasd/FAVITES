@@ -4,7 +4,7 @@ Niema Moshiri 2016
 
 "SourceSample" module
 '''
-import abc # for abstraction
+import abc
 
 class SourceSample(metaclass=abc.ABCMeta):
     '''

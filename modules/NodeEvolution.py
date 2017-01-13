@@ -4,7 +4,7 @@ Niema Moshiri 2016
 
 "NodeEvolution" module
 '''
-import abc # for abstraction
+import abc
 
 class NodeEvolution(metaclass=abc.ABCMeta):
     '''

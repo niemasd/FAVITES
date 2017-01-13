@@ -4,7 +4,7 @@ Niema Moshiri 2016
 
 "ContactNetworEdge" module
 '''
-import abc # for abstraction
+import abc
 
 class ContactNetworkEdge(metaclass=abc.ABCMeta):
     '''

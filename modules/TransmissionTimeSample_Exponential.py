@@ -5,9 +5,9 @@ Niema Moshiri 2016
 "TransmissionTimeSample" module, where each transmission occurs a time delta
 after the previous, where delta is sampled from an exponential
 '''
-from TransmissionTimeSample import TransmissionTimeSample # abstract TransmissionTimeSample class
-from numpy.random import exponential
+from TransmissionTimeSample import TransmissionTimeSample
 import FAVITES_GlobalContext as GC
+from numpy.random import exponential
 
 class TransmissionTimeSample_Exponential(TransmissionTimeSample):
     '''

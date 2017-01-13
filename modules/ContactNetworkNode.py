@@ -4,7 +4,7 @@ Niema Moshiri 2016
 
 "ContactNetworkNode" module
 '''
-import abc # for abstraction
+import abc
 
 class ContactNetworkNode(metaclass=abc.ABCMeta):
     '''

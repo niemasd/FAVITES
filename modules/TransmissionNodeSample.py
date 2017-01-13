@@ -4,7 +4,7 @@ Niema Moshiri 2016
 
 "TransmissionNodeSample" module
 '''
-import abc # for abstraction
+import abc
 
 class TransmissionNodeSample(metaclass=abc.ABCMeta):
     '''

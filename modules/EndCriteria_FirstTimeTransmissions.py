@@ -5,14 +5,14 @@ Niema Moshiri 2016
 "EndCriteria" module, with a stopping criterion of end time or number of
 transmission events (whichever comes first)
 '''
-from EndCriteria import EndCriteria                             # abstract EndCriteria class
-from EndCriteria_Time import EndCriteria_Time                   # to reuse code
-from EndCriteria_Transmissions import EndCriteria_Transmissions # to reuse code
+from EndCriteria import EndCriteria
+from EndCriteria_Time import EndCriteria_Time
+from EndCriteria_Transmissions import EndCriteria_Transmissions
 
 class EndCriteria_FirstTimeTransmissions(EndCriteria):
     def init():
         pass
-        
+
     def done():
         return EndCriteria_Time.done() or EndCriteria_Transmissions.done()
 

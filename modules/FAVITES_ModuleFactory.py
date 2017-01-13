@@ -5,7 +5,7 @@ Niema Moshiri 2016
 Store global FAVITES module-related variables.
 '''
 from sys import path
-import importlib
+from importlib import import_module
 
 HIDDEN_MODULES = set(['ContactNetworkEdge','ContactNetworkNode'])
 
@@ -13,7 +13,7 @@ def favites_import(name):
     '''
     Import module from string name.
     '''
-    return getattr(importlib.import_module(name),name)
+    return getattr(import_module(name),name)
 
 def read_config(config):
     '''

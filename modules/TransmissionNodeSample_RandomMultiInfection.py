@@ -6,10 +6,10 @@ Niema Moshiri 2016
 infected nodes in the Contact Network, and one of its outgoing edges are
 randomly picked for the infection.
 '''
-from TransmissionNodeSample import TransmissionNodeSample # abstract TransmissionNodeSample class
-from ContactNetwork import ContactNetwork                 # to verify contact_network
+from TransmissionNodeSample import TransmissionNodeSample
+from ContactNetwork import ContactNetwork
 import FAVITES_GlobalContext as GC
-from random import sample                                         # to randomly sample nodes
+from random import sample
 
 class TransmissionNodeSample_RandomMultiInfection(TransmissionNodeSample):
     def init():

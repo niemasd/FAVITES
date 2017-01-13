@@ -4,13 +4,13 @@ Niema Moshiri 2016
 
 "EndCriteria" module, with a stopping criterion of number of transmission events
 '''
-from EndCriteria import EndCriteria # abstract EndCriteria class
+from EndCriteria import EndCriteria
 import FAVITES_GlobalContext as GC
 
 class EndCriteria_Transmissions(EndCriteria):
     def init():
         pass
-        
+
     def done():
         assert GC.end_transmissions >= 0, "end_transmissions is negative!"
         assert GC.contact_network is not None, "contact_network was never set!"

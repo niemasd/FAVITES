@@ -5,7 +5,7 @@ Niema Moshiri 2016
 "TransmissionTimeSample" module, where each transmission occurs a fixed time
 delta after the previous transmission
 '''
-from TransmissionTimeSample import TransmissionTimeSample # abstract TransmissionTimeSample class
+from TransmissionTimeSample import TransmissionTimeSample
 import FAVITES_GlobalContext as GC
 
 class TransmissionTimeSample_Fixed(TransmissionTimeSample):

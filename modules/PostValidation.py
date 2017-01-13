@@ -4,7 +4,7 @@ Niema Moshiri 2016
 
 "PostValidation" module
 '''
-import abc # for abstraction
+import abc
 
 class PostValidation(metaclass=abc.ABCMeta):
     '''

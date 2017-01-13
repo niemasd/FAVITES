@@ -7,9 +7,9 @@ not via a Bernoulli distribution with a user-specified probability of success.
 If a source node is chosen, ALL transmissions from that node will be outputted,
 and if not, NONE of the transmissions from that node will be outputted.
 '''
-from NodeSample import NodeSample # abstract NodeSample class
-from random import random # for random number generator
+from NodeSample import NodeSample
 import FAVITES_GlobalContext as GC
+from random import random
 
 class NodeSample_Bernoulli(NodeSample):
     def init():

@@ -4,10 +4,10 @@ Niema Moshiri 2016
 
 "ContactNetworkNode" module, implemented with NetworkX
 '''
-from ContactNetworkNode import ContactNetworkNode # abstract ContactNetworkNode class
-import FAVITES_GlobalContext as GC
+from ContactNetworkNode import ContactNetworkNode
 import modules.FAVITES_ModuleFactory as MF
-from networkx import DiGraph                              # to validate graph
+import FAVITES_GlobalContext as GC
+from networkx import DiGraph
 
 class ContactNetworkNode_NetworkX(ContactNetworkNode):
     '''

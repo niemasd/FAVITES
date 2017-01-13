@@ -4,7 +4,7 @@ Niema Moshiri 2016
 
 "ContactNetworkGenerator" module
 '''
-import abc # for abstraction
+import abc
 
 class ContactNetworkGenerator(metaclass=abc.ABCMeta):
     '''

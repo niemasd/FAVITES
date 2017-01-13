@@ -5,9 +5,9 @@ Niema Moshiri 2016
 "ContactNetworkGenerator" module, where a user-specified number of nodes are
 created, and a user-specified number of edges are randomly placed on the graph
 '''
-from ContactNetworkGenerator import ContactNetworkGenerator # abstract ContactNetworkGenerator class
+from ContactNetworkGenerator import ContactNetworkGenerator
 import FAVITES_GlobalContext as GC
-from os import path
+from os.path import expanduser
 from random import sample
 
 class ContactNetworkGenerator_RandomNumsNodeEdge(ContactNetworkGenerator):
@@ -37,7 +37,7 @@ class ContactNetworkGenerator_RandomNumsNodeEdge(ContactNetworkGenerator):
             edge = sample(poss_edges,1)[0]
             poss_edges.remove(edge)
             out.append("EDGE\t" + edge[0] + "\t" + edge[1] + "\t.\t" + GC.d_or_u)
-        f = open(path.expanduser(GC.out_dir + "/contact_network.txt"),'w')
+        f = open(expanduser(GC.out_dir + "/contact_network.txt"),'w')
         f.write('\n'.join(out))
         f.close()
         return out

@@ -4,7 +4,7 @@ Niema Moshiri 2016
 
 "NodeSample" module, perfect sampling
 '''
-from NodeSample import NodeSample # abstract NodeSample class
+from NodeSample import NodeSample
 import FAVITES_GlobalContext as GC
 
 class NodeSample_Perfect(NodeSample):

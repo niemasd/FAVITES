@@ -4,7 +4,7 @@ Niema Moshiri 2016
 
 "NodeSample" module
 '''
-import abc # for abstraction
+import abc
 
 class NodeSample(metaclass=abc.ABCMeta):
     '''

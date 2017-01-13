@@ -4,13 +4,13 @@ Niema Moshiri 2016
 
 "EndCriteria" module, with a stopping criterion of end time
 '''
-from EndCriteria import EndCriteria # abstract EndCriteria class
+from EndCriteria import EndCriteria
 import FAVITES_GlobalContext as GC
 
 class EndCriteria_Time(EndCriteria):
     def init():
         pass
-        
+
     def done():
         assert GC.end_time >= 0, "end_time is negative!"
         return GC.time >= GC.end_time

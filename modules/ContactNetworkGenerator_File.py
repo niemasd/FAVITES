@@ -5,9 +5,9 @@ Niema Moshiri 2016
 "ContactNetworkGenerator" module, where the contact network edge list is loaded
 from a file
 '''
-from ContactNetworkGenerator import ContactNetworkGenerator # abstract ContactNetworkGenerator class
+from ContactNetworkGenerator import ContactNetworkGenerator
 import FAVITES_GlobalContext as GC
-from os import path
+from os.path import expanduser
 
 class ContactNetworkGenerator_File(ContactNetworkGenerator):
     '''
@@ -18,4 +18,4 @@ class ContactNetworkGenerator_File(ContactNetworkGenerator):
         pass
 
     def get_edge_list():
-        return [i.strip() for i in open(path.expanduser(GC.contact_network_file)) if len(i.strip()) > 0]
+        return [i.strip() for i in open(expanduser(GC.contact_network_file)) if len(i.strip()) > 0]

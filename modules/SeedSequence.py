@@ -4,7 +4,7 @@ Niema Moshiri 2016
 
 "SeedSequence" module
 '''
-import abc # for abstraction
+import abc
 
 class SeedSequence(metaclass=abc.ABCMeta):
     '''

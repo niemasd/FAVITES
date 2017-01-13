@@ -4,7 +4,7 @@ Niema Moshiri 2016
 
 "ContactNetwork" module, which will contain the Transmission Network information
 '''
-import abc # for abstraction
+import abc
 
 class ContactNetwork(metaclass=abc.ABCMeta):
     '''

@@ -4,15 +4,18 @@ Niema Moshiri 2016
 
 "Driver" module
 '''
-import modules.FAVITES_ModuleFactory as MF                       # for global access variables
+from Driver import Driver
+import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
-from Driver import Driver                         # Driver module abstract class
-import os                                                 # to write output files
-from sys import stdout                                    # to flush print buffer
+from os.path import expanduser
+from os import getcwd
+from os import makedirs
+from os import chdir
+from sys import stdout
 
 class Driver_Default(Driver):
     def init():
-        GC.out_dir = os.path.expanduser(GC.out_dir)
+        GC.out_dir = expanduser(GC.out_dir)
 
     def run():
         '''
@@ -29,21 +32,21 @@ class Driver_Default(Driver):
             MF.modules[module].init()
         print(" done")
         print("Beginning simulations...")
-        orig_dir = os.getcwd()
+        orig_dir = getcwd()
         print("Attempting to create the user-specified output directory: %r..." % GC.out_dir, end='')
         stdout.flush()
         try:
-            os.makedirs(GC.out_dir)
+            makedirs(GC.out_dir)
             pass
         except:
             print("ERROR: Unable to create the output directory. Perhaps it already exists?")
             exit(-1)
-        os.chdir(GC.out_dir)
-        os.makedirs("error_free_files")
-        os.makedirs("error_free_files/phylogenetic_trees")
-        os.makedirs("error_free_files/sequence_data")
-        os.makedirs("error_prone_files")
-        os.makedirs("error_prone_files/sequence_data")
+        chdir(GC.out_dir)
+        makedirs("error_free_files")
+        makedirs("error_free_files/phylogenetic_trees")
+        makedirs("error_free_files/sequence_data")
+        makedirs("error_prone_files")
+        makedirs("error_prone_files/sequence_data")
         print(" done")
 
         # create ContactNetwork object from input contact network edge list
@@ -202,4 +205,4 @@ class Driver_Default(Driver):
         print("Error prone sequence data were written to: %s/error_prone_files/sequence_data/" % GC.out_dir)
 
         # return to original directory
-        os.chdir(orig_dir)
+        chdir(orig_dir)

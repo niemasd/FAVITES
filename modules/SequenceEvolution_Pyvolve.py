@@ -24,7 +24,7 @@ EmpiricalModelFrequencies classes, and we do not allow you to run the
 compute_frequencies() function; instead, we ask that you compute the frequencies
 prior to the simulation process and pass them in via the allowed options.
 '''
-from SequenceEvolution import SequenceEvolution # abstract SequenceEvolution class
+from SequenceEvolution import SequenceEvolution
 import FAVITES_GlobalContext as GC
 import modules.FAVITES_ModuleFactory as MF
 import pyvolve

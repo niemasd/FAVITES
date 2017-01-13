@@ -4,7 +4,7 @@ Niema Moshiri 2016
 
 "Driver" module
 '''
-import abc # for abstraction
+import abc
 
 class Driver(metaclass=abc.ABCMeta):
     '''

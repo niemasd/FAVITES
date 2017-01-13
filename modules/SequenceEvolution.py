@@ -4,7 +4,7 @@ Niema Moshiri 2016
 
 "SequenceEvolution" module
 '''
-import abc # for abstraction
+import abc
 
 class SequenceEvolution(metaclass=abc.ABCMeta):
     '''

@@ -4,7 +4,7 @@ Niema Moshiri 2016
 
 "TreeNode" module, implemented simply using pointers
 '''
-from TreeNode import TreeNode # abstract Tree class
+from TreeNode import TreeNode
 import FAVITES_GlobalContext as GC
 
 class TreeNode_Simple(TreeNode):

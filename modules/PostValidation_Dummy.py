@@ -4,7 +4,7 @@ Niema Moshiri 2016
 
 "PostValidation" module, dummy implementation
 '''
-from PostValidation import PostValidation # abstract PostValidation class
+from PostValidation import PostValidation
 
 class PostValidation_Dummy(PostValidation):
     def init():

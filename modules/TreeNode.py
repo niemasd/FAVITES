@@ -4,7 +4,7 @@ Niema Moshiri 2016
 
 "TreeNode" module
 '''
-import abc # for abstraction
+import abc
 
 class TreeNode(metaclass=abc.ABCMeta):
     '''
