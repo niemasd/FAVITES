@@ -122,6 +122,9 @@
         "ARTSOLiDMatePair": {
             "req": ["art_SOLiD_path", "art_SOLiD_options", "art_SOLiD_len_read", "art_SOLiD_fold_coverage", "art_SOLiD_mean_frag_len", "art_SOLiD_std_dev", "out_dir"]
         },
+        "ARTSOLiDPairedEnd": {
+            "req": ["art_SOLiD_path", "art_SOLiD_options", "art_SOLiD_len_read_F3", "art_SOLiD_len_read_F5", "art_SOLiD_fold_coverage", "art_SOLiD_mean_frag_len", "art_SOLiD_std_dev", "out_dir"]
+        },
         "ARTSOLiDSingleEnd": {
             "req": ["art_SOLiD_path", "art_SOLiD_options", "art_SOLiD_len_read", "art_SOLiD_fold_coverage", "out_dir"]
         },

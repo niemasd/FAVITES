@@ -2,7 +2,7 @@
 '''
 Niema Moshiri 2016
 
-"Sequencing" module, using ART to simulate SOLiD reads (single-end)
+"Sequencing" module, using ART to simulate SOLiD reads (mate-pair, F3-R3)
 '''
 from Sequencing import Sequencing
 import FAVITES_GlobalContext as GC
