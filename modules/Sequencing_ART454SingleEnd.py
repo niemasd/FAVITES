@@ -2,7 +2,7 @@
 '''
 Niema Moshiri 2016
 
-"Sequencing" module, using ART to simulate Illumina NGS reads
+"Sequencing" module, using ART to simulate Roche 454 reads (single-end)
 '''
 from Sequencing import Sequencing
 import FAVITES_GlobalContext as GC
@@ -12,20 +12,18 @@ from os import getcwd
 from os import makedirs
 from os import chdir
 
-class Sequencing_ARTillumina(Sequencing):
+class Sequencing_ART454SingleEnd(Sequencing):
     def init():
         GC.out_dir = expanduser(GC.out_dir)
-        GC.art_illumina_args = [i.strip() for i in GC.art_illumina_args.strip().split()]
-        assert "-i" not in GC.art_illumina_args and "--in" not in GC.art_illumina_args, "Don't use the -i (--in) argument (we will specify it for you)"
-        assert "-o" not in GC.art_illumina_args and "--out" not in GC.art_illumina_args, "Don't use the -o (--out) argument (we will specify it for you)"
-        GC.art_illumina_path = expanduser(GC.art_illumina_path.strip())
+        GC.art_454_fold_coverage = GC.art_454_fold_coverage.strip()
+        GC.art_454_args = [i.strip() for i in GC.art_454_args.strip().split()]
+        GC.art_454_path = expanduser(GC.art_454_path.strip())
 
     def introduce_sequencing_error(node):
-        command = [GC.art_illumina_path] + GC.art_illumina_args
-        command.append("-i")
+        command = [GC.art_454_path] + GC.art_454_args
         command.append(GC.out_dir + "/error_free_files/sequence_data/seqs_" + node.get_name() + ".fasta")
-        command.append("-o")
         command.append(node.get_name())
+        command.append(GC.art_454_fold_coverage)
         orig_dir = getcwd()
         chdir(GC.out_dir)
         makedirs("error_prone_files/sequence_data", exist_ok=True)

@@ -107,8 +107,11 @@
     },
 
     "Sequencing": {
+        "ART454SingleEnd": {
+            "req": ["art_454_path", "art_454_args", "art_454_fold_coverage", "out_dir"]
+        },
         "ARTillumina": {
-            "req": ["art_illumina_path", "art_illumina_args"]
+            "req": ["art_illumina_path", "art_illumina_args", "out_dir"]
         },
         "DWGSIM": {
             "req": ["dwgsim_path", "dwgsim_options", "out_dir"]
