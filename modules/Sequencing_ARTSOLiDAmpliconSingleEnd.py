@@ -2,7 +2,7 @@
 '''
 Niema Moshiri 2016
 
-"Sequencing" module, using ART to simulate SOLiD reads (paired-end, F3-F5)
+"Sequencing" module, using ART to simulate SOLiD reads (amplicon single-end)
 '''
 from Sequencing import Sequencing
 import FAVITES_GlobalContext as GC
@@ -12,7 +12,7 @@ from os import getcwd
 from os import makedirs
 from os import chdir
 
-class Sequencing_ARTSOLiDPairedEnd(Sequencing):
+class Sequencing_ARTSOLiDAmpliconSingleEnd(Sequencing):
     def init():
         GC.out_dir = expanduser(GC.out_dir)
         GC.art_SOLiD_options = [i.strip() for i in GC.art_SOLiD_options.strip().split()]
@@ -20,14 +20,11 @@ class Sequencing_ARTSOLiDPairedEnd(Sequencing):
         assert GC.art_SOLiD_len_read <= 75, "Maximum ART SOLiD read length is 75"
 
     def introduce_sequencing_error(node):
-        command = [GC.art_SOLiD_path] + GC.art_SOLiD_options
+        command = [GC.art_SOLiD_path] + GC.art_SOLiD_options + ['-A','s']
         command.append(GC.out_dir + "/error_free_files/sequence_data/seqs_" + node.get_name() + ".fasta")
         command.append(node.get_name())
-        command.append(str(GC.art_SOLiD_len_read_F3))
-        command.append(str(GC.art_SOLiD_len_read_F5))
-        command.append(str(GC.art_SOLiD_fold_coverage))
-        command.append(str(GC.art_SOLiD_mean_frag_len))
-        command.append(str(GC.art_SOLiD_std_dev))
+        command.append(str(GC.art_SOLiD_len_read))
+        command.append(str(GC.art_SOLiD_reads_per_amplicon))
         orig_dir = getcwd()
         chdir(GC.out_dir)
         makedirs("error_prone_files/sequence_data", exist_ok=True)

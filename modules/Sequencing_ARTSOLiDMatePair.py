@@ -17,7 +17,7 @@ class Sequencing_ARTSOLiDMatePair(Sequencing):
         GC.out_dir = expanduser(GC.out_dir)
         GC.art_SOLiD_options = [i.strip() for i in GC.art_SOLiD_options.strip().split()]
         GC.art_SOLiD_path = expanduser(GC.art_SOLiD_path.strip())
-        #assert GC.art_SOLiD_len_read <= 75, "Maximum ART SOLiD read length is 75"
+        assert GC.art_SOLiD_len_read <= 75, "Maximum ART SOLiD read length is 75"
 
     def introduce_sequencing_error(node):
         command = [GC.art_SOLiD_path] + GC.art_SOLiD_options
