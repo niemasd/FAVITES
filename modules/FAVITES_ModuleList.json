@@ -110,6 +110,9 @@
         "ART454SingleEnd": {
             "req": ["art_454_path", "art_454_args", "art_454_fold_coverage", "out_dir"]
         },
+        "ART454PairedEnd": {
+            "req": ["art_454_path", "art_454_args", "art_454_fold_coverage", "art_454_mean_frag_len", "art_454_std_dev", "out_dir"]
+        },
         "ARTillumina": {
             "req": ["art_illumina_path", "art_illumina_args", "out_dir"]
         },
