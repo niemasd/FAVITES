@@ -12,12 +12,12 @@ from os import getcwd
 from os import makedirs
 from os import chdir
 
-class Sequencing_ARTSOLiDSingleEnd(Sequencing):
+class Sequencing_ARTSOLiDMatePair(Sequencing):
     def init():
         GC.out_dir = expanduser(GC.out_dir)
         GC.art_SOLiD_options = [i.strip() for i in GC.art_SOLiD_options.strip().split()]
         GC.art_SOLiD_path = expanduser(GC.art_SOLiD_path.strip())
-        assert GC.art_SOLiD_len_read <= 75, "Maximum ART SOLiD read length is 75"
+        #assert GC.art_SOLiD_len_read <= 75, "Maximum ART SOLiD read length is 75"
 
     def introduce_sequencing_error(node):
         command = [GC.art_SOLiD_path] + GC.art_SOLiD_options
@@ -25,6 +25,8 @@ class Sequencing_ARTSOLiDSingleEnd(Sequencing):
         command.append(node.get_name())
         command.append(str(GC.art_SOLiD_len_read))
         command.append(str(GC.art_SOLiD_fold_coverage))
+        command.append(str(GC.art_SOLiD_mean_frag_len))
+        command.append(str(GC.art_SOLiD_std_dev))
         orig_dir = getcwd()
         chdir(GC.out_dir)
         makedirs("error_prone_files/sequence_data", exist_ok=True)
