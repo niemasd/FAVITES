@@ -122,6 +122,9 @@
         "ARTSOLiDAmpliconMatePair": {
             "req": ["art_SOLiD_path", "art_SOLiD_options", "art_SOLiD_len_read", "art_SOLiD_read_pairs_per_amplicon", "out_dir"]
         },
+        "ARTSOLiDAmpliconPairedEnd": {
+            "req": ["art_SOLiD_path", "art_SOLiD_options", "art_SOLiD_len_read_F3", "art_SOLiD_len_read_F5", "art_SOLiD_read_pairs_per_amplicon", "out_dir"]
+        },
         "ARTSOLiDAmpliconSingleEnd": {
             "req": ["art_SOLiD_path", "art_SOLiD_options", "art_SOLiD_len_read", "art_SOLiD_reads_per_amplicon", "out_dir"]
         },
