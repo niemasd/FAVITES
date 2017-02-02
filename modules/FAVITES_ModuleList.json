@@ -108,16 +108,19 @@
 
     "Sequencing": {
         "ART454Amplicon": {
-            "req": ["art_454_path", "art_454_args", "art_454_amplicon_mode", "art_454_reads_pairs_per_amplicon", "out_dir"]
+            "req": ["art_454_path", "art_454_options", "art_454_amplicon_mode", "art_454_reads_pairs_per_amplicon", "out_dir"]
         },
         "ART454PairedEnd": {
-            "req": ["art_454_path", "art_454_args", "art_454_fold_coverage", "art_454_mean_frag_len", "art_454_std_dev", "out_dir"]
+            "req": ["art_454_path", "art_454_options", "art_454_fold_coverage", "art_454_mean_frag_len", "art_454_std_dev", "out_dir"]
         },
         "ART454SingleEnd": {
-            "req": ["art_454_path", "art_454_args", "art_454_fold_coverage", "out_dir"]
+            "req": ["art_454_path", "art_454_options", "art_454_fold_coverage", "out_dir"]
         },
         "ARTillumina": {
-            "req": ["art_illumina_path", "art_illumina_args", "out_dir"]
+            "req": ["art_illumina_path", "art_illumina_options", "out_dir"]
+        },
+        "ARTSOLiDSingleEnd": {
+            "req": ["art_SOLiD_path", "art_SOLiD_options", "art_SOLiD_len_read", "art_SOLiD_fold_coverage", "out_dir"]
         },
         "DWGSIM": {
             "req": ["dwgsim_path", "dwgsim_options", "out_dir"]

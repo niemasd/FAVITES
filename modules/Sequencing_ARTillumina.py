@@ -15,13 +15,13 @@ from os import chdir
 class Sequencing_ARTillumina(Sequencing):
     def init():
         GC.out_dir = expanduser(GC.out_dir)
-        GC.art_illumina_args = [i.strip() for i in GC.art_illumina_args.strip().split()]
-        assert "-i" not in GC.art_illumina_args and "--in" not in GC.art_illumina_args, "Don't use the -i (--in) argument (we will specify it for you)"
-        assert "-o" not in GC.art_illumina_args and "--out" not in GC.art_illumina_args, "Don't use the -o (--out) argument (we will specify it for you)"
+        GC.art_illumina_options = [i.strip() for i in GC.art_illumina_options.strip().split()]
+        assert "-i" not in GC.art_illumina_options and "--in" not in GC.art_illumina_options, "Don't use the -i (--in) argument (we will specify it for you)"
+        assert "-o" not in GC.art_illumina_options and "--out" not in GC.art_illumina_options, "Don't use the -o (--out) argument (we will specify it for you)"
         GC.art_illumina_path = expanduser(GC.art_illumina_path.strip())
 
     def introduce_sequencing_error(node):
-        command = [GC.art_illumina_path] + GC.art_illumina_args
+        command = [GC.art_illumina_path] + GC.art_illumina_options
         command.append("-i")
         command.append(GC.out_dir + "/error_free_files/sequence_data/seqs_" + node.get_name() + ".fasta")
         command.append("-o")

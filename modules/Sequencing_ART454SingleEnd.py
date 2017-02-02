@@ -15,11 +15,11 @@ from os import chdir
 class Sequencing_ART454SingleEnd(Sequencing):
     def init():
         GC.out_dir = expanduser(GC.out_dir)
-        GC.art_454_args = [i.strip() for i in GC.art_454_args.strip().split()]
+        GC.art_454_options = [i.strip() for i in GC.art_454_options.strip().split()]
         GC.art_454_path = expanduser(GC.art_454_path.strip())
 
     def introduce_sequencing_error(node):
-        command = [GC.art_454_path] + GC.art_454_args
+        command = [GC.art_454_path] + GC.art_454_options
         command.append(GC.out_dir + "/error_free_files/sequence_data/seqs_" + node.get_name() + ".fasta")
         command.append(node.get_name())
         command.append(str(GC.art_454_fold_coverage))

@@ -2,7 +2,7 @@
 '''
 Niema Moshiri 2016
 
-"Sequencing" module, using ART to simulate Roche 454 reads (amplicon sequencing)
+"Sequencing" module, using ART to simulate Roche 454 reads (single-end)
 '''
 from Sequencing import Sequencing
 import FAVITES_GlobalContext as GC
@@ -12,23 +12,19 @@ from os import getcwd
 from os import makedirs
 from os import chdir
 
-class Sequencing_ART454Amplicon(Sequencing):
+class Sequencing_ARTSOLiDSingleEnd(Sequencing):
     def init():
         GC.out_dir = expanduser(GC.out_dir)
-        GC.art_454_options = [i.strip() for i in GC.art_454_options.strip().split()]
-        GC.art_454_path = expanduser(GC.art_454_path.strip())
-        GC.art_454_amplicon_mode = GC.art_454_amplicon_mode.strip()
-        assert GC.art_454_amplicon_mode == "single" or GC.art_454_amplicon_mode == "paired", '"art_454_amplicon_mode" must be either "single" or "paired"'
+        GC.art_SOLiD_options = [i.strip() for i in GC.art_SOLiD_options.strip().split()]
+        GC.art_SOLiD_path = expanduser(GC.art_SOLiD_path.strip())
+        assert GC.art_SOLiD_len_read <= 75, "Maximum ART SOLiD read length is 75"
 
     def introduce_sequencing_error(node):
-        command = [GC.art_454_path] + GC.art_454_options
-        if GC.art_454_amplicon_mode == "single":
-            command.append('-A')
-        else:
-            command.append('-B')
+        command = [GC.art_SOLiD_path] + GC.art_SOLiD_options
         command.append(GC.out_dir + "/error_free_files/sequence_data/seqs_" + node.get_name() + ".fasta")
         command.append(node.get_name())
-        command.append(str(GC.art_454_reads_pairs_per_amplicon))
+        command.append(str(GC.art_SOLiD_len_read))
+        command.append(str(GC.art_SOLiD_fold_coverage))
         orig_dir = getcwd()
         chdir(GC.out_dir)
         makedirs("error_prone_files/sequence_data", exist_ok=True)
