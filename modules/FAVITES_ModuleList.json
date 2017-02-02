@@ -107,6 +107,9 @@
     },
 
     "Sequencing": {
+        "ARTillumina": {
+            "req": ["art_illumina_path", "art_illumina_args"]
+        },
         "DWGSIM": {
             "req": ["dwgsim_path", "dwgsim_options", "out_dir"]
         },
