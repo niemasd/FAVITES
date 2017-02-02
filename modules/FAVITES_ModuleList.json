@@ -119,6 +119,9 @@
         "ARTillumina": {
             "req": ["art_illumina_path", "art_illumina_options", "out_dir"]
         },
+        "ARTSOLiDAmpliconMatePair": {
+            "req": ["art_SOLiD_path", "art_SOLiD_options", "art_SOLiD_len_read", "art_SOLiD_read_pairs_per_amplicon", "out_dir"]
+        },
         "ARTSOLiDAmpliconSingleEnd": {
             "req": ["art_SOLiD_path", "art_SOLiD_options", "art_SOLiD_len_read", "art_SOLiD_reads_per_amplicon", "out_dir"]
         },
