@@ -60,6 +60,10 @@
             "req": ["log_file"]
         },
 
+        "Null": {
+            "req": []
+        },
+
         "STDERR": {
             "req": []
         },
