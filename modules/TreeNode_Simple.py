@@ -98,9 +98,7 @@ class TreeNode_Simple(TreeNode):
 
     def newick(self, redo=False):
         # error message for invalid number of children
-        if len(self.children) != 0 and len(self.children) != 2:
-            print("ERROR: Encountered node with number of children != 0 or 2")
-            exit(-1)
+        assert len(self.children) == 0 or len(self.children) == 2, "Encountered node with number of children != 0 or 2"
 
         # if leaf
         if len(self.children) == 0:

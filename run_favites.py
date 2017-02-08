@@ -24,6 +24,10 @@ def parseArgs():
     and "import ____ module" section of this function accordingly.
     '''
 
+    # print author message
+    printMessage()
+    print()
+
     # use argparse to parse user arguments
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('-c', '--config', required=True, type=argparse.FileType('r'), help="Configuration file")
@@ -35,10 +39,6 @@ def parseArgs():
     print(" done")
 
 if __name__ == "__main__":
-    # print author message
-    printMessage()
-    print()
-
     # initialize global access variables
     MF.init('/'.join(argv[0].split('/')[:-1]) + '/modules')
 

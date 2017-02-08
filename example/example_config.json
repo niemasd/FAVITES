@@ -3,6 +3,7 @@
     "ContactNetworkGenerator":                         "File",
     "Driver":                                          "Default",
     "EndCriteria":                                     "Transmissions",
+    "Logging":                                         "STDOUT",
     "NodeEvolution":                                   "Yule",
     "NodeSample":                                      "Bernoulli",
     "PostValidation":                                  "Dummy",

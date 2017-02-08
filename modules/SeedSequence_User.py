@@ -15,12 +15,8 @@ class SeedSequence_User(SeedSequence):
 
     def init():
         GC.num_seeds = int(GC.num_seeds)
-        if GC.num_seeds < 1:
-            print("ERROR: Must have at least 1 seed node")
-            exit(-1)
-        if len(GC.seed_seqs) != GC.num_seeds:
-            print("ERROR: seed_seqs must have exactly num_seeds sequences!")
-            exit(-1)
+        assert GC.num_seeds >= 1, "Must have at least 1 seed node"
+        assert len(GC.seed_seqs) == GC.num_seeds, "seed_seqs must have exactly num_seeds sequences!"
         GC.seed_seqs_num = 0
 
     def generate():

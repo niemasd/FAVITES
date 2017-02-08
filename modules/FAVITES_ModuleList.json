@@ -47,6 +47,28 @@
         }
     },
 
+    "Logging": {
+        "File": {
+            "req": ["log_file"]
+        },
+
+        "FileSTDOUT": {
+            "req": ["log_file"]
+        },
+
+        "FileSTDERR": {
+            "req": ["log_file"]
+        },
+
+        "STDERR": {
+            "req": []
+        },
+
+        "STDOUT": {
+            "req": []
+        }
+    },
+
     "NodeEvolution": {
         "DualBirth": {
             "req": ["rate_A", "rate_B"]

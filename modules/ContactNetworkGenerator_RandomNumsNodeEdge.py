@@ -18,16 +18,10 @@ class ContactNetworkGenerator_RandomNumsNodeEdge(ContactNetworkGenerator):
     def init():
         GC.num_cn_nodes = int(GC.num_cn_nodes)
         GC.num_cn_edges = int(GC.num_cn_edges)
-        if GC.num_cn_nodes < 2:
-            print("ERROR: Contact network must have more than >= 2 nodes")
-            exit(-1)
-        if GC.num_cn_edges > GC.num_cn_nodes * (GC.num_cn_nodes - 1):
-            print("ERROR: If there are n contact network nodes, there cannot be more than n*(n-1) edges")
-            exit(-1)
+        assert GC.num_cn_nodes >= 2, "Contact network must have more than >= 2 nodes"
+        assert GC.num_cn_edges <= GC.num_cn_nodes * (GC.num_cn_nodes - 1), "If there are n contact network nodes, there cannot be more than n*(n-1) edges"
         GC.d_or_u = GC.d_or_u.strip()
-        if GC.d_or_u != 'd' and GC.d_or_u != 'u':
-            print('ERROR: "d_or_u" must be either "d" or "u"')
-            exit(-1)
+        assert GC.d_or_u == 'd' or GC.d_or_u == 'u', '"d_or_u" must be either "d" or "u"'
 
     def get_edge_list():
         nodes = [str(i) for i in range(GC.num_cn_nodes)]

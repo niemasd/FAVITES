@@ -62,11 +62,8 @@ class SequenceEvolution_Pyvolve(SequenceEvolution):
         elif GC.pyvolve_state_frequencies_class == "CustomFrequencies":
             GC.pyvolve_f = pyvolve.CustomFrequencies(GC.pyvolve_state_frequencies_parameters_dictionary["alphabet"], freq_dict=GC.pyvolve_state_frequencies_parameters_dictionary["freq_dict"])
         else:
-            print("ERROR: Invalid Pyvolve StateFrequencies class specified")
-            exit(-1)
-        if GC.pyvolve_f is None:
-            print("ERROR: Something went wrong in setting up the Pyvolve StateFrequencies class")
-            exit(-1)
+            assert False, "Invalid Pyvolve StateFrequencies class specified"
+        assert GC.pyvolve_f is not None, "Something went wrong in setting up the Pyvolve StateFrequencies class"
 
     def evolve_to_current_time(node):
         pass

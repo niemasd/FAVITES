@@ -18,9 +18,7 @@ class SeedSelection_Random(SeedSelection):
 
     def init():
         GC.num_seeds = int(GC.num_seeds)
-        if GC.num_seeds < 1:
-            print("ERROR: Must have at least 1 seed node")
-            exit(-1)
+        assert GC.num_seeds >= 1, "Must have at least 1 seed node"
 
     def select_seeds():
         nodes = [node for node in GC.contact_network.nodes_iter()]

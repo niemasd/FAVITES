@@ -85,6 +85,3 @@ if __name__ == '__main__':
     in the simulator tool.
     '''
     init()
-    #print(module_implementations.keys())
-    #print(module_abstract_classes)
-    #print(module_implementations)
