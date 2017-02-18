@@ -48,7 +48,6 @@ class ContactNetworkNode_NetworkX(ContactNetworkNode):
         self.contact_network = cn
         self.name = name
         self.num = num
-        self.infected = False
         if not hasattr(GC, 'viruses'):
             GC.viruses = {}
         if self.num not in GC.viruses:
@@ -88,10 +87,10 @@ class ContactNetworkNode_NetworkX(ContactNetworkNode):
         self.contact_network.contact_network.node[self.num]['infections'].append((time, virus))
         virus.set_contact_network_node(self)
         self.add_virus(virus)
-        self.infected = True
+        self.contact_network.add_to_infected(self)
 
     def is_infected(self):
-        return self.infected
+        return len(GC.viruses[self.num]) != 0
 
     def add_virus(self, virus):
         assert virus.get_contact_network_node() == self, "Cannot add a virus to a node it's not in"
@@ -101,7 +100,6 @@ class ContactNetworkNode_NetworkX(ContactNetworkNode):
         assert virus.get_contact_network_node() == self, "Cannot remove a virus from a node it's not in"
         GC.viruses[self.num].remove(virus.get_label())
         if len(GC.viruses[self.num]) == 0:
-            self.infected = False
             self.contact_network.remove_from_infected(self)
 
     def viruses(self):
