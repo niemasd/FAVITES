@@ -16,9 +16,7 @@ class SeedSequence_Random(SeedSequence):
     '''
 
     def init():
-        pass
+        assert isinstance(GC.seed_sequence_length, int), "Specified SeedSequenceLength is not an integer"
 
     def generate():
-        k = GC.seed_sequence_length
-        assert isinstance(k, int), "Specified SeedSequenceLength is not an integer"
-        return ''.join([choice('ACGT') for _ in range(k)])
+        return ''.join([choice('ACGT') for _ in range(GC.seed_sequence_length)])

@@ -77,9 +77,11 @@
         "BirthDeath": {
             "req": ["bd_birth", "bd_birth_sd", "bd_death", "bd_death_sd"]
         },
+
         "DualBirth": {
             "req": ["rate_A", "rate_B"]
         },
+
         "Yule": {
             "req": ["yule_rate"]
         }
@@ -118,6 +120,10 @@
 
         "Random": {
             "req": ["seed_sequence_length"]
+        },
+
+        "RandomWeighted": {
+            "req": ["seed_sequence_length", "seed_prob_A", "seed_prob_C", "seed_prob_G"]
         },
 
         "User": {
