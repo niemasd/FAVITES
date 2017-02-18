@@ -74,6 +74,9 @@
     },
 
     "NodeEvolution": {
+        "BirthDeath": {
+            "req": ["bd_birth", "bd_birth_sd", "bd_death", "bd_death_sd"]
+        },
         "DualBirth": {
             "req": ["rate_A", "rate_B"]
         },

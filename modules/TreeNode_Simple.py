@@ -60,6 +60,7 @@ class TreeNode_Simple(TreeNode):
         return self.children
 
     def get_edge_length(self):
+        assert self.time > self.parent.get_time(), "A TreeNode object's time cannot be less than its parent's time"
         return self.time - self.parent.get_time()
 
     def get_label(self):

@@ -4,7 +4,7 @@
     "Driver":                                          "Default",
     "EndCriteria":                                     "Transmissions",
     "Logging":                                         "STDOUT",
-    "NodeEvolution":                                   "Yule",
+    "NodeEvolution":                                   "BirthDeath",
     "NodeSample":                                      "Bernoulli",
     "PostValidation":                                  "Dummy",
     "SeedSelection":                                   "Random",
@@ -15,6 +15,10 @@
     "TransmissionNodeSample":                          "RandomMultiInfection",
     "TransmissionTimeSample":                          "Fixed",
     "TreeNode":                                        "Simple",
+    "bd_birth":                                        0.5,
+    "bd_birth_sd":                                     0,
+    "bd_death":                                        0,
+    "bd_death_sd":                                     0,
     "contact_network_file":                            "~/GitHub/FAVITES/example/example_contact_network.txt",
     "dwgsim_options":                                  "",
     "dwgsim_path":                                     "dwgsim",
@@ -27,6 +31,5 @@
     "pyvolve_model_type":                              "nucleotide",
     "pyvolve_state_frequencies_class":                 "EqualFrequencies",
     "pyvolve_state_frequencies_parameters_dictionary": {"alphabet":"nucleotide"},
-    "seed_sequence_length":                            1000,
-    "yule_rate":                                       0.5
+    "seed_sequence_length":                            1000
 }
