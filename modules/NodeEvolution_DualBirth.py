@@ -21,20 +21,37 @@ class NodeEvolution_DualBirth(NodeEvolution):
         for virus in viruses:
             node.remove_virus(virus)
 
+            # if this is the first time this node is evolving, it must start active
+            if not hasattr(virus,'active'):
+                virus.active = True
+
+            # can't assume virus immediately starts replicating
+            extra_time = 0
+            if virus.active:
+                extra_time = exponential(scale=GC.dualbirth_betaP)
+            else:
+                extra_time = exponential(scale=GC.dualbirth_beta)
+            virus.set_time(virus.get_time() + extra_time)
+
             # initialize simulation
+            done = []
             pq = Q.PriorityQueue()
-            pq.put((virus.get_time(), virus))
+            if virus.get_time() < GC.time:
+                pq.put((virus.get_time(), virus))
+            else:
+                done.append(virus)
 
 
             # perform simulation
-            done = []
-            while not pq.empty() > 0:
+            while not pq.empty():
                 # get next node
                 currTime, currNode = pq.get()
+                currNode.active = True
 
                 # self propagation
                 leftLength = exponential(scale=GC.dualbirth_betaP)
                 leftChild = TreeNode(time=currNode.get_time()+leftLength, contact_network_node=node)
+                leftChild.active = True
                 currNode.add_child(leftChild)
                 if leftChild.get_time() < GC.time:
                     pq.put((leftChild.get_time(), leftChild))
@@ -44,6 +61,7 @@ class NodeEvolution_DualBirth(NodeEvolution):
                 # newly created inactive child
                 rightLength = exponential(scale=GC.dualbirth_beta)
                 rightChild = TreeNode(time=currNode.get_time()+rightLength, contact_network_node=node)
+                rightChild.active = False
                 currNode.add_child(rightChild)
                 if rightChild.get_time() < GC.time:
                     pq.put((rightChild.get_time(), rightChild))

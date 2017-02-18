@@ -43,13 +43,13 @@ class TreeNode_Simple(TreeNode):
             GC.label_to_node[self.get_label()] = self
 
     def __hash__(self):
-        return hash(id(self))
+        return self.num
 
     def __eq__(self, other):
-        return id(self) == id(other)
+        return isinstance(other, TreeNode_Simple) and self.num == other.num
 
     def __ne__(self, other):
-        return not self == other
+        return not isinstance(other, TreeNode_Simple) or self.num != other.num
 
     def add_child(self, child):
         self.children.add(child)

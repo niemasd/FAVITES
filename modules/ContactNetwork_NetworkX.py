@@ -97,7 +97,7 @@ class ContactNetwork_NetworkX(ContactNetwork):
 
         # create sets of nodes
         for node in self.contact_network.nodes():
-            self.nodes.add(Node(self.contact_network, self.num_to_name[node], node))
+            self.nodes.add(Node(self, self.num_to_name[node], node))
         for node in self.nodes:
             self.uninfected_nodes.add(node)
 
@@ -133,13 +133,13 @@ class ContactNetwork_NetworkX(ContactNetwork):
         for edge in self.contact_network.edges():
             uNum,vNum = edge
             attr = self.contact_network.edge[uNum][vNum]['attribute']
-            u = Node(self.contact_network, self.num_to_name[uNum], uNum)
-            v = Node(self.contact_network, self.num_to_name[vNum], vNum)
+            u = Node(self, self.num_to_name[uNum], uNum)
+            v = Node(self, self.num_to_name[vNum], vNum)
             yield Edge(u,v,attr)
 
     def get_edges_from(self, node):
         nx_edges = self.contact_network.edges(self.name_to_num[node.get_name()])
-        return [Edge(node, Node(self.contact_network, self.num_to_name[vNum], vNum), self.contact_network.edge[uNum][vNum]['attribute']) for uNum,vNum in nx_edges]
+        return [Edge(node, Node(self, self.num_to_name[vNum], vNum), self.contact_network.edge[uNum][vNum]['attribute']) for uNum,vNum in nx_edges]
 
     def get_transmissions(self):
         return self.transmissions
@@ -155,7 +155,14 @@ class ContactNetwork_NetworkX(ContactNetwork):
         assert node.is_infected(), "node is not infected! Infect before moving"
         if node in self.uninfected_nodes:
             self.uninfected_nodes.remove(node)
-            self.infected_nodes.add(node)
+        self.infected_nodes.add(node)
+
+    def remove_from_infected(self,node):
+        assert isinstance(node, Node), "node is not a ContactNetworNode_NetworkX"
+        assert not node.is_infected(), "node is infected! Uninfect before moving"
+        if node in self.infected_nodes:
+            self.infected_nodes.remove(node)
+        self.uninfected_nodes.add(node)
 
 def check():
     '''

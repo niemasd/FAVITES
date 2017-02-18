@@ -43,6 +43,9 @@ class ContactNetwork(metaclass=abc.ABCMeta):
         Return the number of transmission events that have happened thus far
     num_uninfected_nodes()
         Return the number of uninfected nodes in this ``ContactNetwork''
+    remove_from_infected(node)
+        Remove ``node'' from the infected nodes and add it to the uninfected
+        nodes
     '''
 
     @abc.abstractmethod
@@ -231,6 +234,19 @@ class ContactNetwork(metaclass=abc.ABCMeta):
     def add_to_infected(self, node):
         '''
         Remove ``node'' from the uninfected nodes and add it to the infected
+        nodes
+
+        Parameters
+        ----------
+        node : ContactNetworkNode
+            The node to move
+        '''
+        pass
+
+    @abc.abstractmethod
+    def remove_from_infected(self, node):
+        '''
+        Remove ``node'' from the infected nodes and add it to the uninfected
         nodes
 
         Parameters

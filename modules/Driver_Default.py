@@ -87,13 +87,14 @@ class Driver_Default(Driver):
             GC.time = t
             if MF.modules['EndCriteria'].done():
                 break
-            u,v = MF.modules['TransmissionNodeSample'].sample_nodes(t)
+            u,v = MF.modules['TransmissionNodeSample'].sample_nodes(GC.time)
             MF.modules['NodeEvolution'].evolve_to_current_time(u)
+            MF.modules['NodeEvolution'].evolve_to_current_time(v)
             virus = MF.modules['SourceSample'].sample_virus(u)
             u.remove_virus(virus)
             v.infect(GC.time, virus)
             GC.contact_network.add_to_infected(v)
-            GC.contact_network.add_transmission(u,v,t)
+            GC.contact_network.add_transmission(u,v,GC.time)
         LOG.writeln(" done")
 
         # finalize global time

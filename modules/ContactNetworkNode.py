@@ -17,6 +17,8 @@ class ContactNetworkNode(metaclass=abc.ABCMeta):
         viral evolution! Should be at current time)
     get_attribute()
         Return the attribute(s) of this ``ContactNetworkNode'' object
+    get_contact_network()
+        Return the ``ContactNetwork'' object this node is in
     get_infection()
         Return a list of infection(s) as (time, virus) tuples
     get_name()
@@ -88,6 +90,18 @@ class ContactNetworkNode(metaclass=abc.ABCMeta):
         -------
         attribute : str
             The attribute(s) of this ``ContactNetworkNode'' object
+        '''
+        pass
+
+    @abc.abstractmethod
+    def get_contact_network(self):
+        '''
+        Returns the ``ContactNetwork'' object this node is in
+
+        Returns
+        -------
+        contact_network : ContactNetwork
+            The ``ContactNetwork'' object this node is in
         '''
         pass
 
