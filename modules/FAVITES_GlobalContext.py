@@ -33,3 +33,10 @@ def roll(die):
     while cdf[index] < num:
         index += 1
     return faces[index]
+
+# convert a NetworkX graph to a FAVITES edge list
+def nx2favites(nx_graph, du):
+    out = ["NODE\t" + str(node) + "\t." for node in nx_graph.nodes()]
+    for u,v in nx_graph.edges():
+        out.append("EDGE\t" + str(u) + "\t" + str(v) + "\t.\t" + du)
+    return out
