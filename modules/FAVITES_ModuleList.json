@@ -24,6 +24,10 @@
             "req": ["cave_num_cliques", "cave_clique_size", "out_dir"]
         },
 
+        "CavemanConnected": {
+            "req": ["cave_num_cliques", "cave_clique_size", "out_dir"]
+        },
+
         "Complete": {
             "req": ["num_cn_nodes", "out_dir"]
         },
