@@ -28,6 +28,10 @@
             "req": ["cave_num_cliques", "cave_clique_size", "out_dir"]
         },
 
+        "CavemanRelaxed": {
+            "req": ["cave_num_cliques", "cave_clique_size", "cave_prob", "out_dir"]
+        },
+
         "Complete": {
             "req": ["num_cn_nodes", "out_dir"]
         },
