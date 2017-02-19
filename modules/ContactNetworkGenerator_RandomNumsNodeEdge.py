@@ -19,6 +19,7 @@ class ContactNetworkGenerator_RandomNumsNodeEdge(ContactNetworkGenerator):
         assert isinstance(GC.num_cn_nodes, int), "num_cn_nodes must be an integer"
         assert isinstance(GC.num_cn_edges, int), "num_cn_edges must be an integer"
         assert GC.num_cn_nodes >= 2, "Contact network must have at least 2 nodes"
+        assert GC.num_cn_edges > 0, "Contact network must have at least 1 edge"
         assert GC.num_cn_edges <= GC.num_cn_nodes * (GC.num_cn_nodes - 1), "If there are n contact network nodes, there cannot be more than n*(n-1) edges"
         GC.d_or_u = GC.d_or_u.strip()
         assert GC.d_or_u == 'd' or GC.d_or_u == 'u', '"d_or_u" must be either "d" or "u"'

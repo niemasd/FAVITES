@@ -3,14 +3,14 @@
 Niema Moshiri 2016
 
 "ContactNetworkGenerator" module, where the graph is generated under the
-Erdos-Renyi model.
+Barabasi-Albert model.
 '''
 from ContactNetworkGenerator import ContactNetworkGenerator
 import FAVITES_GlobalContext as GC
 from os.path import expanduser
-from networkx import fast_gnp_random_graph
+from networkx import barabasi_albert_graph
 
-class ContactNetworkGenerator_ErdosRenyi(ContactNetworkGenerator):
+class ContactNetworkGenerator_BarabasiAlbert(ContactNetworkGenerator):
     '''
     Implement the ``ContactNetworkGenerator'', loading the edge list from file
     '''
@@ -18,15 +18,12 @@ class ContactNetworkGenerator_ErdosRenyi(ContactNetworkGenerator):
     def init():
         assert isinstance(GC.num_cn_nodes, int), "num_cn_nodes must be an integer"
         assert GC.num_cn_nodes >= 2, "Contact network must have at least 2 nodes"
-        GC.er_prob = float(GC.er_prob)
-        assert GC.er_prob >= 0 and GC.er_prob <= 1, "er_prob must be between 0 and 1"
-        GC.d_or_u = GC.d_or_u.strip()
-        assert GC.d_or_u == 'd' or GC.d_or_u == 'u', '"d_or_u" must be either "d" or "u"'
+        assert isinstance(GC.num_edges_from_new, int), "num_edges_from_new must be an integer"
+        assert GC.num_edges_from_new > 0, "Must have at least 1 edge to attach from a new node to existing nodes"
 
     def get_edge_list():
-        du = GC.d_or_u == 'd'
-        cn = fast_gnp_random_graph(GC.num_cn_nodes, GC.er_prob, directed=du)
-        out = GC.nx2favites(cn, GC.d_or_u)
+        cn = barabasi_albert_graph(GC.num_cn_nodes, GC.num_edges_from_new)
+        out = GC.nx2favites(cn, 'u')
         f = open(expanduser(GC.out_dir + "/contact_network.txt"),'w')
         f.write('\n'.join(out))
         f.close()
