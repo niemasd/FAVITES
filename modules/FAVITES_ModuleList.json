@@ -16,6 +16,10 @@
             "req": ["num_cn_nodes", "num_edges_from_new", "out_dir"]
         },
 
+        "Barbell": {
+            "req": ["barbell_m1", "barbell_m2", "out_dir"]
+        },
+
         "ErdosRenyi": {
             "req": ["num_cn_nodes", "er_prob", "d_or_u", "out_dir"]
         },

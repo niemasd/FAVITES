@@ -10,10 +10,6 @@ import FAVITES_GlobalContext as GC
 from os.path import expanduser
 
 class ContactNetworkGenerator_File(ContactNetworkGenerator):
-    '''
-    Implement the ``ContactNetworkGenerator'', loading the edge list from file
-    '''
-
     def init():
         pass
 

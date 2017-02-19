@@ -11,10 +11,6 @@ from os.path import expanduser
 from networkx import watts_strogatz_graph
 
 class ContactNetworkGenerator_WattsStrogatz(ContactNetworkGenerator):
-    '''
-    Implement the ``ContactNetworkGenerator'', loading the edge list from file
-    '''
-
     def init():
         assert isinstance(GC.num_cn_nodes, int), "num_cn_nodes must be an integer"
         assert GC.num_cn_nodes >= 2, "Contact network must have at least 2 nodes"

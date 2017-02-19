@@ -11,10 +11,6 @@ from os.path import expanduser
 from random import sample
 
 class ContactNetworkGenerator_RandomNumsNodeEdge(ContactNetworkGenerator):
-    '''
-    Implement the ``ContactNetworkGenerator'', loading the edge list from file
-    '''
-
     def init():
         assert isinstance(GC.num_cn_nodes, int), "num_cn_nodes must be an integer"
         assert isinstance(GC.num_cn_edges, int), "num_cn_edges must be an integer"
