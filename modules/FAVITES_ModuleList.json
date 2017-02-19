@@ -26,6 +26,10 @@
 
         "RandomNumsNodeEdge": {
             "req": ["num_cn_nodes", "num_cn_edges", "d_or_u", "out_dir"]
+        },
+
+        "WattsStrogatz": {
+            "req": ["num_cn_nodes", "ws_k", "ws_prob"]
         }
     },
 
