@@ -110,6 +110,9 @@ class ContactNetwork_NetworkX(ContactNetwork):
     def get_nodes(self):
         return self.nodes
 
+    def get_node(self, name):
+        return Node(self, name, self.name_to_num[name])
+
     def num_infected_nodes(self):
         return len(self.infected_nodes)
 

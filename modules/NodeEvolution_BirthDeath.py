@@ -30,14 +30,16 @@ class NodeEvolution_BirthDeath(NodeEvolution):
     def evolve_to_current_time(node, finalize=False):
         viruses = [virus for virus in node.viruses()]
         for virus in viruses:
-            node.remove_virus(virus)
-            success = False
-            for _ in range(100):
-                tree = birth_death_tree(GC.bd_birth, GC.bd_death, birth_rate_sd=GC.bd_birth_sd, death_rate_sd=GC.bd_death_sd, max_time=GC.time-virus.get_time())
-                if tree.seed_node.num_child_nodes() > 1:
-                    success = True
-                    break
-            assert success, "Failed to create non-empty Birth-Death tree after 100 attempts. Perhaps try a higher birth rate or lower death rate?"
-            virus.set_time(virus.get_time() + tree.seed_node.edge_length)
-            for c in tree.seed_node.child_node_iter():
-                add_child(virus,c,node)
+            time = GC.time-virus.get_time()
+            if time > 0:
+                node.remove_virus(virus)
+                success = False
+                for _ in range(100):
+                    tree = birth_death_tree(GC.bd_birth, GC.bd_death, birth_rate_sd=GC.bd_birth_sd, death_rate_sd=GC.bd_death_sd, max_time=time)
+                    if tree.seed_node.num_child_nodes() > 1:
+                        success = True
+                        break
+                assert success, "Failed to create non-empty Birth-Death tree after 100 attempts. Perhaps try a higher birth rate or lower death rate?"
+                virus.set_time(virus.get_time() + tree.seed_node.edge_length)
+                for c in tree.seed_node.child_node_iter():
+                    add_child(virus,c,node)

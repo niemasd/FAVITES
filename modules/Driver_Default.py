@@ -61,11 +61,10 @@ class Driver_Default(Driver):
 
         # select seed nodes
         LOG.write("Selecting seed nodes...")
-        seed_nodes,seed_times = MF.modules['SeedSelection'].select_seeds()
+        seed_nodes = MF.modules['SeedSelection'].select_seeds()
         assert isinstance(seed_nodes, list), "seed_nodes is not a list"
         for node in seed_nodes:
             assert isinstance(node, MF.module_abstract_classes['ContactNetworkNode']), "seed_nodes contains items that are not ContactNetworkNode objects"
-        assert len(seed_nodes) == GC.num_seeds, "seed_nodes contains a different number of nodes than NumSeeds"
         LOG.writeln(" done")
 
         # infect seed nodes
@@ -75,7 +74,7 @@ class Driver_Default(Driver):
             seq = MF.modules['SeedSequence'].generate()
             virus = MF.modules['TreeNode'](time=0.0, seq=seq, contact_network_node=node)
             GC.root_viruses.append(virus)
-            node.infect(seed_times[i],virus)
+            node.infect(0.0,virus)
             GC.contact_network.add_to_infected(node)
         LOG.writeln(" done")
 
@@ -83,15 +82,17 @@ class Driver_Default(Driver):
         LOG.write("Performing transmission simulations...")
         while True:
             t = MF.modules['TransmissionTimeSample'].sample_time()
-            assert t >= GC.time, "Transmission cannot go back in time!"
-            GC.time = t
             if MF.modules['EndCriteria'].done():
                 break
+            assert t >= GC.time, "Transmission cannot go back in time!"
+            GC.time = t
             u,v = MF.modules['TransmissionNodeSample'].sample_nodes(GC.time)
             MF.modules['NodeEvolution'].evolve_to_current_time(u)
             MF.modules['NodeEvolution'].evolve_to_current_time(v)
             virus = MF.modules['SourceSample'].sample_virus(u)
             u.remove_virus(virus)
+            if not u.is_infected():
+                GC.contact_network.remove_from_infected(u)
             v.infect(GC.time, virus)
             GC.contact_network.add_to_infected(v)
             GC.contact_network.add_transmission(u,v,GC.time)

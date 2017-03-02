@@ -14,8 +14,8 @@ class SeedSelection(metaclass=abc.ABCMeta):
     -------
     init()
         Initialize the module (if need be)
-    select_seed_nodes(user_input, contact_network)
-        Select nodes in ``contact_network'' to use as seed nodes
+    select_seed_nodes()
+        Select nodes to use as seed nodes
     '''
 
     @staticmethod
@@ -37,7 +37,5 @@ class SeedSelection(metaclass=abc.ABCMeta):
         -------
         seed_nodes : list of ContactNetworkNode
             The nodes of the contact network to use as seeds
-        seed_times : list of float
-            The infection times for each seed node
         '''
         pass

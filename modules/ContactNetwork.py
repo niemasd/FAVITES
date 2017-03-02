@@ -23,6 +23,8 @@ class ContactNetwork(metaclass=abc.ABCMeta):
         Return a list of edges leaving ``node''
     get_infected_nodes()
         Return a set of all infected nodes in this ``ContactNetwork''
+    get_node(name)
+        Return the node with the given name
     get_nodes()
         Return a set of all nodes in this ``ContactNetwork''
     get_uninfected_nodes()
@@ -67,6 +69,18 @@ class ContactNetwork(metaclass=abc.ABCMeta):
     def init():
         '''
         Initialize the module (if need be)
+        '''
+        pass
+
+    @abc.abstractmethod
+    def get_node(self, name):
+        '''
+        Return the node with the given name
+
+        Returns
+        -------
+        node : ContactNetworkNode
+            The node with the given name
         '''
         pass
 

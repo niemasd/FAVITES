@@ -74,6 +74,10 @@
             "req": ["end_time"]
         },
 
+        "TransmissionFile": {
+            "req": ["transmission_network_file"]
+        },
+
         "Transmissions": {
             "req": ["end_transmissions"]
         }
@@ -138,6 +142,10 @@
     "SeedSelection": {
         "Random": {
             "req": ["num_seeds"]
+        },
+
+        "TransmissionFile": {
+            "req": ["transmission_network_file", "seed_file"]
         }
     },
 
@@ -222,6 +230,10 @@
     "TransmissionNodeSample": {
         "RandomMultiInfection": {
             "req": []
+        },
+
+        "TransmissionFile": {
+            "req": ["transmission_network_file"]
         }
     },
 
@@ -232,6 +244,10 @@
 
         "Fixed": {
             "req": ["fixed_transmission_time_delta"]
+        },
+
+        "TransmissionFile": {
+            "req": ["transmission_network_file"]
         }
     },
 

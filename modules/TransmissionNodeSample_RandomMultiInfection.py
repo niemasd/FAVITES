@@ -7,7 +7,6 @@ infected nodes in the Contact Network, and one of its outgoing edges are
 randomly picked for the infection.
 '''
 from TransmissionNodeSample import TransmissionNodeSample
-from ContactNetwork import ContactNetwork
 import FAVITES_GlobalContext as GC
 from random import sample
 
