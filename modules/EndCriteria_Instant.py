@@ -16,6 +16,7 @@ class EndCriteria_Instant(EndCriteria):
         assert "NodeSample_Perfect" in str(MF.modules['NodeSample']), "Must use NodeSample_Perfect module"
         assert "SequenceEvolution_NoMutation" in str(MF.modules['SequenceEvolution']), "Must use SequenceEvolution_NoMutation module"
         assert "Sequencing_Perfect" in str(MF.modules['Sequencing']), "Must use Sequencing_Perfect module"
+        assert "TransmissionTimeSample_Instant" in str(MF.modules['TransmissionTimeSample']), "Must use TransmissionTimeSample_Instant module"
 
     def done():
         return True
