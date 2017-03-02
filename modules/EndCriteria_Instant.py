@@ -12,7 +12,10 @@ import modules.FAVITES_ModuleFactory as MF
 
 class EndCriteria_Instant(EndCriteria):
     def init():
+        assert "NodeEvolution_None" in str(MF.modules['NodeEvolution']), "Must use NodeEvolution_None module"
+        assert "NodeSample_Perfect" in str(MF.modules['NodeSample']), "Must use NodeSample_Perfect module"
         assert "SequenceEvolution_NoMutation" in str(MF.modules['SequenceEvolution']), "Must use SequenceEvolution_NoMutation module"
+        assert "Sequencing_Perfect" in str(MF.modules['Sequencing']), "Must use Sequencing_Perfect module"
 
     def done():
         return True

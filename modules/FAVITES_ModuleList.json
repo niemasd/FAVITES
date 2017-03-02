@@ -122,6 +122,10 @@
             "req": ["rate_A", "rate_B"]
         },
 
+        "None": {
+            "req": []
+        },
+
         "Yule": {
             "req": ["yule_rate"]
         }
