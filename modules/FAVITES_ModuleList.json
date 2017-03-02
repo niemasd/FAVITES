@@ -70,6 +70,10 @@
             "req": ["end_time", "end_transmissions"]
         },
 
+        "Instant": {
+            "req": []
+        },
+
         "Time": {
             "req": ["end_time"]
         },
