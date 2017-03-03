@@ -7,11 +7,12 @@ Niema Moshiri 2016
 from NodeEvolution import NodeEvolution
 import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
-from numpy.random import exponential
 import queue as Q
 
 class NodeEvolution_DualBirth(NodeEvolution):
     def init():
+        global exponential
+        from numpy.random import exponential
         GC.dualbirth_beta = 1/(float(GC.rate_B))
         GC.dualbirth_betaP = 1/(float(GC.rate_A))
 
