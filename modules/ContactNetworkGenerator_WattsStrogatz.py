@@ -8,10 +8,11 @@ Watts-Strogatz model.
 from ContactNetworkGenerator import ContactNetworkGenerator
 import FAVITES_GlobalContext as GC
 from os.path import expanduser
-from networkx import watts_strogatz_graph
 
 class ContactNetworkGenerator_WattsStrogatz(ContactNetworkGenerator):
     def init():
+        global watts_strogatz_graph
+        from networkx import watts_strogatz_graph
         assert isinstance(GC.num_cn_nodes, int), "num_cn_nodes must be an integer"
         assert GC.num_cn_nodes >= 2, "Contact network must have at least 2 nodes"
         assert isinstance(GC.ws_k, int), "ws_k must be an integer"

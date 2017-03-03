@@ -8,7 +8,6 @@ from ContactNetwork import ContactNetwork
 from ContactNetworkNode_NetworkX import ContactNetworkNode_NetworkX as Node
 from ContactNetworkEdge_NetworkX import ContactNetworkEdge_NetworkX as Edge
 import FAVITES_GlobalContext as GC
-from networkx import DiGraph
 
 class ContactNetwork_NetworkX(ContactNetwork):
     '''
@@ -33,7 +32,8 @@ class ContactNetwork_NetworkX(ContactNetwork):
     '''
 
     def init():
-        pass
+        global DiGraph
+        from networkx import DiGraph
 
     def __init__(self, edge_list=None):
         # if ModuleFactory is just testing, do nothing

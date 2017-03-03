@@ -7,7 +7,6 @@ after the previous, where delta is sampled from an exponential
 '''
 from TransmissionTimeSample import TransmissionTimeSample
 import FAVITES_GlobalContext as GC
-from numpy.random import exponential
 
 class TransmissionTimeSample_Exponential(TransmissionTimeSample):
     '''
@@ -16,7 +15,8 @@ class TransmissionTimeSample_Exponential(TransmissionTimeSample):
     '''
 
     def init():
-        pass
+        global exponential
+        from numpy.random import exponential
 
     def sample_time():
         return GC.time + exponential(scale=1/(float(GC.time_sample_rate)))

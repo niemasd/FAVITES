@@ -7,7 +7,6 @@ Niema Moshiri 2016
 from NodeEvolution import NodeEvolution
 import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
-from dendropy.model.birthdeath import birth_death_tree
 
 def add_child(parent_treenode, child_dpnode, cn_node):
     if parent_treenode.get_time() >= GC.time:
@@ -26,6 +25,8 @@ class NodeEvolution_BirthDeath(NodeEvolution):
     def init():
         global TreeNode
         TreeNode = MF.modules['TreeNode']
+        global birth_death_tree
+        from dendropy.model.birthdeath import birth_death_tree
 
     def evolve_to_current_time(node, finalize=False):
         viruses = [virus for virus in node.viruses()]

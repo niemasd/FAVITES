@@ -8,7 +8,6 @@ from ContactNetworkNode import ContactNetworkNode
 from ContactNetwork import ContactNetwork
 import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
-from networkx import DiGraph
 
 class ContactNetworkNode_NetworkX(ContactNetworkNode):
     '''

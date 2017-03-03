@@ -27,11 +27,12 @@ prior to the simulation process and pass them in via the allowed options.
 from SequenceEvolution import SequenceEvolution
 import FAVITES_GlobalContext as GC
 import modules.FAVITES_ModuleFactory as MF
-import pyvolve
 from os import makedirs
 
 class SequenceEvolution_Pyvolve(SequenceEvolution):
     def init():
+        global pyvolve
+        import pyvolve
         # config validity checks
         GC.pyvolve_model_type = GC.pyvolve_model_type.strip()
         GC.pyvolve_state_frequencies_class = GC.pyvolve_state_frequencies_class.strip()

@@ -8,10 +8,11 @@ Erdos-Renyi model.
 from ContactNetworkGenerator import ContactNetworkGenerator
 import FAVITES_GlobalContext as GC
 from os.path import expanduser
-from networkx import fast_gnp_random_graph
 
 class ContactNetworkGenerator_ErdosRenyi(ContactNetworkGenerator):
     def init():
+        global fast_gnp_random_graph
+        from networkx import fast_gnp_random_graph
         assert isinstance(GC.num_cn_nodes, int), "num_cn_nodes must be an integer"
         assert GC.num_cn_nodes >= 2, "Contact network must have at least 2 nodes"
         GC.er_prob = float(GC.er_prob)

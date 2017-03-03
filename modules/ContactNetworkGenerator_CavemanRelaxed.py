@@ -7,10 +7,11 @@ Niema Moshiri 2016
 from ContactNetworkGenerator import ContactNetworkGenerator
 import FAVITES_GlobalContext as GC
 from os.path import expanduser
-from networkx import relaxed_caveman_graph
 
 class ContactNetworkGenerator_CavemanRelaxed(ContactNetworkGenerator):
     def init():
+        global relaxed_caveman_graph
+        from networkx import relaxed_caveman_graph
         assert isinstance(GC.cave_num_cliques, int), "cave_num_cliques must be an integer"
         assert GC.cave_num_cliques > 0, "Must have at least 1 clique"
         assert isinstance(GC.cave_clique_size, int), "cave_clique_size must be an integer"
