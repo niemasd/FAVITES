@@ -51,10 +51,10 @@ class Driver_Default(Driver):
 
         # create ContactNetwork object from input contact network edge list
         LOG.write("Loading contact network edge list...")
-        edge_list = MF.modules['ContactNetworkGenerator'].get_edge_list()
+        GC.cn_edge_list = MF.modules['ContactNetworkGenerator'].get_edge_list()
         LOG.writeln(" done")
         LOG.write("Creating ContactNetwork object...")
-        contact_network = MF.modules['ContactNetwork'](edge_list)
+        contact_network = MF.modules['ContactNetwork'](GC.cn_edge_list)
         assert isinstance(contact_network, MF.module_abstract_classes['ContactNetwork']), "contact_network is not a ContactNetwork object"
         GC.contact_network = contact_network
         LOG.writeln(" done")
@@ -82,7 +82,7 @@ class Driver_Default(Driver):
         LOG.write("Performing transmission simulations...")
         while True:
             t = MF.modules['TransmissionTimeSample'].sample_time()
-            if MF.modules['EndCriteria'].done():
+            if t is None or MF.modules['EndCriteria'].done():
                 break
             assert t >= GC.time, "Transmission cannot go back in time!"
             GC.time = t
