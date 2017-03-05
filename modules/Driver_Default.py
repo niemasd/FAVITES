@@ -134,7 +134,7 @@ class Driver_Default(Driver):
         true_transmission_network = '\n'.join([("%s\t%s\t%d" % e) for e in transmissions])
         f = open('error_free_files/transmission_network.txt','w')
         for e in transmissions:
-            f.write("%s\t%s\t%d\n" % e)
+            f.write("%s\t%s\t%f\n" % e)
         f.close()
         LOG.writeln(" done")
         LOG.writeln("True transmission network was written to: %s/error_free_files/transmission_network.txt" % GC.out_dir)
