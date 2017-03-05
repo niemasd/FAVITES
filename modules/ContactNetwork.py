@@ -21,6 +21,8 @@ class ContactNetwork(metaclass=abc.ABCMeta):
         Perform an iteration over the edges in this ``ContactNetwork''
     get_edges_from(node)
         Return a list of edges leaving ``node''
+    get_edges_to(node)
+        Return a list of edges entering ``node''
     get_infected_nodes()
         Return a set of all infected nodes in this ``ContactNetwork''
     get_node(name)
@@ -177,6 +179,18 @@ class ContactNetwork(metaclass=abc.ABCMeta):
         -------
         edges : list of ContactNetworkEdge
             A list of edges leaving ``node''
+        '''
+        pass
+
+    @abc.abstractmethod
+    def get_edges_to(self, node):
+        '''
+        Return a list of edges entering ``node''
+
+        Returns
+        -------
+        edges : list of ContactNetworkEdge
+            A list of edges entering ``node''
         '''
         pass
 
