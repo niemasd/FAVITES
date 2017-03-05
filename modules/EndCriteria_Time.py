@@ -9,7 +9,7 @@ import FAVITES_GlobalContext as GC
 
 class EndCriteria_Time(EndCriteria):
     def init():
-        pass
+        GC.end_time = float(GC.end_time)
 
     def done():
         assert GC.end_time >= 0, "end_time is negative!"
