@@ -17,4 +17,6 @@ class SourceSample_Random(SourceSample):
         for virus in node.viruses():
             assert virus.time == GC.time, "Encountered leaf node not at current time!"
             viruses.append(virus)
+        if len(viruses) == 1:
+            viruses = viruses[0].split()
         return choice(viruses)
