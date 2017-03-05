@@ -14,6 +14,7 @@ class NodeEvolution_Yule(NodeEvolution):
         GC.rate_B = float(GC.yule_rate)
         GC.dualbirth_beta = 1/(float(GC.rate_B))
         GC.dualbirth_betaP = 1/(float(GC.rate_A))
+        NodeEvolution_DualBirth.init()
 
     def evolve_to_current_time(node, finalize=False):
         NodeEvolution_DualBirth.evolve_to_current_time(node, finalize=finalize)
