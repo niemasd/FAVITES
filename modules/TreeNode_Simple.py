@@ -56,11 +56,23 @@ class TreeNode_Simple(TreeNode):
         child.parent = self
         child.root = self.root
 
+    def split(self):
+        c1 = TreeNode_Simple(time=self.time, seq=self.seq, contact_network_node=self.contact_network_node)
+        c2 = TreeNode_Simple(time=self.time, seq=self.seq, contact_network_node=self.contact_network_node)
+        c1.parent = self
+        c2.parent = self
+        self.children.add(c1)
+        self.children.add(c2)
+        self.contact_network_node.remove_virus(self)
+        self.contact_network_node.add_virus(c1)
+        self.contact_network_node.add_virus(c2)
+        return c1,c2
+
     def get_children(self):
         return self.children
 
     def get_edge_length(self):
-        assert self.time > self.parent.get_time(), "A TreeNode object's time cannot be less than its parent's time"
+        assert self.time >= self.parent.get_time(), "A TreeNode object's time cannot be less than its parent's time"
         return self.time - self.parent.get_time()
 
     def get_label(self):
@@ -103,7 +115,10 @@ class TreeNode_Simple(TreeNode):
 
         # if leaf
         if len(self.children) == 0:
-            return self.get_label()
+            if self.parent == None: # one-node tree
+                return '(' + self.get_label() + ');'
+            else:
+                return self.get_label()
 
         # if root node that's already gotten newick:
         elif self in GC.final_trees and not redo:

@@ -44,6 +44,8 @@ class TreeNode(metaclass=abc.ABCMeta):
         Set the sequence of this ``TreeNode'' object
     set_time(time)
         Set the time of this ``TreeNode'' object
+    split()
+        Create two 0-branch-length children as descendants of this node
     '''
 
     @abc.abstractmethod
@@ -242,5 +244,20 @@ class TreeNode(metaclass=abc.ABCMeta):
         ----------
         time : float
             The time to set for this ``TreeNode'' object
+        '''
+        pass
+
+    @abc.abstractmethod
+    def split(self):
+        '''
+        Create two 0-branch-length children as descendants of this node
+
+        Useful for if your transmission source contact node only has 1 virus
+        object to transmit
+
+        Returns
+        -------
+        (u,v) : tuple of 2 TreeNode
+            The two children of this node (0-length branches)
         '''
         pass
