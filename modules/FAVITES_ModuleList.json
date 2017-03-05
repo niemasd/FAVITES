@@ -240,6 +240,10 @@
             "req": []
         },
 
+        "SI": {
+            "req": ["infection_rate"]
+        },
+
         "TransmissionFile": {
             "req": ["transmission_network_file"]
         }
@@ -256,6 +260,10 @@
 
         "Instant": {
             "req": []
+        },
+
+        "SI": {
+            "req": ["infection_rate"]
         },
 
         "TransmissionFile": {
