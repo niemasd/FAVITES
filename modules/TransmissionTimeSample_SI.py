@@ -7,7 +7,6 @@ Niema Moshiri 2016
 from TransmissionTimeSample import TransmissionTimeSample
 import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
-import queue as Q
 from random import choice
 
 class TransmissionTimeSample_SI(TransmissionTimeSample):
@@ -18,6 +17,7 @@ class TransmissionTimeSample_SI(TransmissionTimeSample):
         GC.infection_rate = float(GC.infection_rate)
         assert GC.infection_rate > 0, "infection_rate must be positive"
         GC.trans_pq = None
+        GC.trans_pq_v2trans = None
 
     def sample_time():
         if GC.contact_network.num_uninfected_nodes() == 0:
@@ -26,7 +26,8 @@ class TransmissionTimeSample_SI(TransmissionTimeSample):
             return None
         # fill priority queue of infection events if empty (if possible)
         if GC.trans_pq is None:
-            GC.trans_pq = Q.PriorityQueue()
+            GC.trans_pq = GC.SortedLinkedList()
+            GC.trans_pq_v2trans = dict()
             susceptible = set()
             for node in GC.contact_network.get_infected_nodes():
                 for edge in GC.contact_network.get_edges_from(node):
@@ -38,11 +39,12 @@ class TransmissionTimeSample_SI(TransmissionTimeSample):
                 if len(infected_neighbors) > 0:
                     u = choice(infected_neighbors)
                     t = GC.time + exponential(scale=1/(GC.infection_rate*len(infected_neighbors))) # min of exponentials is exponential with sum of rates
-                    GC.trans_pq.put((t,(u,v,t)))
+                    GC.trans_pq.put(v,t)
+                    GC.trans_pq_v2trans[v] = (u,v,t)
 
         # get next transmission event
-        u,v,t = GC.trans_pq.get()[1]
-        while v.is_infected():
-            u,v,t = GC.trans_pq.get()[1]
+        v = GC.trans_pq.getFront()
+        u,v,t = GC.trans_pq_v2trans[v]
         GC.next_trans = (u,v,t)
+        del GC.trans_pq_v2trans[v]
         return t

@@ -29,5 +29,8 @@ class TransmissionNodeSample_SI(TransmissionNodeSample):
                 infected_neighbors.append(v)
                 infector = choice(infected_neighbors)
                 time = t + exponential(scale=1/(GC.infection_rate*len(infected_neighbors))) # min of exponentials is exponential with sum of rates
-                GC.trans_pq.put((time,(infector,neighbor,time)))
+                if neighbor in GC.trans_pq_v2trans:
+                    GC.trans_pq.removeFirst(neighbor)
+                GC.trans_pq.put(neighbor,time)
+                GC.trans_pq_v2trans[neighbor] = (infector,neighbor,time)
         return u,v
