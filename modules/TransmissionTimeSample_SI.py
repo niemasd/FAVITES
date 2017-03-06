@@ -29,15 +29,15 @@ class TransmissionTimeSample_SI(TransmissionTimeSample):
         if GC.trans_pq is None:
             GC.trans_pq = GC.SortedLinkedList()
             GC.trans_pq_v2trans = dict()
-            susceptible = set()
+            GC.trans_susceptible = set()
         # attempt to fill priority queue
         if len(GC.trans_pq) == 0:
             for node in GC.contact_network.get_infected_nodes():
                 for edge in GC.contact_network.get_edges_from(node):
                     neighbor = edge.get_to()
                     if not neighbor.is_infected():
-                        susceptible.add(neighbor)
-            for v in susceptible:
+                        GC.trans_susceptible.add(neighbor)
+            for v in GC.trans_susceptible:
                 infected_neighbors = [edge.get_from() for edge in GC.contact_network.get_edges_to(v) if edge.get_from().is_infected()]
                 if len(infected_neighbors) > 0:
                     u = choice(infected_neighbors)
