@@ -103,11 +103,13 @@ class TreeNode_Simple(TreeNode):
         self.contact_network_node = node
 
     def leaves(self):
-        if len(self.children) == 0:
-            yield self
-        else:
-            for child in self.children:
-                yield from child.leaves()
+        q = [self]
+        while len(q) > 0:
+            curr = q.pop()
+            if len(curr.children) == 0:
+                yield curr
+            else:
+                q.extend(curr.children)
 
     def newick(self, redo=False):
         # error message for invalid number of children
