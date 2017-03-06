@@ -6,6 +6,8 @@ Niema Moshiri 2016
 '''
 from TreeNode import TreeNode
 import FAVITES_GlobalContext as GC
+from sys import setrecursionlimit
+setrecursionlimit(100000)
 
 class TreeNode_Simple(TreeNode):
     '''
