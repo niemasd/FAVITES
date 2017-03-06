@@ -37,7 +37,8 @@ class TransmissionTimeSample_SI(TransmissionTimeSample):
                     neighbor = edge.get_to()
                     if not neighbor.is_infected():
                         GC.trans_susceptible.add(neighbor)
-            for v in GC.trans_susceptible:
+            while len(GC.trans_susceptible) > 0:
+                v = GC.trans_susceptible.pop()
                 infected_neighbors = [edge.get_from() for edge in GC.contact_network.get_edges_to(v) if edge.get_from().is_infected()]
                 if len(infected_neighbors) > 0:
                     u = choice(infected_neighbors)
