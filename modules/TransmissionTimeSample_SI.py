@@ -29,6 +29,7 @@ class TransmissionTimeSample_SI(TransmissionTimeSample):
             GC.trans_pq = GC.SortedLinkedList()
             GC.trans_pq_v2trans = dict()
             susceptible = set()
+        if len(GC.trans_pq) == 0:
             for node in GC.contact_network.get_infected_nodes():
                 for edge in GC.contact_network.get_edges_from(node):
                     neighbor = edge.get_to()

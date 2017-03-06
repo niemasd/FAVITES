@@ -123,7 +123,7 @@ class SortedLinkedList:
     # get element at front of list
     def getFront(self):
         if self.head is None:
-            return None
+            raise ValueError("Attempting to getFront from an empty list")
         data = self.head.data
         self.head = self.head.next
         self.size -= 1
