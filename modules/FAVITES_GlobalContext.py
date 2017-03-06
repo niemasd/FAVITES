@@ -21,6 +21,114 @@ def init(reqs):
     for req in reqs:
         globals()[req] = reqs[req]
 
+class Node:
+    '''
+    Node class, where a node's data attribute is what is stored
+    '''
+    def __init__(self, data):
+        self.data = data
+    def __hash__(self):
+        return hash(self.data)
+    def __eq__(self, other):
+        return isinstance(other, Node) and self.data == other.data
+    def __ne__(self, other):
+        return not self == other
+    def __str__(self):
+        return '(' + str(self.data) + ')'
+    def get_data(self):
+        return self.data
+    def set_data(self, data):
+        self.data = data
+
+class SortedLinkedList:
+    '''
+    Sorted Linked List class (sorted on nodes' priority attribute). If no
+    priority is specified, data is used as priority. Sort smallest to largest.
+    '''
+    def __init__(self):
+        self.head = None
+        self.size = 0
+    def __len__(self):
+        return self.size
+    def __str__(self):
+        out = ''
+        curr = self.head
+        while curr is not None:
+            out += str(curr) + '->'
+            curr = curr.next
+        out += 'X'
+        return out
+
+    # add data to list (use data as priority if none is specified)
+    def put(self, data, priority=None):
+        newNode = Node(data)
+        newNode.next = None
+        if priority is None:
+            newNode.priority = data
+        else:
+            newNode.priority = priority
+        if self.head is None:
+            self.head = newNode
+        elif self.head.priority > newNode.priority:
+            newNode.next = self.head
+            self.head = newNode
+        else:
+            curr = self.head
+            while curr.next is not None and newNode.priority > curr.next.priority:
+                curr = curr.next
+            newNode.next = curr.next
+            curr.next = newNode
+        self.size += 1
+
+    # iterate over items in list
+    def items(self):
+        curr = self.head
+        while curr is not None:
+            yield curr.data
+            curr = curr.next
+
+    # remove first instance of data
+    def removeFirst(self, data):
+        if self.head is None:
+            return False
+        if self.head.data == data:
+            self.head = self.head.next
+            self.size -= 1
+            return True
+        curr = self.head
+        while curr.next is not None and curr.next.data != data:
+            curr = curr.next
+        if curr.next is not None:
+            curr.next = curr.next.next
+            self.size -= 1
+            return True
+        else:
+            return False
+
+    # remove all instances of data
+    def removeAll(self, data):
+        while self.head is not None and self.head.data == data:
+            self.head = self.head.next
+            self.size -= 1
+        if self.head is None:
+            return
+        curr = self.head
+        while curr.next is not None:
+            if curr.next.data == data:
+                curr.next = curr.next.next
+                self.size -= 1
+            else:
+                curr = curr.next
+
+    # get element at front of list
+    def getFront(self):
+        if self.head is None:
+            return None
+        data = self.head.data
+        self.head = self.head.next
+        self.size -= 1
+        return data
+
 # roll a weighted die (keys = faces, values = probabilities)
 def roll(die):
     faces = sorted(die.keys())
