@@ -20,15 +20,17 @@ class TransmissionTimeSample_SI(TransmissionTimeSample):
         GC.trans_pq_v2trans = None
 
     def sample_time():
+        # no more nodes to infect
         if GC.contact_network.num_uninfected_nodes() == 0:
             GC.next_trans = None
             GC.end_time = GC.time
             return None
-        # fill priority queue of infection events if empty (if possible)
+        # create priority queue
         if GC.trans_pq is None:
             GC.trans_pq = GC.SortedLinkedList()
             GC.trans_pq_v2trans = dict()
             susceptible = set()
+        # attempt to fill priority queue
         if len(GC.trans_pq) == 0:
             for node in GC.contact_network.get_infected_nodes():
                 for edge in GC.contact_network.get_edges_from(node):
@@ -42,6 +44,11 @@ class TransmissionTimeSample_SI(TransmissionTimeSample):
                     t = GC.time + exponential(scale=1/(GC.infection_rate*len(infected_neighbors))) # min of exponentials is exponential with sum of rates
                     GC.trans_pq.put(v,t)
                     GC.trans_pq_v2trans[v] = (u,v,t)
+        # if failed to fill priority queue, simulation is done
+        if len(GC.trans_pq) == 0:
+            GC.next_trans = None
+            GC.end_time = GC.time
+            return None
 
         # get next transmission event
         v = GC.trans_pq.getFront()
