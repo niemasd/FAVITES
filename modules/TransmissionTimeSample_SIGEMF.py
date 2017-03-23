@@ -3,7 +3,7 @@
 Niema Moshiri 2016
 
 "TransmissionTimeSample" module, where the transmission network is simulated by
-GEMF (Sahneh et al. 2016) under the SIS model.
+GEMF (Sahneh et al. 2016) under the SI model.
 '''
 from TransmissionTimeSample import TransmissionTimeSample
 from TransmissionTimeSample_SISGEMF import TransmissionTimeSample_SISGEMF
