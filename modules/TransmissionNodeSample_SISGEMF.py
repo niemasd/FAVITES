@@ -2,7 +2,8 @@
 '''
 Niema Moshiri 2016
 
-"TransmissionNodeSample" module, where transmissions follow the SI model
+"TransmissionTimeSample" module, where the transmission network is simulated by
+GEMF (Sahneh et al. 2016) under the SIS model.
 '''
 from TransmissionNodeSample import TransmissionNodeSample
 from TransmissionNodeSample_TransmissionFile import TransmissionNodeSample_TransmissionFile
