@@ -4,7 +4,7 @@
     "Driver":                                          "Default",
     "EndCriteria":                                     "Transmissions",
     "Logging":                                         "STDOUT",
-    "NodeEvolution":                                   "BirthDeath",
+    "NodeEvolution":                                   "Yule",
     "NodeSample":                                      "Bernoulli",
     "PostValidation":                                  "Dummy",
     "SeedSelection":                                   "Random",
@@ -15,10 +15,6 @@
     "TransmissionNodeSample":                          "RandomMultiInfection",
     "TransmissionTimeSample":                          "Fixed",
     "TreeNode":                                        "Simple",
-    "bd_birth":                                        0.5,
-    "bd_birth_sd":                                     0,
-    "bd_death":                                        0,
-    "bd_death_sd":                                     0,
     "d_or_u":                                          "u",
     "dwgsim_options":                                  "",
     "dwgsim_path":                                     "dwgsim",
@@ -33,5 +29,6 @@
     "pyvolve_model_type":                              "nucleotide",
     "pyvolve_state_frequencies_class":                 "EqualFrequencies",
     "pyvolve_state_frequencies_parameters_dictionary": {"alphabet":"nucleotide"},
-    "seed_sequence_length":                            1000
+    "seed_sequence_length":                            1000,
+    "yule_rate":                                       0.1
 }
