@@ -66,6 +66,11 @@ class TransmissionTimeSample_SISGEMF(TransmissionTimeSample):
             f.write(str(node2num[u]) + '\t' + str(node2num[v]) + '\n')
         f.close()
 
+        # write GEMF to original mapping
+        f = open("GEMF_output/gemf2orig.json",'w')
+        f.write(str({num:num2node[num].get_name() for num in num2node}))
+        f.close()
+
         # write GEMF status file (0 = S, 1 = I)
         f = open("GEMF_output/status.txt",'w')
         seeds = {seed for seed in GC.seed_nodes}
