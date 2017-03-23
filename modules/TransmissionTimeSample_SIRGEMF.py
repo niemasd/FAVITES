@@ -16,7 +16,7 @@ from random import choice
 
 class TransmissionTimeSample_SIRGEMF(TransmissionTimeSample):
     def init():
-        assert "TransmissionNodeSample_SIRGEMF" in str(MF.modules['TransmissionNodeSample']), "Must use TransmissionNodeSample_SIRGEMF module"
+        assert "TransmissionNodeSample_GEMF" in str(MF.modules['TransmissionNodeSample']), "Must use TransmissionNodeSample_GEMF module"
         assert "EndCriteria_GEMF" in str(MF.modules['EndCriteria']), "Must use EndCriteria_GEMF module"
         GC.sir_beta = float(GC.sir_beta)
         assert GC.sir_beta >= 0, "sir_beta must be at least 0"

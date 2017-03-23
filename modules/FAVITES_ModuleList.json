@@ -244,20 +244,12 @@
             "req": []
         },
 
+        "GEMF": {
+            "req": ["gemf_path"]
+        },
+
         "SI": {
             "req": ["infection_rate"]
-        },
-
-        "SIGEMF": {
-            "req": ["gemf_path", "si_beta", "end_time", "end_transmissions"]
-        },
-
-        "SIRGEMF": {
-            "req": ["gemf_path", "sir_beta", "sir_delta", "end_time", "end_transmissions"]
-        },
-
-        "SISGEMF": {
-            "req": ["gemf_path", "sis_beta", "sis_delta", "end_time", "end_transmissions"]
         },
 
         "TransmissionFile": {
