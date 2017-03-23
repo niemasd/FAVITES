@@ -12,10 +12,11 @@ def printMessage():
     '''
     Print author message
     '''
-    print("/---------------------------------------------------------------------\\")
-    print("| FAVITES - FrAmework for VIral Transmission and Evolution Simulation |")
-    print("|                        Moshiri & Mirarab 2016                       |")
-    print("\\---------------------------------------------------------------------/")
+    stdout.write("/---------------------------------------------------------------------\\\n")
+    stdout.write("| FAVITES - FrAmework for VIral Transmission and Evolution Simulation |\n")
+    stdout.write("|                        Moshiri & Mirarab 2016                       |\n")
+    stdout.write("\\---------------------------------------------------------------------/\n")
+    stdout.flush()
 
 def parseArgs():
     '''
@@ -26,7 +27,7 @@ def parseArgs():
 
     # print author message
     printMessage()
-    print()
+    stdout.write('\n')
 
     # use argparse to parse user arguments
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -34,9 +35,11 @@ def parseArgs():
     args = parser.parse_args()
 
     # import modules and store in global access variables
-    print("Reading user input configuration from: %r..." % args.config.name, end='')
+    stdout.write("Reading user input configuration from: %r..." % args.config.name)
+    stdout.flush()
     MF.read_config(eval(args.config.read()))
-    print(" done")
+    stdout.write(" done\n")
+    stdout.flush()
 
 if __name__ == "__main__":
     # initialize global access variables

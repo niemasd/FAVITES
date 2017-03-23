@@ -7,7 +7,10 @@ Niema Moshiri 2016
 from NodeEvolution import NodeEvolution
 import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
-import queue as Q
+try:
+    import Queue as Q  # ver. < 3.0
+except ImportError:
+    import queue as Q
 
 class NodeEvolution_DualBirth(NodeEvolution):
     def init():

@@ -8,7 +8,6 @@ file
 from TransmissionNodeSample import TransmissionNodeSample
 import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
-from random import sample
 
 class TransmissionNodeSample_TransmissionFile(TransmissionNodeSample):
     def init():
