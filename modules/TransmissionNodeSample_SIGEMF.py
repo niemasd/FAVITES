@@ -5,9 +5,8 @@ Niema Moshiri 2016
 "TransmissionNodeSample" module, where transmissions follow the SI model
 '''
 from TransmissionNodeSample import TransmissionNodeSample
-from TransmissionNodeSample_TransmissionFile import TransmissionNodeSample_TransmissionFile
+from TransmissionNodeSample_SISGEMF import TransmissionNodeSample_SISGEMF
 import modules.FAVITES_ModuleFactory as MF
-import FAVITES_GlobalContext as GC
 
 class TransmissionNodeSample_SIGEMF(TransmissionNodeSample):
     def init():
@@ -16,6 +15,4 @@ class TransmissionNodeSample_SIGEMF(TransmissionNodeSample):
         # handle parameter checking in TransmissionTimeSample_SIGEMF
 
     def sample_nodes(time):
-        if not GC.gemf_ready:
-            MF.modules['TransmissionTimeSample'].prep_GEMF()
-        return TransmissionNodeSample_TransmissionFile.sample_nodes(time)
+        return TransmissionNodeSample_SISGEMF.sample_nodes(time)
