@@ -70,6 +70,10 @@
             "req": ["end_time", "end_transmissions"]
         },
 
+        "GEMF": {
+            "req": ["gemf_path"]
+        },
+
         "Instant": {
             "req": []
         },
@@ -244,6 +248,10 @@
             "req": ["infection_rate"]
         },
 
+        "SISGEMF": {
+            "req": ["gemf_path", "sis_beta", "sis_delta", "end_time", "end_transmissions"]
+        },
+
         "TransmissionFile": {
             "req": ["transmission_network_file"]
         }
@@ -264,6 +272,10 @@
 
         "SI": {
             "req": ["infection_rate"]
+        },
+
+        "SISGEMF": {
+            "req": ["gemf_path", "sis_beta", "sis_delta", "end_time", "end_transmissions"]
         },
 
         "TransmissionFile": {
