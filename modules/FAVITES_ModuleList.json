@@ -270,6 +270,10 @@
             "req": []
         },
 
+        "SEIRGEMF": {
+            "req": ["gemf_path", "seir_beta", "seir_lambda", "seir_delta", "end_time", "end_transmissions"]
+        },
+
         "SI": {
             "req": ["infection_rate"]
         },
