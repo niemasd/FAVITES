@@ -26,8 +26,8 @@ class TransmissionTimeSample_SEIRGEMF(TransmissionTimeSample):
         assert GC.seir_delta >= 0, "seir_delta must be at least 0"
         GC.end_time = float(GC.end_time)
         assert GC.end_time > 0, "end_time must be positive"
-        GC.end_transmissions = int(GC.end_transmissions)
-        assert GC.end_transmissions > 0, "end_transmissions must be positive"
+        GC.end_events = int(GC.end_events)
+        assert GC.end_events > 0, "end_events must be positive"
         GC.gemf_ready = False
 
     def prep_GEMF():
@@ -46,7 +46,7 @@ class TransmissionTimeSample_SEIRGEMF(TransmissionTimeSample):
         f.write("[SIM_ROUNDS]\n1\n\n")
         f.write("[INTERVAL_NUM]\n1\n\n")
         f.write("[MAX_TIME]\n" + str(GC.end_time) + "\n\n")
-        f.write("[MAX_EVENTS]\n" + str(GC.end_transmissions) + "\n\n")
+        f.write("[MAX_EVENTS]\n" + str(GC.end_events) + "\n\n")
         f.write("[DIRECTED]\n1\n\n")
         f.write("[SHOW_INDUCER]\n1\n\n")
         f.write("[DATA_FILE]\nnetwork.txt\n\n")
@@ -83,7 +83,7 @@ class TransmissionTimeSample_SEIRGEMF(TransmissionTimeSample):
         for num in sorted(num2node.keys()):
             node = num2node[num]
             if node in seeds:
-                f.write("1\n") # SEIR-specific
+                f.write("2\n") # SEIR-specific
             else:
                 f.write("0\n") # SEIR-specific
         f.close()
