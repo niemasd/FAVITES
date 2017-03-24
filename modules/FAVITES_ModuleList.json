@@ -270,8 +270,12 @@
             "req": []
         },
 
+        "SAISGEMF": {
+            "req": ["gemf_path", "sais_beta", "sais_kappa", "sais_delta", "sais_beta_a", "end_time", "end_events"]
+        },
+
         "SEIRGEMF": {
-            "req": ["gemf_path", "seir_beta", "seir_lambda", "seir_delta", "end_time", "end_transmissions"]
+            "req": ["gemf_path", "seir_beta", "seir_lambda", "seir_delta", "end_time", "end_events"]
         },
 
         "SI": {
@@ -279,15 +283,15 @@
         },
 
         "SIGEMF": {
-            "req": ["gemf_path", "si_beta", "end_time", "end_transmissions"]
+            "req": ["gemf_path", "si_beta", "end_time", "end_events"]
         },
 
         "SIRGEMF": {
-            "req": ["gemf_path", "sir_beta", "sir_delta", "end_time", "end_transmissions"]
+            "req": ["gemf_path", "sir_beta", "sir_delta", "end_time", "end_events"]
         },
 
         "SISGEMF": {
-            "req": ["gemf_path", "sis_beta", "sis_delta", "end_time", "end_transmissions"]
+            "req": ["gemf_path", "sis_beta", "sis_delta", "end_time", "end_events"]
         },
 
         "TransmissionFile": {
