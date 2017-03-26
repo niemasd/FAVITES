@@ -7,7 +7,7 @@
     "NodeEvolution":                                   "Yule",
     "NodeSample":                                      "Bernoulli",
     "PostValidation":                                  "Dummy",
-    "SeedSelection":                                   "Random",
+    "SeedSelection":                                   "EdgeWeighted",
     "SeedSequence":                                    "Random",
     "SequenceEvolution":                               "Pyvolve",
     "Sequencing":                                      "DWGSIM",

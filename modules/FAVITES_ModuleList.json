@@ -152,6 +152,10 @@
     },
 
     "SeedSelection": {
+        "EdgeWeighted": {
+            "req": ["num_seeds"]
+        },
+
         "Random": {
             "req": ["num_seeds"]
         },
