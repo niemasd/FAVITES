@@ -2,8 +2,8 @@
 '''
 Niema Moshiri 2016
 
-"SeedSelection" module, where the probability at a node is chosen is weighted by
-its degree
+"SeedSelection" module, where the probability at which a node is chosen is
+weighted by its degree
 '''
 from SeedSelection import SeedSelection
 import FAVITES_GlobalContext as GC
