@@ -225,3 +225,52 @@ def favites2gml(edge_list):
         out += "\t]\n"
     out += "]"
     return out,id2node
+
+# convert a FAVITES transmission network to the GEXF format
+def tn_favites2gexf(cn,tn):
+    #edges = {(edge.get_from(),edge.get_to()):[0,time] for edge in cn.edges_iter()} # include CN edges
+    edges = {(edge.get_from(),edge.get_to()):[time] for edge in cn.edges_iter()} # exclude CN edges
+    for u,v,t in tn:
+        times = edges[(u,v)]
+        for i in range(len(times)):
+            if times[i] > t:
+                break
+        edges[(u,v)] = times[:i] + [t] + times[i:]
+    out = '<?xml version="1.0" encoding="UTF-8"?>\n'
+    out += '<gexf xmlns="http://www.gexf.net/1.1draft" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.1draft http://www.gexf.net/1.1draft/gexf.xsd" version="1.1">\n'
+    out += '  <graph mode="dynamic" defaultedgetype="directed">\n'
+    out += '    <nodes>\n'
+    nodes = [node for node in cn.nodes_iter()]
+    try:
+        nodes.sort(key=lambda x: float(x.get_name()))
+    except:
+        nodes.sort(key=lambda x: x.get_name())
+    for node in nodes:
+        out += '      <node id="'
+        out += node.get_name()
+        out += '" label="'
+        out += node.get_name()
+        out += '" start="0" end="'
+        out += str(time)
+        out += '" />\n'
+    out += '    </nodes>\n'
+    out += '    <edges>\n'
+    for u,v in edges:
+        times = edges[(u,v)]
+        for i in range(len(times)-1):
+            out += '      <edge source="'
+            out += u.get_name()
+            out += '" target="'
+            out += v.get_name()
+            out += '" start="'
+            out += str(times[i])
+            if i == len(times)-2:
+                out += '" end="'
+            else:
+                out += '" endopen="'
+            out += str(times[i+1])
+            out += '"/>\n'
+    out += '    </edges>\n'
+    out += '  </graph>\n'
+    out += '</gexf>'
+    return out

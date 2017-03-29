@@ -136,6 +136,9 @@ class Driver_Default(Driver):
         for e in transmissions:
             f.write("%s\t%s\t%f\n" % e)
         f.close()
+        f = open('error_free_files/transmission_network.gexf','w')
+        f.write(GC.tn_favites2gexf(contact_network,transmissions))
+        f.close()
         LOG.writeln(" done")
         LOG.writeln("True transmission network was written to: %s/error_free_files/transmission_network.txt" % GC.out_dir)
         LOG.writeln()
