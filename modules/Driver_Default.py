@@ -85,8 +85,10 @@ class Driver_Default(Driver):
             if t is None or MF.modules['EndCriteria'].done():
                 break
             assert t >= GC.time, "Transmission cannot go back in time!"
+            u,v = MF.modules['TransmissionNodeSample'].sample_nodes(t)
+            if u is None or v is None or MF.modules['EndCriteria'].done():
+                break
             GC.time = t
-            u,v = MF.modules['TransmissionNodeSample'].sample_nodes(GC.time)
             MF.modules['NodeEvolution'].evolve_to_current_time(u)
             MF.modules['NodeEvolution'].evolve_to_current_time(v)
             virus = MF.modules['SourceSample'].sample_virus(u)

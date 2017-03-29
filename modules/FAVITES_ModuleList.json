@@ -248,6 +248,10 @@
             "req": []
         },
 
+        "RandomSingleInfection": {
+            "req": []
+        },
+
         "GEMF": {
             "req": ["gemf_path"]
         },
