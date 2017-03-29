@@ -8,6 +8,7 @@ from ContactNetwork import ContactNetwork
 from ContactNetworkNode_NetworkX import ContactNetworkNode_NetworkX as Node
 from ContactNetworkEdge_NetworkX import ContactNetworkEdge_NetworkX as Edge
 import FAVITES_GlobalContext as GC
+from copy import copy
 
 class ContactNetwork_NetworkX(ContactNetwork):
     '''
@@ -108,7 +109,7 @@ class ContactNetwork_NetworkX(ContactNetwork):
         return len(self.nodes)
 
     def get_nodes(self):
-        return self.nodes
+        return copy(self.nodes)
 
     def get_node(self, name):
         return Node(self, name, self.name_to_num[name])
@@ -117,13 +118,13 @@ class ContactNetwork_NetworkX(ContactNetwork):
         return len(self.infected_nodes)
 
     def get_infected_nodes(self):
-        return self.infected_nodes
+        return copy(self.infected_nodes)
 
     def num_uninfected_nodes(self):
         return len(self.uninfected_nodes)
 
     def get_uninfected_nodes(self):
-        return self.uninfected_nodes
+        return copy(self.uninfected_nodes)
 
     def num_edges(self):
         return self.contact_network.number_of_edges()
@@ -149,7 +150,7 @@ class ContactNetwork_NetworkX(ContactNetwork):
         return [Edge(Node(self, self.num_to_name[uNum], uNum), node, self.contact_network.edge[uNum][vNum]['attribute']) for uNum,vNum in nx_edges]
 
     def get_transmissions(self):
-        return self.transmissions
+        return copy(self.transmissions)
 
     def add_transmission(self,u,v,time):
         assert isinstance(u, Node), "u is not a ContactNetworNode_NetworkX"
