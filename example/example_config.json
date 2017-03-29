@@ -12,7 +12,7 @@
     "SequenceEvolution":                               "Pyvolve",
     "Sequencing":                                      "DWGSIM",
     "SourceSample":                                    "Random",
-    "TransmissionNodeSample":                          "RandomMultiInfection",
+    "TransmissionNodeSample":                          "RandomSingleInfection",
     "TransmissionTimeSample":                          "Fixed",
     "TreeNode":                                        "Simple",
     "d_or_u":                                          "u",
