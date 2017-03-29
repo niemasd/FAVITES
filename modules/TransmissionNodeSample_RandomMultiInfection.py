@@ -15,8 +15,14 @@ class TransmissionNodeSample_RandomMultiInfection(TransmissionNodeSample):
         pass
 
     def sample_nodes(time):
-        source = sample(GC.contact_network.get_infected_nodes(), 1)[0]
-        if len(GC.contact_network.get_edges_from(source)) == 0:
-            return None,None
-        target = sample(GC.contact_network.get_edges_from(source), 1)[0].get_to()
+        infected = GC.contact_network.get_infected_nodes()
+        source = sample(infected,1)[0]
+        neighbors = {source:{edge.get_to() for edge in GC.contact_network.get_edges_from(source)}}
+        while len(neighbors[source]) == 0:
+            infected.remove(source)
+            if len(infected) == 0:
+                return None,None
+            source = sample(GC.contact_network.get_infected_nodes(),1)[0]
+            neighbors[source] = {edge.get_to() for edge in GC.contact_network.get_edges_from(source)}
+        target = sample(neighbors[source],1)[0]
         return source,target
