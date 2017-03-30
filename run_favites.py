@@ -4,8 +4,8 @@ Niema Moshiri 2016
 
 "Viewer": Command Line Interface for FAVITES
 '''
-import argparse                                                   # to parse user arguments
-from sys import argv,stdout,stdin                                 # standard input/output
+import argparse
+from sys import argv,stdout,stdin
 from modules import FAVITES_ModuleFactory as MF
 
 def printMessage():
