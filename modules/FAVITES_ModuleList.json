@@ -234,7 +234,7 @@
         },
 
         "GrinderSanger": {
-            "req": ["grinder_path"]
+            "req": ["grinder_path", "out_dir"]
         },
 
         "Perfect": {
