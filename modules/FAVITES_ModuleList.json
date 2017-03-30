@@ -228,8 +228,13 @@
         "ARTSOLiDSingleEnd": {
             "req": ["art_SOLiD_path", "art_SOLiD_options", "art_SOLiD_len_read", "art_SOLiD_fold_coverage", "out_dir"]
         },
+
         "DWGSIM": {
             "req": ["dwgsim_path", "dwgsim_options", "out_dir"]
+        },
+
+        "GrinderSanger": {
+            "req": ["grinder_path"]
         },
 
         "Perfect": {
