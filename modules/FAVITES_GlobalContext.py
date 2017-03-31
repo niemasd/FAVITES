@@ -229,7 +229,7 @@ def favites2gml(edge_list):
 
 # convert a FAVITES transmission network to the GEXF format
 def tn_favites2gexf(cn,tn):
-    edges = {(edge.get_from(),edge.get_to()):[0,time] for edge in cn.edges_iter()} # include CN edges
+    edges = {(edge.get_from(),edge.get_to()):[0,time+1] for edge in cn.edges_iter()} # include CN edges
     for u,v,t in tn:
         times = edges[(u,v)]
         for i in range(len(times)):
@@ -267,12 +267,12 @@ def tn_favites2gexf(cn,tn):
         out += '        </spells>\n'
         out += '        <attvalues>\n'
         if len(times) == 0: # uninfected nodes
-            out += '          <attvalue for="infected" value="false" start="0.0" end="' + str(time) + '" />\n'
+            out += '          <attvalue for="infected" value="false" start="0.0" end="' + str(time+1) + '" />\n'
         elif times[0] == 0: # seed node
-            out += '          <attvalue for="infected" value="true" start="0.0" end="' + str(time) + '" />\n'
+            out += '          <attvalue for="infected" value="true" start="0.0" end="' + str(time+1) + '" />\n'
         else: # regular infected nodes
             out += '          <attvalue for="infected" value="false" start="0.0" end="' + str(times[0]) + '" />\n'
-            out += '          <attvalue for="infected" value="true" start="' + str(times[0]) + '" end="' + str(time) + '" />\n'
+            out += '          <attvalue for="infected" value="true" start="' + str(times[0]) + '" end="' + str(time+1) + '" />\n'
         out += '        </attvalues>\n'
         out += '      </node>\n'
     out += '    </nodes>\n'
