@@ -131,7 +131,9 @@ class SortedLinkedList:
         return data
 
 # roll a weighted die (keys = faces, values = probabilities)
-def roll(die):
+def roll(orig_die):
+    total = float(sum(orig_die.values()))
+    die = {face:orig_die[face]/total for face in orig_die}
     faces = sorted(die.keys())
     probs = [die[key] for key in faces]
     cdf = [probs[0]]
