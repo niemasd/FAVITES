@@ -50,21 +50,49 @@ class ContactNetworkNode(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def __eq__(self, other):
         '''
-        Overloaded equality check
+        Overridden equality check
         '''
         pass
 
     @abc.abstractmethod
     def __ne__(self, other):
         '''
-        Overloaded not equals check
+        Overridden not equals check
+        '''
+        pass
+
+    @abc.abstractmethod
+    def __lt__(self, other):
+        '''
+        Overridden less than check
+        '''
+        pass
+
+    @abc.abstractmethod
+    def __gt__(self, other):
+        '''
+        Overridden greater than check
+        '''
+        pass
+
+    @abc.abstractmethod
+    def __le__(self, other):
+        '''
+        Overridden less than or equal to check
+        '''
+        pass
+
+    @abc.abstractmethod
+    def __ge__(self, other):
+        '''
+        Overridden greater than or equal to check
         '''
         pass
 
     @abc.abstractmethod
     def __hash__(self):
         '''
-        Overloaded hash function
+        Overridden hash function
         '''
         pass
 
