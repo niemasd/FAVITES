@@ -142,6 +142,10 @@
 
         "Perfect": {
             "req": []
+        },
+
+        "TransmissionWeighted": {
+            "req": ["node_sample_fraction"]
         }
     },
 
