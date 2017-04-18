@@ -7,7 +7,7 @@ Niema Moshiri 2016
 containing a single leaf.
 '''
 from NodeEvolution import NodeEvolution
-import modules.FAVITES_ModuleFactory as MF
+import favites_modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
 
 class NodeEvolution_None(NodeEvolution):

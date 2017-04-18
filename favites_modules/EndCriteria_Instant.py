@@ -8,7 +8,7 @@ This is intended to be used if you only want to simulate a contact network and
 nothing else
 '''
 from EndCriteria import EndCriteria
-import modules.FAVITES_ModuleFactory as MF
+import favites_modules.FAVITES_ModuleFactory as MF
 
 class EndCriteria_Instant(EndCriteria):
     def init():

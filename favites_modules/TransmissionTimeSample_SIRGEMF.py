@@ -3,27 +3,25 @@
 Niema Moshiri 2016
 
 "TransmissionTimeSample" module, where the transmission network is simulated by
-GEMF (Sahneh et al. 2016) under the SEIR model.
+GEMF (Sahneh et al. 2016) under the SIR model.
 '''
 from TransmissionTimeSample import TransmissionTimeSample
 from TransmissionTimeSample_TransmissionFile import TransmissionTimeSample_TransmissionFile
-import modules.FAVITES_ModuleFactory as MF
+import favites_modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
 from subprocess import call
 from os.path import expanduser
 from os import chdir,getcwd,makedirs
 from random import choice
 
-class TransmissionTimeSample_SEIRGEMF(TransmissionTimeSample):
+class TransmissionTimeSample_SIRGEMF(TransmissionTimeSample):
     def init():
         assert "TransmissionNodeSample_GEMF" in str(MF.modules['TransmissionNodeSample']), "Must use TransmissionNodeSample_GEMF module"
         assert "EndCriteria_GEMF" in str(MF.modules['EndCriteria']), "Must use EndCriteria_GEMF module"
-        GC.seir_beta = float(GC.seir_beta)
-        assert GC.seir_beta >= 0, "seir_beta must be at least 0"
-        GC.seir_lambda = float(GC.seir_lambda)
-        assert GC.seir_lambda >= 0, "seir_lambda must be at least 0"
-        GC.seir_delta = float(GC.seir_delta)
-        assert GC.seir_delta >= 0, "seir_delta must be at least 0"
+        GC.sir_beta = float(GC.sir_beta)
+        assert GC.sir_beta >= 0, "sir_beta must be at least 0"
+        GC.sir_delta = float(GC.sir_delta)
+        assert GC.sir_delta >= 0, "sir_delta must be at least 0"
         GC.end_time = float(GC.end_time)
         assert GC.end_time > 0, "end_time must be positive"
         GC.end_events = int(GC.end_events)
@@ -35,14 +33,10 @@ class TransmissionTimeSample_SEIRGEMF(TransmissionTimeSample):
         GC.gemf_path = expanduser(GC.gemf_path.strip())
         makedirs("GEMF_output")
         f = open("GEMF_output/para.txt",'w')
-        f.write("[NODAL_TRAN_MATRIX]\n0\t0\t0\t0\n") # SEIR-specific
-        f.write("0\t0\t" + str(GC.seir_lambda) + "\t0\n")
-        f.write("0\t0\t0\t" + str(GC.seir_delta) + "\n")
-        f.write("0\t0\t0\t0\n\n")
-        f.write("[EDGED_TRAN_MATRIX]\n0\t" + str(GC.seir_beta) + "\t0\t0\n") # SEIR-specific
-        f.write("0\t0\t0\t0\n0\t0\t0\t0\n0\t0\t0\t0\n\n")
+        f.write("[NODAL_TRAN_MATRIX]\n0\t0\t0\n0\t0\t" + str(GC.sir_delta) + "\n0\t0\t0\n\n") # SIR-specific
+        f.write("[EDGED_TRAN_MATRIX]\n0\t" + str(GC.sir_beta) + "\t0\n0\t0\t0\n0\t0\t0\n\n")  # SIR-specific
         f.write("[STATUS_BEGIN]\n0\n\n")
-        f.write("[INDUCER_LIST]\n2\n\n")
+        f.write("[INDUCER_LIST]\n1\n\n")
         f.write("[SIM_ROUNDS]\n1\n\n")
         f.write("[INTERVAL_NUM]\n1\n\n")
         f.write("[MAX_TIME]\n" + str(GC.end_time) + "\n\n")
@@ -77,15 +71,15 @@ class TransmissionTimeSample_SEIRGEMF(TransmissionTimeSample):
         f.write(str({num:num2node[num].get_name() for num in num2node}))
         f.close()
 
-        # write GEMF status file (0 = S, 1 = E, 2 = I, 3 = R)
+        # write GEMF status file (0 = S, 1 = I, 2 = R)
         f = open("GEMF_output/status.txt",'w')
         seeds = {seed for seed in GC.seed_nodes}
         for num in sorted(num2node.keys()):
             node = num2node[num]
             if node in seeds:
-                f.write("2\n") # SEIR-specific
+                f.write("1\n") # SIR-specific
             else:
-                f.write("0\n") # SEIR-specific
+                f.write("0\n") # SIR-specific
         f.close()
 
         # run GEMF
@@ -103,7 +97,7 @@ class TransmissionTimeSample_SEIRGEMF(TransmissionTimeSample):
         GC.transmission_state = set() # 'node' and 'time'
         GC.transmission_file = []
         for line in open("GEMF_output/output.txt"):
-            t,rate,vNum,pre,post,num0,num1,num2,num3,lists = [i.strip() for i in line.split()]
+            t,rate,vNum,pre,post,num0,num1,num2,lists = [i.strip() for i in line.split()]
             uNums = [u for u in lists.split('],[')[1][:-1].split(',') if u != '']
             if len(uNums) != 0:
                 uNum = choice(uNums) # randomly choose a single infector
@@ -114,5 +108,5 @@ class TransmissionTimeSample_SEIRGEMF(TransmissionTimeSample):
 
     def sample_time():
         if not GC.gemf_ready:
-            TransmissionTimeSample_SEIRGEMF.prep_GEMF()
+            TransmissionTimeSample_SIRGEMF.prep_GEMF()
         return TransmissionTimeSample_TransmissionFile.sample_time()

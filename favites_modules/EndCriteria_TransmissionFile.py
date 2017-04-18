@@ -5,7 +5,7 @@ Niema Moshiri 2016
 "EndCriteria" module, where the transmission network is read from a file
 '''
 from EndCriteria import EndCriteria
-import modules.FAVITES_ModuleFactory as MF
+import favites_modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
 
 class EndCriteria_TransmissionFile(EndCriteria):

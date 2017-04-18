@@ -5,7 +5,7 @@ Niema Moshiri 2016
 "TransmissionNodeSample" module, where transmissions follow the SI model
 '''
 from TransmissionNodeSample import TransmissionNodeSample
-import modules.FAVITES_ModuleFactory as MF
+import favites_modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
 from random import choice
 

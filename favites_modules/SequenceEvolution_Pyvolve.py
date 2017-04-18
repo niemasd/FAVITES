@@ -26,7 +26,7 @@ prior to the simulation process and pass them in via the allowed options.
 '''
 from SequenceEvolution import SequenceEvolution
 import FAVITES_GlobalContext as GC
-import modules.FAVITES_ModuleFactory as MF
+import favites_modules.FAVITES_ModuleFactory as MF
 from os import makedirs
 
 class SequenceEvolution_Pyvolve(SequenceEvolution):

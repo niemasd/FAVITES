@@ -5,7 +5,7 @@ Niema Moshiri 2016
 "Driver" module
 '''
 from Driver import Driver
-import modules.FAVITES_ModuleFactory as MF
+import favites_modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
 from os.path import expanduser
 from os import getcwd,makedirs,chdir

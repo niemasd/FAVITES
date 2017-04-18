@@ -6,7 +6,7 @@ Niema Moshiri 2016
 file
 '''
 from TransmissionTimeSample import TransmissionTimeSample
-import modules.FAVITES_ModuleFactory as MF
+import favites_modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
 
 class TransmissionTimeSample_TransmissionFile(TransmissionTimeSample):

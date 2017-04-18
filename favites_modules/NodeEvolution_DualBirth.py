@@ -5,7 +5,7 @@ Niema Moshiri 2016
 "NodeEvolution" module, implemented with Dual Birth model
 '''
 from NodeEvolution import NodeEvolution
-import modules.FAVITES_ModuleFactory as MF
+import favites_modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
 try:
     import Queue as Q  # ver. < 3.0

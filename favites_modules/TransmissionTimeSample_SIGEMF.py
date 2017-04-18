@@ -7,7 +7,7 @@ GEMF (Sahneh et al. 2016) under the SI model.
 '''
 from TransmissionTimeSample import TransmissionTimeSample
 from TransmissionTimeSample_SISGEMF import TransmissionTimeSample_SISGEMF
-import modules.FAVITES_ModuleFactory as MF
+import favites_modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
 
 class TransmissionTimeSample_SIGEMF(TransmissionTimeSample):

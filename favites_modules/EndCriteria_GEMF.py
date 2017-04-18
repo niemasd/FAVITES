@@ -6,7 +6,7 @@ Niema Moshiri 2016
 (Sahneh et al. 2016).
 '''
 from EndCriteria import EndCriteria
-import modules.FAVITES_ModuleFactory as MF
+import favites_modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
 
 class EndCriteria_GEMF(EndCriteria):
