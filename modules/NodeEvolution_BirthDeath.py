@@ -5,7 +5,7 @@ Niema Moshiri 2016
 "NodeEvolution" module, implemented with Birth Death model.
 '''
 from NodeEvolution import NodeEvolution
-import favites_modules.FAVITES_ModuleFactory as MF
+import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
 
 def add_child(parent_treenode, child_dpnode, cn_node):

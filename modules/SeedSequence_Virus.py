@@ -17,9 +17,9 @@ from urllib.request import urlretrieve
 
 HMM_FOLDER = "virus_profile_HMM"
 URL = { # URLs to preconstructed HIV profile HMMs from Los Alamos
-    'HIV-DNA-ENV':    'https://raw.githubusercontent.com/niemasd/HIV-Data/master/HIV/profile_HMMs/DNA/HIV1_FLT_2016_env_DNA.hmm',
-    'HIV-DNA-GENOME': 'https://raw.githubusercontent.com/niemasd/HIV-Data/master/HIV/profile_HMMs/DNA/HIV1_FLT_2016_genome_DNA.hmm',
-    'HIV-DNA-POL':    'https://raw.githubusercontent.com/niemasd/HIV-Data/master/HIV/profile_HMMs/DNA/HIV1_FLT_2016_pol_DNA.hmm'
+    'HIV-DNA-ENV':    'https://raw.githubusercontent.com/niemasd/Virus-Data/master/HIV/profile_HMMs/DNA/HIV1_FLT_2016_env_DNA.hmm',
+    'HIV-DNA-GENOME': 'https://raw.githubusercontent.com/niemasd/Virus-Data/master/HIV/profile_HMMs/DNA/HIV1_FLT_2016_genome_DNA.hmm',
+    'HIV-DNA-POL':    'https://raw.githubusercontent.com/niemasd/Virus-Data/master/HIV/profile_HMMs/DNA/HIV1_FLT_2016_pol_DNA.hmm'
 }
 
 class SeedSequence_Virus(SeedSequence):

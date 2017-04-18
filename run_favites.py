@@ -7,8 +7,8 @@ Niema Moshiri 2016
 import argparse
 from sys import argv,stdout,stdin
 from os import getcwd
-from favites_modules import FAVITES_ModuleFactory as MF
-from favites_modules import FAVITES_GlobalContext as GC
+from modules import FAVITES_ModuleFactory as MF
+from modules import FAVITES_GlobalContext as GC
 
 def printMessage():
     '''
@@ -48,7 +48,7 @@ if __name__ == "__main__":
     GC.START_DIR = getcwd()
 
     # initialize global access variables
-    MF.init('/'.join(argv[0].split('/')[:-1]) + '/favites_modules')
+    MF.init('/'.join(argv[0].split('/')[:-1]) + '/modules')
 
     # parse user arguments
     parseArgs()

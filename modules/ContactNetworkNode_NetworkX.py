@@ -6,7 +6,7 @@ Niema Moshiri 2016
 '''
 from ContactNetworkNode import ContactNetworkNode
 from ContactNetwork import ContactNetwork
-import favites_modules.FAVITES_ModuleFactory as MF
+import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
 
 class ContactNetworkNode_NetworkX(ContactNetworkNode):

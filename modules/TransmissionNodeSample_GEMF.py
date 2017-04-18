@@ -7,7 +7,7 @@ GEMF (Sahneh et al. 2016).
 '''
 from TransmissionNodeSample import TransmissionNodeSample
 from TransmissionNodeSample_TransmissionFile import TransmissionNodeSample_TransmissionFile
-import favites_modules.FAVITES_ModuleFactory as MF
+import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
 
 class TransmissionNodeSample_GEMF(TransmissionNodeSample):

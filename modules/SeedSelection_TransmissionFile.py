@@ -7,7 +7,7 @@ Niema Moshiri 2016
 Seed nodes are passed in via the "seed_file" parameter of the configuration file
 '''
 from SeedSelection import SeedSelection
-import favites_modules.FAVITES_ModuleFactory as MF
+import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
 from os.path import expanduser
 

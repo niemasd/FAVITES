@@ -6,7 +6,7 @@ Niema Moshiri 2016
 file
 '''
 from TransmissionNodeSample import TransmissionNodeSample
-import favites_modules.FAVITES_ModuleFactory as MF
+import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
 
 class TransmissionNodeSample_TransmissionFile(TransmissionNodeSample):
