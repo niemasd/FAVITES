@@ -27,5 +27,9 @@ class Sequencing_ART454SingleEnd(Sequencing):
         chdir(GC.out_dir)
         makedirs("error_prone_files/sequence_data", exist_ok=True)
         chdir("error_prone_files/sequence_data")
-        call(command, stdout=open("log_" + node.get_name() + ".txt", 'w'))
+        try:
+            call(command, stdout=open("log_" + node.get_name() + ".txt", 'w'))
+        except FileNotFoundError:
+            chdir(GC.START_DIR)
+            assert False, "art_454 executable was not found: %s" % GC.art_454_path
         chdir(orig_dir)

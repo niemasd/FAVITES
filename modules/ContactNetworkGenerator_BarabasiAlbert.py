@@ -11,8 +11,13 @@ from os.path import expanduser
 
 class ContactNetworkGenerator_BarabasiAlbert(ContactNetworkGenerator):
     def init():
-        global barabasi_albert_graph
-        from networkx import barabasi_albert_graph
+        try:
+            global barabasi_albert_graph
+            from networkx import barabasi_albert_graph
+        except:
+            from os import chdir
+            chdir(GC.START_DIR)
+            assert False, "Error loading NetworkX. Install with: pip3 install networkx"
         assert isinstance(GC.num_cn_nodes, int), "num_cn_nodes must be an integer"
         assert GC.num_cn_nodes >= 2, "Contact network must have at least 2 nodes"
         assert isinstance(GC.num_edges_from_new, int), "num_edges_from_new must be an integer"

@@ -25,5 +25,9 @@ class Sequencing_DWGSIM(Sequencing):
         orig_dir = getcwd()
         makedirs("error_prone_files/sequence_data", exist_ok=True)
         chdir("error_prone_files/sequence_data")
-        call(command, stderr=open("log_" + node.get_name() + ".txt", 'w'))
+        try:
+            call(command, stderr=open("log_" + node.get_name() + ".txt", 'w'))
+        except FileNotFoundError:
+            chdir(GC.START_DIR)
+            assert False, "dwgsim executable was not found: %s" % GC.dwgsim_path
         chdir(orig_dir)

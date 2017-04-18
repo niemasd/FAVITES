@@ -31,8 +31,13 @@ from os import makedirs
 
 class SequenceEvolution_Pyvolve(SequenceEvolution):
     def init():
-        global pyvolve
-        import pyvolve
+        try:
+            global pyvolve
+            import pyvolve
+        except:
+            from os import chdir
+            chdir(GC.START_DIR)
+            assert False, "Error loading Pyvolve. Install with: pip3 install pyvolve"
         # config validity checks
         GC.pyvolve_model_type = GC.pyvolve_model_type.strip()
         GC.pyvolve_state_frequencies_class = GC.pyvolve_state_frequencies_class.strip()

@@ -15,8 +15,13 @@ class TransmissionTimeSample_Exponential(TransmissionTimeSample):
     '''
 
     def init():
-        global exponential
-        from numpy.random import exponential
+        try:
+            global exponential
+            from numpy.random import exponential
+        except:
+            from os import chdir
+            chdir(GC.START_DIR)
+            assert False, "Error loading Numpy. Install with: pip3 install numpy"
 
     def sample_time():
         return GC.time + exponential(scale=1/(float(GC.time_sample_rate)))

@@ -12,8 +12,13 @@ from random import choice
 
 class TransmissionNodeSample_SI(TransmissionNodeSample):
     def init():
-        global exponential
-        from numpy.random import exponential
+        try:
+            global exponential
+            from numpy.random import exponential
+        except:
+            from os import chdir
+            chdir(GC.START_DIR)
+            assert False, "Error loading Numpy. Install with: pip3 install numpy"
         assert "TransmissionTimeSample_SI" in str(MF.modules['TransmissionTimeSample']), "Must use TransmissionTimeSample_SI module"
         # handle parameter checking in TransmissionTimeSample_SI
 

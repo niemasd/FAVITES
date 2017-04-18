@@ -33,8 +33,13 @@ class ContactNetwork_NetworkX(ContactNetwork):
     '''
 
     def init():
-        global DiGraph
-        from networkx import DiGraph
+        try:
+            global DiGraph
+            from networkx import DiGraph
+        except:
+            from os import chdir
+            chdir(GC.START_DIR)
+            assert False, "Error loading NetworkX. Install with: pip3 install networkx"
 
     def __init__(self, edge_list=None):
         # if ModuleFactory is just testing, do nothing

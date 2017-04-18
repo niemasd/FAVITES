@@ -25,8 +25,13 @@ class NodeEvolution_BirthDeath(NodeEvolution):
     def init():
         global TreeNode
         TreeNode = MF.modules['TreeNode']
-        global birth_death_tree
-        from dendropy.model.birthdeath import birth_death_tree
+        try:
+            global birth_death_tree
+            from dendropy.model.birthdeath import birth_death_tree
+        except:
+            from os import chdir
+            chdir(GC.START_DIR)
+            assert False, "Error loading Dendropy. Install with: pip3 install dendropy"
 
     def evolve_to_current_time(node, finalize=False):
         viruses = [virus for virus in node.viruses()]

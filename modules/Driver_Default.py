@@ -8,9 +8,7 @@ from Driver import Driver
 import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
 from os.path import expanduser
-from os import getcwd
-from os import makedirs
-from os import chdir
+from os import getcwd,makedirs,chdir
 from sys import stdout
 
 class Driver_Default(Driver):

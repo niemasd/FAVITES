@@ -85,7 +85,11 @@ class TransmissionTimeSample_SISGEMF(TransmissionTimeSample):
         # run GEMF
         orig_dir = getcwd()
         chdir("GEMF_output")
-        call([GC.gemf_path], stdout=open("log.txt",'w'))
+        try:
+            call([GC.gemf_path], stdout=open("log.txt",'w'))
+        except FileNotFoundError:
+            chdir(GC.START_DIR)
+            assert False, "GEMF executable was not found: %s" % GC.gemf_path
         chdir(orig_dir)
 
         # convert GEMF output to FAVITES transmission network format

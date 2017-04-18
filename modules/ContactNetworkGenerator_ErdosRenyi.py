@@ -11,8 +11,13 @@ from os.path import expanduser
 
 class ContactNetworkGenerator_ErdosRenyi(ContactNetworkGenerator):
     def init():
-        global fast_gnp_random_graph
-        from networkx import fast_gnp_random_graph
+        try:
+            global fast_gnp_random_graph
+            from networkx import fast_gnp_random_graph
+        except:
+            from os import chdir
+            chdir(GC.START_DIR)
+            assert False, "Error loading NetworkX. Install with: pip3 install networkx"
         assert isinstance(GC.num_cn_nodes, int), "num_cn_nodes must be an integer"
         assert GC.num_cn_nodes >= 2, "Contact network must have at least 2 nodes"
         GC.er_prob = float(GC.er_prob)

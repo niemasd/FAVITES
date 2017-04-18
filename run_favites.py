@@ -6,7 +6,9 @@ Niema Moshiri 2016
 '''
 import argparse
 from sys import argv,stdout,stdin
+from os import getcwd
 from modules import FAVITES_ModuleFactory as MF
+from modules import FAVITES_GlobalContext as GC
 
 def printMessage():
     '''
@@ -42,6 +44,9 @@ def parseArgs():
     stdout.flush()
 
 if __name__ == "__main__":
+    # store starting directory
+    GC.START_DIR = getcwd()
+
     # initialize global access variables
     MF.init('/'.join(argv[0].split('/')[:-1]) + '/modules')
 

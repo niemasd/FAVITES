@@ -11,8 +11,13 @@ from os.path import expanduser
 
 class ContactNetworkGenerator_Barbell(ContactNetworkGenerator):
     def init():
-        global barbell_graph
-        from networkx import barbell_graph
+        try:
+            global barbell_graph
+            from networkx import barbell_graph
+        except:
+            from os import chdir
+            chdir(GC.START_DIR)
+            assert False, "Error loading NetworkX. Install with: pip3 install networkx"
         assert isinstance(GC.barbell_m1, int), "barbell_m1 must be an integer"
         assert GC.barbell_m1 > 1, "barbell_m1 must be greater than 1"
         assert isinstance(GC.barbell_m2, int), "barbell_m2 must be an integer"

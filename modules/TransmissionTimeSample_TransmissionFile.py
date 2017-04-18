@@ -21,6 +21,8 @@ class TransmissionTimeSample_TransmissionFile(TransmissionTimeSample):
             GC.transmission_state = set()
             GC.transmission_num += 1
         elif 'time' in GC.transmission_state:
+            from os import chdir
+            chdir(GC.START_DIR)
             assert False, "Performing two TransmissionTimeSample events before TransmissionNodeSample"
         if GC.transmission_num == len(GC.transmission_file):
             return None
