@@ -15,7 +15,7 @@ from os.path import expanduser
 from os import makedirs
 from urllib.request import urlretrieve
 
-HIV_PATH = "HIV_profile_HMM"
+HMM_FOLDER = "virus_profile_HMM"
 URL = { # URLs to preconstructed HIV profile HMMs from Los Alamos
     'HIV-DNA-ENV':    'https://raw.githubusercontent.com/niemasd/HIV-Data/master/HIV/profile_HMMs/DNA/HIV1_FLT_2016_env_DNA.hmm',
     'HIV-DNA-GENOME': 'https://raw.githubusercontent.com/niemasd/HIV-Data/master/HIV/profile_HMMs/DNA/HIV1_FLT_2016_genome_DNA.hmm',
@@ -29,8 +29,8 @@ class SeedSequence_Virus(SeedSequence):
         assert GC.viral_sequence_type in URL, "Invalid choice for viral_sequence_type: %s" % GC.viral_sequence_type
 
     def generate():
-        makedirs(HIV_PATH)
-        hmm_file = HIV_PATH + '/' + URL[GC.viral_sequence_type].split('/')[-1]
+        makedirs(HMM_FOLDER)
+        hmm_file = HMM_FOLDER + '/' + URL[GC.viral_sequence_type].split('/')[-1]
         urlretrieve(URL[GC.viral_sequence_type], hmm_file)
         command = [GC.hmmemit_path, hmm_file]
         try:
