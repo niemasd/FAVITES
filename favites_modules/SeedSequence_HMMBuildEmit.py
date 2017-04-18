@@ -14,8 +14,8 @@ from random import choice
 from os.path import expanduser
 from os import makedirs
 
-GC.HMMBuildEmit_path = "HMMBuildEmit_files"
-GC.HMM_filename = "seedseq.hmm"
+HMMBuildEmit_path = "HMMBuildEmit_files"
+HMM_filename = "seedseq.hmm"
 
 class SeedSequence_HMMBuildEmit(SeedSequence):
     '''
@@ -34,14 +34,14 @@ class SeedSequence_HMMBuildEmit(SeedSequence):
 
     def generate():
         if not GC.HMMBuildEmit_build:
-            makedirs(GC.HMMBuildEmit_path)
-            command = [GC.hmmbuild_path] + GC.hmmbuild_options + [GC.HMMBuildEmit_path + "/" + GC.HMM_filename, GC.hmmbuild_msafile]
+            makedirs(HMMBuildEmit_path)
+            command = [GC.hmmbuild_path] + GC.hmmbuild_options + [HMMBuildEmit_path + "/" + HMM_filename, GC.hmmbuild_msafile]
             try:
                 check_output(command)
             except FileNotFoundError:
                 from os import chdir
                 chdir(GC.START_DIR)
                 assert False, "hmmbuild executable was not found: %s" % GC.hmmbuild_path
-            GC.hmmemit_hmmfile = GC.HMMBuildEmit_path + "/" + GC.HMM_filename
+            GC.hmmemit_hmmfile = HMMBuildEmit_path + "/" + HMM_filename
             GC.HMMBuildEmit_build = True
         return SeedSequence_HMMEmit.generate()

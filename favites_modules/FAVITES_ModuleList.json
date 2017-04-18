@@ -170,6 +170,10 @@
     },
 
     "SeedSequence": {
+        "HIV": {
+            "req": ["hmmemit_path", "HIV_region"]
+        },
+
         "HMMBuildEmit": {
             "req": ["hmmbuild_path", "hmmbuild_options", "hmmbuild_msafile", "hmmemit_path", "hmmemit_options"]
         },
