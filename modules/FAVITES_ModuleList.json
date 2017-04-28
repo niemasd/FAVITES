@@ -2,6 +2,10 @@
     "ContactNetwork": {
         "NetworkX": {
             "req": []
+        },
+
+        "PANGEA": {
+            "req": ["pangea_yr.start", "pangea_yr.end", "pangea_seed", "pangea_s.INC.recent", "pangea_s.INC.recent.len", "pangea_s.PREV.min", "pangea_s.PREV.max", "pangea_s.PREV.base", "pangea_s.INTERVENTION.start", "pangea_s.INTERVENTION.mul", "pangea_s.ARCHIVAL.n", "pangea_s.MODEL", "pangea_s.PREV.max.n", "pangea_s.INTERVENTION.prop", "pangea_epi.model", "pangea_epi.acute", "pangea_epi.intervention", "pangea_epi.dt", "pangea_epi.import", "pangea_root.edge.fixed", "pangea_v.N0tau", "pangea_v.r", "pangea_v.T50", "pangea_wher.mu", "pangea_wher.sigma", "pangea_bwerm.mu", "pangea_bwerm.sigma", "pangea_er.gamma", "pangea_er.gtr", "pangea_sp.prop.of.sexactive", "pangea_report.prop.recent", "pangea_dbg.GTRparam", "pangea_dbg.rER", "pangea_index.starttime.mode", "pangea_startseq.mode", "pangea_seqtime.mode"]
         }
     },
 
@@ -42,6 +46,10 @@
 
         "File": {
             "req": ["contact_network_file"]
+        },
+
+        "PANGEA": {
+            "req": ["pangea_yr.start", "pangea_yr.end", "pangea_seed", "pangea_s.INC.recent", "pangea_s.INC.recent.len", "pangea_s.PREV.min", "pangea_s.PREV.max", "pangea_s.PREV.base", "pangea_s.INTERVENTION.start", "pangea_s.INTERVENTION.mul", "pangea_s.ARCHIVAL.n", "pangea_s.MODEL", "pangea_s.PREV.max.n", "pangea_s.INTERVENTION.prop", "pangea_epi.model", "pangea_epi.acute", "pangea_epi.intervention", "pangea_epi.dt", "pangea_epi.import", "pangea_root.edge.fixed", "pangea_v.N0tau", "pangea_v.r", "pangea_v.T50", "pangea_wher.mu", "pangea_wher.sigma", "pangea_bwerm.mu", "pangea_bwerm.sigma", "pangea_er.gamma", "pangea_er.gtr", "pangea_sp.prop.of.sexactive", "pangea_report.prop.recent", "pangea_dbg.GTRparam", "pangea_dbg.rER", "pangea_index.starttime.mode", "pangea_startseq.mode", "pangea_seqtime.mode"]
         },
 
         "RandomNumsNodeEdge": {
@@ -130,6 +138,10 @@
             "req": []
         },
 
+        "PANGEA": {
+            "req": ["pangea_yr.start", "pangea_yr.end", "pangea_seed", "pangea_s.INC.recent", "pangea_s.INC.recent.len", "pangea_s.PREV.min", "pangea_s.PREV.max", "pangea_s.PREV.base", "pangea_s.INTERVENTION.start", "pangea_s.INTERVENTION.mul", "pangea_s.ARCHIVAL.n", "pangea_s.MODEL", "pangea_s.PREV.max.n", "pangea_s.INTERVENTION.prop", "pangea_epi.model", "pangea_epi.acute", "pangea_epi.intervention", "pangea_epi.dt", "pangea_epi.import", "pangea_root.edge.fixed", "pangea_v.N0tau", "pangea_v.r", "pangea_v.T50", "pangea_wher.mu", "pangea_wher.sigma", "pangea_bwerm.mu", "pangea_bwerm.sigma", "pangea_er.gamma", "pangea_er.gtr", "pangea_sp.prop.of.sexactive", "pangea_report.prop.recent", "pangea_dbg.GTRparam", "pangea_dbg.rER", "pangea_index.starttime.mode", "pangea_startseq.mode", "pangea_seqtime.mode"]
+        },
+
         "Yule": {
             "req": ["yule_rate"]
         }
@@ -138,6 +150,10 @@
     "NodeSample": {
         "Bernoulli": {
             "req": ["node_sample_prob"]
+        },
+
+        "PANGEA": {
+            "req": ["pangea_yr.start", "pangea_yr.end", "pangea_seed", "pangea_s.INC.recent", "pangea_s.INC.recent.len", "pangea_s.PREV.min", "pangea_s.PREV.max", "pangea_s.PREV.base", "pangea_s.INTERVENTION.start", "pangea_s.INTERVENTION.mul", "pangea_s.ARCHIVAL.n", "pangea_s.MODEL", "pangea_s.PREV.max.n", "pangea_s.INTERVENTION.prop", "pangea_epi.model", "pangea_epi.acute", "pangea_epi.intervention", "pangea_epi.dt", "pangea_epi.import", "pangea_root.edge.fixed", "pangea_v.N0tau", "pangea_v.r", "pangea_v.T50", "pangea_wher.mu", "pangea_wher.sigma", "pangea_bwerm.mu", "pangea_bwerm.sigma", "pangea_er.gamma", "pangea_er.gtr", "pangea_sp.prop.of.sexactive", "pangea_report.prop.recent", "pangea_dbg.GTRparam", "pangea_dbg.rER", "pangea_index.starttime.mode", "pangea_startseq.mode", "pangea_seqtime.mode"]
         },
 
         "Perfect": {
@@ -160,6 +176,10 @@
             "req": ["num_seeds"]
         },
 
+        "PANGEA": {
+            "req": ["pangea_yr.start", "pangea_yr.end", "pangea_seed", "pangea_s.INC.recent", "pangea_s.INC.recent.len", "pangea_s.PREV.min", "pangea_s.PREV.max", "pangea_s.PREV.base", "pangea_s.INTERVENTION.start", "pangea_s.INTERVENTION.mul", "pangea_s.ARCHIVAL.n", "pangea_s.MODEL", "pangea_s.PREV.max.n", "pangea_s.INTERVENTION.prop", "pangea_epi.model", "pangea_epi.acute", "pangea_epi.intervention", "pangea_epi.dt", "pangea_epi.import", "pangea_root.edge.fixed", "pangea_v.N0tau", "pangea_v.r", "pangea_v.T50", "pangea_wher.mu", "pangea_wher.sigma", "pangea_bwerm.mu", "pangea_bwerm.sigma", "pangea_er.gamma", "pangea_er.gtr", "pangea_sp.prop.of.sexactive", "pangea_report.prop.recent", "pangea_dbg.GTRparam", "pangea_dbg.rER", "pangea_index.starttime.mode", "pangea_startseq.mode", "pangea_seqtime.mode"]
+        },
+
         "Random": {
             "req": ["num_seeds"]
         },
@@ -176,6 +196,10 @@
 
         "HMMEmit": {
             "req": ["hmmemit_path", "hmmemit_hmmfile", "hmmemit_options"]
+        },
+
+        "PANGEA": {
+            "req": ["pangea_yr.start", "pangea_yr.end", "pangea_seed", "pangea_s.INC.recent", "pangea_s.INC.recent.len", "pangea_s.PREV.min", "pangea_s.PREV.max", "pangea_s.PREV.base", "pangea_s.INTERVENTION.start", "pangea_s.INTERVENTION.mul", "pangea_s.ARCHIVAL.n", "pangea_s.MODEL", "pangea_s.PREV.max.n", "pangea_s.INTERVENTION.prop", "pangea_epi.model", "pangea_epi.acute", "pangea_epi.intervention", "pangea_epi.dt", "pangea_epi.import", "pangea_root.edge.fixed", "pangea_v.N0tau", "pangea_v.r", "pangea_v.T50", "pangea_wher.mu", "pangea_wher.sigma", "pangea_bwerm.mu", "pangea_bwerm.sigma", "pangea_er.gamma", "pangea_er.gtr", "pangea_sp.prop.of.sexactive", "pangea_report.prop.recent", "pangea_dbg.GTRparam", "pangea_dbg.rER", "pangea_index.starttime.mode", "pangea_startseq.mode", "pangea_seqtime.mode"]
         },
 
         "Random": {
@@ -198,6 +222,10 @@
     "SequenceEvolution": {
         "NoMutation": {
             "req": []
+        },
+
+        "PANGEA": {
+            "req": ["pangea_yr.start", "pangea_yr.end", "pangea_seed", "pangea_s.INC.recent", "pangea_s.INC.recent.len", "pangea_s.PREV.min", "pangea_s.PREV.max", "pangea_s.PREV.base", "pangea_s.INTERVENTION.start", "pangea_s.INTERVENTION.mul", "pangea_s.ARCHIVAL.n", "pangea_s.MODEL", "pangea_s.PREV.max.n", "pangea_s.INTERVENTION.prop", "pangea_epi.model", "pangea_epi.acute", "pangea_epi.intervention", "pangea_epi.dt", "pangea_epi.import", "pangea_root.edge.fixed", "pangea_v.N0tau", "pangea_v.r", "pangea_v.T50", "pangea_wher.mu", "pangea_wher.sigma", "pangea_bwerm.mu", "pangea_bwerm.sigma", "pangea_er.gamma", "pangea_er.gtr", "pangea_sp.prop.of.sexactive", "pangea_report.prop.recent", "pangea_dbg.GTRparam", "pangea_dbg.rER", "pangea_index.starttime.mode", "pangea_startseq.mode", "pangea_seqtime.mode"]
         },
 
         "Pyvolve": {
@@ -251,12 +279,20 @@
     },
 
     "SourceSample": {
+        "PANGEA": {
+            "req": ["pangea_yr.start", "pangea_yr.end", "pangea_seed", "pangea_s.INC.recent", "pangea_s.INC.recent.len", "pangea_s.PREV.min", "pangea_s.PREV.max", "pangea_s.PREV.base", "pangea_s.INTERVENTION.start", "pangea_s.INTERVENTION.mul", "pangea_s.ARCHIVAL.n", "pangea_s.MODEL", "pangea_s.PREV.max.n", "pangea_s.INTERVENTION.prop", "pangea_epi.model", "pangea_epi.acute", "pangea_epi.intervention", "pangea_epi.dt", "pangea_epi.import", "pangea_root.edge.fixed", "pangea_v.N0tau", "pangea_v.r", "pangea_v.T50", "pangea_wher.mu", "pangea_wher.sigma", "pangea_bwerm.mu", "pangea_bwerm.sigma", "pangea_er.gamma", "pangea_er.gtr", "pangea_sp.prop.of.sexactive", "pangea_report.prop.recent", "pangea_dbg.GTRparam", "pangea_dbg.rER", "pangea_index.starttime.mode", "pangea_startseq.mode", "pangea_seqtime.mode"]
+        },
+
         "Random": {
             "req": []
         }
     },
 
     "TransmissionNodeSample": {
+        "GEMF": {
+            "req": ["gemf_path"]
+        },
+
         "RandomMultiInfection": {
             "req": []
         },
@@ -265,8 +301,8 @@
             "req": []
         },
 
-        "GEMF": {
-            "req": ["gemf_path"]
+        "PANGEA": {
+            "req": ["pangea_yr.start", "pangea_yr.end", "pangea_seed", "pangea_s.INC.recent", "pangea_s.INC.recent.len", "pangea_s.PREV.min", "pangea_s.PREV.max", "pangea_s.PREV.base", "pangea_s.INTERVENTION.start", "pangea_s.INTERVENTION.mul", "pangea_s.ARCHIVAL.n", "pangea_s.MODEL", "pangea_s.PREV.max.n", "pangea_s.INTERVENTION.prop", "pangea_epi.model", "pangea_epi.acute", "pangea_epi.intervention", "pangea_epi.dt", "pangea_epi.import", "pangea_root.edge.fixed", "pangea_v.N0tau", "pangea_v.r", "pangea_v.T50", "pangea_wher.mu", "pangea_wher.sigma", "pangea_bwerm.mu", "pangea_bwerm.sigma", "pangea_er.gamma", "pangea_er.gtr", "pangea_sp.prop.of.sexactive", "pangea_report.prop.recent", "pangea_dbg.GTRparam", "pangea_dbg.rER", "pangea_index.starttime.mode", "pangea_startseq.mode", "pangea_seqtime.mode"]
         },
 
         "SI": {
@@ -289,6 +325,10 @@
 
         "Instant": {
             "req": []
+        },
+
+        "PANGEA": {
+            "req": ["pangea_yr.start", "pangea_yr.end", "pangea_seed", "pangea_s.INC.recent", "pangea_s.INC.recent.len", "pangea_s.PREV.min", "pangea_s.PREV.max", "pangea_s.PREV.base", "pangea_s.INTERVENTION.start", "pangea_s.INTERVENTION.mul", "pangea_s.ARCHIVAL.n", "pangea_s.MODEL", "pangea_s.PREV.max.n", "pangea_s.INTERVENTION.prop", "pangea_epi.model", "pangea_epi.acute", "pangea_epi.intervention", "pangea_epi.dt", "pangea_epi.import", "pangea_root.edge.fixed", "pangea_v.N0tau", "pangea_v.r", "pangea_v.T50", "pangea_wher.mu", "pangea_wher.sigma", "pangea_bwerm.mu", "pangea_bwerm.sigma", "pangea_er.gamma", "pangea_er.gtr", "pangea_sp.prop.of.sexactive", "pangea_report.prop.recent", "pangea_dbg.GTRparam", "pangea_dbg.rER", "pangea_index.starttime.mode", "pangea_startseq.mode", "pangea_seqtime.mode"]
         },
 
         "SAISGEMF": {

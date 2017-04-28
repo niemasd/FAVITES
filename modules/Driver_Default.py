@@ -23,6 +23,9 @@ class Driver_Default(Driver):
         which would then require you to call it with the required arguments.
         '''
 
+        # store starting directory
+        GC.START_DIR = getcwd()
+
         # load modules
         for module in MF.modules:
             MF.modules[module].init()

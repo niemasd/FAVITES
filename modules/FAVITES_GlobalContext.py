@@ -302,3 +302,22 @@ def tn_favites2gexf(cn,tn):
     out += '  </graph>\n'
     out += '</gexf>\n'
     return out
+
+# parse FASTA file (single-line or multi-line)
+def parseFASTA(f):
+    seqs = {}
+    currID = None
+    currSeq = ''
+    for line in f:
+        l = line.strip()
+        if len(l) == 0:
+            continue
+        if l[0] == '>':
+            if currID is not None:
+                seqs[currID] = currSeq
+                currSeq = ''
+            currID = l[1:]
+        else:
+            currSeq += l.replace(' ','').replace('\t','')
+    seqs[currID] = currSeq
+    return seqs

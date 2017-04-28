@@ -44,9 +44,6 @@ def parseArgs():
     stdout.flush()
 
 if __name__ == "__main__":
-    # store starting directory
-    GC.START_DIR = getcwd()
-
     # initialize global access variables
     MF.init('/'.join(argv[0].split('/')[:-1]) + '/modules')
 
