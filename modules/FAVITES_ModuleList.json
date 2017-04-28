@@ -12,6 +12,10 @@
     "ContactNetworkEdge": {
         "NetworkX": {
             "req": []
+        },
+
+        "PANGEA": {
+            "req": []
         }
     },
 
@@ -63,6 +67,10 @@
 
     "ContactNetworkNode": {
         "NetworkX": {
+            "req": []
+        },
+
+        "PANGEA": {
             "req": []
         }
     },
