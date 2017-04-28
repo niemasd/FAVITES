@@ -56,7 +56,7 @@ class ContactNetworkGenerator_PANGEA(ContactNetworkGenerator):
         f.write(")\ncat(sim.regional(outdir, pipeline.args=pipeline.args))")
         f.close()
         try:
-            check_output(['Rscript',PANGEA_command_script], stderr=open(devnull,'w'))
+            check_output([GC.Rscript_path,PANGEA_command_script], stderr=open(devnull,'w'))
         except FileNotFoundError:
             chdir(GC.START_DIR)
             assert False, "Rscript executable was not found"
@@ -80,7 +80,7 @@ class ContactNetworkGenerator_PANGEA(ContactNetworkGenerator):
         f.write("trans <- df.trms[,c('IDTR','IDREC','TIME_TR')]\n")
         f.write("write.table(trans[order(trans$TIME_TR),], file='" + PANGEA_trans_file + "', append=FALSE, sep='\\t', row.names=FALSE, col.names=FALSE, quote=FALSE)")
         f.close()
-        check_output(['Rscript',PANGEA_trans_net_script], stderr=open(devnull,'w'))
+        check_output([GC.Rscript_path,PANGEA_trans_net_script], stderr=open(devnull,'w'))
         GC.PANGEA_TRANSMISSION_NETWORK = [i.strip().split() for i in open(PANGEA_trans_file) if len(i.strip()) > 0]
         chdir(orig_dir)
         for archive in glob(PANGEA_path + '/*_SIMULATED_SEQ.zip'):

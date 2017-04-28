@@ -53,5 +53,6 @@
     "pangea_dbg.rER":              0,
     "pangea_index.starttime.mode": "fix1970",
     "pangea_startseq.mode":        "one",
-    "pangea_seqtime.mode":         "AtDiag"
+    "pangea_seqtime.mode":         "AtDiag",
+    "Rscript_path":                "Rscript"
 }
