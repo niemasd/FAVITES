@@ -363,6 +363,10 @@
             "req": ["gemf_path", "sis_beta", "sis_delta", "end_time", "end_events"]
         },
 
+        "SVITRGEMF": {
+            "req": ["gemf_path", "svitr_beta", "svitr_delta", "svitr_s_to_v", "svitr_i_to_t", "svitr_t_to_r", "end_time", "end_events"]
+        },
+
         "TransmissionFile": {
             "req": ["transmission_network_file"]
         }
