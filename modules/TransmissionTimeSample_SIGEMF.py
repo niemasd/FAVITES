@@ -17,11 +17,7 @@ class TransmissionTimeSample_SIGEMF(TransmissionTimeSample):
         GC.sis_beta = float(GC.si_beta)
         assert GC.sis_beta >= 0, "si_beta must be at least 0"
         GC.sis_delta = 0
-        GC.end_time = float(GC.end_time)
-        assert GC.end_time > 0, "end_time must be positive"
-        GC.end_events = int(GC.end_events)
-        assert GC.end_events > 0, "end_events must be positive"
-        GC.gemf_ready = False
+        TransmissionTimeSample_SISGEMF.init()
 
     def prep_GEMF():
         TransmissionTimeSample_SISGEMF.prep_GEMF()
