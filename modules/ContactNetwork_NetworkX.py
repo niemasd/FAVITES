@@ -161,7 +161,8 @@ class ContactNetwork_NetworkX(ContactNetwork):
         assert isinstance(u, Node), "u is not a ContactNetworNode_NetworkX"
         assert isinstance(v, Node), "v is not a ContactNetworNode_NetworkX"
         self.transmissions.append((u,v,time))
-        self.add_to_infected(v)
+        if u != v:
+            self.add_to_infected(v)
 
     def add_to_infected(self,node):
         assert isinstance(node, Node), "node is not a ContactNetworNode_NetworkX"

@@ -90,6 +90,10 @@ class Driver_Default(Driver):
             if u is None or v is None or MF.modules['EndCriteria'].done():
                 break
             GC.time = t
+            if u == v: # u = v implies uninfection (recovery or death)
+                u.uninfect()
+                GC.contact_network.add_transmission(u,u,GC.time)
+                continue
             MF.modules['NodeEvolution'].evolve_to_current_time(u)
             MF.modules['NodeEvolution'].evolve_to_current_time(v)
             virus = MF.modules['SourceSample'].sample_virus(u)

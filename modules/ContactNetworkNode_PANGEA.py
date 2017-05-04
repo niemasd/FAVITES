@@ -68,5 +68,8 @@ class ContactNetworkNode_PANGEA(ContactNetworkNode):
     def viruses(self):
         yield None
 
+    def uninfect(self):
+        pass
+
 if __name__ == '__main__':
     pass

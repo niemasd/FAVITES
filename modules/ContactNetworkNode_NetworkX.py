@@ -110,10 +110,16 @@ class ContactNetworkNode_NetworkX(ContactNetworkNode):
     def remove_virus(self, virus):
         assert virus.get_contact_network_node() == self, "Cannot remove a virus from a node it's not in"
         GC.viruses[self.num].remove(virus.get_label())
+        if len(GC.viruses[self.num]) == 0:
+            self.contact_network.remove_from_infected(self)
 
     def viruses(self):
         for virus in GC.viruses[self.num]:
             yield GC.label_to_node[virus]
+
+    def uninfect(self):
+        GC.viruses[self.num] = set()
+        self.contact_network.remove_from_infected(self)
 
 if __name__ == '__main__':
     '''

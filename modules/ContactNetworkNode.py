@@ -34,6 +34,8 @@ class ContactNetworkNode(metaclass=abc.ABCMeta):
     remove_virus(virus)
         Remove ``virus'' from this ``ContactNetworkNode'' (should be at current
         time)
+    uninfect()
+        Remove all viruses from this ``ContactNetworkNode''
     viruses()
         Iterate over the viruses that exist in this ``ContactNetworkNode''
         object at the current time
@@ -208,6 +210,13 @@ class ContactNetworkNode(metaclass=abc.ABCMeta):
         ----------
         virus : TreeNode
             The virus to remove from this node (should be at current time)
+        '''
+        pass
+
+    @abc.abstractmethod
+    def uninfect(self):
+        '''
+        Remove all viruses from this ``ContactNetworkNode''
         '''
         pass
 
