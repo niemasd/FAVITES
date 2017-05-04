@@ -36,8 +36,8 @@ class TransmissionTimeSample_SEIRGEMF(TransmissionTimeSample):
         # write GEMF parameter file
         orig_dir = getcwd()
         GC.gemf_path = expanduser(GC.gemf_path.strip())
-        makedirs("GEMF_output")
-        f = open("GEMF_output/para.txt",'w')
+        makedirs(GC.gemf_out_dir)
+        f = open(GC.gemf_out_dir + "/para.txt",'w')
         f.write("[NODAL_TRAN_MATRIX]\n0\t0\t0\t0\n0\t0\t" + str(GC.seir_lambda) + "\t0\n0\t0\t0\t" + str(GC.seir_delta) + "\n0\t0\t0\t0\n\n") # SEIR-specific
         f.write("[EDGED_TRAN_MATRIX]\n0\t" + str(GC.seir_beta) + "\t0\t0\n0\t0\t0\t0\n0\t0\t0\t0\n0\t0\t0\t0\n\n") # SEIR-specific
         f.write("[STATUS_BEGIN]\n0\n\n")

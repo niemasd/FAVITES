@@ -79,7 +79,7 @@ class TransmissionTimeSample_SAISGEMF(TransmissionTimeSample):
         f.close()
 
         # write GEMF status file (0 = S, 1 = A, 2 = I)
-        f = open("GEMF_output/status.txt",'w')
+        f = open(GC.gemf_out_dir + "/status.txt",'w')
         seeds = {seed for seed in GC.seed_nodes}
         for num in sorted(num2node.keys()):
             node = num2node[num]
