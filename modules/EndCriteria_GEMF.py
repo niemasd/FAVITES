@@ -20,6 +20,7 @@ This is the main file of interest. It contains the GEMF simulation output. The c
 * New state of node
 * Number of nodes in each state (one column per state)
 * Comma-delimited lists of inducer nodes from each state (one state per list)'''
+gemf_state_translate_help = "=== State Number Translations ==="
 
 class EndCriteria_GEMF(EndCriteria):
     def init():
@@ -36,7 +37,9 @@ class EndCriteria_GEMF(EndCriteria):
     def finalize_time():
         # write GEMF output README for user
         f = open(GC.gemf_out_dir + '/README.TXT', 'w')
-        f.write(gemf_general_help)
-        f.write('\n\n')
-        f.write(gemf_output_txt_help)
+        f.write(gemf_general_help + '\n\n')
+        f.write(gemf_output_txt_help + '\n\n')
+        f.write(gemf_state_translate_help + '\n')
+        for state in GC.gemf_state_to_num:
+            f.write(state + ' = ' + str(GC.gemf_state_to_num[state]) + '\n')
         f.close()
