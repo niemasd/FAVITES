@@ -27,7 +27,7 @@ class TransmissionTimeSample_SIRGEMF(TransmissionTimeSample):
         GC.end_events = int(GC.end_events)
         assert GC.end_events > 0, "end_events must be positive"
         GC.gemf_ready = False
-        GC.gemf_state_to_num = {'S':0,'I':1,'R':2}
+        GC.gemf_state_to_num = {'S':0, 'I':1, 'R':2}
         GC.gemf_num_to_state = {GC.gemf_state_to_num[state]:state for state in GC.gemf_state_to_num}
 
     def prep_GEMF():
@@ -80,9 +80,9 @@ class TransmissionTimeSample_SIRGEMF(TransmissionTimeSample):
         for num in sorted(num2node.keys()):
             node = num2node[num]
             if node in seeds:
-                f.write("1\n") # SIR-specific
+                f.write(str(GC.gemf_state_to_num['I']) + "\n") # SIR-specific
             else:
-                f.write("0\n") # SIR-specific
+                f.write(str(GC.gemf_state_to_num['S']) + "\n") # SIR-specific
         f.close()
 
         # run GEMF

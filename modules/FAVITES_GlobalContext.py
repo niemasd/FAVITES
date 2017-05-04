@@ -238,7 +238,7 @@ def tn_favites2gexf(cn,tn):
             for i in range(len(times)):
                 if times[i] > t:
                     break
-        edges[(u,v)] = times[:i] + [t] + times[i:]
+            edges[(u,v)] = times[:i] + [t] + times[i:]
     out = '<?xml version="1.0" encoding="UTF-8"?>\n'
     out += '<gexf xmlns="http://www.gexf.net/1.3" version="1.3" xmlns:viz="http://www.gexf.net/1.3/viz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.3 http://www.gexf.net/1.3/gexf.xsd">\n'
     out += '  <meta lastmodifieddate="' + strftime("%Y/%m/%d") + '">\n'
