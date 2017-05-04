@@ -27,16 +27,19 @@ class TransmissionTimeSample_SISGEMF(TransmissionTimeSample):
         GC.end_events = int(GC.end_events)
         assert GC.end_events > 0, "end_events must be positive"
         GC.gemf_ready = False
+        GC.gemf_state_to_num = {'S':0, 'I':1}
+        GC.gemf_num_to_state = {GC.gemf_state_to_num[state]:state for state in GC.gemf_state_to_num}
 
     def prep_GEMF():
         # write GEMF parameter file
+        orig_dir = getcwd()
         GC.gemf_path = expanduser(GC.gemf_path.strip())
-        makedirs("GEMF_output")
-        f = open("GEMF_output/para.txt",'w')
+        makedirs(GC.gemf_out_dir)
+        f = open(GC.gemf_out_dir + "/para.txt",'w')
         f.write("[NODAL_TRAN_MATRIX]\n0\t0\n" + str(GC.sis_delta) + "\t0\n\n") # SIS-specific
         f.write("[EDGED_TRAN_MATRIX]\n0\t" + str(GC.sis_beta) + "\n0\t0\n\n")  # SIS-specific
         f.write("[STATUS_BEGIN]\n0\n\n")
-        f.write("[INDUCER_LIST]\n1\n\n")
+        f.write("[INDUCER_LIST]\n" + str(GC.gemf_state_to_num['I']) + "\n\n")
         f.write("[SIM_ROUNDS]\n1\n\n")
         f.write("[INTERVAL_NUM]\n1\n\n")
         f.write("[MAX_TIME]\n" + str(GC.end_time) + "\n\n")
@@ -49,7 +52,7 @@ class TransmissionTimeSample_SISGEMF(TransmissionTimeSample):
         f.close()
 
         # write GEMF network file
-        f = open("GEMF_output/network.txt",'w')
+        f = open(GC.gemf_out_dir + "/network.txt",'w')
         num2node = {}
         node2num = {}
         for edge in GC.contact_network.edges_iter():
@@ -67,24 +70,23 @@ class TransmissionTimeSample_SISGEMF(TransmissionTimeSample):
         f.close()
 
         # write GEMF to original mapping
-        f = open("GEMF_output/gemf2orig.json",'w')
+        f = open(GC.gemf_out_dir + "/gemf2orig.json",'w')
         f.write(str({num:num2node[num].get_name() for num in num2node}))
         f.close()
 
         # write GEMF status file (0 = S, 1 = I)
-        f = open("GEMF_output/status.txt",'w')
+        f = open(GC.gemf_out_dir + "/status.txt",'w')
         seeds = {seed for seed in GC.seed_nodes}
         for num in sorted(num2node.keys()):
             node = num2node[num]
             if node in seeds:
-                f.write("1\n") # SIS-specific
+                f.write(str(GC.gemf_state_to_num['I']) + "\n") # SIS-specific
             else:
-                f.write("0\n") # SIS-specific
+                f.write(str(GC.gemf_state_to_num['S']) + "\n") # SIS-specific
         f.close()
 
         # run GEMF
-        orig_dir = getcwd()
-        chdir("GEMF_output")
+        chdir(GC.gemf_out_dir)
         try:
             call([GC.gemf_path], stdout=open("log.txt",'w'))
         except FileNotFoundError:
@@ -96,10 +98,13 @@ class TransmissionTimeSample_SISGEMF(TransmissionTimeSample):
         GC.transmission_num = 0
         GC.transmission_state = set() # 'node' and 'time'
         GC.transmission_file = []
-        for line in open("GEMF_output/output.txt"):
+        for line in open(GC.gemf_out_dir + "/output.txt"):
             t,rate,vNum,pre,post,num0,num1,lists = [i.strip() for i in line.split()]
             uNums = [u for u in lists.split('],[')[1][:-1].split(',') if u != '']
-            if len(uNums) != 0:
+            if post == str(GC.gemf_state_to_num['S']):
+                vName = num2node[int(vNum)].get_name()
+                GC.transmission_file.append((vName,vName,float(t)))
+            elif len(uNums) != 0:
                 uNum = choice(uNums) # randomly choose a single infector
                 u,v = num2node[int(uNum)],num2node[int(vNum)]
                 GC.transmission_file.append((u.get_name(),v.get_name(),float(t)))
