@@ -331,6 +331,10 @@
             "req": ["fixed_transmission_time_delta"]
         },
 
+        "GonorrheaHethcoteYorkeGEMF": {
+            "req": ["gemf_path", "gon_ma_to_ms", "gon_ms_to_ma", "gon_ms_to_mis", "gon_ms_to_mia", "gon_mis_to_ma", "gon_mis_to_ms", "gon_mia_to_ma", "gon_mia_to_ms", "gon_fa_to_fs", "gon_fs_to_fa", "gon_fs_to_fis", "gon_fs_to_fia", "gon_fis_to_fa", "gon_fis_to_fs", "gon_fia_to_fa", "gon_fia_to_fs", "end_time", "end_events"]
+        },
+
         "Instant": {
             "req": []
         },
