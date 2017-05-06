@@ -74,7 +74,7 @@ class ContactNetwork_NetworkX(ContactNetwork):
                 if parts[2] == '.':
                     self.contact_network.node[num]['attribute'] = set()
                 else:
-                    self.contact_network.node[num]['attribute'] = set(parts[2].split(','))
+                    self.contact_network.node[num]['attribute'] = set([e.strip().upper() for e in parts[2].split(',')])
                 self.contact_network.node[num]['infections'] = []
                 self.contact_network.node[num]['infection_trees'] = []
 
