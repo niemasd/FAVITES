@@ -335,6 +335,10 @@
             "req": ["gemf_path", "gon_ma_to_ms", "gon_ms_to_ma", "gon_ms_to_mis", "gon_ms_to_mia", "gon_mis_to_ma", "gon_mis_to_ms", "gon_mia_to_ma", "gon_mia_to_ms", "gon_fa_to_fs", "gon_fs_to_fa", "gon_fs_to_fis", "gon_fs_to_fia", "gon_fis_to_fa", "gon_fis_to_fs", "gon_fia_to_fa", "gon_fia_to_fs", "end_time", "end_events"]
         },
 
+        "HIVARTGranichGEMF": {
+            "req": ["gemf_path", "hiv_ns_to_s", "hiv_ns_to_d", "hiv_s_to_i1", "hiv_s_to_d", "hiv_i1_to_i2", "hiv_i1_to_a1", "hiv_i1_to_d", "hiv_i2_to_i3", "hiv_i2_to_a2", "hiv_i2_to_d", "hiv_i3_to_i4", "hiv_i3_to_a3", "hiv_i3_to_d", "hiv_i4_to_a4", "hiv_i4_to_d", "hiv_a1_to_i1", "hiv_a1_to_a2", "hiv_a1_to_d", "hiv_a2_to_i2", "hiv_a2_to_a3", "hiv_a2_to_d", "hiv_a3_to_i3", "hiv_a3_to_a4", "hiv_a3_to_d", "hiv_a4_to_i4", "hiv_a4_to_d", "end_time", "end_events"]
+        },
+
         "Instant": {
             "req": []
         },
