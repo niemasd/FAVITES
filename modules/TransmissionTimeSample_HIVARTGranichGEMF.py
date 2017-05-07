@@ -184,7 +184,10 @@ class TransmissionTimeSample_HIVARTGranichGEMF(TransmissionTimeSample):
             uNums = []
             for l in lists:
                 uNums.extend(l)
-            if len(uNums) != 0:
+            if post == str(GC.gemf_state_to_num['D']):
+                vName = num2node[int(vNum)].get_name()
+                GC.transmission_file.append((vName,vName,float(t)))
+            elif len(uNums) != 0:
                 uNum = choice(uNums) # randomly choose a single infector
                 u,v = num2node[int(uNum)],num2node[int(vNum)]
                 GC.transmission_file.append((u.get_name(),v.get_name(),float(t)))
