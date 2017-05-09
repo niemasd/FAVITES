@@ -45,58 +45,10 @@ class TransmissionTimeSample_HIVARTGranichGEMF(TransmissionTimeSample):
     def init():
         assert "TransmissionNodeSample_GEMF" in str(MF.modules['TransmissionNodeSample']), "Must use TransmissionNodeSample_GEMF module"
         assert "EndCriteria_GEMF" in str(MF.modules['EndCriteria']), "Must use EndCriteria_GEMF module"
-        GC.hiv_ns_to_s = float(GC.hiv_ns_to_s)
-        assert GC.hiv_ns_to_s >= 0, "hiv_ns_to_s must be at least 0"
-        GC.hiv_ns_to_d = float(GC.hiv_ns_to_d)
-        assert GC.hiv_ns_to_d >= 0, "hiv_ns_to_d must be at least 0"
-        GC.hiv_s_to_i1 = float(GC.hiv_s_to_i1)
-        assert GC.hiv_s_to_i1 >= 0, "hiv_s_to_i1 must be at least 0"
-        GC.hiv_s_to_d = float(GC.hiv_s_to_d)
-        assert GC.hiv_s_to_d >= 0, "hiv_s_to_d must be at least 0"
-        GC.hiv_i1_to_i2 = float(GC.hiv_i1_to_i2)
-        assert GC.hiv_i1_to_i2 >= 0, "hiv_i1_to_i2 must be at least 0"
-        GC.hiv_i1_to_a1 = float(GC.hiv_i1_to_a1)
-        assert GC.hiv_i1_to_a1 >= 0, "hiv_i1_to_a1 must be at least 0"
-        GC.hiv_i1_to_d = float(GC.hiv_i1_to_d)
-        assert GC.hiv_i1_to_d >= 0, "hiv_i1_to_d must be at least 0"
-        GC.hiv_i2_to_i3 = float(GC.hiv_i2_to_i3)
-        assert GC.hiv_i2_to_i3 >= 0, "hiv_i2_to_i3 must be at least 0"
-        GC.hiv_i2_to_a2 = float(GC.hiv_i2_to_a2)
-        assert GC.hiv_i2_to_a2 >= 0, "hiv_i2_to_a2 must be at least 0"
-        GC.hiv_i2_to_d = float(GC.hiv_i2_to_d)
-        assert GC.hiv_i2_to_d >= 0, "hiv_i2_to_d must be at least 0"
-        GC.hiv_i3_to_i4 = float(GC.hiv_i3_to_i4)
-        assert GC.hiv_i3_to_i4 >= 0, "hiv_i3_to_i4 must be at least 0"
-        GC.hiv_i3_to_a3 = float(GC.hiv_i3_to_a3)
-        assert GC.hiv_i3_to_a3 >= 0, "hiv_i3_to_a3 must be at least 0"
-        GC.hiv_i3_to_d = float(GC.hiv_i3_to_d)
-        assert GC.hiv_i3_to_d >= 0, "hiv_i3_to_d must be at least 0"
-        GC.hiv_i4_to_a4 = float(GC.hiv_i4_to_a4)
-        assert GC.hiv_i4_to_a4 >= 0, "hiv_i4_to_a4 must be at least 0"
-        GC.hiv_i4_to_d = float(GC.hiv_i4_to_d)
-        assert GC.hiv_i4_to_d >= 0, "hiv_i4_to_d must be at least 0"
-        GC.hiv_a1_to_a2 = float(GC.hiv_a1_to_a2)
-        assert GC.hiv_a1_to_a2 >= 0, "hiv_a1_to_a2 must be at least 0"
-        GC.hiv_a1_to_i1 = float(GC.hiv_a1_to_i1)
-        assert GC.hiv_a1_to_i1 >= 0, "hiv_a1_to_i1 must be at least 0"
-        GC.hiv_a1_to_d = float(GC.hiv_a1_to_d)
-        assert GC.hiv_a1_to_d >= 0, "hiv_a1_to_d must be at least 0"
-        GC.hiv_a2_to_a3 = float(GC.hiv_a2_to_a3)
-        assert GC.hiv_a2_to_a3 >= 0, "hiv_a2_to_a3 must be at least 0"
-        GC.hiv_a2_to_i2 = float(GC.hiv_a2_to_i2)
-        assert GC.hiv_a2_to_i2 >= 0, "hiv_a2_to_i2 must be at least 0"
-        GC.hiv_a2_to_d = float(GC.hiv_a2_to_d)
-        assert GC.hiv_a2_to_d >= 0, "hiv_a2_to_d must be at least 0"
-        GC.hiv_a3_to_a4 = float(GC.hiv_a3_to_a4)
-        assert GC.hiv_a3_to_a4 >= 0, "hiv_a3_to_a4 must be at least 0"
-        GC.hiv_a3_to_i3 = float(GC.hiv_a3_to_i3)
-        assert GC.hiv_a3_to_i3 >= 0, "hiv_a3_to_i3 must be at least 0"
-        GC.hiv_a3_to_d = float(GC.hiv_a3_to_d)
-        assert GC.hiv_a3_to_d >= 0, "hiv_a3_to_d must be at least 0"
-        GC.hiv_a4_to_i4 = float(GC.hiv_a4_to_i4)
-        assert GC.hiv_a4_to_i4 >= 0, "hiv_a4_to_i4 must be at least 0"
-        GC.hiv_a4_to_d = float(GC.hiv_a4_to_d)
-        assert GC.hiv_a4_to_d >= 0, "hiv_a4_to_d must be at least 0"
+        for p in dir(GC):
+            if not p.startswith('__') and '_to_' in p:
+                setattr(GC, p, float(getattr(GC,p)))
+                assert getattr(GC,p) >= 0, "%s must be at least 0" % p
         GC.end_time = float(GC.end_time)
         assert GC.end_time > 0, "end_time must be positive"
         GC.end_events = int(GC.end_events)
@@ -113,19 +65,24 @@ class TransmissionTimeSample_HIVARTGranichGEMF(TransmissionTimeSample):
         f = open(GC.gemf_out_dir + "/para.txt",'w')
         f.write("[NODAL_TRAN_MATRIX]\n0\t" + str(GC.hiv_ns_to_s) + "\t0\t0\t0\t0\t0\t0\t0\t0\t" + str(GC.hiv_ns_to_d) + "\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t" + str(GC.hiv_s_to_d) + "\n0\t0\t0\t" + str(GC.hiv_i1_to_i2) + "\t0\t0\t" + str(GC.hiv_i1_to_a1) + "\t0\t0\t0\t" + str(GC.hiv_i1_to_d) + "\n0\t0\t0\t0\t" + str(GC.hiv_i2_to_i3) + "\t0\t0\t" + str(GC.hiv_i2_to_a2) + "\t0\t0\t" + str(GC.hiv_i2_to_d) + "\n0\t0\t0\t0\t0\t" + str(GC.hiv_i3_to_i4) + "\t0\t0\t" + str(GC.hiv_i3_to_a3) + "\t0\t" + str(GC.hiv_i3_to_d) + "\n0\t0\t0\t0\t0\t0\t0\t0\t0\t" + str(GC.hiv_i4_to_a4) + "\t" + str(GC.hiv_i4_to_d) + "\n0\t0\t" + str(GC.hiv_a1_to_i1) + "\t0\t0\t0\t0\t" + str(GC.hiv_a1_to_a2) + "\t0\t0\t" + str(GC.hiv_a1_to_d) + "\n0\t0\t0\t" + str(GC.hiv_a2_to_i2) + "\t0\t0\t0\t0\t" + str(GC.hiv_a2_to_a3) + "\t0\t" + str(GC.hiv_a2_to_d) + "\n0\t0\t0\t0\t" + str(GC.hiv_a3_to_i3) + "\t0\t0\t0\t0\t" + str(GC.hiv_a3_to_a4) + "\t" + str(GC.hiv_a3_to_d) + "\n0\t0\t0\t0\t0\t" + str(GC.hiv_a4_to_i4) + "\t0\t0\t0\t0\t" + str(GC.hiv_a4_to_d) + "\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n\n") # HIV-ART-specific
         f.write("[EDGED_TRAN_MATRIX]\n")
-        f.write("0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t" + str(GC.hiv_s_to_i1) + "\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n\n")
-        f.write("0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n\n")
-        f.write("0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n\n")
-        f.write("0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n\n")
+        f.write("0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t" + str(GC.hiv_s_to_i1_by_i1) + "\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n\n")
+        f.write("0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t" + str(GC.hiv_s_to_i1_by_i2) + "\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n\n")
+        f.write("0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t" + str(GC.hiv_s_to_i1_by_i3) + "\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n\n")
+        f.write("0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t" + str(GC.hiv_s_to_i1_by_i4) + "\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n\n")
+        f.write("0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t" + str(GC.hiv_s_to_i1_by_a1) + "\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n\n")
+        f.write("0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t" + str(GC.hiv_s_to_i1_by_a2) + "\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n\n")
+        f.write("0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t" + str(GC.hiv_s_to_i1_by_a3) + "\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n\n")
+        f.write("0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t" + str(GC.hiv_s_to_i1_by_a4) + "\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n\n")
         f.write("[STATUS_BEGIN]\n0\n\n")
-        f.write("[INDUCER_LIST]\n" + str(GC.gemf_state_to_num['I1']) + ' ' + str(GC.gemf_state_to_num['I2']) + ' ' + str(GC.gemf_state_to_num['I3']) + ' ' + str(GC.gemf_state_to_num['I4']) + "\n\n")
+        infectious = ['I1','I2','I3','I4','A1','A2','A3','A4']
+        f.write("[INDUCER_LIST]\n" + ' '.join([str(GC.gemf_state_to_num[i]) for i in infectious]) + "\n\n")
         f.write("[SIM_ROUNDS]\n1\n\n")
         f.write("[INTERVAL_NUM]\n1\n\n")
         f.write("[MAX_TIME]\n" + str(GC.end_time) + "\n\n")
         f.write("[MAX_EVENTS]\n" + str(GC.end_events) + "\n\n")
         f.write("[DIRECTED]\n1\n\n")
         f.write("[SHOW_INDUCER]\n1\n\n")
-        f.write("[DATA_FILE]\nnetwork.txt\nnetwork.txt\nnetwork.txt\nnetwork.txt\n\n")
+        f.write("[DATA_FILE]\n" + '\n'.join(["network.txt"]*len(infectious)) + "\n\n")
         f.write("[STATUS_FILE]\nstatus.txt\n\n")
         f.write("[OUT_FILE]\noutput.txt")
         f.close()

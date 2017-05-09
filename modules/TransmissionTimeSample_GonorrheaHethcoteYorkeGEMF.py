@@ -39,30 +39,10 @@ class TransmissionTimeSample_GonorrheaHethcoteYorkeGEMF(TransmissionTimeSample):
     def init():
         assert "TransmissionNodeSample_GEMF" in str(MF.modules['TransmissionNodeSample']), "Must use TransmissionNodeSample_GEMF module"
         assert "EndCriteria_GEMF" in str(MF.modules['EndCriteria']), "Must use EndCriteria_GEMF module"
-        GC.gon_ma_to_ms = float(GC.gon_ma_to_ms)
-        assert GC.gon_ma_to_ms >= 0, "gon_ma_to_ms must be at least 0"
-        GC.gon_ms_to_ma = float(GC.gon_ms_to_ma)
-        assert GC.gon_ms_to_ma >= 0, "gon_ms_to_ma must be at least 0"
-        GC.gon_ms_to_mis = float(GC.gon_ms_to_mis)
-        assert GC.gon_ms_to_mis >= 0, "gon_ms_to_mis must be at least 0"
-        GC.gon_ms_to_mia = float(GC.gon_ms_to_mia)
-        assert GC.gon_ms_to_mia >= 0, "gon_ms_to_mia must be at least 0"
-        GC.gon_mis_to_ma = float(GC.gon_mis_to_ma)
-        assert GC.gon_mis_to_ma >= 0, "gon_mis_to_ma must be at least 0"
-        GC.gon_mis_to_ms = float(GC.gon_mis_to_ms)
-        assert GC.gon_mis_to_ms >= 0, "gon_mis_to_ms must be at least 0"
-        GC.gon_fa_to_fs = float(GC.gon_fa_to_fs)
-        assert GC.gon_fa_to_fs >= 0, "gon_fa_to_fs must be at least 0"
-        GC.gon_fs_to_fa = float(GC.gon_fs_to_fa)
-        assert GC.gon_fs_to_fa >= 0, "gon_fs_to_fa must be at least 0"
-        GC.gon_fs_to_fis = float(GC.gon_fs_to_fis)
-        assert GC.gon_fs_to_fis >= 0, "gon_fs_to_fis must be at least 0"
-        GC.gon_fs_to_fia = float(GC.gon_fs_to_fia)
-        assert GC.gon_fs_to_fia >= 0, "gon_fs_to_fia must be at least 0"
-        GC.gon_fis_to_fa = float(GC.gon_fis_to_fa)
-        assert GC.gon_fis_to_fa >= 0, "gon_fis_to_fa must be at least 0"
-        GC.gon_fis_to_fs = float(GC.gon_fis_to_fs)
-        assert GC.gon_fis_to_fs >= 0, "gon_fis_to_fs must be at least 0"
+        for p in dir(GC):
+            if not p.startswith('__') and '_to_' in p:
+                setattr(GC, p, float(getattr(GC,p)))
+                assert getattr(GC,p) >= 0, "%s must be at least 0" % p
         GC.end_time = float(GC.end_time)
         assert GC.end_time > 0, "end_time must be positive"
         GC.end_events = int(GC.end_events)
@@ -85,10 +65,10 @@ class TransmissionTimeSample_GonorrheaHethcoteYorkeGEMF(TransmissionTimeSample):
         f = open(GC.gemf_out_dir + "/para.txt",'w')
         f.write("[NODAL_TRAN_MATRIX]\n0\t" + str(GC.gon_ma_to_ms) + "\t0\t0\t0\t0\t0\t0\n" + str(GC.gon_ms_to_ma) + "\t0\t0\t0\t0\t0\t0\t0\n" + str(GC.gon_mis_to_ma) + "\t" + str(GC.gon_mis_to_ms) + "\t0\t0\t0\t0\t0\t0\n" + str(GC.gon_mia_to_ma) + "\t" + str(GC.gon_mia_to_ms) + "\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t" + str(GC.gon_fa_to_fs) + "\t0\t0\n0\t0\t0\t0\t" + str(GC.gon_fs_to_fa) + "\t0\t0\t0\n0\t0\t0\t0\t" + str(GC.gon_fis_to_fa) + "\t" + str(GC.gon_fis_to_fs) + "\t0\t0\n0\t0\t0\t0\t" + str(GC.gon_fia_to_fa) + "\t" + str(GC.gon_fia_to_fs) + "\t0\t0\n\n") # Gonorrhea-specific
         f.write("[EDGED_TRAN_MATRIX]\n")
-        f.write("0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t" + str(GC.gon_ms_to_mis) + "\t" + str(GC.gon_ms_to_mia) + "\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t" + str(GC.gon_fs_to_fis) + "\t" + str(GC.gon_fs_to_fia) + "\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n\n")
-        f.write("0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t" + str(GC.gon_ms_to_mis) + "\t" + str(GC.gon_ms_to_mia) + "\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t" + str(GC.gon_fs_to_fis) + "\t" + str(GC.gon_fs_to_fia) + "\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n\n")
-        f.write("0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t" + str(GC.gon_ms_to_mis) + "\t" + str(GC.gon_ms_to_mia) + "\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t" + str(GC.gon_fs_to_fis) + "\t" + str(GC.gon_fs_to_fia) + "\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n\n")
-        f.write("0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t" + str(GC.gon_ms_to_mis) + "\t" + str(GC.gon_ms_to_mia) + "\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t" + str(GC.gon_fs_to_fis) + "\t" + str(GC.gon_fs_to_fia) + "\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n\n")
+        f.write("0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t" + str(GC.gon_ms_to_mis_by_mis) + "\t" + str(GC.gon_ms_to_mia_by_mis) + "\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t" + str(GC.gon_fs_to_fis_by_mis) + "\t" + str(GC.gon_fs_to_fia_by_mis) + "\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n\n")
+        f.write("0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t" + str(GC.gon_ms_to_mis_by_mia) + "\t" + str(GC.gon_ms_to_mia_by_mia) + "\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t" + str(GC.gon_fs_to_fis_by_mia) + "\t" + str(GC.gon_fs_to_fia_by_mia) + "\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n\n")
+        f.write("0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t" + str(GC.gon_ms_to_mis_by_fis) + "\t" + str(GC.gon_ms_to_mia_by_fis) + "\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t" + str(GC.gon_fs_to_fis_by_fis) + "\t" + str(GC.gon_fs_to_fia_by_fis) + "\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n\n")
+        f.write("0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t" + str(GC.gon_ms_to_mis_by_fia) + "\t" + str(GC.gon_ms_to_mia_by_fia) + "\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t" + str(GC.gon_fs_to_fis_by_fia) + "\t" + str(GC.gon_fs_to_fia_by_fia) + "\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n\n")
         f.write("[STATUS_BEGIN]\n0\n\n")
         f.write("[INDUCER_LIST]\n" + str(GC.gemf_state_to_num['MIS']) + ' ' + str(GC.gemf_state_to_num['MIA']) + ' ' + str(GC.gemf_state_to_num['FIS']) + ' ' + str(GC.gemf_state_to_num['FIA']) + "\n\n")
         f.write("[SIM_ROUNDS]\n1\n\n")
