@@ -41,11 +41,11 @@ class SequenceEvolution_Pyvolve(SequenceEvolution):
         # config validity checks
         GC.pyvolve_model_type = GC.pyvolve_model_type.strip()
         GC.pyvolve_state_frequencies_class = GC.pyvolve_state_frequencies_class.strip()
-        assert GC.pyvolve_state_frequencies_class in ["EqualFrequencies","RandomFrequencies","CustomFrequencies"], 'Unsupported Pyvolve model_type selected. Choose "EqualFrequencies", "RandomFrequencies", or "CustomFrequencies"'
+        assert GC.pyvolve_state_frequencies_class in {"EqualFrequencies","RandomFrequencies","CustomFrequencies"}, 'Unsupported Pyvolve model_type selected. Choose "EqualFrequencies", "RandomFrequencies", or "CustomFrequencies"'
         assert isinstance(GC.pyvolve_custom_model_parameters_dictionary, dict), "Specified pyvolve_custom_model_parameters_dictionary is not a dictionary"
         assert isinstance(GC.pyvolve_state_frequencies_parameters_dictionary, dict), "Specified pyvolve_state_frequencies_parameters_dictionary is not a dictionary"
         assert "alphabet" in GC.pyvolve_state_frequencies_parameters_dictionary, 'Specified pyvolve_state_frequencies_parameters_dictionary does not contain mandatory "alphabet" key'
-        assert GC.pyvolve_state_frequencies_parameters_dictionary["alphabet"] in ["nucleotide","amino_acid","codon"], 'Specified pyvolve_state_frequencies_parameters_dictionary has an invalid value for "alphabet" (must be "nucleotide", "amino_acid", or "codon")'
+        assert GC.pyvolve_state_frequencies_parameters_dictionary["alphabet"] in {"nucleotide","amino_acid","codon"}, 'Specified pyvolve_state_frequencies_parameters_dictionary has an invalid value for "alphabet" (must be "nucleotide", "amino_acid", or "codon")'
         if GC.pyvolve_state_frequencies_class == "CustomFrequencies":
             assert "freq_dict" in GC.pyvolve_state_frequencies_parameters_dictionary, 'Pyvolve CustomFrequencies class must have the "freq_dict" key in its pyvolve_state_frequencies_parameters_dictionary (and its value must be in the same format as the Pyvolve manual)'
             assert isinstance(GC.pyvolve_state_frequencies_parameters_dictionary["freq_dict"], dict), 'Value of "freq_dict" in pyvolve_state_frequencies_parameters_dictionary is not a dictionary'
