@@ -214,6 +214,10 @@
             "req": ["seed_sequence_length"]
         },
 
+        "RandomCodon": {
+            "req": ["seed_sequence_codon_length"]
+        },
+
         "RandomWeighted": {
             "req": ["seed_sequence_length", "seed_prob_A", "seed_prob_C", "seed_prob_G"]
         },
@@ -228,6 +232,10 @@
     },
 
     "SequenceEvolution": {
+        "EmpiricalCodonModelPyvolve": {
+            "req": ["ecm_type", "ecm_alpha", "ecm_beta", "ecm_omega", "ecm_codon_frequencies_dictionary"]
+        },
+
         "NoMutation": {
             "req": []
         },

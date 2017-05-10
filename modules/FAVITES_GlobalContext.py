@@ -6,6 +6,7 @@ Store global variables/functions to be accessible by all FAVITES modules.
 '''
 from random import uniform
 from time import strftime
+from itertools import product
 
 def init(reqs):
     '''
@@ -322,3 +323,7 @@ def parseFASTA(f):
             currSeq += l.replace(' ','').replace('\t','')
     seqs[currID] = currSeq
     return seqs
+
+# generate all k-mers of a given alphabet
+def generate_all_kmers(k, alphabet):
+    return [e for e in map(''.join, product(alphabet, repeat=k))]
