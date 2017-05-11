@@ -236,6 +236,10 @@
             "req": ["ecm_type", "ecm_alpha", "ecm_beta", "ecm_omega", "ecm_codon_frequencies_dictionary"]
         },
 
+        "MechanisticCodonModelPyvolve": {
+            "req": ["mcm_style", "mcm_alpha", "mcm_beta", "mcm_omega", "mcm_kappa", "mcm_codon_frequencies_dictionary", "mcm_mutation_rates_dictionary"]
+        },
+
         "NoMutation": {
             "req": []
         },
