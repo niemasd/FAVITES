@@ -59,6 +59,7 @@ class SequenceEvolution_MechanisticCodonModelPyvolve(SequenceEvolution):
         if len(GC.mcm_mutation_rates_dictionary) != 0:
             custom_model_params['mu'] = GC.mcm_mutation_rates_dictionary
         assert 'beta' in custom_model_params or 'omega' in custom_model_params, "Must specify a dN value using either mcm_beta or mcm_omega"
+        assert not ('kappa' in custom_model_params and 'mcm_mutation_rates_dictionary' in custom_model_params), "Cannot use custom values for both mcm_kappa and mcm_mutation_rates_dictionary: only one of the two"
 
         # set up Pyvolve
         if len(custom_model_params) == 0:
