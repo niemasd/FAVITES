@@ -46,7 +46,7 @@ class SequenceEvolution_MechanisticCodonModelPyvolve(SequenceEvolution):
             if len(GC.mcm_kappa) != 0:
                 custom_model_params['kappa'] = float(GC.mcm_kappa)
         else:
-            custom_model_params['kappa'] = float(GC.mcm_omega)
+            custom_model_params['kappa'] = float(GC.mcm_kappa)
         assert isinstance(GC.mcm_codon_frequencies_dictionary, dict), "Specified mcm_codon_frequencies_dictionary is not a dictionary"
         if len(GC.mcm_codon_frequencies_dictionary) != 0:
             codons = set(GC.generate_all_kmers(3,'ACGT'))
