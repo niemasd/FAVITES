@@ -327,3 +327,8 @@ def parseFASTA(f):
 # generate all k-mers of a given alphabet
 def generate_all_kmers(k, alphabet):
     return [e for e in map(''.join, product(alphabet, repeat=k))]
+
+# Let L = L0, L1, L2, ... be rates, and let X = X0, X1, X2, ... be exponential random variables where Xi has rate Li. Return the probability that Xi is the minimum of X
+def prob_exp_min(i, L):
+    assert i >= 0 and i < len(L), "Invalid index i. Must be 0 <= i < |L|"
+    return L[i]/sum(L)
