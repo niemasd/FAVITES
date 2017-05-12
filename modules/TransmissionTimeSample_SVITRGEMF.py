@@ -21,14 +21,15 @@ import FAVITES_GlobalContext as GC
 from subprocess import call
 from os.path import expanduser
 from os import chdir,getcwd,makedirs
-from random import choice
 
 class TransmissionTimeSample_SVITRGEMF(TransmissionTimeSample):
     def init():
         assert "TransmissionNodeSample_GEMF" in str(MF.modules['TransmissionNodeSample']), "Must use TransmissionNodeSample_GEMF module"
         assert "EndCriteria_GEMF" in str(MF.modules['EndCriteria']), "Must use EndCriteria_GEMF module"
-        GC.svitr_beta = float(GC.svitr_beta)
-        assert GC.svitr_beta >= 0, "svitr_beta must be at least 0"
+        GC.svitr_beta_by_i = float(GC.svitr_beta_by_i)
+        assert GC.svitr_beta_by_i >= 0, "svitr_beta_by_i must be at least 0"
+        GC.svitr_beta_by_t = float(GC.svitr_beta_by_t)
+        assert GC.svitr_beta_by_t >= 0, "svitr_beta_by_t must be at least 0"
         GC.svitr_delta = float(GC.svitr_delta)
         assert GC.svitr_delta >= 0, "svitr_delta must be at least 0"
         GC.svitr_s_to_v = float(GC.svitr_s_to_v)
@@ -52,16 +53,18 @@ class TransmissionTimeSample_SVITRGEMF(TransmissionTimeSample):
         makedirs(GC.gemf_out_dir)
         f = open(GC.gemf_out_dir + "/para.txt",'w')
         f.write("[NODAL_TRAN_MATRIX]\n0\t0\t0\t" + str(GC.svitr_s_to_v) + "\n0\t0\t" + str(GC.svitr_i_to_t) + "\t" + str(GC.svitr_delta) + "\n0\t0\t0\t" + str(GC.svitr_t_to_r) + "\n0\t0\t0\t0\n\n") # SVITR-specific
-        f.write("[EDGED_TRAN_MATRIX]\n0\t" + str(GC.svitr_beta) + "\t0\t0\n0\t0\t0\t0\n0\t0\t0\t0\n0\t0\t0\t0\n\n") # SVITR-specific
+        f.write("[EDGED_TRAN_MATRIX]\n")
+        f.write("0\t" + str(GC.svitr_beta_by_i) + "\t0\t0\n0\t0\t0\t0\n0\t0\t0\t0\n0\t0\t0\t0\n\n") # SVITR-specific
+        f.write("0\t" + str(GC.svitr_beta_by_t) + "\t0\t0\n0\t0\t0\t0\n0\t0\t0\t0\n0\t0\t0\t0\n\n") # SVITR-specific
         f.write("[STATUS_BEGIN]\n0\n\n")
-        f.write("[INDUCER_LIST]\n" + str(GC.gemf_state_to_num['I']) + "\n\n")
+        f.write("[INDUCER_LIST]\n" + str(GC.gemf_state_to_num['I']) + ' ' + str(GC.gemf_state_to_num['T']) + "\n\n")
         f.write("[SIM_ROUNDS]\n1\n\n")
         f.write("[INTERVAL_NUM]\n1\n\n")
         f.write("[MAX_TIME]\n" + str(GC.end_time) + "\n\n")
         f.write("[MAX_EVENTS]\n" + str(GC.end_events) + "\n\n")
         f.write("[DIRECTED]\n1\n\n")
         f.write("[SHOW_INDUCER]\n1\n\n")
-        f.write("[DATA_FILE]\nnetwork.txt\n\n")
+        f.write("[DATA_FILE]\nnetwork.txt\nnetwork.txt\n\n")
         f.write("[STATUS_FILE]\nstatus.txt\n\n")
         f.write("[OUT_FILE]\noutput.txt")
         f.close()
@@ -96,8 +99,10 @@ class TransmissionTimeSample_SVITRGEMF(TransmissionTimeSample):
             node = num2node[num]
             if node in seeds:
                 f.write(str(GC.gemf_state_to_num['I']) + "\n") # SVITR-specific
+                node.gemf_state = GC.gemf_state_to_num['I']
             else:
                 f.write(str(GC.gemf_state_to_num['S']) + "\n") # SVITR-specific
+                node.gemf_state = GC.gemf_state_to_num['S']
         f.close()
 
         # run GEMF
@@ -109,20 +114,36 @@ class TransmissionTimeSample_SVITRGEMF(TransmissionTimeSample):
             assert False, "GEMF executable was not found: %s" % GC.gemf_path
         chdir(orig_dir)
 
+        # reload edge-based matrices for ease of use
+        matrices = open(GC.gemf_out_dir + '/para.txt').read().strip()
+        matrices = [[[float(e) for e in l.split()] for l in m.splitlines()] for m in matrices[matrices.index('[EDGED_TRAN_MATRIX]'):matrices.index('\n\n[STATUS_BEGIN]')].replace('[EDGED_TRAN_MATRIX]\n','').split('\n\n')]
+        matrices = {GC.gemf_state_to_num['I']:matrices[0], GC.gemf_state_to_num['T']:matrices[1]}
+
         # convert GEMF output to FAVITES transmission network format
         GC.transmission_num = 0
         GC.transmission_state = set() # 'node' and 'time'
         GC.transmission_file = []
         for line in open(GC.gemf_out_dir + "/output.txt"):
             t,rate,vNum,pre,post,num0,num1,num2,num3,lists = [i.strip() for i in line.split()]
-            uNums = [u for u in lists.split('],[')[1][:-1].split(',') if u != '']
-            if post == str(GC.gemf_state_to_num['R']):
+            pre,post = int(pre),int(post)
+            lists = lists.split('],[')
+            lists[0] += ']'
+            lists[-1] = '[' + lists[-1]
+            for i in range(1,len(lists)-1):
+                if '[' not in lists[i]:
+                    lists[i] = '[' + lists[i] + ']'
+            uNums = eval(lists[1]) + eval(lists[2])
+            if post == GC.gemf_state_to_num['R']:
                 vName = num2node[int(vNum)].get_name()
                 GC.transmission_file.append((vName,vName,float(t)))
             elif len(uNums) != 0:
-                uNum = choice(uNums) # randomly choose a single infector
-                u,v = num2node[int(uNum)],num2node[int(vNum)]
+                uNodes = [num2node[num] for num in uNums]
+                uRates = [matrices[uNode.gemf_state][pre][post] for uNode in uNodes]
+                die = {uNodes[i]:GC.prob_exp_min(i, uRates) for i in range(len(uNodes))}
+                u = GC.roll(die) # roll die weighted by exponential infectious rates
+                v = num2node[int(vNum)]
                 GC.transmission_file.append((u.get_name(),v.get_name(),float(t)))
+            num2node[int(vNum)].gemf_state = post
         assert len(GC.transmission_file) != 0, "GEMF didn't output any transmissions"
         GC.gemf_ready = True
 
