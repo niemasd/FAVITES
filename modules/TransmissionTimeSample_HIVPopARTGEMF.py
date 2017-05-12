@@ -138,7 +138,7 @@ class TransmissionTimeSample_HIVPopARTGEMF(TransmissionTimeSample):
         GC.gemf_path = expanduser(GC.gemf_path.strip())
         makedirs(GC.gemf_out_dir)
         f = open(GC.gemf_out_dir + "/para.txt",'w')
-        f.write("[NODAL_TRAN_MATRIX]\n") # TODO FIX THE NODAL MATRIX
+        f.write("[NODAL_TRAN_MATRIX]\n")
         f.write("0\t" + str(GC.hiv_msu_to_mspc) + "\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t" + str(GC.hiv_msu_to_d) + "\n")
         f.write("0\t0\t" + str(GC.hiv_mspc_to_msch) + "\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t" + str(GC.hiv_mspc_to_d) + "\n")
         f.write("0\t0\t0\t" + str(GC.hiv_msch_to_msc) + "\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t" + str(GC.hiv_msch_to_d) + "\n")
