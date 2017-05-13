@@ -159,10 +159,10 @@ class TransmissionTimeSample_GonorrheaHethcoteYorkeGEMF(TransmissionTimeSample):
             uNums = []
             for l in lists:
                 uNums.extend(l)
-            if len(lists[0]) != 0:
+            if post in {GC.gemf_state_to_num[i] for i in ['MA','MS','FA','FS']}:
                 vName = num2node[int(vNum)].get_name()
                 GC.transmission_file.append((vName,vName,float(t)))
-            elif len(uNums) != 0:
+            elif len(lists[0]) == 0:
                 uNodes = [num2node[num] for num in uNums]
                 uRates = [matrices[uNode.gemf_state][pre][post] for uNode in uNodes]
                 die = {uNodes[i]:GC.prob_exp_min(i, uRates) for i in range(len(uNodes))}
