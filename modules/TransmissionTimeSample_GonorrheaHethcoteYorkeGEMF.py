@@ -70,7 +70,8 @@ class TransmissionTimeSample_GonorrheaHethcoteYorkeGEMF(TransmissionTimeSample):
         f.write("0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t" + str(GC.gon_ms_to_mis_by_fis) + "\t" + str(GC.gon_ms_to_mia_by_fis) + "\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t" + str(GC.gon_fs_to_fis_by_fis) + "\t" + str(GC.gon_fs_to_fia_by_fis) + "\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n\n")
         f.write("0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t" + str(GC.gon_ms_to_mis_by_fia) + "\t" + str(GC.gon_ms_to_mia_by_fia) + "\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t" + str(GC.gon_fs_to_fis_by_fia) + "\t" + str(GC.gon_fs_to_fia_by_fia) + "\n0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\n\n")
         f.write("[STATUS_BEGIN]\n0\n\n")
-        f.write("[INDUCER_LIST]\n" + str(GC.gemf_state_to_num['MIS']) + ' ' + str(GC.gemf_state_to_num['MIA']) + ' ' + str(GC.gemf_state_to_num['FIS']) + ' ' + str(GC.gemf_state_to_num['FIA']) + "\n\n")
+        infectious = ['MIS','MIA','FIS','FIA']
+        f.write("[INDUCER_LIST]\n" + ' '.join([str(GC.gemf_state_to_num[e]) for e in infectious]) + "\n\n")
         f.write("[SIM_ROUNDS]\n1\n\n")
         f.write("[INTERVAL_NUM]\n1\n\n")
         f.write("[MAX_TIME]\n" + str(GC.end_time) + "\n\n")
@@ -114,13 +115,17 @@ class TransmissionTimeSample_GonorrheaHethcoteYorkeGEMF(TransmissionTimeSample):
             if node in seeds:
                 if 'MALE' in attr:
                     f.write(str(GC.gemf_state_to_num['MIA']) + "\n") # Gonorrhea-specific
+                    node.gemf_state = GC.gemf_state_to_num['MIA']
                 else:
                     f.write(str(GC.gemf_state_to_num['FIA']) + "\n") # Gonorrhea-specific
+                    node.gemf_state = GC.gemf_state_to_num['FIA']
             else:
                 if 'MALE' in attr:
                     f.write(str(GC.gemf_state_to_num['MS']) + "\n") # Gonorrhea-specific
+                    node.gemf_state = GC.gemf_state_to_num['MS']
                 else:
                     f.write(str(GC.gemf_state_to_num['FS']) + "\n") # Gonorrhea-specific
+                    node.gemf_state = GC.gemf_state_to_num['FS']
         f.close()
 
         # run GEMF
@@ -132,24 +137,39 @@ class TransmissionTimeSample_GonorrheaHethcoteYorkeGEMF(TransmissionTimeSample):
             assert False, "GEMF executable was not found: %s" % GC.gemf_path
         chdir(orig_dir)
 
+        # reload edge-based matrices for ease of use
+        matrices = open(GC.gemf_out_dir + '/para.txt').read().strip()
+        matrices = [[[float(e) for e in l.split()] for l in m.splitlines()] for m in matrices[matrices.index('[EDGED_TRAN_MATRIX]'):matrices.index('\n\n[STATUS_BEGIN]')].replace('[EDGED_TRAN_MATRIX]\n','').split('\n\n')]
+        matrices = {GC.gemf_state_to_num[infectious[i]]:matrices[i] for i in range(len(infectious))}
+
         # convert GEMF output to FAVITES transmission network format
         GC.transmission_num = 0
         GC.transmission_state = set() # 'node' and 'time'
         GC.transmission_file = []
         for line in open(GC.gemf_out_dir + "/output.txt"):
             t,rate,vNum,pre,post,num0,num1,num2,num3,num4,num5,num6,num7,lists = [i.strip() for i in line.split()]
-            lists = [l.replace('[','').replace(']','').strip() for l in lists.split('],[')][1:] # ignore nodal list
-            lists = [l.split(',') for l in lists if len(l) != 0]
+            pre,post = int(pre),int(post)
+            lists = lists.split('],[')
+            lists[0] += ']'
+            lists[-1] = '[' + lists[-1]
+            for i in range(1,len(lists)-1):
+                if '[' not in lists[i]:
+                    lists[i] = '[' + lists[i] + ']'
+            lists = [eval(l) for l in lists]
             uNums = []
             for l in lists:
                 uNums.extend(l)
-            if post in {str(GC.gemf_state_to_num[i]) for i in ['MA','MS','FA','FS']}:
+            if len(lists[0]) != 0:
                 vName = num2node[int(vNum)].get_name()
                 GC.transmission_file.append((vName,vName,float(t)))
             elif len(uNums) != 0:
-                uNum = choice(uNums) # randomly choose a single infector
-                u,v = num2node[int(uNum)],num2node[int(vNum)]
+                uNodes = [num2node[num] for num in uNums]
+                uRates = [matrices[uNode.gemf_state][pre][post] for uNode in uNodes]
+                die = {uNodes[i]:GC.prob_exp_min(i, uRates) for i in range(len(uNodes))}
+                u = GC.roll(die) # roll die weighted by exponential infectious rates
+                v = num2node[int(vNum)]
                 GC.transmission_file.append((u.get_name(),v.get_name(),float(t)))
+            num2node[int(vNum)].gemf_state = post
         assert len(GC.transmission_file) != 0, "GEMF didn't output any transmissions"
         GC.gemf_ready = True
 
