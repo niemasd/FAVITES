@@ -104,7 +104,6 @@ import FAVITES_GlobalContext as GC
 from subprocess import call
 from os.path import expanduser
 from os import chdir,getcwd,makedirs
-from random import choice
 
 class TransmissionTimeSample_HIVPopARTGEMF(TransmissionTimeSample):
     def init():
@@ -272,16 +271,21 @@ class TransmissionTimeSample_HIVPopARTGEMF(TransmissionTimeSample):
             if node in seeds:
                 if 'MALE' in attr:
                     f.write(str(GC.gemf_state_to_num['MIA']) + "\n") # PopART-specific
+                    node.gemf_state = GC.gemf_state_to_num['MIA']
                 else:
                     f.write(str(GC.gemf_state_to_num['FIA']) + "\n") # PopART-specific
+                    node.gemf_state = GC.gemf_state_to_num['FIA']
             else:
                 if 'MALE' in attr:
                     if 'CIRCUMCISED' in attr:
                         f.write(str(GC.gemf_state_to_num['MSC']) + "\n") # PopART-specific
+                        node.gemf_state = GC.gemf_state_to_num['MSC']
                     else:
                         f.write(str(GC.gemf_state_to_num['MSU']) + "\n") # PopART-specific
+                        node.gemf_state = GC.gemf_state_to_num['MSU']
                 else:
                     f.write(str(GC.gemf_state_to_num['FS']) + "\n") # PopART-specific
+                    node.gemf_state = GC.gemf_state_to_num['FS']
         f.close()
 
         # run GEMF
@@ -293,6 +297,11 @@ class TransmissionTimeSample_HIVPopARTGEMF(TransmissionTimeSample):
             assert False, "GEMF executable was not found: %s" % GC.gemf_path
         chdir(orig_dir)
 
+        # reload edge-based matrices for ease of use
+        matrices = open(GC.gemf_out_dir + '/para.txt').read().strip()
+        matrices = [[[float(e) for e in l.split()] for l in m.splitlines()] for m in matrices[matrices.index('[EDGED_TRAN_MATRIX]'):matrices.index('\n\n[STATUS_BEGIN]')].replace('[EDGED_TRAN_MATRIX]\n','').split('\n\n')]
+        matrices = {GC.gemf_state_to_num[infectious[i]]:matrices[i] for i in range(len(infectious))}
+
         # convert GEMF output to FAVITES transmission network format
         GC.transmission_num = 0
         GC.transmission_state = set() # 'node' and 'time'
@@ -302,21 +311,30 @@ class TransmissionTimeSample_HIVPopARTGEMF(TransmissionTimeSample):
             t     = parts[0]
             rate  = parts[1]
             vNum  = parts[2]
-            pre   = parts[3]
-            post  = parts[4]
+            pre   = int(parts[3])
+            post  = int(parts[4])
             lists = parts[-1]
-            lists = [l.replace('[','').replace(']','').strip() for l in lists.split('],[')][1:] # ignore nodal list
-            lists = [l.split(',') for l in lists if len(l) != 0]
+            lists = lists.split('],[')
+            lists[0] += ']'
+            lists[-1] = '[' + lists[-1]
+            for i in range(1,len(lists)-1):
+                if '[' not in lists[i]:
+                    lists[i] = '[' + lists[i] + ']'
+            lists = [eval(l) for l in lists]
             uNums = []
             for l in lists:
                 uNums.extend(l)
-            if post == str(GC.gemf_state_to_num['D']):
+            if len(lists[0]) != 0:
                 vName = num2node[int(vNum)].get_name()
                 GC.transmission_file.append((vName,vName,float(t)))
             elif len(uNums) != 0:
-                uNum = choice(uNums) # randomly choose a single infector
-                u,v = num2node[int(uNum)],num2node[int(vNum)]
+                uNodes = [num2node[num] for num in uNums]
+                uRates = [matrices[uNode.gemf_state][pre][post] for uNode in uNodes]
+                die = {uNodes[i]:GC.prob_exp_min(i, uRates) for i in range(len(uNodes))}
+                u = GC.roll(die) # roll die weighted by exponential infectious rates
+                v = num2node[int(vNum)]
                 GC.transmission_file.append((u.get_name(),v.get_name(),float(t)))
+            num2node[int(vNum)].gemf_state = post
         assert len(GC.transmission_file) != 0, "GEMF didn't output any transmissions"
         GC.gemf_ready = True
 
