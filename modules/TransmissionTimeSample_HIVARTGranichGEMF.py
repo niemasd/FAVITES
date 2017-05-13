@@ -39,7 +39,6 @@ import FAVITES_GlobalContext as GC
 from subprocess import call
 from os.path import expanduser
 from os import chdir,getcwd,makedirs
-from random import choice
 
 class TransmissionTimeSample_HIVARTGranichGEMF(TransmissionTimeSample):
     def init():
@@ -117,8 +116,10 @@ class TransmissionTimeSample_HIVARTGranichGEMF(TransmissionTimeSample):
             node = num2node[num]
             if node in seeds:
                 f.write(str(GC.gemf_state_to_num['I1']) + "\n") # HIV-ART-specific
+                node.gemf_state = GC.gemf_state_to_num['I1']
             else:
                 f.write(str(GC.gemf_state_to_num['NS']) + "\n") # HIV-ART-specific
+                node.gemf_state = GC.gemf_state_to_num['NS']
         f.close()
 
         # run GEMF
@@ -130,24 +131,39 @@ class TransmissionTimeSample_HIVARTGranichGEMF(TransmissionTimeSample):
             assert False, "GEMF executable was not found: %s" % GC.gemf_path
         chdir(orig_dir)
 
+        # reload edge-based matrices for ease of use
+        matrices = open(GC.gemf_out_dir + '/para.txt').read().strip()
+        matrices = [[[float(e) for e in l.split()] for l in m.splitlines()] for m in matrices[matrices.index('[EDGED_TRAN_MATRIX]'):matrices.index('\n\n[STATUS_BEGIN]')].replace('[EDGED_TRAN_MATRIX]\n','').split('\n\n')]
+        matrices = {GC.gemf_state_to_num[infectious[i]]:matrices[i] for i in range(len(infectious))}
+
         # convert GEMF output to FAVITES transmission network format
         GC.transmission_num = 0
         GC.transmission_state = set() # 'node' and 'time'
         GC.transmission_file = []
         for line in open(GC.gemf_out_dir + "/output.txt"):
             t,rate,vNum,pre,post,num0,num1,num2,num3,num4,num5,num6,num7,num8,num9,num10,lists = [i.strip() for i in line.split()]
-            lists = [l.replace('[','').replace(']','').strip() for l in lists.split('],[')][1:] # ignore nodal list
-            lists = [l.split(',') for l in lists if len(l) != 0]
+            pre,post = int(pre),int(post)
+            lists = lists.split('],[')
+            lists[0] += ']'
+            lists[-1] = '[' + lists[-1]
+            for i in range(1,len(lists)-1):
+                if '[' not in lists[i]:
+                    lists[i] = '[' + lists[i] + ']'
+            lists = [eval(l) for l in lists]
             uNums = []
             for l in lists:
                 uNums.extend(l)
-            if post == str(GC.gemf_state_to_num['D']):
+            if post == GC.gemf_state_to_num['D']:
                 vName = num2node[int(vNum)].get_name()
                 GC.transmission_file.append((vName,vName,float(t)))
-            elif len(uNums) != 0:
-                uNum = choice(uNums) # randomly choose a single infector
-                u,v = num2node[int(uNum)],num2node[int(vNum)]
+            elif len(lists[0]) == 0:
+                uNodes = [num2node[num] for num in uNums]
+                uRates = [matrices[uNode.gemf_state][pre][post] for uNode in uNodes]
+                die = {uNodes[i]:GC.prob_exp_min(i, uRates) for i in range(len(uNodes))}
+                u = GC.roll(die) # roll die weighted by exponential infectious rates
+                v = num2node[int(vNum)]
                 GC.transmission_file.append((u.get_name(),v.get_name(),float(t)))
+            num2node[int(vNum)].gemf_state = post
         assert len(GC.transmission_file) != 0, "GEMF didn't output any transmissions"
         GC.gemf_ready = True
 
