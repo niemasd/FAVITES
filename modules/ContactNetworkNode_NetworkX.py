@@ -17,6 +17,8 @@ class ContactNetworkNode_NetworkX(ContactNetworkNode):
     ----------
     contact_network : ContactNetwork
         The ``ContactNetwork'' object this node is in
+    first_time : float
+        The first time this node was infected
     graph : DiGraph
         The NetworkX DiGraph in which this node exists
     infected : bool
@@ -51,6 +53,10 @@ class ContactNetworkNode_NetworkX(ContactNetworkNode):
             GC.viruses = {}
         if self.num not in GC.viruses:
             GC.viruses[self.num] = set()
+        if not hasattr(GC, 'first_times'):
+            GC.first_times = {}
+        if self.num not in GC.first_times:
+            GC.first_times[self.num] = None
 
     def __hash__(self):
         return hash(self.name)
@@ -85,6 +91,9 @@ class ContactNetworkNode_NetworkX(ContactNetworkNode):
     def get_contact_network(self):
         return self.contact_network
 
+    def get_first_infection_time(self):
+        return GC.first_times[self.num]
+
     def get_infections(self):
         return self.contact_network.contact_network.node[self.num]['infections']
 
@@ -95,6 +104,8 @@ class ContactNetworkNode_NetworkX(ContactNetworkNode):
         assert isinstance(time, float)
         assert isinstance(virus, MF.module_abstract_classes['TreeNode'])
         assert time == virus.get_time(), "Virus time and transmission time do not match!"
+        if GC.first_times[self.num] is None:
+            GC.first_times[self.num] = time
         self.contact_network.contact_network.node[self.num]['infections'].append((time, virus))
         virus.set_contact_network_node(self)
         self.add_virus(virus)

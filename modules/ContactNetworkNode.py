@@ -136,6 +136,18 @@ class ContactNetworkNode(metaclass=abc.ABCMeta):
         pass
 
     @abc.abstractmethod
+    def get_first_infection_time(self):
+        '''
+        Returns the first time this node was infected (or None if never)
+
+        Returns
+        -------
+        time : float
+            The first time this node was infected (or None if never)
+        '''
+        pass
+
+    @abc.abstractmethod
     def get_infections(self):
         '''
         Return the infections of this ``ContactNetworkNode'' object. If
