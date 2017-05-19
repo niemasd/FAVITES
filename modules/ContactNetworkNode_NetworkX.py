@@ -21,8 +21,6 @@ class ContactNetworkNode_NetworkX(ContactNetworkNode):
         The first time this node was infected
     graph : DiGraph
         The NetworkX DiGraph in which this node exists
-    infected : bool
-        True if this node is infected, otherwise False
     name : str
         The name of this node
     num : int
