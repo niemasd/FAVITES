@@ -20,7 +20,7 @@
     "out_dir":                     "~/FAVITES_output",
     "pangea_yr.start":             1985,
     "pangea_yr.end":               2020,
-    "pangea_seed":                 42,
+    "pangea_seed":                 "",
     "pangea_s.INC.recent":         "",
     "pangea_s.INC.recent.len":     "",
     "pangea_s.PREV.min":           "",
