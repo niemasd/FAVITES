@@ -47,6 +47,9 @@ class ContactNetworkNode_PANGEA(ContactNetworkNode):
     def get_contact_network(self):
         return None
 
+    def get_first_infection_time(self):
+        return None
+
     def get_infections(self):
         return []
 
