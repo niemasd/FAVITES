@@ -61,10 +61,8 @@ class TreeNode_Simple(TreeNode):
     def split(self):
         c1 = TreeNode_Simple(time=self.time, seq=self.seq, contact_network_node=self.contact_network_node)
         c2 = TreeNode_Simple(time=self.time, seq=self.seq, contact_network_node=self.contact_network_node)
-        c1.parent = self
-        c2.parent = self
-        self.children.add(c1)
-        self.children.add(c2)
+        self.add_child(c1)
+        self.add_child(c2)
         self.contact_network_node.remove_virus(self)
         self.contact_network_node.add_virus(c1)
         self.contact_network_node.add_virus(c2)
