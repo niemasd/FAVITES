@@ -46,6 +46,8 @@ class TreeNode(metaclass=abc.ABCMeta):
         Set the time of this ``TreeNode'' object
     split()
         Create two 0-branch-length children as descendants of this node
+    str_to_node(string)
+        Returns the TreeNode whose str(node) == string
     '''
 
     @abc.abstractmethod
@@ -76,6 +78,19 @@ class TreeNode(metaclass=abc.ABCMeta):
         '''
         pass
 
+    @staticmethod
+    @abc.abstractmethod
+    def str_to_node(string):
+        '''
+        Returns the TreeNode whose str(node) == string
+
+        Returns
+        -------
+        node : TreeNode
+            The TreeNode whose str(node) == string
+        '''
+        pass
+
     @abc.abstractmethod
     def __eq__(self, other):
         '''
@@ -94,6 +109,13 @@ class TreeNode(metaclass=abc.ABCMeta):
     def __hash__(self):
         '''
         Overloaded hash function
+        '''
+        pass
+
+    @abc.abstractmethod
+    def __str__(self):
+        '''
+        Overloaded string function
         '''
         pass
 

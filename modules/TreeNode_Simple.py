@@ -44,6 +44,12 @@ class TreeNode_Simple(TreeNode):
         if hasattr(GC,"label_to_node"): # for initialization
             GC.label_to_node[self.get_label()] = self
 
+    def __str__(self): # label|contact network node|time
+        return self.get_label() + '|' + str(self.get_contact_network_node()) + '|' + str(self.get_time())
+
+    def str_to_node(string):
+        return GC.label_to_node[string.split('|')[0]]
+
     def __hash__(self):
         return self.num
 
@@ -118,9 +124,9 @@ class TreeNode_Simple(TreeNode):
         # if leaf
         if len(self.children) == 0:
             if self.parent == None: # one-node tree
-                return '(' + self.get_label() + ');'
+                return '(' + str(self) + ');'
             else:
-                return self.get_label()
+                return str(self)
 
         # if root node that's already gotten newick:
         elif self in GC.final_trees and not redo:
@@ -129,7 +135,7 @@ class TreeNode_Simple(TreeNode):
         # if internal node
         else:
             parts = [child.newick() + ':' + str(child.get_edge_length()) for child in self.children]
-            out = '(' + ','.join(parts) + ')' + self.get_label()
+            out = '(' + ','.join(parts) + ')' + str(self)
             if self.parent == None: # if root, need semicolon (entire tree)
                 out += ';'
                 GC.final_trees[self] = out

@@ -61,4 +61,4 @@ class SequenceEvolution_NucleotideModelPyvolve(SequenceEvolution):
             evolver(ratefile=ratefile, infofile=infofile, seqfile=seqfile)
             seqs = evolver.get_sequences() # use anc=True to get internal sequences as well
             for label in seqs:
-                label_to_node[label].set_seq(seqs[label])
+                MF.modules['TreeNode'].str_to_node(label).set_seq(seqs[label])

@@ -99,6 +99,13 @@ class ContactNetworkNode(metaclass=abc.ABCMeta):
         pass
 
     @abc.abstractmethod
+    def __str__(self):
+        '''
+        Overridden string function
+        '''
+        pass
+
+    @abc.abstractmethod
     def get_name(self):
         '''
         Return the name of this ``ContactNetworkNode'' object
