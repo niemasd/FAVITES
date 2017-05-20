@@ -59,6 +59,9 @@ class TreeNode_Simple(TreeNode):
     def __ne__(self, other):
         return not isinstance(other, TreeNode_Simple) or self.num != other.num
 
+    def __lt__(self, other):
+        return self.num < other.num # arbitrary
+
     def add_child(self, child):
         self.children.add(child)
         child.parent = self

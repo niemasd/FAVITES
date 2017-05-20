@@ -174,8 +174,7 @@ class ContactNetwork_NetworkX(ContactNetwork):
     def remove_from_infected(self,node):
         assert isinstance(node, Node), "node is not a ContactNetworNode_NetworkX"
         assert not node.is_infected(), "node is infected! Uninfect before moving"
-        if node in self.infected_nodes:
-            self.infected_nodes.remove(node)
+        self.infected_nodes.discard(node)
         self.uninfected_nodes.add(node)
 
 def check():

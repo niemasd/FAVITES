@@ -106,6 +106,13 @@ class TreeNode(metaclass=abc.ABCMeta):
         pass
 
     @abc.abstractmethod
+    def __lt__(self, other):
+        '''
+        Overloaded less than check
+        '''
+        pass
+
+    @abc.abstractmethod
     def __hash__(self):
         '''
         Overloaded hash function

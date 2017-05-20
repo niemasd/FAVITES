@@ -23,8 +23,6 @@ class NodeEvolution_DualBirth(NodeEvolution):
         TreeNode = MF.modules['TreeNode']
         viruses = [virus for virus in node.viruses()]
         for virus in viruses:
-            node.remove_virus(virus)
-
             # if this is the first time this node is evolving, it must start active
             if not hasattr(virus,'active'):
                 virus.active = True
@@ -73,6 +71,7 @@ class NodeEvolution_DualBirth(NodeEvolution):
                     done.append(rightChild)
 
             # truncate final edges to be same as shortest leaf and add back to node
+            node.remove_virus(virus)
             for leaf in done:
                 leaf.set_time(GC.time)
                 node.add_virus(leaf)

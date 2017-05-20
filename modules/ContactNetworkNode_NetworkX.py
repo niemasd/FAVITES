@@ -115,6 +115,7 @@ class ContactNetworkNode_NetworkX(ContactNetworkNode):
     def add_virus(self, virus):
         assert virus.get_contact_network_node() == self, "Cannot add a virus to a node it's not in"
         GC.viruses[self.num].add(virus.get_label())
+        self.contact_network.add_to_infected(self)
 
     def remove_virus(self, virus):
         assert virus.get_contact_network_node() == self, "Cannot remove a virus from a node it's not in"
