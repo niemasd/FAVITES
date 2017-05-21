@@ -370,6 +370,7 @@ def prune_sampled_trees():
     all_cn_sample_times = {inner for outer in cn_sample_times.values() for inner in outer}
     for index in range(len(sampled_trees)):
         root = sampled_trees[index]
+        print(root.newick())
         final_tree_leaves = set()
         present_at_time = {t:set() for t in all_cn_sample_times}
         desired_times = {}
@@ -411,8 +412,11 @@ def prune_sampled_trees():
                     t = curr_times.pop()
                     newnode = TreeNode(time=t, seq=curr.get_seq(), contact_network_node=curr.get_contact_network_node())
                     newnode.set_parent(curr.get_parent())
-                    curr.get_parent().remove_child(curr)
-                    curr.get_parent().add_child(newnode)
+                    if curr.get_parent() is not None:
+                        curr.get_parent().remove_child(curr)
+                        curr.get_parent().add_child(newnode)
+                    else:
+                        sampled_trees[index] = newnode
                     newnode.add_child(curr)
                     newnode2 = TreeNode(time=t, seq=curr.get_seq(), contact_network_node=curr.get_contact_network_node())
                     newnode2.set_parent(newnode)
@@ -448,6 +452,7 @@ def prune_sampled_trees():
                     curr.remove_child(children[1])
                 continue
         fix_single_child_nodes(root)
+        print(root.newick(),end='\n\n')
 
 # returns dictionary where keys are CN nodes and values are set of tree leaves
 def get_leaves(roots):

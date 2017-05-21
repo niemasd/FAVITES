@@ -315,6 +315,10 @@
     "TimeSample": {
         "End": {
             "req": []
+        },
+
+        "Uniform": {
+            "req": ["num_sample_times"]
         }
     },
 
