@@ -4,9 +4,14 @@ Niema Moshiri 2016
 
 Store global variables/functions to be accessible by all FAVITES modules.
 '''
-from random import uniform
+import modules.FAVITES_ModuleFactory as MF
+from random import uniform,sample
 from time import strftime
 from itertools import product
+try:
+    import Queue as Q  # ver. < 3.0
+except ImportError:
+    import queue as Q
 
 def init(reqs):
     '''
@@ -332,3 +337,131 @@ def generate_all_kmers(k, alphabet):
 def prob_exp_min(i, L):
     assert i >= 0 and i < len(L), "Invalid index i. Must be 0 <= i < |L|"
     return L[i]/sum(L)
+
+# fix single-child nodes by attaching child to parent
+def fix_single_child_nodes(root):
+    stack = [root]
+    while len(stack) != 0:
+        curr = stack.pop()
+        children = [c for c in curr.get_children()]
+        if len(children) == 1:
+            if curr.get_parent() is not None:
+                curr.get_parent().remove_child(curr)
+                curr.add_child(children[0])
+            else:
+                curr.replace_content(children[0])
+        for c in children:
+            stack.append(c)
+
+# prune sampled phylogenetic trees
+def prune_sampled_trees():
+    TreeNode = MF.modules['TreeNode']
+    # check if required sample variables exist
+    try:
+        cn_sample_times
+    except NameError:
+        assert False, "GC.cn_sample_times doesn't exist!"
+    try:
+        sampled_trees
+    except NameError:
+        assert False, "GC.sampled_trees doesn't exist!"
+
+    # prune sampled trees
+    all_cn_sample_times = {inner for outer in cn_sample_times.values() for inner in outer}
+    for index in range(len(sampled_trees)):
+        root = sampled_trees[index]
+        final_tree_leaves = set()
+        present_at_time = {t:set() for t in all_cn_sample_times}
+        desired_times = {}
+        stack = [root]
+        while len(stack) != 0:
+            curr = stack.pop()
+            for t in all_cn_sample_times:
+                if curr.get_time() >= t:
+                    if curr.get_parent() is None or curr.get_parent().get_time() < t:
+                        present_at_time[t].add(curr)
+            for c in curr.get_children():
+                stack.append(c)
+        for person in cn_sample_times:
+            if len(cn_sample_times[person]) == 0:
+                continue
+            for t in cn_sample_times[person]:
+                possible_viruses = [u for u in present_at_time[t] if u.get_contact_network_node() == person]
+                num_to_sample = min(len(possible_viruses), num_viruses_per_cn_sample)
+                if num_to_sample != 0:
+                    sampled_viruses = sample(possible_viruses, num_to_sample)
+                    final_tree_leaves.update(sampled_viruses)
+                    for virus in sampled_viruses:
+                        if virus not in desired_times:
+                            desired_times[virus] = [t]
+                        else:
+                            desired_times[virus].append(t)
+        for leaf in final_tree_leaves:
+            curr = leaf
+            while curr != None:
+                curr.has_sampled_descendant = True
+                curr = curr.get_parent()
+        stack = [root]
+        while len(stack) != 0:
+            curr = stack.pop()
+            children = [c for c in curr.get_children()]
+            if curr in desired_times:
+                curr_times = sorted(desired_times[curr], reverse=True)
+                while (len(children) != 0 and len(curr_times) > 0) or (len(children) == 0 and len(curr_times) > 1):
+                    t = curr_times.pop()
+                    newnode = TreeNode(time=t, seq=curr.get_seq(), contact_network_node=curr.get_contact_network_node())
+                    newnode.set_parent(curr.get_parent())
+                    curr.get_parent().remove_child(curr)
+                    curr.get_parent().add_child(newnode)
+                    newnode.add_child(curr)
+                    newnode2 = TreeNode(time=t, seq=curr.get_seq(), contact_network_node=curr.get_contact_network_node())
+                    newnode2.set_parent(newnode)
+                    newnode.add_child(newnode2)
+                if len(children) == 0:
+                    curr.set_time(curr_times[0])
+                del desired_times[curr]
+                stack.append(curr)
+                continue
+            assert len(children) in {0,1,2}, "Invalid number of children"
+            if len(children) == 0:
+                continue
+            if len(children) == 1:
+                if curr.get_parent() is not None:
+                    curr.get_parent().remove_child(curr)
+                    curr.get_parent().add_child(children[0])
+                else:
+                    sampled_trees[index] = children[0]
+                stack.append(children[0])
+                continue
+            elif len(children) == 2:
+                if hasattr(children[0], 'has_sampled_descendant') and hasattr(children[1], 'has_sampled_descendant'):
+                    stack += children
+                    continue
+                elif hasattr(children[0], 'has_sampled_descendant'):
+                    curr.remove_child(children[1])
+                    stack.append(curr)
+                elif hasattr(children[1], 'has_sampled_descendant'):
+                    curr.remove_child(children[0])
+                    stack.append(curr)
+                else:
+                    curr.remove_child(children[0])
+                    curr.remove_child(children[1])
+                continue
+        fix_single_child_nodes(root)
+
+# returns dictionary where keys are CN nodes and values are set of tree leaves
+def get_leaves(roots):
+    leaves = {}
+    for root in roots:
+        stack = [root]
+        while len(stack) != 0:
+            curr = stack.pop()
+            children = [c for c in curr.get_children()]
+            if len(children) == 0:
+                cn_node = curr.get_contact_network_node()
+                if cn_node not in leaves:
+                    leaves[cn_node] = set()
+                leaves[cn_node].add(curr)
+            else:
+                stack += children
+    return leaves

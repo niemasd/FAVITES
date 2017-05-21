@@ -14,6 +14,8 @@ from sys import stdout
 class Driver_Default(Driver):
     def init():
         GC.out_dir = expanduser(GC.out_dir)
+        GC.num_viruses_per_cn_sample = int(GC.num_viruses_per_cn_sample)
+        assert GC.num_viruses_per_cn_sample > 0, "num_viruses_per_cn_sample must be positive"
 
     def run():
         '''
@@ -103,32 +105,42 @@ class Driver_Default(Driver):
             v.infect(GC.time, virus)
             GC.contact_network.add_to_infected(v)
             GC.contact_network.add_transmission(u,v,GC.time)
+        GC.transmissions = GC.contact_network.get_transmissions()
+        assert isinstance(GC.transmissions, list), "get_transmissions() did not return a list!"
         LOG.writeln(" done")
 
         # finalize global time
-        LOG.write("Finalizing simulations...")
+        LOG.write("Finalizing transmission and evolution simulations...")
         MF.modules['EndCriteria'].finalize_time()
         nodes = [node for node in GC.contact_network.get_infected_nodes()]
         for node in nodes:
             MF.modules['NodeEvolution'].evolve_to_current_time(node, finalize=True)
             MF.modules['SequenceEvolution'].evolve_to_current_time(node)
-        MF.modules['SequenceEvolution'].finalize() # in case the module creates all sequences at the end
         LOG.writeln(" done\n")
 
-        # get leaves
-        leaves = [[leaf for leaf in node.viruses()] for node in nodes]
-        for l in leaves:
-            for leaf in l:
-                assert abs(leaf.get_time()-GC.time) < 0.0000000000001, "Encountered a tree with leaves not at end time!"
+        # perform patient sampling in time (on all infected nodes; will subsample from this later)
+        GC.cn_sample_times = {}
+        GC.sampled_trees = set()
+        for node in GC.contact_network.nodes_iter():
+            times = MF.modules['TimeSample'].sample_times(node)
+            for t in times:
+                assert t <= GC.time, "Encountered a patient sampling time larger than the global end time"
+            GC.cn_sample_times[node] = times
+            if len(times) != 0:
+                for leaf in node.viruses():
+                    GC.sampled_trees.add(leaf.get_root())
+        GC.sampled_trees = list(GC.sampled_trees)
+        GC.prune_sampled_trees()
+
+        # finalize sequence data
+        MF.modules['SequenceEvolution'].finalize() # in case the module creates all sequences at the end
 
         # output error-free files
         LOG.writeln("\n========================   Simulation Output   ========================")
 
         # post-validation of transmission network
         LOG.write("Scoring final transmission network...")
-        transmissions = GC.contact_network.get_transmissions()
-        assert isinstance(transmissions, list), "get_transmissions() did not return a list!"
-        for u,v,t in transmissions:
+        for u,v,t in GC.transmissions:
             assert isinstance(u, MF.module_abstract_classes['ContactNetworkNode']), "get_transmissions() contains an invalid transmission event"
             assert isinstance(v, MF.module_abstract_classes['ContactNetworkNode']), "get_transmissions() contains an invalid transmission event"
             assert isinstance(t, float), "get_transmissions() contains an invalid transmission event"
@@ -138,13 +150,13 @@ class Driver_Default(Driver):
 
         # write transmission network as edge list
         LOG.write("Writing true transmission network to file...")
-        true_transmission_network = '\n'.join([("%s\t%s\t%d" % e) for e in transmissions])
+        true_transmission_network = '\n'.join([("%s\t%s\t%d" % e) for e in GC.transmissions])
         f = open('error_free_files/transmission_network.txt','w')
-        for e in transmissions:
+        for e in GC.transmissions:
             f.write("%s\t%s\t%f\n" % e)
         f.close()
         f = open('error_free_files/transmission_network.gexf','w')
-        f.write(GC.tn_favites2gexf(contact_network,transmissions))
+        f.write(GC.tn_favites2gexf(contact_network,GC.transmissions))
         f.close()
         LOG.writeln(" done")
         LOG.writeln("True transmission network was written to: %s/error_free_files/transmission_network.txt" % GC.out_dir)
@@ -170,21 +182,20 @@ class Driver_Default(Driver):
 
         # post-validation of sequence data
         LOG.writeln("Scoring final sequence data...")
-        seq_data = [[leaf.get_seq() for leaf in l] for l in leaves]
-        for seqs in seq_data:
+        leaves = GC.get_leaves(GC.sampled_trees) # returns dictionary where keys are CN nodes and values are set of tree leaves
+        for cn_node in leaves:
+            seqs = [leaf.get_seq() for leaf in leaves[cn_node]]
             for seq in seqs:
                 assert seq is not None, "Encountered a leaf without a sequence!"
-        scores = [0 for i in range(len(seq_data))]
-        for i,seqs in enumerate(seq_data):
-            scores[i] = str(MF.modules['PostValidation'].score_sequences(seqs))
-            LOG.writeln("Sequence data from individual %r had a final score of: %s" % (nodes[i].get_name(),scores[i]))
+            score = str(MF.modules['PostValidation'].score_sequences(seqs))
+            LOG.writeln("Sequence data from individual %r had a final score of: %s" % (cn_node.get_name(),score))
 
         # write sequence data as FASTA files
         LOG.write("Writing true sequence data to files...")
-        for i,seqs in enumerate(seq_data):
-            f = open('error_free_files/sequence_data/seqs_%s.fasta' % nodes[i].get_name(), 'w')
-            for j,seq in enumerate(seqs):
-                f.write('>%s\n%s\n' % (leaves[i][j].get_label(),seq))
+        for cn_node in sorted(leaves.keys()):
+            f = open('error_free_files/sequence_data/seqs_%s.fasta' % cn_node.get_name(), 'w')
+            for leaf in leaves[cn_node]:
+                f.write('>%s\n%s\n' % (str(leaf),leaf.get_seq()))
             f.close()
         LOG.writeln(" done")
         LOG.writeln("True sequence data were written to: %s/error_free_files/sequence_data/" % GC.out_dir)

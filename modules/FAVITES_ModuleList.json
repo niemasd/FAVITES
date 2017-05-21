@@ -77,7 +77,7 @@
 
     "Driver": {
         "Default": {
-            "req": ["out_dir"]
+            "req": ["out_dir", "num_viruses_per_cn_sample"]
         }
     },
 
@@ -308,6 +308,12 @@
         },
 
         "Random": {
+            "req": []
+        }
+    },
+
+    "TimeSample": {
+        "End": {
             "req": []
         }
     },

@@ -37,9 +37,16 @@ class TreeNode(metaclass=abc.ABCMeta):
         Iterate over the leaf descendants of this ``TreeNode'' object
     newick()
         Output the subtree of this ``TreeNode'' object in the Newick format
+    remove_child(child)
+        Remove child from this ``TreeNode'' object's children
+    replace_content(other)
+        Replace all of the content of this ``TreeNode'' with the content of
+        ``other''
     set_contact_network_node(node)
         Set the ``ContactNetworkNode'' object in which this ``TreeNode'' object
         exists.
+    set_parent(parent)
+        Set the parent of this ``TreeNode'' object
     set_seq(seq)
         Set the sequence of this ``TreeNode'' object
     set_time(time)
@@ -51,7 +58,7 @@ class TreeNode(metaclass=abc.ABCMeta):
     '''
 
     @abc.abstractmethod
-    def __init__(self, time, seq=None, parent=None):
+    def __init__(self, time, contact_network_node=None, seq=None):
         '''
         Construct a new ``TreeNode'' object
         '''
@@ -108,7 +115,8 @@ class TreeNode(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def __lt__(self, other):
         '''
-        Overloaded less than check
+        Overloaded less than check. Return True if self is closer to the root
+        than other is
         '''
         pass
 
@@ -239,6 +247,31 @@ class TreeNode(metaclass=abc.ABCMeta):
         pass
 
     @abc.abstractmethod
+    def remove_child(self, child):
+        '''
+        Remove child from this ``TreeNode'' object's children
+
+        Parameters
+        ----------
+        child : TreeNode
+            The child to remove
+        '''
+        pass
+
+    @abc.abstractmethod
+    def replace_content(self, other):
+        '''
+        Replace all of the content of this ``TreeNode'' with the content of
+        ``other''
+
+        Parameters
+        ----------
+        other : TreeNode
+            The other ``TreeNode'' to make this node a clone of
+        '''
+        pass
+
+    @abc.abstractmethod
     def set_contact_network_node(self, node):
         '''
         Set the ``ContactNetworkNode'' object in which this ``TreeNode'' object
@@ -249,6 +282,18 @@ class TreeNode(metaclass=abc.ABCMeta):
         node : ContactNetworkNode
             The ``ContactNetworkNode'' object in which this ``TreeNode'' object
             exists.
+        '''
+        pass
+
+    @abc.abstractmethod
+    def set_parent(self, parent):
+        '''
+        Set the parent of this ``TreeNode'' object
+
+        Parameters
+        ----------
+        parent : TreeNode
+            The parent of this ``TreeNode'' object
         '''
         pass
 

@@ -77,7 +77,7 @@ class SequenceEvolution_Pyvolve(SequenceEvolution):
     def finalize():
         makedirs("pyvolve_output")
         label_to_node = MF.modules['TreeNode'].label_to_node()
-        roots = [root for root in GC.root_viruses]
+        roots = [root for root in GC.sampled_trees]
         for root in roots:
             label = root.get_label()
             print(root.newick())

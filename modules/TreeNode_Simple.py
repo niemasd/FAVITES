@@ -21,7 +21,6 @@ class TreeNode_Simple(TreeNode):
     num_nodes = 0
 
     def init():
-        GC.final_trees = {}
         GC.label_to_node = {}
 
     def label_to_node():
@@ -60,7 +59,7 @@ class TreeNode_Simple(TreeNode):
         return not isinstance(other, TreeNode_Simple) or self.num != other.num
 
     def __lt__(self, other):
-        return self.num < other.num # arbitrary
+        return self.time < other.time
 
     def add_child(self, child):
         self.children.add(child)
@@ -80,6 +79,9 @@ class TreeNode_Simple(TreeNode):
     def get_children(self):
         return self.children
 
+    def remove_child(self, child):
+        self.children.discard(child)
+
     def get_edge_length(self):
         assert self.time >= self.parent.get_time(), "A TreeNode object's time cannot be less than its parent's time"
         return self.time - self.parent.get_time()
@@ -89,6 +91,9 @@ class TreeNode_Simple(TreeNode):
 
     def get_parent(self):
         return self.parent
+
+    def set_parent(self, parent):
+        self.parent = parent
 
     def get_root(self):
         return self.root
@@ -131,18 +136,22 @@ class TreeNode_Simple(TreeNode):
             else:
                 return str(self)
 
-        # if root node that's already gotten newick:
-        elif self in GC.final_trees and not redo:
-            return GC.final_trees[self]
-
         # if internal node
         else:
             parts = [child.newick() + ':' + str(child.get_edge_length()) for child in self.children]
             out = '(' + ','.join(parts) + ')' + str(self)
             if self.parent == None: # if root, need semicolon (entire tree)
-                out += ';'
-                GC.final_trees[self] = out
+                out += ':' + str(self.time) + ';'
             return out
+
+    def replace_content(self, other):
+        self.seq = other.seq
+        self.parent = other.parent
+        self.root = other.root
+        self.children = other.children
+        self.time = other.time
+        self.contact_network_node = other.contact_network_node
+        self.num = other.num
 
 def check():
     '''

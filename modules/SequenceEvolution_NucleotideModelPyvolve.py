@@ -49,7 +49,7 @@ class SequenceEvolution_NucleotideModelPyvolve(SequenceEvolution):
     def finalize():
         makedirs("pyvolve_output")
         label_to_node = MF.modules['TreeNode'].label_to_node()
-        roots = [root for root in GC.root_viruses]
+        roots = [root for root in GC.sampled_trees]
         for root in roots:
             label = root.get_label()
             tree = pyvolve.read_tree(tree=root.newick())
