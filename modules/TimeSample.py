@@ -14,7 +14,7 @@ class TimeSample(metaclass=abc.ABCMeta):
     -------
     init()
         Initialize the module (if need be)
-    sample_times(node)
+    sample_times(node, num_times)
         Return a list of times at which the given node was sampled
     '''
 
@@ -28,7 +28,7 @@ class TimeSample(metaclass=abc.ABCMeta):
 
     @staticmethod
     @abc.abstractmethod
-    def sample_times(node):
+    def sample_times(node, num_times):
         '''
         Return a list of times at which the given node was sampled
 
@@ -36,6 +36,8 @@ class TimeSample(metaclass=abc.ABCMeta):
         ----------
         node : ContactNetworkNode
             The ``ContactNetworkNode'' we want to get sample times for
+        num_times : int
+            The number of sample times we want to get
 
         Returns
         -------

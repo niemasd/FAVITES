@@ -12,7 +12,7 @@ class TimeSample_End(TimeSample):
     def init():
         pass
 
-    def sample_times(node):
+    def sample_times(node, num_times):
         if node.is_infected():
             return [GC.time]
         else:

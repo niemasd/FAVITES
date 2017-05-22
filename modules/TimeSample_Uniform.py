@@ -13,7 +13,7 @@ class TimeSample_Uniform(TimeSample):
     def init():
         pass
 
-    def sample_times(node):
+    def sample_times(node, num_times):
         assert hasattr(GC,'transmissions'), "No transmission network found in global context! Run this after the transmission network simulation is done"
         first_time = node.get_first_infection_time()
         if first_time is None:
@@ -37,7 +37,7 @@ class TimeSample_Uniform(TimeSample):
         if len(weighted_die) == 1:
             weighted_die[list(weighted_die.keys())[0]] = 1
         out = []
-        for _ in range(GC.num_sample_times):
+        for _ in range(num_times):
             start,end = GC.roll(weighted_die)
             out.append(uniform(start,end))
         return out

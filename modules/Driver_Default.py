@@ -119,7 +119,9 @@ class Driver_Default(Driver):
         GC.cn_sample_times = {}
         GC.sampled_trees = set()
         for node in GC.contact_network.nodes_iter():
-            times = MF.modules['TimeSample'].sample_times(node)
+            num_times = MF.modules['NumTimeSample'].sample_num_times(node)
+            assert num_times >= 0, "Encountered negative number of sampling events"
+            times = MF.modules['TimeSample'].sample_times(node, num_times)
             for t in times:
                 assert t <= GC.time, "Encountered a patient sampling time larger than the global end time"
             GC.cn_sample_times[node] = times
