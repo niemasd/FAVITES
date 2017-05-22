@@ -80,7 +80,6 @@ class SequenceEvolution_Pyvolve(SequenceEvolution):
         roots = [root for root in GC.sampled_trees]
         for root in roots:
             label = root.get_label()
-            print(root.newick())
             tree = pyvolve.read_tree(tree=root.newick())
             partition = pyvolve.Partition(models=GC.pyvolve_model, root_sequence=root.get_seq())
             evolver = pyvolve.Evolver(partitions=partition, tree=tree)
