@@ -12,4 +12,7 @@ class NumTimeSample_Once(NumTimeSample):
         pass
 
     def sample_num_times(node):
-        return 1
+        if node.is_infected():
+            return 1
+        else:
+            return 0
