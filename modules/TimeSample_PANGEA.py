@@ -1,17 +1,14 @@
 #! /usr/bin/env python3
 '''
-Niema Moshiri 2016
+Niema Moshiri 2017
 
-"NodeSample" module, using the PANGEA HIV Simulation Model
-(https://github.com/olli0601/PANGEA.HIV.sim)
+"TimeSample" module, where the end time is returned for nodes who are infected
+at the end time, and no sample times are returned for all other nodes
 '''
-from NodeSample import NodeSample
-from ContactNetworkNode_PANGEA import ContactNetworkNode_PANGEA as Node
+from TimeSample import TimeSample
 import modules.FAVITES_ModuleFactory as MF
-import FAVITES_GlobalContext as GC
-from glob import glob
 
-class NodeSample_PANGEA(NodeSample):
+class TimeSample_PANGEA(TimeSample):
     def init():
         assert "ContactNetwork_PANGEA" in str(MF.modules['ContactNetwork']), "Must use ContactNetwork_PANGEA module"
         assert "ContactNetworkGenerator_PANGEA" in str(MF.modules['ContactNetworkGenerator']), "Must use ContactNetworkGenerator_PANGEA module"
@@ -27,8 +24,5 @@ class NodeSample_PANGEA(NodeSample):
         assert "TransmissionNodeSample_PANGEA" in str(MF.modules['TransmissionNodeSample']), "Must use TransmissionNodeSample_PANGEA module"
         assert "TransmissionTimeSample_PANGEA" in str(MF.modules['TransmissionTimeSample']), "Must use TransmissionTimeSample_PANGEA module"
 
-    def subsample_transmission_network():
-        out = set()
-        for f in glob(GC.out_dir + "/error_free_files/sequence_data/seqs_*"):
-            out.add(Node(None,f.split('/')[-1][5:-6],None))
-        return out
+    def sample_times(node):
+        return []
