@@ -14,8 +14,13 @@ except ImportError:
 
 class NodeEvolution_DualBirth(NodeEvolution):
     def init():
-        global exponential
-        from numpy.random import exponential
+        try:
+            global exponential
+            from numpy.random import exponential
+        except:
+            from os import chdir
+            chdir(GC.START_DIR)
+            assert False, "Error loading NumPy. Install with: pip3 install numpy"
         GC.dualbirth_beta = 1/(float(GC.rate_B))
         GC.dualbirth_betaP = 1/(float(GC.rate_A))
 
