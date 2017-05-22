@@ -370,7 +370,7 @@ def prune_sampled_trees():
     all_cn_sample_times = {inner for outer in cn_sample_times.values() for inner in outer}
     for index in range(len(sampled_trees)):
         root = sampled_trees[index]
-        print(root.newick())
+        #print(root.newick())
         final_tree_leaves = set()
         present_at_time = {t:set() for t in all_cn_sample_times}
         desired_times = {}
@@ -452,7 +452,7 @@ def prune_sampled_trees():
                     curr.remove_child(children[1])
                 continue
         fix_single_child_nodes(root)
-        print(root.newick(),end='\n\n')
+        #print(root.newick(),end='\n\n')
 
 # returns dictionary where keys are CN nodes and values are set of tree leaves
 def get_leaves(roots):

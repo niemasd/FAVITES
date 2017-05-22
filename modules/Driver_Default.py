@@ -14,8 +14,11 @@ from sys import stdout
 class Driver_Default(Driver):
     def init():
         GC.out_dir = expanduser(GC.out_dir)
-        GC.num_viruses_per_cn_sample = int(GC.num_viruses_per_cn_sample)
-        assert GC.num_viruses_per_cn_sample > 0, "num_viruses_per_cn_sample must be positive"
+        if isinstance(GC.num_viruses_per_cn_sample, str) and len(GC.num_viruses_per_cn_sample.strip()):
+            GC.num_viruses_per_cn_sample = float('inf')
+        else:
+            GC.num_viruses_per_cn_sample = int(GC.num_viruses_per_cn_sample)
+            assert GC.num_viruses_per_cn_sample > 0, "num_viruses_per_cn_sample must be positive"
 
     def run():
         '''
