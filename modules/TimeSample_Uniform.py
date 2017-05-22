@@ -22,12 +22,12 @@ class TimeSample_Uniform(TimeSample):
         last_time = first_time
         for u,v,t in GC.transmissions:
             if u == node and v == node:
-                if t > last_time:
+                if last_time is not None and t > last_time:
                     windows.append((last_time,t))
                 last_time = None
             elif last_time is None and v == node:
                 last_time = t
-        if t > last_time:
+        if last_time is not None and t > last_time:
             windows.append((last_time, GC.time))
         weighted_die = {}
         for start,end in windows:
