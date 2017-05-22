@@ -6,6 +6,7 @@
     "Logging":                                         "STDOUT",
     "NodeEvolution":                                   "Yule",
     "NodeSample":                                      "Bernoulli",
+    "NumBranchSample":                                 "Fixed",
     "PostValidation":                                  "Dummy",
     "SeedSelection":                                   "EdgeWeighted",
     "SeedSequence":                                    "RandomCodon",

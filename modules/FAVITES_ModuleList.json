@@ -77,7 +77,7 @@
 
     "Driver": {
         "Default": {
-            "req": ["out_dir", "num_viruses_per_cn_sample"]
+            "req": ["out_dir"]
         }
     },
 
@@ -170,6 +170,12 @@
 
         "TransmissionWeighted": {
             "req": ["node_sample_fraction"]
+        }
+    },
+
+    "NumBranchSample": {
+        "Fixed": {
+            "req": ["num_viruses_per_cn_sample"]
         }
     },
 

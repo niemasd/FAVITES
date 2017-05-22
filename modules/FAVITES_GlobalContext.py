@@ -387,7 +387,7 @@ def prune_sampled_trees():
                 continue
             for t in cn_sample_times[person]:
                 possible_viruses = [u for u in present_at_time[t] if u.get_contact_network_node() == person]
-                num_to_sample = min(len(possible_viruses), num_viruses_per_cn_sample)
+                num_to_sample = min(len(possible_viruses), MF.modules['NumBranchSample'].sample_num_branches(person,t))
                 if num_to_sample != 0:
                     sampled_viruses = sample(possible_viruses, num_to_sample)
                     final_tree_leaves.update(sampled_viruses)
