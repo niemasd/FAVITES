@@ -119,7 +119,6 @@ class Driver_Default(Driver):
         for node in nodes:
             MF.modules['NodeEvolution'].evolve_to_current_time(node, finalize=True)
             MF.modules['SequenceEvolution'].evolve_to_current_time(node)
-        LOG.writeln(" done\n")
 
         # perform patient sampling in time (on all infected nodes; will subsample from this later)
         GC.cn_sample_times = {}
@@ -134,9 +133,12 @@ class Driver_Default(Driver):
                     GC.sampled_trees.add(leaf.get_root())
         GC.sampled_trees = list(GC.sampled_trees)
         GC.prune_sampled_trees()
+        LOG.writeln(" done")
 
         # finalize sequence data
+        LOG.write("Finalizing sequence simulations...")
         MF.modules['SequenceEvolution'].finalize() # in case the module creates all sequences at the end
+        LOG.writeln(" done\n")
 
         # output error-free files
         LOG.writeln("\n========================   Simulation Output   ========================")
