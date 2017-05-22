@@ -6,6 +6,7 @@
     "Logging":                                         "STDOUT",
     "NodeEvolution":                                   "Yule",
     "NodeSample":                                      "Bernoulli",
+    "NumBranchSample":                                 "All",
     "PostValidation":                                  "Dummy",
     "SeedSelection":                                   "EdgeWeighted",
     "SeedSequence":                                    "RandomCodon",
@@ -64,7 +65,6 @@
     "num_cn_nodes":                                    100,
     "num_sample_times":                                3,
     "num_seeds":                                       1,
-    "num_viruses_per_cn_sample":                       "",
     "out_dir":                                         "~/FAVITES_output",
     "seed_sequence_codon_length":                      300,
     "yule_rate":                                       0.1
