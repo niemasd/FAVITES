@@ -7,7 +7,7 @@
     "NodeEvolution":                                   "Yule",
     "NodeSample":                                      "Bernoulli",
     "NumBranchSample":                                 "Fixed",
-    "NumTimeSample":                                   "Once",
+    "NumTimeSample":                                   "Fixed",
     "PostValidation":                                  "Dummy",
     "SeedSelection":                                   "EdgeWeighted",
     "SeedSequence":                                    "RandomCodon",

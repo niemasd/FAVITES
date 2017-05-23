@@ -180,6 +180,10 @@
 
         "Fixed": {
             "req": ["num_viruses_per_cn_sample"]
+        },
+
+        "Single": {
+            "req": []
         }
     },
 
