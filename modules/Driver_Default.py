@@ -87,12 +87,19 @@ class Driver_Default(Driver):
                 break
             assert t >= GC.time, "Transmission cannot go back in time!"
             u,v = MF.modules['TransmissionNodeSample'].sample_nodes(t)
-            if u is None or v is None or MF.modules['EndCriteria'].done():
+            if (u is None and v is None) or MF.modules['EndCriteria'].done():
                 break
             GC.time = t
             if u == v: # u = v implies uninfection (recovery or death)
                 u.uninfect()
                 GC.contact_network.add_transmission(u,u,GC.time)
+                continue
+            elif u is None: # u = None implies seed infection at time t > 0
+                seq = MF.modules['SeedSequence'].generate()
+                virus = MF.modules['TreeNode'](time=GC.time, seq=seq, contact_network_node=v)
+                GC.root_viruses.append(virus)
+                v.infect(GC.time,virus)
+                GC.contact_network.add_transmission(None,v,GC.time)
                 continue
             MF.modules['NodeEvolution'].evolve_to_current_time(u)
             MF.modules['NodeEvolution'].evolve_to_current_time(v)
@@ -143,7 +150,7 @@ class Driver_Default(Driver):
         # post-validation of transmission network
         LOG.write("Scoring final transmission network...")
         for u,v,t in GC.transmissions:
-            assert isinstance(u, MF.module_abstract_classes['ContactNetworkNode']), "get_transmissions() contains an invalid transmission event"
+            assert u is None or isinstance(u, MF.module_abstract_classes['ContactNetworkNode']), "get_transmissions() contains an invalid transmission event"
             assert isinstance(v, MF.module_abstract_classes['ContactNetworkNode']), "get_transmissions() contains an invalid transmission event"
             assert isinstance(t, float), "get_transmissions() contains an invalid transmission event"
         score = str(MF.modules['PostValidation'].score_transmission_network())

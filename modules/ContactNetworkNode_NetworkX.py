@@ -60,10 +60,10 @@ class ContactNetworkNode_NetworkX(ContactNetworkNode):
         return hash(self.name)
 
     def __eq__(self, other):
-        return self.name == other.name
+        return isinstance(other, self.__class__) and self.name == other.name
 
     def __ne__(self, other):
-        return self.name != other.name
+        return not self == other
 
     def __lt__(self, other):
         return self.name < other.name

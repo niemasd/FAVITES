@@ -117,6 +117,8 @@ class ContactNetwork_NetworkX(ContactNetwork):
         return copy(self.nodes)
 
     def get_node(self, name):
+        if name is None:
+            return None
         return Node(self, name, self.name_to_num[name])
 
     def num_infected_nodes(self):
@@ -158,7 +160,7 @@ class ContactNetwork_NetworkX(ContactNetwork):
         return copy(self.transmissions)
 
     def add_transmission(self,u,v,time):
-        assert isinstance(u, Node), "u is not a ContactNetworNode_NetworkX"
+        assert u is None or isinstance(u, Node), "u is not a ContactNetworNode_NetworkX"
         assert isinstance(v, Node), "v is not a ContactNetworNode_NetworkX"
         self.transmissions.append((u,v,time))
         if u != v:
