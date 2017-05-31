@@ -195,10 +195,18 @@ class Driver_Default(Driver):
         # write sequence data as FASTA files
         LOG.write("Writing true sequence data to files...")
         for cn_node in sorted(leaves.keys()):
-            f = open('error_free_files/sequence_data/seqs_%s.fasta' % cn_node.get_name(), 'w')
+            times = {}
             for leaf in leaves[cn_node]:
-                f.write('>%s\n%s\n' % (str(leaf),leaf.get_seq()))
-            f.close()
+                t = leaf.get_time()
+                if t not in times:
+                    times[t] = {leaf}
+                else:
+                    times[t].add(leaf)
+            for t in times:
+                f = open('error_free_files/sequence_data/seqs_n%s_t%f.fasta' % (cn_node.get_name(),t), 'w')
+                for leaf in times[t]:
+                    f.write('>%s\n%s\n' % (str(leaf),leaf.get_seq()))
+                f.close()
         LOG.writeln(" done")
         LOG.writeln("True sequence data were written to: %s/error_free_files/sequence_data/" % GC.out_dir)
         LOG.writeln()
