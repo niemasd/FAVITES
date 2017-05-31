@@ -160,21 +160,21 @@ class ContactNetwork_NetworkX(ContactNetwork):
         return copy(self.transmissions)
 
     def add_transmission(self,u,v,time):
-        assert u is None or isinstance(u, Node), "u is not a ContactNetworNode_NetworkX"
-        assert isinstance(v, Node), "v is not a ContactNetworNode_NetworkX"
+        assert u is None or isinstance(u, Node), "u is not a ContactNetworkNode_NetworkX"
+        assert isinstance(v, Node), "v is not a ContactNetworkNode_NetworkX"
         self.transmissions.append((u,v,time))
         if u != v:
             self.add_to_infected(v)
 
     def add_to_infected(self,node):
-        assert isinstance(node, Node), "node is not a ContactNetworNode_NetworkX"
+        assert isinstance(node, Node), "node is not a ContactNetworkNode_NetworkX"
         assert node.is_infected(), "node is not infected! Infect before moving"
         if node in self.uninfected_nodes:
             self.uninfected_nodes.remove(node)
         self.infected_nodes.add(node)
 
     def remove_from_infected(self,node):
-        assert isinstance(node, Node), "node is not a ContactNetworNode_NetworkX"
+        assert isinstance(node, Node), "node is not a ContactNetworkNode_NetworkX"
         assert not node.is_infected(), "node is infected! Uninfect before moving"
         self.infected_nodes.discard(node)
         self.uninfected_nodes.add(node)
