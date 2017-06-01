@@ -4,7 +4,8 @@ Niema Moshiri 2016
 
 "TransmissionTimeSample" module, where the transmission network is simulated by
 GEMF (Sahneh et al. 2016) under the HIV-ART model developed by Granich et al
-(2008).
+(2008), but where individuals can be "seed infected" (i.e., infected from
+outside the contact network) after time 0.
 
 The states of the model are as follows:
 - NS = Non-Susceptible
@@ -60,7 +61,7 @@ class TransmissionTimeSample_HIVARTGranichGEMF(TransmissionTimeSample):
         GC.gemf_path = expanduser(GC.gemf_path.strip())
         makedirs(GC.gemf_out_dir)
         f = open(GC.gemf_out_dir + "/para.txt",'w')
-        f.write("[NODAL_TRAN_MATRIX]\n0\t" + str(GC.hiv_ns_to_s) + "\t0\t0\t0\t0\t0\t0\t0\t0\t" + str(GC.hiv_ns_to_d) + "\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t" + str(GC.hiv_s_to_d) + "\n0\t0\t0\t" + str(GC.hiv_i1_to_i2) + "\t0\t0\t" + str(GC.hiv_i1_to_a1) + "\t0\t0\t0\t" + str(GC.hiv_i1_to_d) + "\n0\t0\t0\t0\t" + str(GC.hiv_i2_to_i3) + "\t0\t0\t" + str(GC.hiv_i2_to_a2) + "\t0\t0\t" + str(GC.hiv_i2_to_d) + "\n0\t0\t0\t0\t0\t" + str(GC.hiv_i3_to_i4) + "\t0\t0\t" + str(GC.hiv_i3_to_a3) + "\t0\t" + str(GC.hiv_i3_to_d) + "\n0\t0\t0\t0\t0\t0\t0\t0\t0\t" + str(GC.hiv_i4_to_a4) + "\t" + str(GC.hiv_i4_to_d) + "\n0\t0\t" + str(GC.hiv_a1_to_i1) + "\t0\t0\t0\t0\t" + str(GC.hiv_a1_to_a2) + "\t0\t0\t" + str(GC.hiv_a1_to_d) + "\n0\t0\t0\t" + str(GC.hiv_a2_to_i2) + "\t0\t0\t0\t0\t" + str(GC.hiv_a2_to_a3) + "\t0\t" + str(GC.hiv_a2_to_d) + "\n0\t0\t0\t0\t" + str(GC.hiv_a3_to_i3) + "\t0\t0\t0\t0\t" + str(GC.hiv_a3_to_a4) + "\t" + str(GC.hiv_a3_to_d) + "\n0\t0\t0\t0\t0\t" + str(GC.hiv_a4_to_i4) + "\t0\t0\t0\t0\t" + str(GC.hiv_a4_to_d) + "\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n\n") # HIV-ART-specific
+        f.write("[NODAL_TRAN_MATRIX]\n0\t" + str(GC.hiv_ns_to_s) + "\t0\t0\t0\t0\t0\t0\t0\t0\t" + str(GC.hiv_ns_to_d) + "\n0\t0\t" + str(GC.hiv_s_to_i1_seed) + "\t0\t0\t0\t0\t0\t0\t0\t" + str(GC.hiv_s_to_d) + "\n0\t0\t0\t" + str(GC.hiv_i1_to_i2) + "\t0\t0\t" + str(GC.hiv_i1_to_a1) + "\t0\t0\t0\t" + str(GC.hiv_i1_to_d) + "\n0\t0\t0\t0\t" + str(GC.hiv_i2_to_i3) + "\t0\t0\t" + str(GC.hiv_i2_to_a2) + "\t0\t0\t" + str(GC.hiv_i2_to_d) + "\n0\t0\t0\t0\t0\t" + str(GC.hiv_i3_to_i4) + "\t0\t0\t" + str(GC.hiv_i3_to_a3) + "\t0\t" + str(GC.hiv_i3_to_d) + "\n0\t0\t0\t0\t0\t0\t0\t0\t0\t" + str(GC.hiv_i4_to_a4) + "\t" + str(GC.hiv_i4_to_d) + "\n0\t0\t" + str(GC.hiv_a1_to_i1) + "\t0\t0\t0\t0\t" + str(GC.hiv_a1_to_a2) + "\t0\t0\t" + str(GC.hiv_a1_to_d) + "\n0\t0\t0\t" + str(GC.hiv_a2_to_i2) + "\t0\t0\t0\t0\t" + str(GC.hiv_a2_to_a3) + "\t0\t" + str(GC.hiv_a2_to_d) + "\n0\t0\t0\t0\t" + str(GC.hiv_a3_to_i3) + "\t0\t0\t0\t0\t" + str(GC.hiv_a3_to_a4) + "\t" + str(GC.hiv_a3_to_d) + "\n0\t0\t0\t0\t0\t" + str(GC.hiv_a4_to_i4) + "\t0\t0\t0\t0\t" + str(GC.hiv_a4_to_d) + "\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n\n") # HIV-ART-specific
         f.write("[EDGED_TRAN_MATRIX]\n")
         f.write("0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t" + str(GC.hiv_s_to_i1_by_i1) + "\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n\n")
         f.write("0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t" + str(GC.hiv_s_to_i1_by_i2) + "\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n\n")
@@ -131,8 +132,10 @@ class TransmissionTimeSample_HIVARTGranichGEMF(TransmissionTimeSample):
 
         # reload edge-based matrices for ease of use
         matrices = open(GC.gemf_out_dir + '/para.txt').read().strip()
+        outside_infection_matrix = [[float(e) for e in l.split()] for l in matrices[matrices.index('[NODAL_TRAN_MATRIX]'):matrices.index('\n\n[EDGED_TRAN_MATRIX]')].replace('[NODAL_TRAN_MATRIX]\n','').splitlines()]
         matrices = [[[float(e) for e in l.split()] for l in m.splitlines()] for m in matrices[matrices.index('[EDGED_TRAN_MATRIX]'):matrices.index('\n\n[STATUS_BEGIN]')].replace('[EDGED_TRAN_MATRIX]\n','').split('\n\n')]
         matrices = {GC.gemf_state_to_num[infectious[i]]:matrices[i] for i in range(len(infectious))}
+        matrices[GC.gemf_state_to_num['S']] = outside_infection_matrix
 
         # convert GEMF output to FAVITES transmission network format
         GC.transmission_num = 0
@@ -154,13 +157,17 @@ class TransmissionTimeSample_HIVARTGranichGEMF(TransmissionTimeSample):
             if post == GC.gemf_state_to_num['D']:
                 vName = num2node[int(vNum)].get_name()
                 GC.transmission_file.append((vName,vName,float(t)))
-            elif len(lists[0]) == 0:
+            elif GC.gemf_num_to_state[pre] == 'S' and GC.gemf_num_to_state[post] == 'I1':
                 uNodes = [num2node[num] for num in uNums]
                 uRates = [matrices[uNode.gemf_state][pre][post] for uNode in uNodes]
                 die = {uNodes[i]:GC.prob_exp_min(i, uRates) for i in range(len(uNodes))}
                 u = GC.roll(die) # roll die weighted by exponential infectious rates
                 v = num2node[int(vNum)]
-                GC.transmission_file.append((u.get_name(),v.get_name(),float(t)))
+                if u == v: # new seed
+                    uName = None
+                else:
+                    uName = u.get_name()
+                GC.transmission_file.append((uName,v.get_name(),float(t)))
             num2node[int(vNum)].gemf_state = post
         assert len(GC.transmission_file) != 0, "GEMF didn't output any transmissions"
         GC.gemf_ready = True
