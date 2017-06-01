@@ -13,6 +13,9 @@ try:
 except ImportError:
     import queue as Q
 
+# useful constants
+C_INT_MAX = 2147483647
+
 def init(reqs):
     '''
     Initialize global context.

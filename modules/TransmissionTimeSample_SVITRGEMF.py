@@ -40,8 +40,6 @@ class TransmissionTimeSample_SVITRGEMF(TransmissionTimeSample):
         assert GC.svitr_t_to_r >= 0, "svitr_t_to_r must be at least 0"
         GC.end_time = float(GC.end_time)
         assert GC.end_time > 0, "end_time must be positive"
-        GC.end_events = int(GC.end_events)
-        assert GC.end_events > 0, "end_events must be positive"
         GC.gemf_ready = False
         GC.gemf_state_to_num = {'S':0, 'I':1, 'T':2, 'R':3, 'V':3}
         GC.gemf_num_to_state = {GC.gemf_state_to_num[state]:state for state in GC.gemf_state_to_num}
@@ -61,7 +59,7 @@ class TransmissionTimeSample_SVITRGEMF(TransmissionTimeSample):
         f.write("[SIM_ROUNDS]\n1\n\n")
         f.write("[INTERVAL_NUM]\n1\n\n")
         f.write("[MAX_TIME]\n" + str(GC.end_time) + "\n\n")
-        f.write("[MAX_EVENTS]\n" + str(GC.end_events) + "\n\n")
+        f.write("[MAX_EVENTS]\n" + str(GC.C_INT_MAX) + "\n\n")
         f.write("[DIRECTED]\n1\n\n")
         f.write("[SHOW_INDUCER]\n1\n\n")
         f.write("[DATA_FILE]\nnetwork.txt\nnetwork.txt\n\n")

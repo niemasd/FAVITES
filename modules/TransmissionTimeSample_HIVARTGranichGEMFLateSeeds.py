@@ -51,8 +51,6 @@ class TransmissionTimeSample_HIVARTGranichGEMFLateSeeds(TransmissionTimeSample):
                 assert getattr(GC,p) >= 0, "%s must be at least 0" % p
         GC.end_time = float(GC.end_time)
         assert GC.end_time > 0, "end_time must be positive"
-        GC.end_events = int(GC.end_events)
-        assert GC.end_events > 0, "end_events must be positive"
         GC.gemf_ready = False
         GC.gemf_state_to_num = {'NS':0, 'S':1, 'I1':2, 'I2':3, 'I3':4, 'I4':5, 'A1':6, 'A2':7, 'A3':8, 'A4':9, 'D':10}
         GC.gemf_num_to_state = {GC.gemf_state_to_num[state]:state for state in GC.gemf_state_to_num}
@@ -79,7 +77,7 @@ class TransmissionTimeSample_HIVARTGranichGEMFLateSeeds(TransmissionTimeSample):
         f.write("[SIM_ROUNDS]\n1\n\n")
         f.write("[INTERVAL_NUM]\n1\n\n")
         f.write("[MAX_TIME]\n" + str(GC.end_time) + "\n\n")
-        f.write("[MAX_EVENTS]\n" + str(GC.end_events) + "\n\n")
+        f.write("[MAX_EVENTS]\n" + str(GC.C_INT_MAX) + "\n\n")
         f.write("[DIRECTED]\n1\n\n")
         f.write("[SHOW_INDUCER]\n1\n\n")
         f.write("[DATA_FILE]\n" + '\n'.join(["network.txt"]*len(infectious)) + "\n\n")

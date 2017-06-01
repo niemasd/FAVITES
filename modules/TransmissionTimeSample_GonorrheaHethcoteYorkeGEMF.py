@@ -45,8 +45,6 @@ class TransmissionTimeSample_GonorrheaHethcoteYorkeGEMF(TransmissionTimeSample):
                 assert getattr(GC,p) >= 0, "%s must be at least 0" % p
         GC.end_time = float(GC.end_time)
         assert GC.end_time > 0, "end_time must be positive"
-        GC.end_events = int(GC.end_events)
-        assert GC.end_events > 0, "end_events must be positive"
         GC.gemf_ready = False
         GC.gemf_state_to_num = {'MA':0, 'MS':1, 'MIS':2, 'MIA':3, 'FA':4, 'FS':5, 'FIS':6, 'FIA':7}
         GC.gemf_num_to_state = {GC.gemf_state_to_num[state]:state for state in GC.gemf_state_to_num}
@@ -75,7 +73,7 @@ class TransmissionTimeSample_GonorrheaHethcoteYorkeGEMF(TransmissionTimeSample):
         f.write("[SIM_ROUNDS]\n1\n\n")
         f.write("[INTERVAL_NUM]\n1\n\n")
         f.write("[MAX_TIME]\n" + str(GC.end_time) + "\n\n")
-        f.write("[MAX_EVENTS]\n" + str(GC.end_events) + "\n\n")
+        f.write("[MAX_EVENTS]\n" + str(GC.C_INT_MAX) + "\n\n")
         f.write("[DIRECTED]\n1\n\n")
         f.write("[SHOW_INDUCER]\n1\n\n")
         f.write("[DATA_FILE]\nnetwork.txt\nnetwork.txt\nnetwork.txt\nnetwork.txt\n\n")

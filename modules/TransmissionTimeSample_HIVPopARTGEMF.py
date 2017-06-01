@@ -115,8 +115,6 @@ class TransmissionTimeSample_HIVPopARTGEMF(TransmissionTimeSample):
                 assert getattr(GC,p) >= 0, "%s must be at least 0" % p
         GC.end_time = float(GC.end_time)
         assert GC.end_time > 0, "end_time must be positive"
-        GC.end_events = int(GC.end_events)
-        assert GC.end_events > 0, "end_events must be positive"
         GC.gemf_ready = False
         GC.gemf_state_to_num = {'MSU':0, 'MSPC':1, 'MSCH':2, 'MSC':3, 'MIAH':4, 'MIA':5, 'MI1':6, 'MI2':7, 'MI3':8, 'MI4':9, 'MJ1':10, 'MJ2':11, 'MJ3':12, 'MJ4':13, 'MT1':14, 'MT2':15, 'MT3':16, 'MT4':17, 'MA1':18, 'MA2':19, 'MA3':20, 'MA4':21, 'FS':22, 'FIA':23, 'FI1':24, 'FI2':25, 'FI3':26, 'FI4':27, 'FJ1':28, 'FJ2':29, 'FJ3':30, 'FJ4':31, 'FT1':32, 'FT2':33, 'FT3':34, 'FT4':35, 'FA1':36, 'FA2':37, 'FA3':38, 'FA4':39, 'D':40}
         GC.gemf_num_to_state = {GC.gemf_state_to_num[state]:state for state in GC.gemf_state_to_num}
@@ -231,7 +229,7 @@ class TransmissionTimeSample_HIVPopARTGEMF(TransmissionTimeSample):
         f.write("[SIM_ROUNDS]\n1\n\n")
         f.write("[INTERVAL_NUM]\n1\n\n")
         f.write("[MAX_TIME]\n" + str(GC.end_time) + "\n\n")
-        f.write("[MAX_EVENTS]\n" + str(GC.end_events) + "\n\n")
+        f.write("[MAX_EVENTS]\n" + str(GC.C_INT_MAX) + "\n\n")
         f.write("[DIRECTED]\n1\n\n")
         f.write("[SHOW_INDUCER]\n1\n\n")
         f.write("[DATA_FILE]\n" + '\n'.join(["network.txt"]*len(infectious)) + "\n\n")
