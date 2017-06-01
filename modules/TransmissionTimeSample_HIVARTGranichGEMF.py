@@ -37,9 +37,11 @@ from TransmissionTimeSample import TransmissionTimeSample
 from TransmissionTimeSample_TransmissionFile import TransmissionTimeSample_TransmissionFile
 import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
+from datetime import datetime
 from subprocess import call
 from os.path import expanduser
 from os import chdir,getcwd,makedirs
+from sys import stderr
 
 class TransmissionTimeSample_HIVARTGranichGEMF(TransmissionTimeSample):
     def init():
@@ -144,6 +146,7 @@ class TransmissionTimeSample_HIVARTGranichGEMF(TransmissionTimeSample):
         for line in open(GC.gemf_out_dir + "/output.txt"):
             t,rate,vNum,pre,post,num0,num1,num2,num3,num4,num5,num6,num7,num8,num9,num10,lists = [i.strip() for i in line.split()]
             pre,post = int(pre),int(post)
+            vName = num2node[int(vNum)].get_name()
             lists = lists.split('],[')
             lists[0] += ']'
             lists[-1] = '[' + lists[-1]
@@ -155,8 +158,9 @@ class TransmissionTimeSample_HIVARTGranichGEMF(TransmissionTimeSample):
             for l in lists:
                 uNums.extend(l)
             if post == GC.gemf_state_to_num['D']:
-                vName = num2node[int(vNum)].get_name()
                 GC.transmission_file.append((vName,vName,float(t)))
+                if GC.VERBOSE:
+                    print('[%s] Uninfection\tTime %s\tNode %s (%s->%s)' % (datetime.now(),t,vName,GC.gemf_num_to_state[pre],GC.gemf_num_to_state[post]), file=stderr)
             elif GC.gemf_num_to_state[pre] == 'S' and GC.gemf_num_to_state[post] == 'I1':
                 uNodes = [num2node[num] for num in uNums]
                 uRates = [matrices[uNode.gemf_state][pre][post] for uNode in uNodes]
@@ -165,9 +169,13 @@ class TransmissionTimeSample_HIVARTGranichGEMF(TransmissionTimeSample):
                 v = num2node[int(vNum)]
                 if u == v: # new seed
                     uName = None
+                    print('[%s] Seed\tTime %s\tNode %s' % (datetime.now(),t,vName), file=stderr)
                 else:
                     uName = u.get_name()
+                    print('[%s] Infection\tTime %s\tFrom Node %s (%s)\tTo Node %s (%s->%s)' % (datetime.now(),t,uName,u.gemf_state,vName,GC.gemf_num_to_state[pre],GC.gemf_num_to_state[post]), file=stderr)
                 GC.transmission_file.append((uName,v.get_name(),float(t)))
+            elif GC.VERBOSE:
+                print('[%s] Transition\tTime %s\tNode %s (%s->%s)' % (datetime.now(),t,vName,GC.gemf_num_to_state[pre],GC.gemf_num_to_state[post]), file=stderr)
             num2node[int(vNum)].gemf_state = post
         assert len(GC.transmission_file) != 0, "GEMF didn't output any transmissions"
         GC.gemf_ready = True

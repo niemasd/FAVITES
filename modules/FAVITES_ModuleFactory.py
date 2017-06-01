@@ -15,7 +15,7 @@ def favites_import(name):
     '''
     return getattr(import_module(name),name)
 
-def read_config(config):
+def read_config(config, verbose):
     '''
     Read user configuration. Call after init.
 
@@ -39,6 +39,7 @@ def read_config(config):
             assert req in config, "Parameter %r is not in the configuration file!" % req
             reqs[req] = config[req]
     GC.init(reqs)
+    GC.VERBOSE = verbose
 
 def init(mod_dir):
     '''

@@ -10,16 +10,6 @@ from os import getcwd
 from modules import FAVITES_ModuleFactory as MF
 from modules import FAVITES_GlobalContext as GC
 
-def printMessage():
-    '''
-    Print author message
-    '''
-    stdout.write("/---------------------------------------------------------------------\\\n")
-    stdout.write("| FAVITES - FrAmework for VIral Transmission and Evolution Simulation |\n")
-    stdout.write("|                        Moshiri & Mirarab 2016                       |\n")
-    stdout.write("\\---------------------------------------------------------------------/\n")
-    stdout.flush()
-
 def parseArgs():
     '''
     Parse user arguments. As a developer, if you create any of your own module
@@ -27,21 +17,15 @@ def parseArgs():
     and "import ____ module" section of this function accordingly.
     '''
 
-    # print author message
-    printMessage()
-    stdout.write('\n')
-
     # use argparse to parse user arguments
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('-c', '--config', required=True, type=argparse.FileType('r'), help="Configuration file")
+    parser.add_argument('-v', '--verbose', action="store_true", help="Print verbose messages to stderr")
     args = parser.parse_args()
 
     # import modules and store in global access variables
-    stdout.write("Reading user input configuration from: %r..." % args.config.name)
-    stdout.flush()
-    MF.read_config(eval(args.config.read()))
-    stdout.write(" done\n")
-    stdout.flush()
+    MF.read_config(eval(args.config.read()), args.verbose)
+    GC.VERBOSE = args.verbose
 
 if __name__ == "__main__":
     # initialize global access variables
