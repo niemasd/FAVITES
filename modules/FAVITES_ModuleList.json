@@ -430,7 +430,7 @@
         },
 
         "SIRGEMF": {
-            "req": ["gemf_path", "end_time", "sir_beta", "sir_delta"]
+            "req": ["gemf_path", "end_time", "sir_beta_seed", "sir_beta_by_i", "sir_delta"]
         },
 
         "SISGEMF": {
