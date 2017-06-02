@@ -14,8 +14,10 @@ class TransmissionTimeSample_SIGEMF(TransmissionTimeSample):
     def init():
         assert "TransmissionNodeSample_GEMF" in str(MF.modules['TransmissionNodeSample']), "Must use TransmissionNodeSample_GEMF module"
         assert "EndCriteria_GEMF" in str(MF.modules['EndCriteria']), "Must use EndCriteria_GEMF module"
-        GC.sis_beta = float(GC.si_beta)
-        assert GC.sis_beta >= 0, "si_beta must be at least 0"
+        GC.sis_beta_seed = float(GC.si_beta_seed)
+        assert GC.sis_beta_seed >= 0, "si_beta_seed must be at least 0"
+        GC.sis_beta_by_i = float(GC.si_beta_by_i)
+        assert GC.sis_beta_by_i >= 0, "si_beta_by_i must be at least 0"
         GC.sis_delta = 0
         TransmissionTimeSample_SISGEMF.init()
 

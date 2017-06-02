@@ -426,7 +426,7 @@
         },
 
         "SIGEMF": {
-            "req": ["gemf_path", "end_time", "si_beta"]
+            "req": ["gemf_path", "end_time", "si_beta_seed", "si_beta_by_i"]
         },
 
         "SIRGEMF": {
