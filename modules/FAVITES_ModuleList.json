@@ -414,7 +414,7 @@
         },
 
         "SAISGEMF": {
-            "req": ["gemf_path", "end_time", "sais_beta", "sais_kappa", "sais_delta", "sais_beta_a"]
+            "req": ["gemf_path", "end_time", "sais_beta_seed", "sais_beta_by_i", "sais_beta_a_seed", "sais_beta_a_by_i", "sais_kappa", "sais_delta"]
         },
 
         "SEIRGEMF": {
