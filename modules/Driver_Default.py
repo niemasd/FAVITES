@@ -174,6 +174,8 @@ class Driver_Default(Driver):
         if GC.VERBOSE:
             print('[%s] Pruning sampled tree' % datetime.now(), file=stderr)
         GC.prune_sampled_trees()
+        for root in GC.sampled_trees:
+            GC.fix_single_child_nodes(root)
         LOG.writeln(" done")
 
         # finalize sequence data
