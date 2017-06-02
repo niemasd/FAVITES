@@ -169,10 +169,12 @@ class TransmissionTimeSample_HIVARTGranichGEMF(TransmissionTimeSample):
                 v = num2node[int(vNum)]
                 if u == v: # new seed
                     uName = None
-                    print('[%s] Seed\tTime %s\tNode %s' % (datetime.now(),t,vName), file=stderr)
+                    if GC.VERBOSE:
+                        print('[%s] Seed\tTime %s\tNode %s' % (datetime.now(),t,vName), file=stderr)
                 else:
                     uName = u.get_name()
-                    print('[%s] Infection\tTime %s\tFrom Node %s (%s)\tTo Node %s (%s->%s)' % (datetime.now(),t,uName,GC.gemf_num_to_state[u.gemf_state],vName,GC.gemf_num_to_state[pre],GC.gemf_num_to_state[post]), file=stderr)
+                    if GC.VERBOSE:
+                        print('[%s] Infection\tTime %s\tFrom Node %s (%s)\tTo Node %s (%s->%s)' % (datetime.now(),t,uName,GC.gemf_num_to_state[u.gemf_state],vName,GC.gemf_num_to_state[pre],GC.gemf_num_to_state[post]), file=stderr)
                 GC.transmission_file.append((uName,v.get_name(),float(t)))
             elif GC.VERBOSE:
                 print('[%s] Transition\tTime %s\tNode %s (%s->%s)' % (datetime.now(),t,vName,GC.gemf_num_to_state[pre],GC.gemf_num_to_state[post]), file=stderr)
