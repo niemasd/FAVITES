@@ -6,9 +6,12 @@ Niema Moshiri 2016
 Pyvolve.
 '''
 from SequenceEvolution import SequenceEvolution
+from SequenceEvolution_Pyvolve import SequenceEvolution_Pyvolve
 import FAVITES_GlobalContext as GC
 import modules.FAVITES_ModuleFactory as MF
+from datetime import datetime
 from os import makedirs
+from sys import stderr
 
 class SequenceEvolution_EmpiricalCodonModelPyvolve(SequenceEvolution):
     def init():
@@ -65,18 +68,4 @@ class SequenceEvolution_EmpiricalCodonModelPyvolve(SequenceEvolution):
         pass
 
     def finalize():
-        makedirs("pyvolve_output")
-        label_to_node = MF.modules['TreeNode'].label_to_node()
-        roots = [root for root in GC.sampled_trees]
-        for root in roots:
-            label = root.get_label()
-            tree = pyvolve.read_tree(tree=root.newick())
-            partition = pyvolve.Partition(models=GC.pyvolve_model, root_sequence=root.get_seq())
-            evolver = pyvolve.Evolver(partitions=partition, tree=tree)
-            ratefile = "pyvolve_output/" + label + "_ratefile.txt" # set each to None to not generate these files
-            infofile = "pyvolve_output/" + label + "_infofile.txt"
-            seqfile  = "pyvolve_output/" + label + "_seqfile.fasta"
-            evolver(ratefile=ratefile, infofile=infofile, seqfile=seqfile)
-            seqs = evolver.get_sequences() # use anc=True to get internal sequences as well
-            for label in seqs:
-                MF.modules['TreeNode'].str_to_node(label).set_seq(seqs[label])
+        SequenceEvolution_Pyvolve.finalize()
