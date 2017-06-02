@@ -98,6 +98,9 @@ class TreeNode_Simple(TreeNode):
     def get_root(self):
         return self.root
 
+    def set_root(self, newroot):
+        self.root = newroot
+
     def get_seq(self):
         return self.seq
 
@@ -126,13 +129,22 @@ class TreeNode_Simple(TreeNode):
                 q.extend(curr.children)
 
     def newick(self, redo=False):
+        # try to fix single-child nodes
+        if len(self.children) == 1:
+            child = list(self.children)[0]
+            if self.parent is None:
+                child.parent = None
+            else:
+                child.parent = self.parent
+            return child.newick()
+
         # error message for invalid number of children
-        assert len(self.children) == 0 or len(self.children) == 2, "Encountered node with number of children != 0 or 2: %d" % len(self.children)
+        assert len(self.children) == 0 or len(self.children) == 2, "Encountered node (%s) with number of children != 0 or 2: %d (parent: %s)" % (str(self),len(self.children),str(self.get_parent()))
 
         # if leaf
         if len(self.children) == 0:
             if self.parent == None: # one-node tree
-                return '(' + str(self) + ');'
+                return '(' + str(self) + ':' + str(self.time) + ');'
             else:
                 return str(self)
 

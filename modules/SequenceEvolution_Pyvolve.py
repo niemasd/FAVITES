@@ -27,7 +27,10 @@ prior to the simulation process and pass them in via the allowed options.
 from SequenceEvolution import SequenceEvolution
 import FAVITES_GlobalContext as GC
 import modules.FAVITES_ModuleFactory as MF
+from datetime import datetime
 from os import makedirs
+from sys import stderr
+from sys import modules as sysmodules
 
 class SequenceEvolution_Pyvolve(SequenceEvolution):
     def init():
@@ -77,12 +80,21 @@ class SequenceEvolution_Pyvolve(SequenceEvolution):
     def finalize():
         makedirs("pyvolve_output")
         label_to_node = MF.modules['TreeNode'].label_to_node()
-        roots = [root for root in GC.sampled_trees]
-        for root in roots:
+        for root,treestr in GC.pruned_newick_trees:
             label = root.get_label()
-            tree = pyvolve.read_tree(tree=root.newick())
-            partition = pyvolve.Partition(models=GC.pyvolve_model, root_sequence=root.get_seq())
-            evolver = pyvolve.Evolver(partitions=partition, tree=tree)
+            rootseq = root.get_seq()
+            if GC.VERBOSE:
+                print('[%s] Pyvolve evolving sequences on tree: %s' % (datetime.now(),treestr), file=stderr)
+                print('[%s] Pyvolve root sequence: %s' % (datetime.now(),rootseq), file=stderr)
+            try:
+                tree = pyvolve.read_tree(tree=treestr)
+                partition = pyvolve.Partition(models=GC.pyvolve_model, root_sequence=rootseq)
+                evolver = pyvolve.Evolver(partitions=partition, tree=tree)
+            except NameError:
+                import pyvolve
+                tree = pyvolve.read_tree(tree=treestr)
+                partition = pyvolve.Partition(models=GC.pyvolve_model, root_sequence=rootseq)
+                evolver = pyvolve.Evolver(partitions=partition, tree=tree)
             ratefile = "pyvolve_output/" + label + "_ratefile.txt" # set each to None to not generate these files
             infofile = "pyvolve_output/" + label + "_infofile.txt"
             seqfile  = "pyvolve_output/" + label + "_seqfile.fasta"

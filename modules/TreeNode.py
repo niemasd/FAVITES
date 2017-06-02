@@ -25,6 +25,8 @@ class TreeNode(metaclass=abc.ABCMeta):
         Return the label of this ``TreeNode'' object
     get_parent()
         Return the parent of this ``TreeNode'' object (or None if root)
+    get_root()
+        Return the root of the tree in which this ``TreeNode'' object exists
     get_seq()
         Return the sequence of this ``TreeNode'' object (or None if none)
     get_time()
@@ -47,6 +49,8 @@ class TreeNode(metaclass=abc.ABCMeta):
         exists.
     set_parent(parent)
         Set the parent of this ``TreeNode'' object
+    set_root()
+        Set the root of the tree in which this ``TreeNode'' object exists
     set_seq(seq)
         Set the sequence of this ``TreeNode'' object
     set_time(time)
@@ -205,6 +209,18 @@ class TreeNode(metaclass=abc.ABCMeta):
         -------
         root : TreeNode
             The root of the tree in which this ``TreeNode'' object exists
+        '''
+        pass
+
+    @abc.abstractmethod
+    def set_root(self, newroot):
+        '''
+        Set the root of the tree in which this ``TreeNode'' object exists
+
+        Returns
+        -------
+        newroot : TreeNode
+            The new root of the tree in which this ``TreeNode'' object exists
         '''
         pass
 

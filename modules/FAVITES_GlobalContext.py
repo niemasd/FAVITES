@@ -360,6 +360,8 @@ def fix_single_child_nodes(root):
 
 # prune sampled phylogenetic trees
 def prune_sampled_trees():
+    global sampled_trees
+    sampled_trees = set() #TODO UNCOMMENT THIS WHEN FINISHED
     TreeNode = MF.modules['TreeNode']
     # check if required sample variables exist
     try:
@@ -367,18 +369,19 @@ def prune_sampled_trees():
     except NameError:
         assert False, "GC.cn_sample_times doesn't exist!"
     try:
-        sampled_trees
+        root_viruses
     except NameError:
-        assert False, "GC.sampled_trees doesn't exist!"
+        assert False, "GC.root_viruses doesn't exist!"
 
     # prune sampled trees
     all_cn_sample_times = {inner for outer in cn_sample_times.values() for inner in outer}
-    for index in range(len(sampled_trees)):
+    for index in range(len(root_viruses)):
+        WAS_SAMPLED = False
         #print(sampled_trees[index].newick())
         final_tree_leaves = set()
         present_at_time = {t:set() for t in all_cn_sample_times}
         desired_times = {}
-        stack = [sampled_trees[index]]
+        stack = [root_viruses[index]]
         while len(stack) != 0:
             curr = stack.pop()
             for t in all_cn_sample_times:
@@ -388,8 +391,7 @@ def prune_sampled_trees():
             for c in curr.get_children():
                 stack.append(c)
         for person in cn_sample_times:
-            if len(cn_sample_times[person]) == 0:
-                continue
+            assert len(cn_sample_times[person]) != 0, "Encountered individual with no sample times!"
             for t in cn_sample_times[person]:
                 possible_viruses = [u for u in present_at_time[t] if u.get_contact_network_node() == person]
                 num_to_sample = min(len(possible_viruses), MF.modules['NumBranchSample'].sample_num_branches(person,t))
@@ -406,7 +408,9 @@ def prune_sampled_trees():
             while curr != None:
                 curr.has_sampled_descendant = True
                 curr = curr.get_parent()
-        stack = [sampled_trees[index]]
+        if not hasattr(root_viruses[index],"has_sampled_descendant"):
+            continue
+        stack = [root_viruses[index]]
         while len(stack) != 0:
             curr = stack.pop()
             children = [c for c in curr.get_children()]
@@ -420,9 +424,15 @@ def prune_sampled_trees():
                         curr.get_parent().remove_child(curr)
                         curr.get_parent().add_child(newnode)
                     else:
-                        sampled_trees[index] = newnode
+                        newnode.set_seq(root_viruses[index].get_seq())
+                        root_viruses[index] = newnode
+                        newnode.set_parent(None)
+                        curr.set_root(root_viruses[index])
+                    newnode.set_root(root_viruses[index])
                     newnode.add_child(curr)
+                    curr.set_parent(newnode)
                     newnode2 = TreeNode(time=t, seq=curr.get_seq(), contact_network_node=curr.get_contact_network_node())
+                    newnode2.set_root(root_viruses[index])
                     newnode2.set_parent(newnode)
                     newnode.add_child(newnode2)
                 if len(children) == 0:
@@ -430,21 +440,23 @@ def prune_sampled_trees():
                 del desired_times[curr]
                 stack.append(curr)
                 continue
+            curr.set_root(root_viruses[index])
             assert len(children) in {0,1,2}, "Invalid number of children"
             if len(children) == 0:
                 continue
-            if len(children) == 1:
+            elif len(children) == 1:
                 if curr.get_parent() is not None:
                     curr.get_parent().remove_child(curr)
                     curr.get_parent().add_child(children[0])
                 else:
-                    sampled_trees[index] = children[0]
+                    children[0].set_seq(root_viruses[index].get_seq())
+                    root_viruses[index] = children[0]
+                    children[0].set_parent(None)
                 stack.append(children[0])
                 continue
             elif len(children) == 2:
                 if hasattr(children[0], 'has_sampled_descendant') and hasattr(children[1], 'has_sampled_descendant'):
                     stack += children
-                    continue
                 elif hasattr(children[0], 'has_sampled_descendant'):
                     curr.remove_child(children[1])
                     stack.append(curr)
@@ -454,8 +466,8 @@ def prune_sampled_trees():
                 else:
                     curr.remove_child(children[0])
                     curr.remove_child(children[1])
-                continue
         #print(sampled_trees[index].newick(),end='\n\n')
+        sampled_trees.add(root_viruses[index])
 
 # returns dictionary where keys are CN nodes and values are set of tree leaves
 def get_leaves(roots):

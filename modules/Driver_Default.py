@@ -155,7 +155,6 @@ class Driver_Default(Driver):
 
         # perform patient sampling in time (on all infected nodes; will subsample from this later)
         GC.cn_sample_times = {}
-        GC.sampled_trees = set()
         if GC.VERBOSE:
             print('[%s] Performing person sampling (sequencing)' % datetime.now(), file=stderr)
         for node in GC.contact_network.nodes_iter():
@@ -164,18 +163,16 @@ class Driver_Default(Driver):
             times = MF.modules['TimeSample'].sample_times(node, num_times)
             for t in times:
                 assert t <= GC.time, "Encountered a patient sampling time larger than the global end time"
-            GC.cn_sample_times[node] = times
             if len(times) != 0:
+                GC.cn_sample_times[node] = times
                 if GC.VERBOSE:
                     print('[%s] Node %s sampled at times %s' % (datetime.now(),str(node),str(times)), file=stderr)
-                for leaf in node.viruses():
-                    GC.sampled_trees.add(leaf.get_root())
-        GC.sampled_trees = list(GC.sampled_trees)
+            elif GC.VERBOSE:
+                print('[%s] Node %s not sampled' % (datetime.now(),str(node)), file=stderr)
         if GC.VERBOSE:
             print('[%s] Pruning sampled tree' % datetime.now(), file=stderr)
         GC.prune_sampled_trees()
-        for root in GC.sampled_trees:
-            GC.fix_single_child_nodes(root)
+        GC.pruned_newick_trees = [(root,root.newick()) for root in GC.sampled_trees]
         LOG.writeln(" done")
 
         # finalize sequence data
@@ -218,19 +215,18 @@ class Driver_Default(Driver):
 
         # post-validation of phylogenetic trees
         LOG.writeln("Scoring final phylogenetic trees...")
-        true_trees = [root.newick() for root in GC.root_viruses]
-        scores = [0 for i in range(len(true_trees))]
-        for i,tree in enumerate(true_trees):
-            scores[i] = str(MF.modules['PostValidation'].score_phylogenetic_tree(tree))
+        scores = [0 for i in range(len(GC.sampled_trees))]
+        for i,e in enumerate(GC.pruned_newick_trees):
+            scores[i] = str(MF.modules['PostValidation'].score_phylogenetic_tree(e[1]))
             LOG.writeln("Phylogenetic tree %d had a final score of: %s" % (i,scores[i]))
             if GC.VERBOSE:
                 print('[%s] Phylogenetic tree %d score: %s' % (datetime.now(),i,scores[i]), file=stderr)
 
         # write phylogenetic trees as Newick files
         LOG.write("Writing true phylogenetic trees to files...")
-        for i,tree in enumerate(true_trees):
+        for i,e in enumerate(GC.pruned_newick_trees):
             f = open('error_free_files/phylogenetic_trees/tree_%d.tre' % i,'w')
-            f.write(tree)
+            f.write(e[1])
             f.close()
         LOG.writeln(" done")
         LOG.writeln("True phylogenetic trees were written to: %s/error_free_files/phylogenetic_trees/" % GC.out_dir)
