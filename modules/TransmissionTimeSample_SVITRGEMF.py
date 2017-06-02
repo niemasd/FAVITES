@@ -5,7 +5,8 @@ Niema Moshiri 2017
 "TransmissionTimeSample" module, where the transmission network is simulated by
 GEMF (Sahneh et al. 2016) under an extension of the SIR model containing the
 following five states: Susceptible (S), Vaccinated (V), Infected (I),
-Treated (T), and Recovered (R).
+Treated (T), and Recovered (R), but where individuals can be
+"seed infected" (i.e., infected from outside the contact network) after time 0.
 
 Susceptible individuals can be vaccinated (S -> V), and vaccinated individuals
 remain in the (V) state. Susceptible individuals can also become infected

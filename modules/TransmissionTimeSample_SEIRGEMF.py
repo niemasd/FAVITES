@@ -3,23 +3,27 @@
 Niema Moshiri 2016
 
 "TransmissionTimeSample" module, where the transmission network is simulated by
-GEMF (Sahneh et al. 2016) under the SEIR model.
+GEMF (Sahneh et al. 2016) under the SEIR model, but where individuals can be
+"seed infected" (i.e., infected from outside the contact network) after time 0.
 '''
 from TransmissionTimeSample import TransmissionTimeSample
 from TransmissionTimeSample_TransmissionFile import TransmissionTimeSample_TransmissionFile
 import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
+from datetime import datetime
 from subprocess import call
 from os.path import expanduser
 from os import chdir,getcwd,makedirs
-from random import choice
+from sys import stderr
 
 class TransmissionTimeSample_SEIRGEMF(TransmissionTimeSample):
     def init():
         assert "TransmissionNodeSample_GEMF" in str(MF.modules['TransmissionNodeSample']), "Must use TransmissionNodeSample_GEMF module"
         assert "EndCriteria_GEMF" in str(MF.modules['EndCriteria']), "Must use EndCriteria_GEMF module"
-        GC.seir_beta = float(GC.seir_beta)
-        assert GC.seir_beta >= 0, "seir_beta must be at least 0"
+        GC.seir_beta_seed = float(GC.seir_beta_seed)
+        assert GC.seir_beta_seed >= 0, "seir_beta_seed must be at least 0"
+        GC.seir_beta_by_i = float(GC.seir_beta_by_i)
+        assert GC.seir_beta_by_i >= 0, "seir_beta_by_i must be at least 0"
         GC.seir_lambda = float(GC.seir_lambda)
         assert GC.seir_lambda >= 0, "seir_lambda must be at least 0"
         GC.seir_delta = float(GC.seir_delta)
@@ -36,8 +40,8 @@ class TransmissionTimeSample_SEIRGEMF(TransmissionTimeSample):
         GC.gemf_path = expanduser(GC.gemf_path.strip())
         makedirs(GC.gemf_out_dir)
         f = open(GC.gemf_out_dir + "/para.txt",'w')
-        f.write("[NODAL_TRAN_MATRIX]\n0\t0\t0\t0\n0\t0\t" + str(GC.seir_lambda) + "\t0\n0\t0\t0\t" + str(GC.seir_delta) + "\n0\t0\t0\t0\n\n") # SEIR-specific
-        f.write("[EDGED_TRAN_MATRIX]\n0\t" + str(GC.seir_beta) + "\t0\t0\n0\t0\t0\t0\n0\t0\t0\t0\n0\t0\t0\t0\n\n") # SEIR-specific
+        f.write("[NODAL_TRAN_MATRIX]\n0\t" + str(GC.seir_beta_seed) + "\t0\t0\n0\t0\t" + str(GC.seir_lambda) + "\t0\n0\t0\t0\t" + str(GC.seir_delta) + "\n0\t0\t0\t0\n\n") # SEIR-specific
+        f.write("[EDGED_TRAN_MATRIX]\n0\t" + str(GC.seir_beta_by_i) + "\t0\t0\n0\t0\t0\t0\n0\t0\t0\t0\n0\t0\t0\t0\n\n") # SEIR-specific
         f.write("[STATUS_BEGIN]\n0\n\n")
         f.write("[INDUCER_LIST]\n" + str(GC.gemf_state_to_num['I']) + "\n\n")
         f.write("[SIM_ROUNDS]\n1\n\n")
@@ -81,8 +85,10 @@ class TransmissionTimeSample_SEIRGEMF(TransmissionTimeSample):
             node = num2node[num]
             if node in seeds:
                 f.write(str(GC.gemf_state_to_num['I']) + "\n") # SEIR-specific
+                node.gemf_state = GC.gemf_state_to_num['I']
             else:
                 f.write(str(GC.gemf_state_to_num['S']) + "\n") # SEIR-specific
+                node.gemf_state = GC.gemf_state_to_num['S']
         f.close()
 
         # run GEMF
@@ -94,20 +100,53 @@ class TransmissionTimeSample_SEIRGEMF(TransmissionTimeSample):
             assert False, "GEMF executable was not found: %s" % GC.gemf_path
         chdir(orig_dir)
 
+        # reload edge-based matrices for ease of use
+        matrices = open(GC.gemf_out_dir + '/para.txt').read().strip()
+        outside_infection_matrix = [[float(e) for e in l.split()] for l in matrices[matrices.index('[NODAL_TRAN_MATRIX]'):matrices.index('\n\n[EDGED_TRAN_MATRIX]')].replace('[NODAL_TRAN_MATRIX]\n','').splitlines()]
+        matrices = [[[float(e) for e in l.split()] for l in m.splitlines()] for m in matrices[matrices.index('[EDGED_TRAN_MATRIX]'):matrices.index('\n\n[STATUS_BEGIN]')].replace('[EDGED_TRAN_MATRIX]\n','').split('\n\n')]
+        infectious = ['I']
+        matrices = {GC.gemf_state_to_num['S']:outside_infection_matrix, GC.gemf_state_to_num['I']:matrices[0]}
+
         # convert GEMF output to FAVITES transmission network format
         GC.transmission_num = 0
         GC.transmission_state = set() # 'node' and 'time'
         GC.transmission_file = []
         for line in open(GC.gemf_out_dir + "/output.txt"):
             t,rate,vNum,pre,post,num0,num1,num2,num3,lists = [i.strip() for i in line.split()]
-            uNums = [u for u in lists.split('],[')[1][:-1].split(',') if u != '']
-            if post == str(GC.gemf_state_to_num['R']):
-                vName = num2node[int(vNum)].get_name()
+            pre,post = int(pre),int(post)
+            vName = num2node[int(vNum)].get_name()
+            lists = lists.split('],[')
+            lists[0] += ']'
+            lists[-1] = '[' + lists[-1]
+            for i in range(1,len(lists)-1):
+                if '[' not in lists[i]:
+                    lists[i] = '[' + lists[i] + ']'
+            lists = [eval(l) for l in lists]
+            uNums = []
+            for l in lists:
+                uNums.extend(l)
+            if post == GC.gemf_state_to_num['R']:
                 GC.transmission_file.append((vName,vName,float(t)))
-            elif len(uNums) != 0:
-                uNum = choice(uNums) # randomly choose a single infector
-                u,v = num2node[int(uNum)],num2node[int(vNum)]
-                GC.transmission_file.append((u.get_name(),v.get_name(),float(t)))
+                if GC.VERBOSE:
+                    print('[%s] Uninfection\tTime %s\tNode %s (%s->%s)' % (datetime.now(),t,vName,GC.gemf_num_to_state[pre],GC.gemf_num_to_state[post]), file=stderr)
+            elif post == GC.gemf_state_to_num['E']:
+                uNodes = [num2node[num] for num in uNums]
+                uRates = [matrices[uNode.gemf_state][pre][post] for uNode in uNodes]
+                die = {uNodes[i]:GC.prob_exp_min(i, uRates) for i in range(len(uNodes))}
+                u = GC.roll(die) # roll die weighted by exponential infectious rates
+                v = num2node[int(vNum)]
+                if u == v: # new seed
+                    uName = None
+                    if GC.VERBOSE:
+                        print('[%s] Seed\tTime %s\tNode %s' % (datetime.now(),t,vName), file=stderr)
+                else:
+                    uName = u.get_name()
+                    if GC.VERBOSE:
+                        print('[%s] Infection\tTime %s\tFrom Node %s (%s)\tTo Node %s (%s->%s)' % (datetime.now(),t,uName,GC.gemf_num_to_state[u.gemf_state],vName,GC.gemf_num_to_state[pre],GC.gemf_num_to_state[post]), file=stderr)
+                GC.transmission_file.append((uName,v.get_name(),float(t)))
+            elif GC.VERBOSE:
+                print('[%s] Transition\tTime %s\tNode %s (%s->%s)' % (datetime.now(),t,vName,GC.gemf_num_to_state[pre],GC.gemf_num_to_state[post]), file=stderr)
+            num2node[int(vNum)].gemf_state = post
         assert len(GC.transmission_file) != 0, "GEMF didn't output any transmissions"
         GC.gemf_ready = True
 

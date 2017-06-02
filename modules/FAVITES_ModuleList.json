@@ -418,7 +418,7 @@
         },
 
         "SEIRGEMF": {
-            "req": ["gemf_path", "end_time", "seir_beta", "seir_lambda", "seir_delta"]
+            "req": ["gemf_path", "end_time", "seir_beta_seed", "seir_beta_by_i", "seir_lambda", "seir_delta"]
         },
 
         "SI": {

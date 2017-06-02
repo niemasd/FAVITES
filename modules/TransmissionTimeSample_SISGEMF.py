@@ -3,7 +3,8 @@
 Niema Moshiri 2016
 
 "TransmissionTimeSample" module, where the transmission network is simulated by
-GEMF (Sahneh et al. 2016) under the SIS model.
+GEMF (Sahneh et al. 2016) under the SIS model, but where individuals can be
+"seed infected" (i.e., infected from outside the contact network) after time 0.
 '''
 from TransmissionTimeSample import TransmissionTimeSample
 from TransmissionTimeSample_TransmissionFile import TransmissionTimeSample_TransmissionFile
