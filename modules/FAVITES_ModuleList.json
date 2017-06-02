@@ -394,7 +394,7 @@
         },
 
         "GonorrheaHethcoteYorkeGEMF": {
-            "req": ["gemf_path", "end_time", "gon_ma_to_ms", "gon_ms_to_ma", "gon_ms_to_mis_by_mis", "gon_ms_to_mis_by_mia", "gon_ms_to_mis_by_fis", "gon_ms_to_mis_by_fia", "gon_ms_to_mia_by_mis", "gon_ms_to_mia_by_mia", "gon_ms_to_mia_by_fis", "gon_ms_to_mia_by_fia", "gon_mis_to_ma", "gon_mis_to_ms", "gon_mia_to_ma", "gon_mia_to_ms", "gon_fa_to_fs", "gon_fs_to_fa", "gon_fs_to_fis_by_mis", "gon_fs_to_fis_by_mia", "gon_fs_to_fis_by_fis", "gon_fs_to_fis_by_fia", "gon_fs_to_fia_by_mis", "gon_fs_to_fia_by_mia", "gon_fs_to_fia_by_fis", "gon_fs_to_fia_by_fia", "gon_fis_to_fa", "gon_fis_to_fs", "gon_fia_to_fa", "gon_fia_to_fs"]
+            "req": ["gemf_path", "end_time", "gon_ma_to_ms", "gon_ms_to_ma", "gon_ms_to_mis_seed", "gon_ms_to_mis_by_mis", "gon_ms_to_mis_by_mia", "gon_ms_to_mis_by_fis", "gon_ms_to_mis_by_fia", "gon_ms_to_mia_seed", "gon_ms_to_mia_by_mis", "gon_ms_to_mia_by_mia", "gon_ms_to_mia_by_fis", "gon_ms_to_mia_by_fia", "gon_mis_to_ma", "gon_mis_to_ms", "gon_mia_to_ma", "gon_mia_to_ms", "gon_fa_to_fs", "gon_fs_to_fa", "gon_fs_to_fis_seed", "gon_fs_to_fis_by_mis", "gon_fs_to_fis_by_mia", "gon_fs_to_fis_by_fis", "gon_fs_to_fis_by_fia", "gon_fs_to_fia_seed", "gon_fs_to_fia_by_mis", "gon_fs_to_fia_by_mia", "gon_fs_to_fia_by_fis", "gon_fs_to_fia_by_fia", "gon_fis_to_fa", "gon_fis_to_fs", "gon_fia_to_fa", "gon_fia_to_fs"]
         },
 
         "HIVARTGranichGEMF": {
