@@ -434,7 +434,7 @@
         },
 
         "SISGEMF": {
-            "req": ["gemf_path", "end_time", "sis_beta", "sis_delta"]
+            "req": ["gemf_path", "end_time", "sis_beta_seed", "sis_beta_by_i", "sis_delta"]
         },
 
         "SVITRGEMF": {
