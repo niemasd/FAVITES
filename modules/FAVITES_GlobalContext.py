@@ -348,9 +348,11 @@ def fix_single_child_nodes(root):
         curr = stack.pop()
         children = [c for c in curr.get_children()]
         if len(children) == 1:
-            if curr.get_parent() is not None:
-                curr.get_parent().remove_child(curr)
-                curr.add_child(children[0])
+            curr_parent = curr.get_parent()
+            if curr_parent is not None:
+                curr_parent.remove_child(curr)
+                curr_parent.add_child(children[0])
+                children[0].set_parent(curr_parent)
             else:
                 curr.replace_content(children[0])
         for c in children:
@@ -453,7 +455,6 @@ def prune_sampled_trees():
                     curr.remove_child(children[0])
                     curr.remove_child(children[1])
                 continue
-        fix_single_child_nodes(sampled_trees[index])
         #print(sampled_trees[index].newick(),end='\n\n')
 
 # returns dictionary where keys are CN nodes and values are set of tree leaves
