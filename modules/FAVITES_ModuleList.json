@@ -438,7 +438,7 @@
         },
 
         "SVITRGEMF": {
-            "req": ["gemf_path", "end_time", "svitr_beta_by_i", "svitr_beta_by_t", "svitr_delta", "svitr_s_to_v", "svitr_i_to_t", "svitr_t_to_r"]
+            "req": ["gemf_path", "end_time", "svitr_beta_seed", "svitr_beta_by_i", "svitr_beta_by_t", "svitr_delta", "svitr_s_to_v", "svitr_i_to_t", "svitr_t_to_r"]
         },
 
         "TransmissionFile": {
