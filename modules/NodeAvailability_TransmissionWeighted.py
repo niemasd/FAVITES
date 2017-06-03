@@ -2,14 +2,14 @@
 '''
 Niema Moshiri 2016
 
-"NodeSample" module, where the probability that a given ContactNetwork node is
+"NodeAvailability" module, where the probability that a given ContactNetwork node is
 sampled is weighted by the number of transmission events in which the node was
 involved (either as the infector or the infectee).
 '''
-from NodeSample import NodeSample
+from NodeAvailability import NodeAvailability
 import FAVITES_GlobalContext as GC
 
-class NodeSample_TransmissionWeighted(NodeSample):
+class NodeAvailability_TransmissionWeighted(NodeAvailability):
     def init():
         GC.node_sample_fraction = float(GC.node_sample_fraction)
         assert GC.node_sample_fraction >= 0 and GC.node_sample_fraction <= 1, "node_sample_fraction must be between 0 and 1"

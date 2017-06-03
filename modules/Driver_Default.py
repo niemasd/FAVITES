@@ -274,7 +274,7 @@ class Driver_Default(Driver):
         LOG.write("Subsampling contact network nodes...")
         if GC.VERBOSE:
             print('[%s] Subsampling contact network nodes' % datetime.now(), file=stderr)
-        subsampled_nodes = MF.modules['NodeSample'].subsample_transmission_network()
+        subsampled_nodes = MF.modules['NodeAvailability'].subsample_transmission_network()
         LOG.writeln(" done")
 
         # introduce sequencing error

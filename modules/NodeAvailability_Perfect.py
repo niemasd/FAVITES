@@ -2,12 +2,12 @@
 '''
 Niema Moshiri 2016
 
-"NodeSample" module, perfect sampling
+"NodeAvailability" module, perfect sampling
 '''
-from NodeSample import NodeSample
+from NodeAvailability import NodeAvailability
 import FAVITES_GlobalContext as GC
 
-class NodeSample_Perfect(NodeSample):
+class NodeAvailability_Perfect(NodeAvailability):
     def init():
         pass
 

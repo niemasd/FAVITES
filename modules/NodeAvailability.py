@@ -2,13 +2,13 @@
 '''
 Niema Moshiri 2016
 
-"NodeSample" module
+"NodeAvailability" module
 '''
 import abc
 
-class NodeSample(metaclass=abc.ABCMeta):
+class NodeAvailability(metaclass=abc.ABCMeta):
     '''
-    Abstract class defining the ``NodeSample`` module
+    Abstract class defining the ``NodeAvailability`` module
 
     Methods
     -------

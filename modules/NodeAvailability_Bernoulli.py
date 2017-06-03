@@ -2,16 +2,16 @@
 '''
 Niema Moshiri 2016
 
-"NodeSample" module, where transmission source node is chosen to be sampled or
+"NodeAvailability" module, where transmission source node is chosen to be sampled or
 not via a Bernoulli distribution with a user-specified probability of success.
 If a source node is chosen, ALL transmissions from that node will be outputted,
 and if not, NONE of the transmissions from that node will be outputted.
 '''
-from NodeSample import NodeSample
+from NodeAvailability import NodeAvailability
 import FAVITES_GlobalContext as GC
 from random import random
 
-class NodeSample_Bernoulli(NodeSample):
+class NodeAvailability_Bernoulli(NodeAvailability):
     def init():
         GC.node_sample_prob = float(GC.node_sample_prob)
 
