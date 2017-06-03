@@ -165,6 +165,7 @@ class TransmissionTimeSample_SVITRGEMF(TransmissionTimeSample):
             num2node[int(vNum)].gemf_state = post
         assert len(GC.transmission_file) != 0, "GEMF didn't output any transmissions"
         GC.gemf_ready = True
+        GC.granich_num2node = num2node # for TimeSample_GranichFirstArt to access
 
     def sample_time():
         if not GC.gemf_ready:

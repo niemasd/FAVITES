@@ -181,6 +181,7 @@ class TransmissionTimeSample_HIVARTGranichGEMF(TransmissionTimeSample):
             num2node[int(vNum)].gemf_state = post
         assert len(GC.transmission_file) != 0, "GEMF didn't output any transmissions"
         GC.gemf_ready = True
+        GC.gemf_num2node = num2node
 
     def sample_time():
         if not GC.gemf_ready:

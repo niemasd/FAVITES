@@ -43,3 +43,6 @@ class EndCriteria_GEMF(EndCriteria):
         for state in GC.gemf_state_to_num:
             f.write(state + ' = ' + str(GC.gemf_state_to_num[state]) + '\n')
         f.close()
+
+        # update global time
+        GC.time = GC.end_time
