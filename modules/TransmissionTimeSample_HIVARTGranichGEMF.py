@@ -140,6 +140,7 @@ class TransmissionTimeSample_HIVARTGranichGEMF(TransmissionTimeSample):
         matrices[GC.gemf_state_to_num['S']] = outside_infection_matrix
 
         # convert GEMF output to FAVITES transmission network format
+        NUM_INFECTED = len(seeds)
         GC.transmission_file = []
         for line in open(GC.gemf_out_dir + "/output.txt"):
             t,rate,vNum,pre,post,num0,num1,num2,num3,num4,num5,num6,num7,num8,num9,num10,lists = [i.strip() for i in line.split()]
@@ -156,10 +157,12 @@ class TransmissionTimeSample_HIVARTGranichGEMF(TransmissionTimeSample):
             for l in lists:
                 uNums.extend(l)
             if post == GC.gemf_state_to_num['D']:
+                NUM_INFECTED -= 1
                 GC.transmission_file.append((vName,vName,float(t)))
                 if GC.VERBOSE:
-                    print('[%s] Uninfection\tTime %s\tNode %s (%s->%s)' % (datetime.now(),t,vName,GC.gemf_num_to_state[pre],GC.gemf_num_to_state[post]), file=stderr)
+                    print('[%s] Uninfection\tTime %s\tNode %s (%s->%s)\tTotal Infected: %d\tTotal Uninfected: %d' % (datetime.now(),t,vName,GC.gemf_num_to_state[pre],GC.gemf_num_to_state[post],NUM_INFECTED,len(num2node)-NUM_INFECTED), file=stderr)
             elif GC.gemf_num_to_state[pre] == 'S' and GC.gemf_num_to_state[post] == 'I1':
+                NUM_INFECTED += 1
                 uNodes = [num2node[num] for num in uNums]
                 uRates = [matrices[uNode.gemf_state][pre][post] for uNode in uNodes]
                 die = {uNodes[i]:GC.prob_exp_min(i, uRates) for i in range(len(uNodes))}
@@ -168,11 +171,11 @@ class TransmissionTimeSample_HIVARTGranichGEMF(TransmissionTimeSample):
                 if u == v: # new seed
                     uName = None
                     if GC.VERBOSE:
-                        print('[%s] Seed\tTime %s\tNode %s' % (datetime.now(),t,vName), file=stderr)
+                        print('[%s] Seed\tTime %s\tNode %s\tTotal Infected: %d\tTotal Uninfected: %d' % (datetime.now(),t,vName,NUM_INFECTED,len(num2node)-NUM_INFECTED), file=stderr)
                 else:
                     uName = u.get_name()
                     if GC.VERBOSE:
-                        print('[%s] Infection\tTime %s\tFrom Node %s (%s)\tTo Node %s (%s->%s)' % (datetime.now(),t,uName,GC.gemf_num_to_state[u.gemf_state],vName,GC.gemf_num_to_state[pre],GC.gemf_num_to_state[post]), file=stderr)
+                        print('[%s] Infection\tTime %s\tFrom Node %s (%s)\tTo Node %s (%s->%s)\tTotal Infected: %d\tTotal Uninfected: %d' % (datetime.now(),t,uName,GC.gemf_num_to_state[u.gemf_state],vName,GC.gemf_num_to_state[pre],GC.gemf_num_to_state[post],NUM_INFECTED,len(num2node)-NUM_INFECTED), file=stderr)
                 GC.transmission_file.append((uName,v.get_name(),float(t)))
             elif GC.VERBOSE:
                 print('[%s] Transition\tTime %s\tNode %s (%s->%s)' % (datetime.now(),t,vName,GC.gemf_num_to_state[pre],GC.gemf_num_to_state[post]), file=stderr)
