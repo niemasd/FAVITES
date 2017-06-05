@@ -140,8 +140,6 @@ class TransmissionTimeSample_HIVARTGranichGEMF(TransmissionTimeSample):
         matrices[GC.gemf_state_to_num['S']] = outside_infection_matrix
 
         # convert GEMF output to FAVITES transmission network format
-        GC.transmission_num = 0
-        GC.transmission_state = set() # 'node' and 'time'
         GC.transmission_file = []
         for line in open(GC.gemf_out_dir + "/output.txt"):
             t,rate,vNum,pre,post,num0,num1,num2,num3,num4,num5,num6,num7,num8,num9,num10,lists = [i.strip() for i in line.split()]
