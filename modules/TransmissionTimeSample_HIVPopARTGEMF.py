@@ -304,6 +304,8 @@ class TransmissionTimeSample_HIVPopARTGEMF(TransmissionTimeSample):
         matrices = {GC.gemf_state_to_num[infectious[i]]:matrices[i] for i in range(len(infectious))}
 
         # convert GEMF output to FAVITES transmission network format
+        GC.transmission_num = 0
+        GC.transmission_state = set() # 'node' and 'time'
         GC.transmission_file = []
         for line in open(GC.gemf_out_dir + "/output.txt"):
             parts = [i.strip() for i in line.split()]
