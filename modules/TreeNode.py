@@ -14,6 +14,8 @@ class TreeNode(metaclass=abc.ABCMeta):
     -------
     add_child(child):
         Add ``child'' to this ``TreeNode'' object's children
+    cite()
+        Return citation string (or None)
     get_children()
         Return a list containing the children of this ``TreeNode'' object
     get_contact_network_node()
@@ -73,6 +75,19 @@ class TreeNode(metaclass=abc.ABCMeta):
     def init():
         '''
         Initialize the module (if need be)
+        '''
+        pass
+
+    @staticmethod
+    @abc.abstractmethod
+    def cite():
+        '''
+        Return citation string (or None)
+
+        Returns
+        -------
+        citation : str
+            The citation string (or None)
         '''
         pass
 

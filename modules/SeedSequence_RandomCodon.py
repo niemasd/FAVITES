@@ -10,6 +10,9 @@ import FAVITES_GlobalContext as GC
 from random import choice
 
 class SeedSequence_RandomCodon(SeedSequence):
+    def cite():
+        return GC.CITATION_FAVITES
+
     def init():
         assert isinstance(GC.seed_sequence_codon_length, int), "Specified seed_sequence_codon_length is not an integer"
 

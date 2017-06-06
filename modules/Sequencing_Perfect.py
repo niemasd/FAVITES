@@ -9,6 +9,9 @@ import FAVITES_GlobalContext as GC
 import os
 
 class Sequencing_Perfect(Sequencing):
+    def cite():
+        return GC.CITATION_FAVITES
+
     def init():
         pass
 

@@ -13,6 +13,9 @@ from os import makedirs
 from os import chdir
 
 class Sequencing_ARTSOLiDMatePair(Sequencing):
+    def cite():
+        return GC.CITATION_ART
+
     def init():
         GC.out_dir = expanduser(GC.out_dir)
         GC.art_SOLiD_options = [i.strip() for i in GC.art_SOLiD_options.strip().split()]

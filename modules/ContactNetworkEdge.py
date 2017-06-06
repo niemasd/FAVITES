@@ -12,6 +12,8 @@ class ContactNetworkEdge(metaclass=abc.ABCMeta):
 
     Methods
     -------
+    cite()
+        Return citation string (or None)
     get_attribute()
         Return the attribute(s) of this ``ContactNetworkEdge'' object
     get_from()
@@ -27,6 +29,19 @@ class ContactNetworkEdge(metaclass=abc.ABCMeta):
     def init():
         '''
         Initialize the module (if need be)
+        '''
+        pass
+
+    @staticmethod
+    @abc.abstractmethod
+    def cite():
+        '''
+        Return citation string (or None)
+
+        Returns
+        -------
+        citation : str
+            The citation string (or None)
         '''
         pass
 

@@ -12,6 +12,8 @@ class NodeEvolution(metaclass=abc.ABCMeta):
 
     Methods
     -------
+    cite()
+        Return citation string (or None)
     evolve_to_current_time(node)
         Simulate phylogeny evolution on ``node''
     init()
@@ -23,6 +25,19 @@ class NodeEvolution(metaclass=abc.ABCMeta):
     def init():
         '''
         Initialize the module (if need be)
+        '''
+        pass
+
+    @staticmethod
+    @abc.abstractmethod
+    def cite():
+        '''
+        Return citation string (or None)
+
+        Returns
+        -------
+        citation : str
+            The citation string (or None)
         '''
         pass
 

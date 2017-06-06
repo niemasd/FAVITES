@@ -22,6 +22,9 @@ def printMessage(LOG):
     LOG.writeln("\\---------------------------------------------------------------------/\n")
 
 class Driver_Default(Driver):
+    def cite():
+        return GC.CITATION_FAVITES
+
     def init():
         GC.out_dir = expanduser(GC.out_dir)
 
@@ -285,9 +288,16 @@ class Driver_Default(Driver):
             MF.modules['Sequencing'].introduce_sequencing_error(node)
         LOG.writeln(" done")
         LOG.writeln("Error prone sequence data were written to: %s/error_prone_files/sequence_data/" % GC.out_dir)
+        LOG.writeln()
 
-        # return to original directory
+        # return to original directory and finish
         chdir(orig_dir)
+        if GC.VERBOSE:
+            print('[%s] Outputting list of citations' % datetime.now(), file=stderr)
+        LOG.writeln("\n============================   Citations   ============================")
+        citations = {MF.modules[module].cite().strip() for module in MF.modules if MF.modules[module].cite() is not None and len(MF.modules[module].cite().strip()) != 0}
+        for citation in sorted(citations):
+            LOG.writeln(citation)
         LOG.close()
         if GC.VERBOSE:
             print('[%s] FAVITES Driver finished' % datetime.now(), file=stderr)

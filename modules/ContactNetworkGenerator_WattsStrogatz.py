@@ -10,6 +10,9 @@ import FAVITES_GlobalContext as GC
 from os.path import expanduser
 
 class ContactNetworkGenerator_WattsStrogatz(ContactNetworkGenerator):
+    def cite():
+        return GC.CITATION_NETWORKX
+        
     def init():
         try:
             global watts_strogatz_graph

@@ -11,6 +11,9 @@ from os.path import expanduser
 from os import getcwd,makedirs,chdir,listdir
 
 class Sequencing_DWGSIM(Sequencing):
+    def cite():
+        return GC.CITATION_DWGSIM
+
     def init():
         GC.out_dir = expanduser(GC.out_dir)
         GC.dwgsim_path = expanduser(GC.dwgsim_path.strip())

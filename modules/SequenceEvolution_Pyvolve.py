@@ -33,6 +33,9 @@ from sys import stderr
 from sys import modules as sysmodules
 
 class SequenceEvolution_Pyvolve(SequenceEvolution):
+    def cite():
+        return GC.CITATION_PYVOLVE
+
     def init():
         try:
             global pyvolve

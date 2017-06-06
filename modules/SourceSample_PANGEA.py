@@ -7,8 +7,12 @@ Niema Moshiri 2016
 '''
 from SourceSample import SourceSample
 import modules.FAVITES_ModuleFactory as MF
+import FAVITES_GlobalContext as GC
 
 class SourceSample_PANGEA(SourceSample):
+    def cite():
+        return GC.CITATION_PANGEA
+
     def init():
         assert "ContactNetwork_PANGEA" in str(MF.modules['ContactNetwork']), "Must use ContactNetwork_PANGEA module"
         assert "ContactNetworkGenerator_PANGEA" in str(MF.modules['ContactNetworkGenerator']), "Must use ContactNetworkGenerator_PANGEA module"

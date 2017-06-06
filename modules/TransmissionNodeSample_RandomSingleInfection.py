@@ -11,6 +11,9 @@ import FAVITES_GlobalContext as GC
 from random import sample
 
 class TransmissionNodeSample_RandomSingleInfection(TransmissionNodeSample):
+    def cite():
+        return GC.CITATION_FAVITES
+
     def init():
         pass
 

@@ -15,6 +15,8 @@ class ContactNetworkNode(metaclass=abc.ABCMeta):
     add_virus(virus)
         Add ``virus'' to this ``ContactNetworkNode'' (NOT for infection, but for
         viral evolution! Should be at current time)
+    cite()
+        Return citation string (or None)
     get_attribute()
         Return the attribute(s) of this ``ContactNetworkNode'' object
     get_contact_network()
@@ -46,6 +48,19 @@ class ContactNetworkNode(metaclass=abc.ABCMeta):
     def init():
         '''
         Initialize the module (if need be)
+        '''
+        pass
+
+    @staticmethod
+    @abc.abstractmethod
+    def cite():
+        '''
+        Return citation string (or None)
+
+        Returns
+        -------
+        citation : str
+            The citation string (or None)
         '''
         pass
 

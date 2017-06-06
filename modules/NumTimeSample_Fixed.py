@@ -9,6 +9,9 @@ from NumTimeSample import NumTimeSample
 import FAVITES_GlobalContext as GC
 
 class NumTimeSample_Fixed(NumTimeSample):
+    def cite():
+        return GC.CITATION_FAVITES
+
     def init():
         GC.num_sample_times_per_individual = int(GC.num_sample_times_per_individual)
         assert GC.num_sample_times_per_individual > 0, "num_sample_times_per_individual must be a positive integer"

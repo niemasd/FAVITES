@@ -23,6 +23,9 @@ This is the main file of interest. It contains the GEMF simulation output. The c
 gemf_state_translate_help = "=== State Number Translations ==="
 
 class EndCriteria_GEMF(EndCriteria):
+    def cite():
+        return GC.CITATION_GEMF
+
     def init():
         assert "GEMF" in str(MF.modules['TransmissionNodeSample']), "Must use a GEMF TransmissionNodeSample module"
         assert "GEMF" in str(MF.modules['TransmissionTimeSample']), "Must use a GEMF TransmissionTimeSample module"

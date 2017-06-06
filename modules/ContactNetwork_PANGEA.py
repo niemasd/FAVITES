@@ -29,6 +29,9 @@ class ContactNetwork_PANGEA(ContactNetwork):
         assert "TransmissionNodeSample_PANGEA" in str(MF.modules['TransmissionNodeSample']), "Must use TransmissionNodeSample_PANGEA module"
         assert "TransmissionTimeSample_PANGEA" in str(MF.modules['TransmissionTimeSample']), "Must use TransmissionTimeSample_PANGEA module"
 
+    def cite():
+        return GC.CITATION_PANGEA
+
     def __init__(self, edge_list=None):
         if hasattr(GC,'PANGEA_TRANSMISSION_NETWORK'):
             self.transmissions = [(Node(None,u,None), Node(None,v,None), float(t)) for u,v,t in GC.PANGEA_TRANSMISSION_NETWORK]

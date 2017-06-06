@@ -6,6 +6,7 @@ Niema Moshiri 2016
 '''
 from ContactNetworkEdge import ContactNetworkEdge
 from ContactNetworkNode import ContactNetworkNode
+import FAVITES_GlobalContext as GC
 
 class ContactNetworkEdge_NetworkX(ContactNetworkEdge):
     '''
@@ -23,6 +24,9 @@ class ContactNetworkEdge_NetworkX(ContactNetworkEdge):
 
     def init():
         pass
+
+    def cite():
+        return GC.CITATION_NETWORKX
 
     def __init__(self, u, v, attr):
         '''

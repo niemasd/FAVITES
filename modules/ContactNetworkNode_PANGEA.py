@@ -6,8 +6,12 @@ Niema Moshiri 2016
 (https://github.com/olli0601/PANGEA.HIV.sim)
 '''
 from ContactNetworkNode import ContactNetworkNode
+import FAVITES_GlobalContext as GC
 
 class ContactNetworkNode_PANGEA(ContactNetworkNode):
+    def cite():
+        return GC.CITATION_PANGEA
+
     def init():
         pass
 

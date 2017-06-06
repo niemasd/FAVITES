@@ -12,6 +12,9 @@ import FAVITES_GlobalContext as GC
 from glob import glob
 
 class NodeAvailability_PANGEA(NodeAvailability):
+    def cite():
+        return GC.CITATION_FAVITES
+
     def init():
         assert "ContactNetwork_PANGEA" in str(MF.modules['ContactNetwork']), "Must use ContactNetwork_PANGEA module"
         assert "ContactNetworkGenerator_PANGEA" in str(MF.modules['ContactNetworkGenerator']), "Must use ContactNetworkGenerator_PANGEA module"

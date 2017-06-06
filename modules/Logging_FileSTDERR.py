@@ -10,6 +10,9 @@ from os.path import expanduser
 from sys import stderr as t
 
 class Logging_FileSTDERR(Logging):
+    def cite():
+        return GC.CITATION_FAVITES
+
     def init():
         global s
         s = open(expanduser(GC.log_file),'w')

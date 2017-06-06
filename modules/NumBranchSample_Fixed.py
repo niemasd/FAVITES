@@ -10,6 +10,9 @@ from NumBranchSample import NumBranchSample
 import FAVITES_GlobalContext as GC
 
 class NumBranchSample_Fixed(NumBranchSample):
+    def cite():
+        return GC.CITATION_FAVITES
+
     def init():
         if isinstance(GC.num_viruses_per_cn_sample, str) and len(GC.num_viruses_per_cn_sample.strip()) == 0:
             GC.num_viruses_per_cn_sample = float('inf')

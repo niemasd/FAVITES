@@ -10,6 +10,9 @@ import FAVITES_GlobalContext as GC
 from os.path import expanduser
 
 class ContactNetworkGenerator_File(ContactNetworkGenerator):
+    def cite():
+        return GC.CITATION_FAVITES
+
     def init():
         pass
 

@@ -44,6 +44,9 @@ from os import chdir,getcwd,makedirs
 from sys import stderr
 
 class TransmissionTimeSample_HIVARTGranichGEMF(TransmissionTimeSample):
+    def cite():
+        return GC.CITATION_GEMF
+
     def init():
         assert "TransmissionNodeSample_GEMF" in str(MF.modules['TransmissionNodeSample']), "Must use TransmissionNodeSample_GEMF module"
         assert "EndCriteria_GEMF" in str(MF.modules['EndCriteria']), "Must use EndCriteria_GEMF module"

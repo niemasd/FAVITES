@@ -26,6 +26,9 @@ class ContactNetworkNode_NetworkX(ContactNetworkNode):
     num : int
         The number of this node
     '''
+    
+    def cite():
+        return GC.CITATION_NETWORKX
 
     def init():
         pass

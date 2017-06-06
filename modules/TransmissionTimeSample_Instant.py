@@ -9,6 +9,9 @@ from TransmissionTimeSample import TransmissionTimeSample
 import FAVITES_GlobalContext as GC
 
 class TransmissionTimeSample_Instant(TransmissionTimeSample):
+    def cite():
+        return GC.CITATION_FAVITES
+
     def init():
         pass
 

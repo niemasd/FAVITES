@@ -11,6 +11,9 @@ import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
 
 class NodeEvolution_None(NodeEvolution):
+    def cite():
+        return GC.CITATION_FAVITES
+
     def init():
         assert "SequenceEvolution_NoMutation" in str(MF.modules['SequenceEvolution']), "Must use SequenceEvolution_NoMutation module"
 

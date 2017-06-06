@@ -8,6 +8,9 @@ from EndCriteria import EndCriteria
 import FAVITES_GlobalContext as GC
 
 class EndCriteria_Transmissions(EndCriteria):
+    def cite():
+        return GC.CITATION_FAVITES
+
     def init():
         pass
 

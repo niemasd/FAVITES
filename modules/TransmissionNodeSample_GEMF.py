@@ -11,6 +11,9 @@ import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
 
 class TransmissionNodeSample_GEMF(TransmissionNodeSample):
+    def cite():
+        return GC.CITATION_GEMF
+
     def init():
         assert "GEMF" in str(MF.modules['TransmissionTimeSample']), "Must use a GEMF TransmissionTimeSample module"
         assert "EndCriteria_GEMF" in str(MF.modules['EndCriteria']), "Must use EndCriteria_GEMF module"

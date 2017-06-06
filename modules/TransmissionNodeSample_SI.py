@@ -10,6 +10,9 @@ import FAVITES_GlobalContext as GC
 from random import choice
 
 class TransmissionNodeSample_SI(TransmissionNodeSample):
+    def cite():
+        return GC.CITATION_NUMPY
+
     def init():
         try:
             global exponential

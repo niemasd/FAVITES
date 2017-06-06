@@ -9,6 +9,9 @@ import FAVITES_GlobalContext as GC
 from os.path import expanduser
 
 class Logging_File(Logging):
+    def cite():
+        return GC.CITATION_FAVITES
+
     def init():
         global s
         s = open(expanduser(GC.log_file),'w')

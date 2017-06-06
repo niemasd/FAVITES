@@ -12,6 +12,8 @@ class Logging(metaclass=abc.ABCMeta):
 
     Methods
     -------
+    cite()
+        Return citation string (or None)
     close()
         Closes the log at the end of the simulation
     init()
@@ -29,6 +31,19 @@ class Logging(metaclass=abc.ABCMeta):
     def init():
         '''
         Initialize the module (if need be)
+        '''
+        pass
+
+    @staticmethod
+    @abc.abstractmethod
+    def cite():
+        '''
+        Return citation string (or None)
+
+        Returns
+        -------
+        citation : str
+            The citation string (or None)
         '''
         pass
 

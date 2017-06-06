@@ -13,6 +13,9 @@ def genString(k, pi):
     return ''.join([GC.roll(pi) for _ in range(k)])
 
 class SeedSequence_RandomWeighted(SeedSequence):
+    def cite():
+        return GC.CITATION_FAVITES
+
     def init():
         assert isinstance(GC.seed_sequence_length, int), "Specified SeedSequenceLength is not an integer"
         A = float(GC.seed_prob_A)

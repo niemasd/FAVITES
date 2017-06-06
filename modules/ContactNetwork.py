@@ -17,6 +17,8 @@ class ContactNetwork(metaclass=abc.ABCMeta):
         nodes
     add_transmission(u,v,time)
         Add transmission event (u,v,time) to this ``ContactNetwork''
+    cite()
+        Return citation string (or None)
     edges_iter()
         Perform an iteration over the edges in this ``ContactNetwork''
     get_edges_from(node)
@@ -71,6 +73,19 @@ class ContactNetwork(metaclass=abc.ABCMeta):
     def init():
         '''
         Initialize the module (if need be)
+        '''
+        pass
+
+    @staticmethod
+    @abc.abstractmethod
+    def cite():
+        '''
+        Return citation string (or None)
+
+        Returns
+        -------
+        citation : str
+            The citation string (or None)
         '''
         pass
 

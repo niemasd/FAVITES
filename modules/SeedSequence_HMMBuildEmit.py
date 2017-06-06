@@ -24,6 +24,9 @@ class SeedSequence_HMMBuildEmit(SeedSequence):
     resulting profile HMM
     '''
 
+    def cite():
+        return GC.CITATION_HMMER
+
     def init():
         GC.hmmbuild_msafile = expanduser(GC.hmmbuild_msafile.strip())
         GC.hmmbuild_path = expanduser(GC.hmmbuild_path.strip())

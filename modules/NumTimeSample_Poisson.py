@@ -9,6 +9,9 @@ from NumTimeSample import NumTimeSample
 import FAVITES_GlobalContext as GC
 
 class NumTimeSample_Poisson(NumTimeSample):
+    def cite():
+        return GC.CITATION_NUMPY
+
     def init():
         try:
             global poisson

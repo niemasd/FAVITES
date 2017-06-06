@@ -10,6 +10,9 @@ from NodeAvailability import NodeAvailability
 import FAVITES_GlobalContext as GC
 
 class NodeAvailability_TransmissionWeighted(NodeAvailability):
+    def cite():
+        return GC.CITATION_FAVITES
+
     def init():
         GC.node_sample_fraction = float(GC.node_sample_fraction)
         assert GC.node_sample_fraction >= 0 and GC.node_sample_fraction <= 1, "node_sample_fraction must be between 0 and 1"

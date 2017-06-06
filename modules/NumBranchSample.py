@@ -12,6 +12,8 @@ class NumBranchSample(metaclass=abc.ABCMeta):
 
     Methods
     -------
+    cite()
+        Return citation string (or None)
     init()
         Initialize the module (if need be)
     sample_num_branches(node, time)
@@ -24,6 +26,19 @@ class NumBranchSample(metaclass=abc.ABCMeta):
     def init():
         '''
         Initialize the module (if need be)
+        '''
+        pass
+
+    @staticmethod
+    @abc.abstractmethod
+    def cite():
+        '''
+        Return citation string (or None)
+
+        Returns
+        -------
+        citation : str
+            The citation string (or None)
         '''
         pass
 

@@ -5,9 +5,12 @@ Niema Moshiri 2017
 "NumTimeSample" module, where each infected node is sampled exactly once
 '''
 from NumTimeSample import NumTimeSample
-import modules.FAVITES_ModuleFactory as MF
+import FAVITES_GlobalContext as GC
 
 class NumTimeSample_Once(NumTimeSample):
+    def cite():
+        return GC.CITATION_FAVITES
+
     def init():
         pass
 

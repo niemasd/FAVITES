@@ -22,6 +22,9 @@ def add_child(parent_treenode, child_dpnode, cn_node):
         cn_node.add_virus(newnode)
 
 class NodeEvolution_BirthDeath(NodeEvolution):
+    def cite():
+        return GC.CITATION_DENDROPY
+
     def init():
         global TreeNode
         TreeNode = MF.modules['TreeNode']

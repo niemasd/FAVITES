@@ -10,6 +10,9 @@ import FAVITES_GlobalContext as GC
 import modules.FAVITES_ModuleFactory as MF
 
 class TimeSample_End(TimeSample):
+    def cite():
+        return GC.CITATION_FAVITES
+
     def init():
         assert "NumTimeSample_Once" in str(MF.modules['NumTimeSample']), "Must use NumTimeSample_Once module"
 

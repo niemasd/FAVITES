@@ -11,6 +11,9 @@ from os.path import expanduser
 from os import getcwd,makedirs,chdir,listdir
 
 class Sequencing_ART454PairedEnd(Sequencing):
+    def cite():
+        return GC.CITATION_ART
+
     def init():
         GC.out_dir = expanduser(GC.out_dir)
         GC.art_454_options = [i.strip() for i in GC.art_454_options.strip().split()]

@@ -6,8 +6,12 @@ Niema Moshiri 2017
 '''
 from NumBranchSample import NumBranchSample
 import modules.FAVITES_ModuleFactory as MF
+import FAVITES_GlobalContext as GC
 
 class NumBranchSample_All(NumBranchSample):
+    def cite():
+        return GC.CITATION_FAVITES
+
     def init():
         pass
 

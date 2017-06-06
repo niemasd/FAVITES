@@ -13,6 +13,9 @@ class TransmissionTimeSample_Fixed(TransmissionTimeSample):
     Implement the ``TransmissionTimeSample'' with a fixed time delta
     '''
 
+    def cite():
+        return GC.CITATION_FAVITES
+
     def init():
         pass
 

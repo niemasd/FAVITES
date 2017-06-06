@@ -12,6 +12,8 @@ class SeedSequence(metaclass=abc.ABCMeta):
 
     Methods
     -------
+    cite()
+        Return citation string (or None)
     infect(node)
         Infect ``node'' with an initial seed sequence(s)
     init()
@@ -23,6 +25,19 @@ class SeedSequence(metaclass=abc.ABCMeta):
     def init():
         '''
         Initialize the module (if need be)
+        '''
+        pass
+
+    @staticmethod
+    @abc.abstractmethod
+    def cite():
+        '''
+        Return citation string (or None)
+
+        Returns
+        -------
+        citation : str
+            The citation string (or None)
         '''
         pass
 

@@ -6,8 +6,12 @@ Niema Moshiri 2017
 sampling event
 '''
 from NumBranchSample import NumBranchSample
+import FAVITES_GlobalContext as GC
 
 class NumBranchSample_Single(NumBranchSample):
+    def cite():
+        return GC.CITATION_FAVITES
+
     def init():
         pass
 

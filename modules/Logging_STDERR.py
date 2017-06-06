@@ -6,8 +6,12 @@ Niema Moshiri 2016
 '''
 from Logging import Logging # abstract Logging class
 from sys import stderr as s
+import FAVITES_GlobalContext as GC
 
 class Logging_STDERR(Logging):
+    def cite():
+        return GC.CITATION_FAVITES
+
     def init():
         pass
 

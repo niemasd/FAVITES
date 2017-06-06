@@ -9,6 +9,9 @@ import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
 
 class EndCriteria_TransmissionFile(EndCriteria):
+    def cite():
+        return GC.CITATION_FAVITES
+
     def init():
         assert "SeedSelection_TransmissionFile" in str(MF.modules['SeedSelection']), "Must use SeedSelection_TransmissionFile module"
         assert "TransmissionNodeSample_TransmissionFile" in str(MF.modules['TransmissionNodeSample']), "Must use TransmissionNodeSample_TransmissionFile module"

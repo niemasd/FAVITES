@@ -20,6 +20,9 @@ class TreeNode_Simple(TreeNode):
     '''
     num_nodes = 0
 
+    def cite():
+        return GC.CITATION_FAVITES
+
     def init():
         GC.label_to_node = {}
 

@@ -12,6 +12,9 @@ import FAVITES_GlobalContext as GC
 from random import random
 
 class NodeAvailability_Bernoulli(NodeAvailability):
+    def cite():
+        return GC.CITATION_FAVITES
+
     def init():
         GC.node_sample_prob = float(GC.node_sample_prob)
 

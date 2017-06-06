@@ -14,6 +14,9 @@ class TransmissionTimeSample_Exponential(TransmissionTimeSample):
     an exponential distribution
     '''
 
+    def cite():
+        return GC.CITATION_NUMPY
+
     def init():
         try:
             global exponential

@@ -9,6 +9,9 @@ from SequenceEvolution import SequenceEvolution # abstract SequenceEvolution cla
 import FAVITES_GlobalContext as GC
 
 class SequenceEvolution_NoMutation(SequenceEvolution):
+    def cite():
+        return GC.CITATION_FAVITES
+
     def init():
         pass
 

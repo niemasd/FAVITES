@@ -55,6 +55,9 @@ URL = {
 }
 
 class SeedSequence_Virus(SeedSequence):
+    def cite():
+        return GC.CITATION_HMMER
+
     def init():
         GC.hmmemit_path = expanduser(GC.hmmemit_path.strip())
         GC.viral_sequence_type = GC.viral_sequence_type.strip()

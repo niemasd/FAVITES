@@ -7,8 +7,12 @@ Niema Moshiri 2016
 '''
 from SequenceEvolution import SequenceEvolution # abstract SequenceEvolution class
 import modules.FAVITES_ModuleFactory as MF
+import FAVITES_GlobalContext as GC
 
 class SequenceEvolution_PANGEA(SequenceEvolution):
+    def cite():
+        return GC.CITATION_PANGEA
+
     def init():
         assert "ContactNetwork_PANGEA" in str(MF.modules['ContactNetwork']), "Must use ContactNetwork_PANGEA module"
         assert "ContactNetworkGenerator_PANGEA" in str(MF.modules['ContactNetworkGenerator']), "Must use ContactNetworkGenerator_PANGEA module"

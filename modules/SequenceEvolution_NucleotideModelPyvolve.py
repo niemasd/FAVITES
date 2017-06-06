@@ -13,6 +13,9 @@ from os import makedirs
 from sys import stderr
 
 class SequenceEvolution_NucleotideModelPyvolve(SequenceEvolution):
+    def cite():
+        return GC.CITATION_PYVOLVE
+
     def init():
         try:
             global pyvolve

@@ -13,6 +13,9 @@ class SeedSelection_Random(SeedSelection):
     Implement the ``SeedSelection'' module with uniform distribution on nodes
     '''
 
+    def cite():
+        return GC.CITATION_FAVITES
+
     def init():
         GC.num_seeds = int(GC.num_seeds)
         assert GC.num_seeds >= 1, "Must have at least 1 seed node"

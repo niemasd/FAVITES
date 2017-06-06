@@ -10,6 +10,9 @@ import FAVITES_GlobalContext as GC
 from random import uniform
 
 class TimeSample_Uniform(TimeSample):
+    def cite():
+        return GC.CITATION_FAVITES
+
     def init():
         pass
 

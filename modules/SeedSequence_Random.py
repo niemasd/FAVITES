@@ -15,6 +15,9 @@ class SeedSequence_Random(SeedSequence):
     and infecting ``node'' at time 0
     '''
 
+    def cite():
+        return GC.CITATION_FAVITES
+
     def init():
         assert isinstance(GC.seed_sequence_length, int), "Specified SeedSequenceLength is not an integer"
 

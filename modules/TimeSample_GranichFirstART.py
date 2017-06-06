@@ -11,6 +11,9 @@ import FAVITES_GlobalContext as GC
 from random import uniform
 
 class TimeSample_GranichFirstART(TimeSample):
+    def cite():
+        return GC.CITATION_FAVITES
+
     def init():
         assert "NumTimeSample_Once" in str(MF.modules['NumTimeSample']), "Must use NumTimeSample_Once module"
         assert "TransmissionTimeSample_HIVARTGranichGEMF" in str(MF.modules['TransmissionTimeSample']), "Must use TransmissionTimeSample_HIVARTGranichGEMF module"

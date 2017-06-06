@@ -10,6 +10,9 @@ import FAVITES_GlobalContext as GC
 from random import choice
 
 class SeedSelection_EdgeWeighted(SeedSelection):
+    def cite():
+        return GC.CITATION_FAVITES
+
     def init():
         GC.num_seeds = int(GC.num_seeds)
         assert GC.num_seeds >= 1, "Must have at least 1 seed node"

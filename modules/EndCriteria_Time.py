@@ -8,6 +8,9 @@ from EndCriteria import EndCriteria
 import FAVITES_GlobalContext as GC
 
 class EndCriteria_Time(EndCriteria):
+    def cite():
+        return GC.CITATION_FAVITES
+
     def init():
         GC.end_time = float(GC.end_time)
         assert GC.end_time >= 0, "end_time must be at least 0"

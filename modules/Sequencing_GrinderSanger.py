@@ -11,6 +11,9 @@ from os.path import expanduser
 from os import getcwd,makedirs,chdir,listdir
 
 class Sequencing_GrinderSanger(Sequencing):
+    def cite():
+        return GC.CITATION_GRINDER
+
     def init():
         GC.out_dir = expanduser(GC.out_dir)
         GC.grinder_path = expanduser(GC.grinder_path.strip())

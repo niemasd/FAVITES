@@ -12,6 +12,9 @@ class SeedSequence_User(SeedSequence):
     Implement the ``SeedSequence'' module, where the user specifies the seed
     sequences
     '''
+    
+    def cite():
+        return GC.CITATION_FAVITES
 
     def init():
         GC.num_seeds = int(GC.num_seeds)

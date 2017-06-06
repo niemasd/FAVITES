@@ -14,6 +14,9 @@ from os import makedirs
 from sys import stderr
 
 class SequenceEvolution_EmpiricalCodonModelPyvolve(SequenceEvolution):
+    def cite():
+        return GC.CITATION_PYVOLVE
+
     def init():
         try:
             global pyvolve

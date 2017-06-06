@@ -8,9 +8,12 @@ This is intended to be used if you only want to simulate a contact network and
 nothing else
 '''
 from EndCriteria import EndCriteria
-import modules.FAVITES_ModuleFactory as MF
+import FAVITES_GlobalContext as GC
 
 class EndCriteria_Instant(EndCriteria):
+    def cite():
+        return GC.CITATION_FAVITES
+
     def init():
         pass
 

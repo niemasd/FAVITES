@@ -9,6 +9,9 @@ import FAVITES_GlobalContext as GC
 from random import choice
 
 class SourceSample_Random(SourceSample):
+    def cite():
+        return GC.CITATION_FAVITES
+
     def init():
         pass
 

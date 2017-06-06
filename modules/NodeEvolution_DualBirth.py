@@ -13,6 +13,9 @@ except ImportError:
     import queue as Q
 
 class NodeEvolution_DualBirth(NodeEvolution):
+    def cite():
+        return GC.CITATION_DUALBIRTH
+
     def init():
         try:
             global exponential

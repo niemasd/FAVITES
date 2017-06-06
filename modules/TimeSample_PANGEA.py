@@ -7,8 +7,12 @@ at the end time, and no sample times are returned for all other nodes
 '''
 from TimeSample import TimeSample
 import modules.FAVITES_ModuleFactory as MF
+import FAVITES_GlobalContext as GC
 
 class TimeSample_PANGEA(TimeSample):
+    def cite():
+        return GC.CITATION_PANGEA
+
     def init():
         assert "ContactNetwork_PANGEA" in str(MF.modules['ContactNetwork']), "Must use ContactNetwork_PANGEA module"
         assert "ContactNetworkGenerator_PANGEA" in str(MF.modules['ContactNetworkGenerator']), "Must use ContactNetworkGenerator_PANGEA module"

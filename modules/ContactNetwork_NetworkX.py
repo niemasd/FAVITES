@@ -41,6 +41,9 @@ class ContactNetwork_NetworkX(ContactNetwork):
             chdir(GC.START_DIR)
             assert False, "Error loading NetworkX. Install with: pip3 install networkx"
 
+    def cite():
+        return GC.CITATION_NETWORKX
+
     def __init__(self, edge_list=None):
         # if ModuleFactory is just testing, do nothing
         if edge_list is None:

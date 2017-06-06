@@ -9,6 +9,9 @@ import FAVITES_GlobalContext as GC
 from os.path import expanduser
 
 class ContactNetworkGenerator_CavemanRelaxed(ContactNetworkGenerator):
+    def cite():
+        return GC.CITATION_NETWORKX
+        
     def init():
         try:
             global relaxed_caveman_graph

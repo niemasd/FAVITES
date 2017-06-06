@@ -21,6 +21,9 @@ class SeedSequence_HMMEmit(SeedSequence):
     Implement the ``SeedSequence'' using hmmemit
     '''
 
+    def cite():
+        return GC.CITATION_HMMER
+
     def init():
         GC.hmmemit_hmmfile = expanduser(GC.hmmemit_hmmfile.strip())
         GC.hmmemit_path = expanduser(GC.hmmemit_path.strip())
