@@ -23,11 +23,11 @@
     "hiv_ns_to_s":                                     999999,
     "hiv_ns_to_d":                                     0,
     "hiv_s_to_i1_seed":                                0, # infection by outside
-    "hiv_s_to_i1_by_i1":                               5, # infection by acute
-    "hiv_s_to_i1_by_i2":                               1, # infection by chronic
+    "hiv_s_to_i1_by_i1":                               500, # infection by acute
+    "hiv_s_to_i1_by_i2":                               100, # infection by chronic
     "hiv_s_to_i1_by_i3":                               0,
     "hiv_s_to_i1_by_i4":                               0,
-    "hiv_s_to_i1_by_a1":                               0.25, # infection by acute ART
+    "hiv_s_to_i1_by_a1":                               25, # infection by acute ART
     "hiv_s_to_i1_by_a2":                               0, # infection by chronic ART
     "hiv_s_to_i1_by_a3":                               0,
     "hiv_s_to_i1_by_a4":                               0,
