@@ -1,0 +1,62 @@
+{
+    "ContactNetwork":                                  "NetworkX",
+    "ContactNetworkGenerator":                         "BarabasiAlbert",
+    "Driver":                                          "Default",
+    "EndCriteria":                                     "GEMF",
+    "Logging":                                         "Null",
+    "NodeAvailability":                                "Perfect",
+    "NodeEvolution":                                   "None",
+    "NumBranchSample":                                 "All",
+    "NumTimeSample":                                   "Once",
+    "PostValidation":                                  "Dummy",
+    "SeedSelection":                                   "EdgeWeighted",
+    "SeedSequence":                                    "Random",
+    "SequenceEvolution":                               "NoMutation",
+    "Sequencing":                                      "Perfect",
+    "SourceSample":                                    "Random",
+    "TimeSample":                                      "End",
+    "TransmissionNodeSample":                          "GEMF",
+    "TransmissionTimeSample":                          "HIVARTGranichGEMF",
+    "TreeNode":                                        "Simple",
+    "end_time":                                        10,
+    "gemf_path":                                       "GEMF",
+    "hiv_ns_to_s":                                     999999,
+    "hiv_ns_to_d":                                     0,
+    "hiv_s_to_i1_seed":                                0, # infection by outside
+    "hiv_s_to_i1_by_i1":                               5, # infection by acute
+    "hiv_s_to_i1_by_i2":                               1, # infection by chronic
+    "hiv_s_to_i1_by_i3":                               0,
+    "hiv_s_to_i1_by_i4":                               0,
+    "hiv_s_to_i1_by_a1":                               0.25, # infection by acute ART
+    "hiv_s_to_i1_by_a2":                               0, # infection by chronic ART
+    "hiv_s_to_i1_by_a3":                               0,
+    "hiv_s_to_i1_by_a4":                               0,
+    "hiv_s_to_d":                                      0,
+    "hiv_i1_to_i2":                                    (52.0/6.0), # acute to chronic
+    "hiv_i1_to_a1":                                    (365.0/77.0), # acute start ART
+    "hiv_i1_to_d":                                     0,
+    "hiv_i2_to_i3":                                    0,
+    "hiv_i2_to_a2":                                    (365.0/77.0), # chronic start ART
+    "hiv_i2_to_d":                                     0,
+    "hiv_i3_to_i4":                                    0,
+    "hiv_i3_to_a3":                                    0,
+    "hiv_i3_to_d":                                     0,
+    "hiv_i4_to_a4":                                    0,
+    "hiv_i4_to_d":                                     0,
+    "hiv_a1_to_i1":                                    (12.0/25.0), # acute stop ART
+    "hiv_a1_to_a2":                                    (52.0/12.0), # acute ART to chronic ART
+    "hiv_a1_to_d":                                     0,
+    "hiv_a2_to_i2":                                    (12.0/25.0), # chronic stop ART
+    "hiv_a2_to_a3":                                    0,
+    "hiv_a2_to_d":                                     0,
+    "hiv_a3_to_i3":                                    0,
+    "hiv_a3_to_a4":                                    0,
+    "hiv_a3_to_d":                                     0,
+    "hiv_a4_to_i4":                                    0,
+    "hiv_a4_to_d":                                     0,
+    "num_cn_nodes":                                    100000,
+    "num_edges_from_new":                              2,
+    "num_seeds":                                       1,
+    "out_dir":                                         "~/FAVITES_output",
+    "seed_sequence_length":                            10,
+}
