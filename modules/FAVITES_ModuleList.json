@@ -192,6 +192,10 @@
             "req": ["num_sample_times_per_individual"]
         },
 
+        "None": {
+            "req": []
+        },
+
         "Once": {
             "req": []
         },
@@ -350,6 +354,10 @@
         },
 
         "GranichFirstART": {
+            "req": []
+        },
+
+        "None": {
             "req": []
         },
 
