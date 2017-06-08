@@ -8,7 +8,7 @@ from TimeSample import TimeSample
 import FAVITES_GlobalContext as GC
 import modules.FAVITES_ModuleFactory as MF
 
-class TimeSample_End(TimeSample):
+class TimeSample_None(TimeSample):
     def cite():
         return GC.CITATION_FAVITES
 
