@@ -101,12 +101,12 @@ class Driver_Default(Driver):
         if GC.VERBOSE:
             print('[%s] Infecting seed nodes' % datetime.now(), file=stderr)
         GC.root_viruses = []
-        for i,node in enumerate(GC.seed_nodes):
+        for node in GC.seed_nodes:
             seq = MF.modules['SeedSequence'].generate()
             virus = MF.modules['TreeNode'](time=0.0, seq=seq, contact_network_node=node)
             GC.root_viruses.append(virus)
             node.infect(0.0,virus)
-            GC.contact_network.add_to_infected(node)
+            GC.contact_network.add_transmission(None,node,0.0)
         LOG.writeln(" done")
 
         # iterative step of transmissions
