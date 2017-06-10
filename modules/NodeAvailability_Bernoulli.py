@@ -17,7 +17,8 @@ class NodeAvailability_Bernoulli(NodeAvailability):
 
     def init():
         GC.node_sample_prob = float(GC.node_sample_prob)
+        assert GC.node_sample_prob >= 0 and GC.node_sample_prob <= 1, "node_sample_prob must be between 0 and 1"
 
     def subsample_transmission_network():
-        nodes = GC.contact_network.get_infected_nodes()
+        nodes = set(GC.cn_sample_times.keys())
         return [n for n in nodes if random() < GC.node_sample_prob]

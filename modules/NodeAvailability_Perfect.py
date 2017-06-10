@@ -15,4 +15,4 @@ class NodeAvailability_Perfect(NodeAvailability):
         pass
 
     def subsample_transmission_network():
-        return GC.contact_network.get_infected_nodes()
+        return set(GC.cn_sample_times.keys())
