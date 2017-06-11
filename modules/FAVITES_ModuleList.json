@@ -220,6 +220,10 @@
     },
 
     "SeedSelection": {
+        "ClustersBernoulli": {
+            "req": ["seed_k", "seed_m", "seed_p"]
+        },
+
         "EdgeWeighted": {
             "req": ["num_seeds"]
         },
