@@ -33,10 +33,10 @@ class SeedSelection_ClustersBernoulli(SeedSelection):
             edge = choice(edges)
             initial_seeds.add(choice((edge.get_from(), edge.get_to())))
         seed_nodes = {seed for seed in initial_seeds}
-        extras = m%k
+        extras = GC.seed_m % GC.seed_k
         for seed in initial_seeds:
             new_seeds = {seed}
-            cap = int(GC.seed_m/GC.seed_k)
+            cap = int(GC.seed_m / GC.seed_k)
             if extras != 0:
                 cap += 1
                 extras -= 1

@@ -59,6 +59,8 @@ class Driver_Default(Driver):
             pass
         except:
             LOG.writeln("\nERROR: Unable to create the output directory. Perhaps it already exists?")
+            if GC.VERBOSE:
+                print('[%s] Output directory exists: %s' % (datetime.now(), GC.out_dir), file=stderr)
             exit(-1)
         if GC.VERBOSE:
             print('[%s] Output directory: %s' % (datetime.now(), GC.out_dir), file=stderr)
