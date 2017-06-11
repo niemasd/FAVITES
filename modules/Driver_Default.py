@@ -91,7 +91,7 @@ class Driver_Default(Driver):
         if GC.VERBOSE:
             print('[%s] Selecting seed nodes' % datetime.now(), file=stderr)
         GC.seed_nodes = MF.modules['SeedSelection'].select_seeds()
-        assert isinstance(GC.seed_nodes, list), "seed_nodes is not a list"
+        assert isinstance(GC.seed_nodes, list) or isinstance(GC.seed_nodes, set), "seed_nodes is not a list nor a set"
         for node in GC.seed_nodes:
             if GC.VERBOSE:
                 print('[%s] Seed\tTime 0\tNode %s' % (datetime.now(), str(node)), file=stderr)
