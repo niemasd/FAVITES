@@ -43,7 +43,7 @@ class SeedSelection_ClustersBernoulli(SeedSelection):
             curr = seed
             while len(new_seeds) < cap:
                 curr = choice([e for e in GC.contact_network.get_edges_from(curr)]).get_to()
-                if curr not in new_seeds and random() < GC.seed_p:
+                if curr not in new_seeds and curr not in seed_nodes and random() < GC.seed_p:
                     new_seeds.add(curr)
             seed_nodes.update(new_seeds)
         assert len(seed_nodes) == GC.seed_m, "ERROR: Number of seed nodes (%d) didn't equal seed_m (%d)!" % (len(seed_nodes), GC.seed_m)
