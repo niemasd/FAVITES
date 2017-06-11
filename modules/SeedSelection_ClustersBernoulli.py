@@ -46,5 +46,5 @@ class SeedSelection_ClustersBernoulli(SeedSelection):
                 if curr not in new_seeds and random() < GC.seed_p:
                     new_seeds.add(curr)
             seed_nodes.update(new_seeds)
-        assert len(seed_nodes) == GC.seed_m, "ERROR: Number of seed nodes didn't equal seed_m!"
+        assert len(seed_nodes) == GC.seed_m, "ERROR: Number of seed nodes (%d) didn't equal seed_m (%d)!" % (len(seed_nodes), GC.seed_m)
         return seed_nodes
