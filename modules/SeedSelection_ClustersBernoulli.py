@@ -36,7 +36,7 @@ class SeedSelection_ClustersBernoulli(SeedSelection):
         extras = m%k
         for seed in initial_seeds:
             new_seeds = {seed}
-            cap = int(m/k)
+            cap = int(GC.seed_m/GC.seed_k)
             if extras != 0:
                 cap += 1
                 extras -= 1
