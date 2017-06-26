@@ -18,6 +18,7 @@
     "TransmissionNodeSample":                          "GEMF",
     "TransmissionTimeSample":                          "HIVARTGranichGEMF",
     "TreeNode":                                        "Simple",
+    "TreeUnit":                                        "ConstantRate",
     "end_time":                                        10,
     "gemf_path":                                       "GEMF",
     "hiv_ns_to_s":                                     999999,
@@ -59,4 +60,5 @@
     "num_seeds":                                       1,
     "out_dir":                                         "~/FAVITES_output",
     "seed_sequence_length":                            10,
+    "tree_mutation_rate":                              1,
 }

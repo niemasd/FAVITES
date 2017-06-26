@@ -175,9 +175,14 @@ class Driver_Default(Driver):
             elif GC.VERBOSE:
                 print('[%s] Node %s not sampled' % (datetime.now(),str(node)), file=stderr)
         if GC.VERBOSE:
-            print('[%s] Pruning sampled tree' % datetime.now(), file=stderr)
+            print('[%s] Pruning sampled trees' % datetime.now(), file=stderr)
         GC.prune_sampled_trees()
-        GC.pruned_newick_trees = [(root,root.newick()) for root in GC.sampled_trees]
+        pruned_newick_trees_time = [(root,root.newick()) for root in GC.sampled_trees]
+
+        # convert trees from unit of time to unit of mutation rate
+        if GC.VERBOSE:
+            print('[%s] Converting sampled trees from time to mutation rate' % datetime.now(), file=stderr)
+        GC.pruned_newick_trees = [(root,MF.modules['TreeUnit'].time_to_mutation_rate(treestr_time)) for root,treestr_time in pruned_newick_trees_time]
         LOG.writeln(" done")
 
         # finalize sequence data

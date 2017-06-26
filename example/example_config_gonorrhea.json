@@ -18,6 +18,7 @@
     "TransmissionNodeSample":                          "GEMF",
     "TransmissionTimeSample":                          "GonorrheaHethcoteYorkeGEMF",
     "TreeNode":                                        "Simple",
+    "TreeUnit":                                        "ConstantRate",
     "contact_network_file":                            "~/GitHub/FAVITES/example/example_contact_network_gonorrhea.txt",
     "d_or_u":                                          "u",
     "dwgsim_options":                                  "",
@@ -71,5 +72,7 @@
     "num_seeds":                                       1,
     "out_dir":                                         "~/FAVITES_output",
     "seed_sequence_codon_length":                      300,
+    "tree_mutation_rate":                              1,
+    "treebender_path":                                 "treebender",
     "yule_rate":                                       0.1
 }

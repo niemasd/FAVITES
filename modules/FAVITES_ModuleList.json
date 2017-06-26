@@ -470,5 +470,15 @@
         "Simple": {
             "req": []
         }
+    },
+
+    "TreeUnit": {
+        "ConstantRate": {
+            "req": ["tree_mutation_rate"]
+        },
+
+        "Same": {
+            "req": []
+        }
     }
 }

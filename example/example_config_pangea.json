@@ -18,6 +18,7 @@
     "TransmissionNodeSample":      "PANGEA",
     "TransmissionTimeSample":      "PANGEA",
     "TreeNode":                    "Simple",
+    "TreeUnit":                    "Same",
     "dwgsim_options":              "",
     "dwgsim_path":                 "dwgsim",
     "out_dir":                     "~/FAVITES_output",

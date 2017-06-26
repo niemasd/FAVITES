@@ -18,6 +18,7 @@
     "TransmissionNodeSample":                          "GEMF",
     "TransmissionTimeSample":                          "HIVPopARTGEMF",
     "TreeNode":                                        "Simple",
+    "TreeUnit":                                        "ConstantRate",
     "contact_network_file":                            "~/GitHub/FAVITES/example/example_contact_network_popart.txt",
     "d_or_u":                                          "u",
     "dwgsim_options":                                  "",
@@ -327,5 +328,6 @@
     "pyvolve_state_frequencies_class":                 "EqualFrequencies",
     "pyvolve_state_frequencies_parameters_dictionary": {"alphabet":"nucleotide"},
     "seed_sequence_length":                            1000,
+    "tree_mutation_rate":                              1,
     "yule_rate":                                       0.1
 }

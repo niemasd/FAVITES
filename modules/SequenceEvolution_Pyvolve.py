@@ -98,6 +98,8 @@ class SequenceEvolution_Pyvolve(SequenceEvolution):
                 tree = pyvolve.read_tree(tree=treestr)
                 partition = pyvolve.Partition(models=GC.pyvolve_model, root_sequence=rootseq)
                 evolver = pyvolve.Evolver(partitions=partition, tree=tree)
+            except AssertionError:
+                assert False, "Error setting up Pyvolve. Tree: %s" % treestr
             ratefile = "pyvolve_output/" + label + "_ratefile.txt" # set each to None to not generate these files
             infofile = "pyvolve_output/" + label + "_infofile.txt"
             seqfile  = "pyvolve_output/" + label + "_seqfile.fasta"

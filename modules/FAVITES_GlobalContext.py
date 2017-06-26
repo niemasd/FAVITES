@@ -26,6 +26,7 @@ CITATION_HMMER = 'Eddy, S.R. and Wheeler, T.J. (2015). "HMMER Version 3.1b2" (ht
 CITATION_NETWORKX = 'Hagberg, A.A., Schult, D.A., and Swart, P.J. (2008). "Exploring network structure, dynamics, and function using NetworkX". Proceedings of the 7th Python in Science Conference (SciPy2008):11-15.'
 CITATION_NUMPY = 'van der Walt, S., Colber, S.C., and Varoquaux, G. (2011). "The NumPy Array: A Structure for Efficient Numerical Computation". Computing in Science & Engineering 13:22-30.'
 CITATION_PANGEA = 'Ratmann, O., Hodcroft, E.B., Pickles, M., Cori, A., Hall, M., Lycett, S., Colijn, C., Dearlove, B., Didelot, X., Frost, S., Hossain, A.S.M.M., Joy, J.B., Kendall, M., Kuhnert, D., Leventhal, G.E., Liang, R., Plazzotta, G., Poon, A.F.Y, Rasmussen, D.A., Stadler, T., Volz, E., Weis, C., Brown, A.J.L., and Fraser, C. (2016). "Phylogenetic Tools for Generalized HIV-1 Epidemics: Findings from the PANGEA-HIV Methods Comparison". Mol. Biol. Evol. 34(1):185-203.'
+CITATION_PHYLOMMAND = 'Ryberg, M. (2016). "Phylommand - a command line software package for phylogenetics [version 1; referees: 2 approved with reservations]". F1000Research 2016, 5:2903 (doi: 10.12688/f1000research.10446.1).'
 CITATION_PYVOLVE = 'Spielman, S.J. and Wilke, C.O. (2015). "Pyvolve: A Flexible Python Module for Simulating Sequences along Phylogenies". PLoS One 10(9):e0139047.'
 
 def init(reqs):
@@ -497,3 +498,22 @@ def get_leaves(roots):
             else:
                 stack += children
     return leaves
+
+# PANGEA module check
+def pangea_module_check():
+    assert "ContactNetwork_PANGEA" in str(MF.modules['ContactNetwork']), "Must use ContactNetwork_PANGEA module"
+    assert "ContactNetworkGenerator_PANGEA" in str(MF.modules['ContactNetworkGenerator']), "Must use ContactNetworkGenerator_PANGEA module"
+    assert "EndCriteria_Instant" in str(MF.modules['EndCriteria']), "Must use EndCriteria_Instant module"
+    assert "NodeEvolution_PANGEA" in str(MF.modules['NodeEvolution']), "Must use NodeEvolution_PANGEA module"
+    assert "NodeAvailability_PANGEA" in str(MF.modules['NodeAvailability']), "Must use NodeAvailability_PANGEA module"
+    assert "NumBranchSample_All" in str(MF.modules['NumBranchSample']), "Must use NumBranchSample_All module"
+    assert "NumTimeSample_PANGEA" in str(MF.modules['NumTimeSample']), "Must use NumTimeSample_PANGEA module"
+    assert "PostValidation_Dummy" in str(MF.modules['PostValidation']), "Must use PostValidation_Dummy module"
+    assert "SeedSelection_PANGEA" in str(MF.modules['SeedSelection']), "Must use SeedSelection_PANGEA module"
+    assert "SeedSequence_PANGEA" in str(MF.modules['SeedSequence']), "Must use SeedSequence_PANGEA module"
+    assert "SequenceEvolution_PANGEA" in str(MF.modules['SequenceEvolution']), "Must use SequenceEvolution_PANGEA module"
+    assert "SourceSample_PANGEA" in str(MF.modules['SourceSample']), "Must use SourceSample_PANGEA module"
+    assert "TimeSample_PANGEA" in str(MF.modules['TimeSample']), "Must use TimeSample_PANGEA module"
+    assert "TransmissionNodeSample_PANGEA" in str(MF.modules['TransmissionNodeSample']), "Must use TransmissionNodeSample_PANGEA module"
+    assert "TransmissionTimeSample_PANGEA" in str(MF.modules['TransmissionTimeSample']), "Must use TransmissionTimeSample_PANGEA module"
+    assert "TreeUnit_Same" in str(MF.modules['TreeUnit']), "Must use TreeUnit_Same module"
