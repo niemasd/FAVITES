@@ -477,6 +477,10 @@
             "req": ["tree_mutation_rate"]
         },
 
+        "Gamma": {
+            "req": ["tree_rate_shape", "tree_rate_scale"]
+        },
+
         "LogNormal": {
             "req": ["tree_rate_mean", "tree_rate_stdev"]
         },
