@@ -7,8 +7,6 @@ all trees (i.e., just multiply branch length by mutation rate).
 '''
 from TreeUnit import TreeUnit
 import FAVITES_GlobalContext as GC
-from os.path import expanduser
-from subprocess import Popen, PIPE, STDOUT
 
 class TreeUnit_ConstantRate(TreeUnit):
     def cite():
