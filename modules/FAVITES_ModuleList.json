@@ -477,6 +477,10 @@
             "req": ["tree_mutation_rate"]
         },
 
+        "LogNormal": {
+            "req": ["tree_rate_mean", "tree_rate_stdev"]
+        },
+
         "Same": {
             "req": []
         }

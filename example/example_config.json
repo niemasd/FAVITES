@@ -40,6 +40,5 @@
     "out_dir":                                         "~/FAVITES_output",
     "seed_sequence_codon_length":                      300,
     "tree_mutation_rate":                              5,
-    "treebender_path":                                 "treebender",
     "yule_rate":                                       1
 }
