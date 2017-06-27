@@ -26,7 +26,7 @@ class ContactNetworkNode_NetworkX(ContactNetworkNode):
     num : int
         The number of this node
     '''
-    
+
     def cite():
         return GC.CITATION_NETWORKX
 
@@ -109,6 +109,7 @@ class ContactNetworkNode_NetworkX(ContactNetworkNode):
             GC.first_times[self.num] = time
         self.contact_network.contact_network.node[self.num]['infections'].append((time, virus))
         virus.set_contact_network_node(self)
+        GC.virus_history[virus.get_label()].append((time,self))
         self.add_virus(virus)
         self.contact_network.add_to_infected(self)
 

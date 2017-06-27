@@ -45,6 +45,8 @@ class TreeNode_Simple(TreeNode):
         TreeNode_Simple.num_nodes += 1
         if hasattr(GC,"label_to_node"): # for initialization
             GC.label_to_node[self.get_label()] = self
+        if hasattr(GC,"virus_history"): # for initialization
+            GC.virus_history[self.get_label()] = [(self.get_time(), self.get_contact_network_node())]
 
     def __str__(self): # label|contact network node|time
         return self.get_label() + '|' + str(self.get_contact_network_node()) + '|' + str(self.get_time())
