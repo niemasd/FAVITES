@@ -10,7 +10,7 @@ import FAVITES_GlobalContext as GC
 
 class TreeUnit_ConstantRate(TreeUnit):
     def cite():
-        return GC.CITATION_FAVITES
+        return GC.CITATION_NUMPY
 
     def init():
         GC.tree_mutation_rate = float(GC.tree_mutation_rate)
