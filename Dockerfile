@@ -4,6 +4,7 @@ RUN apt-get update
 
 # Install Python 3 and modules
 RUN apt-get -y install python3
+RUN apt-get -y install python3-pip
 RUN pip3 install dendropy
 RUN pip3 install networkx
 RUN pip3 install numpy
