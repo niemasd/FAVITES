@@ -27,10 +27,7 @@ class Driver_Default(Driver):
 
     def init():
         GC.out_dir = expanduser(GC.out_dir)
-        print(GC.VERBOSE)
         print(environ['out_dir_print'])
-        if not hasattr(GC,'out_dir_print'):
-            environ['out_dir_print'] = GC.out_dir
         GC.virus_history = {} # key: virus label; value: list of (time,cn_node) tuples representing the time virus was in cn_node
 
     def run():
