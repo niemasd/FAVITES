@@ -1,5 +1,6 @@
 #! /usr/bin/env python3
 import argparse
+from os import makedirs
 from os.path import abspath,expanduser,isfile
 from subprocess import call
 
@@ -13,13 +14,11 @@ args = parser.parse_args()
 CONFIG = expanduser(abspath(args.config))
 assert isfile(args.config), "ERROR: Cannot open configuration file: %s" % args.config
 OUTPUT_DIR = expanduser(abspath(eval(open(CONFIG).read())['out_dir']))
+makedirs(OUTPUT_DIR)
 
 # call Docker image for user
 COMMAND =  ['docker','run',]                  # Docker command
 COMMAND += ['-v',CONFIG+':/USER_CONFIG.JSON'] # mount config file
 COMMAND += ['-v',OUTPUT_DIR+':/OUTPUT_DIR']   # mount output directory
 COMMAND += ['niemasd/favites']                # Docker image
-COMMAND += ['-c','/USER_CONFIG.JSON']         # set FAVITES args
-if args.verbose:
-    COMMAND += ['--verbose']
 call(COMMAND)
