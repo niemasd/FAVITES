@@ -9,7 +9,7 @@ import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
 from datetime import datetime
 from os.path import expanduser
-from os import getcwd,makedirs,chdir
+from os import environ,getcwd,makedirs,chdir
 from sys import stderr
 
 def printMessage(LOG):
