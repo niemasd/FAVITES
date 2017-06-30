@@ -27,6 +27,8 @@ class Driver_Default(Driver):
 
     def init():
         GC.out_dir = expanduser(GC.out_dir)
+        if not hasattr(GC,out_dir_print):
+            GC.out_dir_print = GC.out_dir
         GC.virus_history = {} # key: virus label; value: list of (time,cn_node) tuples representing the time virus was in cn_node
 
     def run():
@@ -54,7 +56,7 @@ class Driver_Default(Driver):
         if GC.VERBOSE:
             print('[%s] Starting simulation' % datetime.now(), file=stderr)
         orig_dir = getcwd()
-        LOG.write("Attempting to create the user-specified output directory: %r..." % GC.out_dir)
+        LOG.write("Attempting to create the user-specified output directory: %r..." % GC.out_dir_print)
         try:
             makedirs(GC.out_dir)
             pass
@@ -220,7 +222,7 @@ class Driver_Default(Driver):
         f.write(GC.tn_favites2gexf(contact_network,GC.transmissions))
         f.close()
         LOG.writeln(" done")
-        LOG.writeln("True transmission network was written to: %s/error_free_files/transmission_network.txt" % GC.out_dir)
+        LOG.writeln("True transmission network was written to: %s/error_free_files/transmission_network.txt" % GC.out_dir_print)
         LOG.writeln()
         if GC.VERBOSE:
             print('[%s] Wrote transmission network to file' % datetime.now(), file=stderr)
@@ -241,7 +243,7 @@ class Driver_Default(Driver):
             f.write(e[1])
             f.close()
         LOG.writeln(" done")
-        LOG.writeln("True phylogenetic trees were written to: %s/error_free_files/phylogenetic_trees/" % GC.out_dir)
+        LOG.writeln("True phylogenetic trees were written to: %s/error_free_files/phylogenetic_trees/" % GC.out_dir_print)
         LOG.writeln()
         if GC.VERBOSE:
             print('[%s] Wrote phylogenetic trees' % datetime.now(), file=stderr)
@@ -274,7 +276,7 @@ class Driver_Default(Driver):
                     f.write('>%s\n%s\n' % (str(leaf),leaf.get_seq()))
                 f.close()
         LOG.writeln(" done")
-        LOG.writeln("True sequence data were written to: %s/error_free_files/sequence_data/" % GC.out_dir)
+        LOG.writeln("True sequence data were written to: %s/error_free_files/sequence_data/" % GC.out_dir_print)
         LOG.writeln()
         if GC.VERBOSE:
             print('[%s] Wrote true sequence data' % datetime.now(), file=stderr)
@@ -296,7 +298,7 @@ class Driver_Default(Driver):
                 print('[%s] Sequencing error for Node %s' % (datetime.now(),str(node)), file=stderr)
             MF.modules['Sequencing'].introduce_sequencing_error(node)
         LOG.writeln(" done")
-        LOG.writeln("Error prone sequence data were written to: %s/error_prone_files/sequence_data/" % GC.out_dir)
+        LOG.writeln("Error prone sequence data were written to: %s/error_prone_files/sequence_data/" % GC.out_dir_print)
         LOG.writeln()
 
         # return to original directory and finish
