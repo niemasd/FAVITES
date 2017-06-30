@@ -6,7 +6,7 @@ Niema Moshiri 2016
 '''
 import argparse
 from sys import argv,stdout,stdin
-from os import getcwd
+from os import environ,getcwd
 from modules import FAVITES_ModuleFactory as MF
 from modules import FAVITES_GlobalContext as GC
 
@@ -22,9 +22,14 @@ def parseArgs():
     parser.add_argument('-c', '--config', required=True, type=argparse.FileType('r'), help="Configuration file")
     parser.add_argument('-v', '--verbose', action="store_true", help="Print verbose messages to stderr")
     args = parser.parse_args()
+    config = eval(args.config.read())
+
+    # if running in Docker image, hardcode config and output directory
+    if 'FAVITES_DOCKER' in environ:
+        config['out_dir'] = '/OUT_DIR'
 
     # import modules and store in global access variables
-    MF.read_config(eval(args.config.read()), args.verbose)
+    MF.read_config(config, args.verbose)
     GC.VERBOSE = args.verbose
 
 if __name__ == "__main__":
