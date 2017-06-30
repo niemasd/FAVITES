@@ -23,11 +23,6 @@ def parseArgs():
         config['out_dir'] = '/OUTPUT_DIR'
         if 'verbose' not in config: # Add "verbose":True to config for verbosity
             config['verbose'] = False
-        '''from os import listdir
-        print(listdir('/'))
-        f = open('/OUTPUT_DIR/TEST','w')
-        f.write("HI NIEMA")
-        f.close()'''
 
     # use argparse to parse user arguments
     else:

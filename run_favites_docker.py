@@ -14,12 +14,6 @@ args = parser.parse_args()
 CONFIG = expanduser(abspath(args.config))
 assert isfile(args.config), "ERROR: Cannot open configuration file: %s" % args.config
 OUTPUT_DIR = expanduser(abspath(eval(open(CONFIG).read())['out_dir']))
-'''try:
-    makedirs(OUTPUT_DIR)
-    pass
-except:
-    assert False, "ERROR: Unable to create the output directory. Perhaps it already exists?"
-    exit(-1)'''
 
 # call Docker image for user
 COMMAND =  ['docker','run',]                  # Docker command
