@@ -28,7 +28,6 @@ RUN pip3 install pyvolve
 
 # Clean up (Python 3)
 RUN find /usr/lib/python3.*/ -name 'tests' -exec rm -r '{}' +
-RUN rm /usr/include/xlocale.h
 RUN rm -rf /root/.cache
 RUN apk del .build-dependencies
 
