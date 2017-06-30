@@ -16,7 +16,7 @@ RUN Rscript -e "install.packages(c('ape','data.table','devtools','distr','gamlss
 RUN Rscript -e "library(devtools); install_github('olli0601/PANGEA.HIV.sim'); library(PANGEA.HIV.sim)"
 
 # Set up Python 3 and modules
-RUN apk add --no-cache python3 && \
+RUN apk add --no-cache python3 python3-dev && \
     python3 -m ensurepip && \
     rm -r /usr/lib/python*/ensurepip && \
     pip3 install --upgrade pip setuptools && \
