@@ -23,6 +23,6 @@ RUN Rscript -e "library(devtools); install_github('olli0601/PANGEA.HIV.sim')"
 
 # Clear cache at very end
 RUN rm -r /root/.cache
-find /usr/lib/python3.*/ -name 'tests' -exec rm -r '{}' +
-rm /usr/include/xlocale.h
-apk del .build-dependencies
+RUN find /usr/lib/python3.*/ -name 'tests' -exec rm -r '{}' +
+RUN rm /usr/include/xlocale.h
+RUN apk del .build-dependencies
