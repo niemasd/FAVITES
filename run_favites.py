@@ -20,8 +20,7 @@ def parseArgs():
     # if running in Docker image, hardcode config and output directory
     if 'FAVITES_DOCKER' in environ:
         config = eval(open('/USER_CONFIG.JSON').read())
-        print(config['out_dir'])
-        config['out_dir_print'] = config['out_dir']
+        environ['out_dir_print'] = config['out_dir']
         config['out_dir'] = '/OUTPUT_DIR'
         if 'verbose' not in config: # Add "verbose":True to config for verbosity
             config['verbose'] = False
@@ -33,12 +32,11 @@ def parseArgs():
         parser.add_argument('-v', '--verbose', action="store_true", help="Print verbose messages to stderr")
         args = parser.parse_args()
         config = eval(args.config.read())
-        config['out_dir_print'] = config['out_dir']
+        environ['out_dir_print'] = config['out_dir']
 
     # import modules and store in global access variables
     MF.read_config(config, config['verbose'])
     GC.VERBOSE = config['verbose']
-    GC.OUT_DIR_PRINT = config['out_dir_print']
 
 if __name__ == "__main__":
     # initialize global access variables
