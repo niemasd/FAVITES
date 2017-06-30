@@ -20,14 +20,14 @@ def parseArgs():
     # if running in Docker image, hardcode config and output directory
     if 'FAVITES_DOCKER' in environ:
         config = eval(open('/USER_CONFIG.JSON').read())
-        config['out_dir'] = '/OUT_DIR'
+        config['out_dir'] = '/OUTPUT_DIR'
         if 'verbose' not in config: # Add "verbose":True to config for verbosity
             config['verbose'] = False
-        from os import listdir
+        '''from os import listdir
         print(listdir('/'))
-        f = open('/OUT_DIR/TEST','w')
+        f = open('/OUTPUT_DIR/TEST','w')
         f.write("HI NIEMA")
-        f.close()
+        f.close()'''
 
     # use argparse to parse user arguments
     else:
