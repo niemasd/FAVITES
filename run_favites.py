@@ -38,7 +38,7 @@ def parseArgs():
     # import modules and store in global access variables
     MF.read_config(config, config['verbose'])
     GC.VERBOSE = config['verbose']
-    GC.out_dir_print = config['out_dir_print']
+    GC.OUT_DIR_PRINT = config['out_dir_print']
 
 if __name__ == "__main__":
     # initialize global access variables
