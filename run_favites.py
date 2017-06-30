@@ -17,20 +17,24 @@ def parseArgs():
     and "import ____ module" section of this function accordingly.
     '''
 
-    # use argparse to parse user arguments
-    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('-c', '--config', required=True, type=argparse.FileType('r'), help="Configuration file")
-    parser.add_argument('-v', '--verbose', action="store_true", help="Print verbose messages to stderr")
-    args = parser.parse_args()
-    config = eval(args.config.read())
-
     # if running in Docker image, hardcode config and output directory
     if 'FAVITES_DOCKER' in environ:
+        config = eval(open('/USER_CONFIG.JSON').read())
         config['out_dir'] = '/OUT_DIR'
+        if 'verbose' not in config: # Add "verbose":True to config for verbosity
+            config['verbose'] = False
+
+    # use argparse to parse user arguments
+    else:
+        parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+        parser.add_argument('-c', '--config', required=True, type=argparse.FileType('r'), help="Configuration file")
+        parser.add_argument('-v', '--verbose', action="store_true", help="Print verbose messages to stderr")
+        args = parser.parse_args()
+        config = eval(args.config.read())
 
     # import modules and store in global access variables
-    MF.read_config(config, args.verbose)
-    GC.VERBOSE = args.verbose
+    MF.read_config(config, config['verbose'])
+    GC.VERBOSE = config['verbose']
 
 if __name__ == "__main__":
     # initialize global access variables
