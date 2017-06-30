@@ -25,7 +25,6 @@ def parseArgs():
             config['verbose'] = False
         from os import listdir
         print(listdir('/'))
-        exit(0)
         f = open('/OUT_DIR/TEST','w')
         f.write("HI NIEMA")
         f.close()
