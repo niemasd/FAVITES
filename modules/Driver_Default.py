@@ -64,10 +64,10 @@ class Driver_Default(Driver):
             if 'FAVITES_DOCKER' not in environ: # bypass error (Docker makes the folder automatically)
                 LOG.writeln("\nERROR: Unable to create the output directory. Perhaps it already exists?")
                 if GC.VERBOSE:
-                    print('[%s] Output directory exists: %s' % (datetime.now(), GC.out_dir), file=stderr)
+                    print('[%s] Output directory exists: %s' % (datetime.now(), GC.out_dir_print), file=stderr)
                 exit(-1)
         if GC.VERBOSE:
-            print('[%s] Output directory: %s' % (datetime.now(), GC.out_dir), file=stderr)
+            print('[%s] Output directory: %s' % (datetime.now(), GC.out_dir_print), file=stderr)
         chdir(GC.out_dir)
         makedirs("error_free_files")
         makedirs("error_free_files/phylogenetic_trees")
