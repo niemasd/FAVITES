@@ -54,12 +54,11 @@ RUN cd Seq-Gen/source && make && mv seq-gen /usr/local/bin && cd ../.. && rm -rf
 RUN git clone https://github.com/niemasd/FAVITES.git
 ENV PATH="/FAVITES:${PATH}"
 
-# Test FAVITES
-RUN run_favites.py -c FAVITES/example/example_config.json
-RUN rm -rf ~/FAVITES_output
-
 # Clean up
 RUN find /usr/lib/python3.*/ -name 'tests' -exec rm -r '{}' +
 RUN rm -rf /root/.cache
 RUN apk del .build-dependencies
 RUN rm -rf /tmp/*
+
+# Run FAVITES
+ENTRYPOINT ["run_favites.py"]
