@@ -1,4 +1,4 @@
-# FAVITES minimal docker image using Alpine base
+# FAVITES minimal docker image using Ubuntu base
 FROM ubuntu:latest
 MAINTAINER Niema Moshiri <niemamoshiri@gmail.com>
 
