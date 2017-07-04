@@ -33,6 +33,7 @@ def parseArgs():
         args = parser.parse_args()
         config = eval(args.config.read())
         environ['out_dir_print'] = config['out_dir']
+        config['verbose'] = args.verbose
 
     # import modules and store in global access variables
     MF.read_config(config, config['verbose'])
