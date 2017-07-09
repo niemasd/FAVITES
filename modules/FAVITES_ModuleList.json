@@ -477,6 +477,10 @@
             "req": ["tree_mutation_rate"]
         },
 
+        "Exponential": {
+            "req": ["tree_rate_scale"]
+        },
+
         "Gamma": {
             "req": ["tree_rate_shape", "tree_rate_scale"]
         },
