@@ -373,8 +373,14 @@ def fix_single_child_nodes(root):
 
 # prune sampled phylogenetic trees
 def prune_sampled_trees():
+    # if a NodeEvolution module already created pruned trees, do nothing
+    if 'sampled_trees' in globals():
+        print("IT'S HERE!!!")
+        return
+
+    # otherwise, prune the sampled trees
     global sampled_trees
-    sampled_trees = set() #TODO UNCOMMENT THIS WHEN FINISHED
+    sampled_trees = set()
     TreeNode = MF.modules['TreeNode']
     # check if required sample variables exist
     try:

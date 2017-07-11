@@ -155,10 +155,6 @@ class Driver_Default(Driver):
         if GC.VERBOSE:
             print('[%s] Finalizing transmissions/evolution' % datetime.now(), file=stderr)
         MF.modules['EndCriteria'].finalize_time()
-        nodes = [node for node in GC.contact_network.get_infected_nodes()]
-        for node in nodes:
-            MF.modules['NodeEvolution'].evolve_to_current_time(node, finalize=True)
-            MF.modules['SequenceEvolution'].evolve_to_current_time(node)
 
         # perform patient sampling in time (on all infected nodes; will subsample from this later)
         GC.cn_sample_times = {}
@@ -176,6 +172,14 @@ class Driver_Default(Driver):
                     print('[%s] Node %s sampled at times %s' % (datetime.now(),str(node),str(times)), file=stderr)
             elif GC.VERBOSE:
                 print('[%s] Node %s not sampled' % (datetime.now(),str(node)), file=stderr)
+
+        # finalize phylogenetic trees
+        nodes = [node for node in GC.contact_network.get_infected_nodes()]
+        for node in nodes:
+            MF.modules['NodeEvolution'].evolve_to_current_time(node, finalize=True)
+            MF.modules['SequenceEvolution'].evolve_to_current_time(node)
+
+        # prune sampled trees
         if GC.VERBOSE:
             print('[%s] Pruning sampled trees' % datetime.now(), file=stderr)
         GC.prune_sampled_trees()
@@ -211,7 +215,6 @@ class Driver_Default(Driver):
 
         # write transmission network as edge list
         LOG.write("Writing true transmission network to file...")
-        true_transmission_network = '\n'.join([("%s\t%s\t%d" % e) for e in GC.transmissions])
         f = open('error_free_files/transmission_network.txt','w')
         for e in GC.transmissions:
             f.write("%s\t%s\t%f\n" % e)
