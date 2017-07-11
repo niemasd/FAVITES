@@ -50,7 +50,7 @@ class Driver(metaclass=abc.ABCMeta):
 
         Parameters
         ----------
-        node : ContactNetworkNode
-            ``ContactNetworkNode'' object to evolve
+        path : str
+            Path in which run_favites.py is located
         '''
         pass

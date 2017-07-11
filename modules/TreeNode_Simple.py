@@ -47,6 +47,8 @@ class TreeNode_Simple(TreeNode):
             GC.label_to_node[self.get_label()] = self
         if hasattr(GC,"virus_history"): # for initialization
             GC.virus_history[self.get_label()] = [(self.get_time(), self.get_contact_network_node())]
+        self.newick_string = None # have the ability to replace the newick string if needed
+        self.manual_leaves = None # have the ability to set leaves manually
 
     def __str__(self): # label|contact network node|time
         return self.get_label() + '|' + str(self.get_contact_network_node()) + '|' + str(self.get_time())
@@ -124,16 +126,30 @@ class TreeNode_Simple(TreeNode):
     def set_contact_network_node(self, node):
         self.contact_network_node = node
 
+    def set_leaves(self,leaves):
+        self.manual_leaves = leaves
+
     def leaves(self):
-        q = [self]
-        while len(q) > 0:
-            curr = q.pop()
-            if len(curr.children) == 0:
-                yield curr
-            else:
-                q.extend(curr.children)
+        if self.manual_leaves is None:
+            q = [self]
+            while len(q) > 0:
+                curr = q.pop()
+                if len(curr.children) == 0:
+                    yield curr
+                else:
+                    q.extend(curr.children)
+        else:
+            for leaf in self.manual_leaves:
+                yield leaf
+
+    def set_newick(self, string):
+        self.newick_string = string
 
     def newick(self, redo=False):
+        # if user already specified a Newick string, use that
+        if self.newick_string is not None:
+            return self.newick_string
+
         # try to fix single-child nodes
         if len(self.children) == 1:
             child = list(self.children)[0]

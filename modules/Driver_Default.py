@@ -29,7 +29,7 @@ class Driver_Default(Driver):
         GC.out_dir = expanduser(GC.out_dir)
         GC.virus_history = {} # key: virus label; value: list of (time,cn_node) tuples representing the time virus was in cn_node
 
-    def run():
+    def run(path):
         '''
         Simulation driver. Even if you add your own modules, you probably shouldn't
         need to modify this function. The one clear exception would be if your
@@ -38,6 +38,7 @@ class Driver_Default(Driver):
         '''
 
         # store starting directory
+        GC.FAVITES_DIR = path
         if GC.VERBOSE:
             print('[%s] FAVITES Driver starting' % datetime.now(), file=stderr)
         GC.START_DIR = getcwd()
@@ -105,12 +106,14 @@ class Driver_Default(Driver):
         if GC.VERBOSE:
             print('[%s] Infecting seed nodes' % datetime.now(), file=stderr)
         GC.root_viruses = []
+        GC.seed_to_first_virus = {}
         for node in GC.seed_nodes:
             seq = MF.modules['SeedSequence'].generate()
             virus = MF.modules['TreeNode'](time=0.0, seq=seq, contact_network_node=node)
             GC.root_viruses.append(virus)
             node.infect(0.0,virus)
             GC.contact_network.add_transmission(None,node,0.0)
+            GC.seed_to_first_virus[node] = virus
         LOG.writeln(" done")
 
         # iterative step of transmissions
@@ -136,6 +139,7 @@ class Driver_Default(Driver):
                 GC.root_viruses.append(virus)
                 v.infect(GC.time,virus)
                 GC.contact_network.add_transmission(None,v,GC.time)
+                GC.seed_to_first_virus[v] = virus
                 continue
             MF.modules['NodeEvolution'].evolve_to_current_time(u)
             MF.modules['NodeEvolution'].evolve_to_current_time(v)
@@ -251,7 +255,12 @@ class Driver_Default(Driver):
 
         # post-validation of sequence data
         LOG.writeln("Scoring final sequence data...")
-        leaves = GC.get_leaves(GC.sampled_trees) # returns dictionary where keys are CN nodes and values are set of tree leaves
+        leaves = {} # dictionary where keys are CN nodes and values are set of tree leaves
+        for cn_node in GC.leaves_at_sample_time:
+            leaves[cn_node] = set()
+            for t in GC.leaves_at_sample_time[cn_node]:
+                for leaf in GC.leaves_at_sample_time[cn_node][t]:
+                    leaves[cn_node].add(leaf)
         for cn_node in leaves:
             seqs = [leaf.get_seq() for leaf in leaves[cn_node]]
             for seq in seqs:

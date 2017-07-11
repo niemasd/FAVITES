@@ -373,12 +373,13 @@ def fix_single_child_nodes(root):
 
 # prune sampled phylogenetic trees
 def prune_sampled_trees():
-    # if a NodeEvolution module already created pruned trees, do nothing
+    # if a NodeEvolution module already created pruned trees, do nothing (make sure to create and update GC.leaves_at_sample_time!)
     if 'sampled_trees' in globals():
-        print("IT'S HERE!!!")
         return
 
     # otherwise, prune the sampled trees
+    global leaves_at_sample_time
+    leaves_at_sample_time = {} # leaves_at_sample_time[cn_node][time] = set of TreeNode
     global sampled_trees
     sampled_trees = set()
     TreeNode = MF.modules['TreeNode']
@@ -485,25 +486,25 @@ def prune_sampled_trees():
                 else:
                     curr.remove_child(children[0])
                     curr.remove_child(children[1])
-        #print(sampled_trees[index].newick(),end='\n\n')
-        sampled_trees.add(root_viruses[index])
 
-# returns dictionary where keys are CN nodes and values are set of tree leaves
-def get_leaves(roots):
-    leaves = {}
-    for root in roots:
-        stack = [root]
-        while len(stack) != 0:
+        # update leaves_at_sample_time (IMPORTANT!)
+        stack = [root_viruses[index]]
+        while(len(stack) != 0):
             curr = stack.pop()
             children = [c for c in curr.get_children()]
             if len(children) == 0:
                 cn_node = curr.get_contact_network_node()
-                if cn_node not in leaves:
-                    leaves[cn_node] = set()
-                leaves[cn_node].add(curr)
+                time = curr.get_time()
+                if cn_node not in leaves_at_sample_time:
+                    leaves_at_sample_time[cn_node] = {}
+                if time not in leaves_at_sample_time[cn_node]:
+                    leaves_at_sample_time[cn_node][time] = set()
+                leaves_at_sample_time[cn_node][time].add(curr)
             else:
                 stack += children
-    return leaves
+
+        # finished
+        sampled_trees.add(root_viruses[index])
 
 # PANGEA module check
 def pangea_module_check():

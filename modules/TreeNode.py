@@ -49,6 +49,11 @@ class TreeNode(metaclass=abc.ABCMeta):
     set_contact_network_node(node)
         Set the ``ContactNetworkNode'' object in which this ``TreeNode'' object
         exists.
+    set_leaves(leaves):
+        Manually set the set of leaves under this ``TreeNode''
+    set_newick(string)
+        Manually set the newick string of the tree rooted at this ``TreeNode''
+        with ``string''
     set_parent(parent)
         Set the parent of this ``TreeNode'' object
     set_root()
@@ -259,6 +264,18 @@ class TreeNode(metaclass=abc.ABCMeta):
         pass
 
     @abc.abstractmethod
+    def set_leaves(self,leaves):
+        '''
+        Manually set the set of leaves under this ``TreeNode'' object
+
+        Parameters
+        ----------
+        leaves : set of TreeNode
+            The set of leaves under this ``TreeNode'' object
+        '''
+        pass
+
+    @abc.abstractmethod
     def newick(self, redo=False):
         '''
         Output the subtree of this ``TreeNode'' object in the Newick format
@@ -274,6 +291,19 @@ class TreeNode(metaclass=abc.ABCMeta):
         -------
         newick_string : str
             This ``TreeNode'' object's subtree as a Newick string
+        '''
+        pass
+
+    @abc.abstractmethod
+    def set_newick(self, string):
+        '''
+        Manually set the newick string of the tree rooted at this ``TreeNode''
+        with ``string''
+
+        Parameters
+        ----------
+        string : str
+            The newick string to replace with
         '''
         pass
 

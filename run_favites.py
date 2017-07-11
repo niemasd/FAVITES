@@ -4,11 +4,12 @@ Niema Moshiri 2016
 
 "Viewer": Command Line Interface for FAVITES
 '''
+from modules import FAVITES_ModuleFactory as MF
+from modules import FAVITES_GlobalContext as GC
 import argparse
 from sys import argv,stdout,stdin
 from os import environ,getcwd
-from modules import FAVITES_ModuleFactory as MF
-from modules import FAVITES_GlobalContext as GC
+from os.path import abspath,expanduser
 
 def parseArgs():
     '''
@@ -47,4 +48,4 @@ if __name__ == "__main__":
     parseArgs()
 
     # run Driver
-    MF.modules['Driver'].run()
+    MF.modules['Driver'].run('/'.join(expanduser(abspath(argv[0])).split('/')[:-1]))
