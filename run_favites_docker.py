@@ -14,9 +14,9 @@ parser.add_argument('-v', '--verbose', action="store_true", help="Print verbose 
 args = parser.parse_args()
 
 # check user args
-CONFIG = expanduser(abspath(args.config))
+CONFIG = abspath(expanduser(args.config))
 assert isfile(args.config), "ERROR: Cannot open configuration file: %s" % args.config
-OUTPUT_DIR = expanduser(abspath(eval(open(CONFIG).read())['out_dir']))
+OUTPUT_DIR = abspath(expanduser(eval(open(CONFIG).read())['out_dir']))
 assert not isfile(OUTPUT_DIR), "ERROR: Output directory exists"
 makedirs(OUTPUT_DIR)
 
