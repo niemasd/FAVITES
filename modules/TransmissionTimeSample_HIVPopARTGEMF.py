@@ -136,7 +136,7 @@ class TransmissionTimeSample_HIVPopARTGEMF(TransmissionTimeSample):
         # write GEMF parameter file
         orig_dir = getcwd()
         GC.gemf_path = expanduser(GC.gemf_path.strip())
-        makedirs(GC.gemf_out_dir)
+        makedirs(GC.gemf_out_dir, exist_ok=True)
         f = open(GC.gemf_out_dir + "/para.txt",'w')
         f.write("[NODAL_TRAN_MATRIX]\n")
         f.write("0\t" + str(GC.hiv_msu_to_mspc) + "\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t" + str(GC.hiv_msu_to_d) + "\n")

@@ -37,7 +37,7 @@ class SeedSequence_HMMBuildEmit(SeedSequence):
 
     def generate():
         if not GC.HMMBuildEmit_build:
-            makedirs(HMMBuildEmit_path)
+            makedirs(HMMBuildEmit_path, exist_ok=True)
             command = [GC.hmmbuild_path] + GC.hmmbuild_options + [HMMBuildEmit_path + "/" + HMM_filename, GC.hmmbuild_msafile]
             try:
                 check_output(command)

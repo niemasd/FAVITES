@@ -64,7 +64,7 @@ class TransmissionTimeSample_GonorrheaHethcoteYorkeGEMF(TransmissionTimeSample):
         # write GEMF parameter file
         orig_dir = getcwd()
         GC.gemf_path = expanduser(GC.gemf_path.strip())
-        makedirs(GC.gemf_out_dir)
+        makedirs(GC.gemf_out_dir, exist_ok=True)
         f = open(GC.gemf_out_dir + "/para.txt",'w')
         f.write("[NODAL_TRAN_MATRIX]\n0\t" + str(GC.gon_ma_to_ms) + "\t0\t0\t0\t0\t0\t0\n" + str(GC.gon_ms_to_ma) + "\t0\t" + str(GC.gon_ms_to_mis_seed) + "\t" + str(GC.gon_ms_to_mia_seed) + "\t0\t0\t0\t0\n" + str(GC.gon_mis_to_ma) + "\t" + str(GC.gon_mis_to_ms) + "\t0\t0\t0\t0\t0\t0\n" + str(GC.gon_mia_to_ma) + "\t" + str(GC.gon_mia_to_ms) + "\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t" + str(GC.gon_fa_to_fs) + "\t0\t0\n0\t0\t0\t0\t" + str(GC.gon_fs_to_fa) + "\t0\t" + str(GC.gon_fs_to_fis_seed) + "\t" + str(GC.gon_fs_to_fia_seed) + "\n0\t0\t0\t0\t" + str(GC.gon_fis_to_fa) + "\t" + str(GC.gon_fis_to_fs) + "\t0\t0\n0\t0\t0\t0\t" + str(GC.gon_fia_to_fa) + "\t" + str(GC.gon_fia_to_fs) + "\t0\t0\n\n") # Gonorrhea-specific
         f.write("[EDGED_TRAN_MATRIX]\n")

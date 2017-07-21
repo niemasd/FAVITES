@@ -15,6 +15,7 @@ CONFIG = expanduser(abspath(args.config))
 assert isfile(args.config), "ERROR: Cannot open configuration file: %s" % args.config
 OUTPUT_DIR = expanduser(abspath(eval(open(CONFIG).read())['out_dir']))
 assert not isfile(OUTPUT_DIR), "ERROR: Output directory exists"
+makedirs(OUTPUT_DIR)
 
 # call Docker image for user
 COMMAND =  ['docker','run',]                  # Docker command

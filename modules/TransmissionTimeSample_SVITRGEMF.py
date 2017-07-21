@@ -56,7 +56,7 @@ class TransmissionTimeSample_SVITRGEMF(TransmissionTimeSample):
         # write GEMF parameter file
         orig_dir = getcwd()
         GC.gemf_path = expanduser(GC.gemf_path.strip())
-        makedirs(GC.gemf_out_dir)
+        makedirs(GC.gemf_out_dir, exist_ok=True)
         f = open(GC.gemf_out_dir + "/para.txt",'w')
         f.write("[NODAL_TRAN_MATRIX]\n0\t" + str(GC.svitr_beta_seed) + "\t0\t" + str(GC.svitr_s_to_v) + "\n0\t0\t" + str(GC.svitr_i_to_t) + "\t" + str(GC.svitr_delta) + "\n0\t0\t0\t" + str(GC.svitr_t_to_r) + "\n0\t0\t0\t0\n\n") # SVITR-specific
         f.write("[EDGED_TRAN_MATRIX]\n")

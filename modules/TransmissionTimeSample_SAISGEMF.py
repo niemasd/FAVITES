@@ -45,7 +45,7 @@ class TransmissionTimeSample_SAISGEMF(TransmissionTimeSample):
         # write GEMF parameter file
         orig_dir = getcwd()
         GC.gemf_path = expanduser(GC.gemf_path.strip())
-        makedirs(GC.gemf_out_dir)
+        makedirs(GC.gemf_out_dir, exist_ok=True)
         f = open(GC.gemf_out_dir + "/para.txt",'w')
         f.write("[NODAL_TRAN_MATRIX]\n0\t0\t" + str(GC.sais_beta_seed) + "\n0\t0\t" + str(GC.sais_beta_a_seed) + "\n" + str(GC.sais_delta) + "\t0\t0\n\n") # SAIS-specific
         f.write("[EDGED_TRAN_MATRIX]\n0\t" + str(GC.sais_kappa) + "\t" + str(GC.sais_beta_by_i) + "\n0\t0\t" + str(GC.sais_beta_a_by_i) + "\n0\t0\t0\n\n") # SAIS-specific

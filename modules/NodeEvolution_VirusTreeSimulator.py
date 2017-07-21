@@ -45,7 +45,7 @@ class NodeEvolution_VirusTreeSimulator(NodeEvolution):
         elif not hasattr(GC,'sampled_trees'):
             # create directory for VirusTreeSimulator output
             orig_dir = getcwd()
-            makedirs(VTS_OUTPUT_DIR)
+            makedirs(VTS_OUTPUT_DIR, exist_ok=True)
             chdir(VTS_OUTPUT_DIR)
 
             # create VirusTreeSimulator input files

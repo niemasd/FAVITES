@@ -38,7 +38,7 @@ class ContactNetworkGenerator_PANGEA(ContactNetworkGenerator):
             else:
                 args.append(arg.split('_')[1] + "=" + str(val))
         orig_dir = getcwd()
-        makedirs(PANGEA_path)
+        makedirs(PANGEA_path, exist_ok=True)
         chdir(PANGEA_path)
         f = open(PANGEA_command_script,'w')
         f.write("library(PANGEA.HIV.sim)\n")

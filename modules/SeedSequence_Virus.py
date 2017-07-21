@@ -64,7 +64,7 @@ class SeedSequence_Virus(SeedSequence):
         assert GC.viral_sequence_type in URL, "Invalid choice for viral_sequence_type: %s. Valid choices: %s" % (GC.viral_sequence_type, ', '.join(URL.keys()))
 
     def generate():
-        makedirs(HMM_FOLDER)
+        makedirs(HMM_FOLDER, exist_ok=True)
         hmm_file = HMM_FOLDER + '/' + URL[GC.viral_sequence_type].split('/')[-1]
         urlretrieve(URL[GC.viral_sequence_type], hmm_file)
         command = [GC.hmmemit_path, hmm_file]

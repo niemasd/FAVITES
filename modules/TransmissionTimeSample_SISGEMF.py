@@ -39,7 +39,7 @@ class TransmissionTimeSample_SISGEMF(TransmissionTimeSample):
         # write GEMF parameter file
         orig_dir = getcwd()
         GC.gemf_path = expanduser(GC.gemf_path.strip())
-        makedirs(GC.gemf_out_dir)
+        makedirs(GC.gemf_out_dir, exist_ok=True)
         f = open(GC.gemf_out_dir + "/para.txt",'w')
         f.write("[NODAL_TRAN_MATRIX]\n0\t" + str(GC.sis_beta_seed) + "\n" + str(GC.sis_delta) + "\t0\n\n") # SIS-specific
         f.write("[EDGED_TRAN_MATRIX]\n0\t" + str(GC.sis_beta_by_i) + "\n0\t0\n\n")  # SIS-specific

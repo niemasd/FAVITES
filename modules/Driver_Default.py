@@ -57,7 +57,7 @@ class Driver_Default(Driver):
         orig_dir = getcwd()
         LOG.write("Attempting to create the user-specified output directory: %r..." % environ['out_dir_print'])
         try:
-            makedirs(GC.out_dir)
+            makedirs(GC.out_dir, exist_ok=True)
             pass
         except:
             if 'FAVITES_DOCKER' not in environ: # bypass error (Docker makes the folder automatically)
@@ -68,11 +68,11 @@ class Driver_Default(Driver):
         if GC.VERBOSE:
             print('[%s] Output directory: %s' % (datetime.now(), environ['out_dir_print']), file=stderr)
         chdir(GC.out_dir)
-        makedirs("error_free_files")
-        makedirs("error_free_files/phylogenetic_trees")
-        makedirs("error_free_files/sequence_data")
-        makedirs("error_prone_files")
-        makedirs("error_prone_files/sequence_data")
+        makedirs("error_free_files", exist_ok=True)
+        makedirs("error_free_files/phylogenetic_trees", exist_ok=True)
+        makedirs("error_free_files/sequence_data", exist_ok=True)
+        makedirs("error_prone_files", exist_ok=True)
+        makedirs("error_prone_files/sequence_data", exist_ok=True)
         LOG.writeln(" done")
 
         # create ContactNetwork object from input contact network edge list

@@ -64,7 +64,7 @@ class TransmissionTimeSample_HIVARTGranichGEMF(TransmissionTimeSample):
         # write GEMF parameter file
         orig_dir = getcwd()
         GC.gemf_path = expanduser(GC.gemf_path.strip())
-        makedirs(GC.gemf_out_dir)
+        makedirs(GC.gemf_out_dir, exist_ok=True)
         f = open(GC.gemf_out_dir + "/para.txt",'w')
         f.write("[NODAL_TRAN_MATRIX]\n0\t" + str(GC.hiv_ns_to_s) + "\t0\t0\t0\t0\t0\t0\t0\t0\t" + str(GC.hiv_ns_to_d) + "\n0\t0\t" + str(GC.hiv_s_to_i1_seed) + "\t0\t0\t0\t0\t0\t0\t0\t" + str(GC.hiv_s_to_d) + "\n0\t0\t0\t" + str(GC.hiv_i1_to_i2) + "\t0\t0\t" + str(GC.hiv_i1_to_a1) + "\t0\t0\t0\t" + str(GC.hiv_i1_to_d) + "\n0\t0\t0\t0\t" + str(GC.hiv_i2_to_i3) + "\t0\t0\t" + str(GC.hiv_i2_to_a2) + "\t0\t0\t" + str(GC.hiv_i2_to_d) + "\n0\t0\t0\t0\t0\t" + str(GC.hiv_i3_to_i4) + "\t0\t0\t" + str(GC.hiv_i3_to_a3) + "\t0\t" + str(GC.hiv_i3_to_d) + "\n0\t0\t0\t0\t0\t0\t0\t0\t0\t" + str(GC.hiv_i4_to_a4) + "\t" + str(GC.hiv_i4_to_d) + "\n0\t0\t" + str(GC.hiv_a1_to_i1) + "\t0\t0\t0\t0\t" + str(GC.hiv_a1_to_a2) + "\t0\t0\t" + str(GC.hiv_a1_to_d) + "\n0\t0\t0\t" + str(GC.hiv_a2_to_i2) + "\t0\t0\t0\t0\t" + str(GC.hiv_a2_to_a3) + "\t0\t" + str(GC.hiv_a2_to_d) + "\n0\t0\t0\t0\t" + str(GC.hiv_a3_to_i3) + "\t0\t0\t0\t0\t" + str(GC.hiv_a3_to_a4) + "\t" + str(GC.hiv_a3_to_d) + "\n0\t0\t0\t0\t0\t" + str(GC.hiv_a4_to_i4) + "\t0\t0\t0\t0\t" + str(GC.hiv_a4_to_d) + "\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n\n") # HIV-ART-specific
         f.write("[EDGED_TRAN_MATRIX]\n")

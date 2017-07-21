@@ -81,7 +81,7 @@ class SequenceEvolution_Pyvolve(SequenceEvolution):
         pass
 
     def finalize():
-        makedirs("pyvolve_output")
+        makedirs("pyvolve_output", exist_ok=True)
         label_to_node = MF.modules['TreeNode'].label_to_node()
         for root,treestr in GC.pruned_newick_trees:
             label = root.get_label()
