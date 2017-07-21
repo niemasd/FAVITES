@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 import argparse
-from os import geteuid,makedirs
+from os import geteuid,getegid,makedirs
 from os.path import abspath,expanduser,isfile
 from subprocess import call
 
