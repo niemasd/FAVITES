@@ -4,6 +4,9 @@ from os import makedirs
 from os.path import abspath,expanduser,isfile
 from subprocess import call
 
+# pull the latest Docker image
+call(['docker','pull','niemasd/favites'])
+
 # parse user args
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument('-c', '--config', required=True, type=str, help="Configuration file")
