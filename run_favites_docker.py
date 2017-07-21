@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 import argparse
-from os import makedirs
+from os import geteuid,makedirs
 from os.path import abspath,expanduser,isfile
 from subprocess import call
 
@@ -24,6 +24,6 @@ makedirs(OUTPUT_DIR)
 COMMAND =  ['docker','run',]                  # Docker command
 COMMAND += ['-v',CONFIG+':/USER_CONFIG.JSON'] # mount config file
 COMMAND += ['-v',OUTPUT_DIR+':/OUTPUT_DIR']   # mount output directory
-COMMAND += ['-u','$(id -u):$(id -g)']         # make output files owned by user instead of root
+COMMAND += ['-u',geteuid(),':',getegid()]     # make output files owned by user instead of root
 COMMAND += ['niemasd/favites']                # Docker image
 call(COMMAND)
