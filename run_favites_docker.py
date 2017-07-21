@@ -21,9 +21,9 @@ assert not isfile(OUTPUT_DIR), "ERROR: Output directory exists"
 makedirs(OUTPUT_DIR)
 
 # call Docker image for user
-COMMAND =  ['docker','run',]                  # Docker command
-COMMAND += ['-v',CONFIG+':/USER_CONFIG.JSON'] # mount config file
-COMMAND += ['-v',OUTPUT_DIR+':/OUTPUT_DIR']   # mount output directory
-COMMAND += ['-u',geteuid(),':',getegid()]     # make output files owned by user instead of root
-COMMAND += ['niemasd/favites']                # Docker image
+COMMAND =  ['docker','run',]                        # Docker command
+COMMAND += ['-v',CONFIG+':/USER_CONFIG.JSON']       # mount config file
+COMMAND += ['-v',OUTPUT_DIR+':/OUTPUT_DIR']         # mount output directory
+COMMAND += ['-u',str(geteuid())+':'+str(getegid())] # make output files owned by user instead of root
+COMMAND += ['niemasd/favites']                      # Docker image
 call(COMMAND)
