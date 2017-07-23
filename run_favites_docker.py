@@ -2,12 +2,13 @@
 import argparse
 from os import geteuid,getegid,makedirs
 from os.path import abspath,expanduser,isfile
+from sys import stderr
 from subprocess import call,DEVNULL,STDOUT
 
 # pull the latest Docker image
-print("Pulling latest Docker image...", end=' ')
+print("Pulling latest Docker image...", end=' ', file=stderr)
 call(['docker','pull','niemasd/favites'], stdout=DEVNULL, stderr=STDOUT)
-print("done")
+print("done", file=stderr)
 
 # parse user args
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
