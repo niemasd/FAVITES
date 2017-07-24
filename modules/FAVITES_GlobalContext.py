@@ -28,6 +28,7 @@ CITATION_NUMPY = 'van der Walt, S., Colber, S.C., and Varoquaux, G. (2011). "The
 CITATION_PANGEA = 'Ratmann, O., Hodcroft, E.B., Pickles, M., Cori, A., Hall, M., Lycett, S., Colijn, C., Dearlove, B., Didelot, X., Frost, S., Hossain, A.S.M.M., Joy, J.B., Kendall, M., Kuhnert, D., Leventhal, G.E., Liang, R., Plazzotta, G., Poon, A.F.Y, Rasmussen, D.A., Stadler, T., Volz, E., Weis, C., Brown, A.J.L., and Fraser, C. (2016). "Phylogenetic Tools for Generalized HIV-1 Epidemics: Findings from the PANGEA-HIV Methods Comparison". Mol. Biol. Evol. 34(1):185-203.'
 CITATION_PHYLOMMAND = 'Ryberg, M. (2016). "Phylommand - a command line software package for phylogenetics [version 1; referees: 2 approved with reservations]". F1000Research 2016, 5:2903 (doi: 10.12688/f1000research.10446.1).'
 CITATION_PYVOLVE = 'Spielman, S.J. and Wilke, C.O. (2015). "Pyvolve: A Flexible Python Module for Simulating Sequences along Phylogenies". PLoS One 10(9):e0139047.'
+CITATION_SEQGEN = 'Rambaut, A. and Grassly, N. C. (1997). "Seq-Gen: An application for the Monte Carlo simulation of DNA sequence evolution along phylogenetic trees". Comput. Appl. Biosci. 13: 235-238.'
 
 def init(reqs):
     '''
