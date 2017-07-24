@@ -6,7 +6,7 @@ Niema Moshiri 2016
 '''
 from Sequencing import Sequencing
 import FAVITES_GlobalContext as GC
-from subprocess import call
+from subprocess import call,STDOUT
 from os.path import expanduser
 from os import getcwd,makedirs,chdir,listdir
 
@@ -27,12 +27,13 @@ class Sequencing_GrinderSanger(Sequencing):
             if filename.split('_')[1][1:] == node.get_name():
                 command = [GC.grinder_path,"-reference_file"]
                 command.append(GC.out_dir + "/error_free_files/sequence_data/" + filename)
+                command += ["-total_reads","1"] # only get 1 read
                 command += ["-read_dist","999999999999"] # set average length absurdly long (it truncates at full length of sequence)
                 command += ["-mutation_dist","linear",'1','2',"-mutation_ratio",'80','20'] # Sanger parameters (see Grinder README)
                 command += ["-fastq_output",'1',"-qual_levels",'30','10'] # for FASTQ output
                 command += ["-base_name",filename[:-6]]
                 try:
-                    call(command, stdout=open("log_" + filename[5:-6] + ".txt", 'w'))
+                    call(command, stdout=open("log_" + filename[5:-6] + ".txt", 'w'), stderr=STDOUT)
                 except FileNotFoundError:
                     chdir(GC.START_DIR)
                     assert False, "grinder executable was not found: %s" % GC.grinder_path
