@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 import argparse
 from os import geteuid,getegid,makedirs
-from os.path import abspath,expanduser,isfile
+from os.path import abspath,expanduser,isdir
 from sys import stderr
 from subprocess import call,DEVNULL,STDOUT
 
@@ -20,7 +20,7 @@ args = parser.parse_args()
 CONFIG = abspath(expanduser(args.config))
 assert isfile(args.config), "ERROR: Cannot open configuration file: %s" % args.config
 OUTPUT_DIR = abspath(expanduser(eval(open(CONFIG).read())['out_dir']))
-assert not isfile(OUTPUT_DIR), "ERROR: Output directory exists"
+assert not isdir(OUTPUT_DIR), "ERROR: Output directory exists"
 makedirs(OUTPUT_DIR)
 
 # call Docker image for user
