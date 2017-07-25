@@ -18,8 +18,10 @@ args = parser.parse_args()
 
 # check user args
 CONFIG = abspath(expanduser(args.config))
-assert isfile(args.config), "ERROR: Cannot open configuration file: %s" % args.config
-OUTPUT_DIR = abspath(expanduser(eval(open(CONFIG).read())['out_dir']))
+assert isfile(CONFIG), "ERROR: Cannot open configuration file: %s" % CONFIG
+CONFIG_DICT = eval(open(CONFIG).read())
+assert 'out_dir' in CONFIG_DICT, "Parameter 'out_dir' is not in the configuration file!"
+OUTPUT_DIR = abspath(CONFIG_DICT['out_dir'])
 assert not isdir(OUTPUT_DIR), "ERROR: Output directory exists"
 makedirs(OUTPUT_DIR)
 

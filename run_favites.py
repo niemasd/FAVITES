@@ -21,6 +21,7 @@ def parseArgs():
     # if running in Docker image, hardcode config and output directory
     if 'FAVITES_DOCKER' in environ:
         config = eval(open('/USER_CONFIG.JSON').read())
+        assert 'out_dir' in config, "Parameter 'out_dir' is not in the configuration file!"
         environ['out_dir_print'] = config['out_dir']
         config['out_dir'] = '/OUTPUT_DIR'
         if 'verbose' not in config: # Add "verbose":True to config for verbosity
@@ -33,6 +34,7 @@ def parseArgs():
         parser.add_argument('-v', '--verbose', action="store_true", help="Print verbose messages to stderr")
         args = parser.parse_args()
         config = eval(args.config.read())
+        assert 'out_dir' in config, "Parameter 'out_dir' is not in the configuration file!"
         environ['out_dir_print'] = config['out_dir']
         assert not isdir(abspath(expanduser(config['out_dir']))), "ERROR: Output directory exists"
         config['verbose'] = args.verbose
