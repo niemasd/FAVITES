@@ -12,7 +12,6 @@ from os.path import expanduser
 from os import chdir,getcwd,makedirs
 from subprocess import check_output,STDOUT
 from sys import stderr
-from sys import modules as sysmodules
 
 SEQGEN_OUTPUT_DIR = "SeqGen_output"
 
@@ -36,7 +35,7 @@ class SequenceEvolution_SeqGen(SequenceEvolution):
         pass
 
     def finalize():
-        # create directory for VirusTreeSimulator output
+        # create directory for Seq-Gen output
         orig_dir = getcwd()
         makedirs(SEQGEN_OUTPUT_DIR, exist_ok=True)
         chdir(SEQGEN_OUTPUT_DIR)
