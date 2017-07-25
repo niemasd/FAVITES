@@ -284,6 +284,10 @@
             "req": ["ecm_type", "ecm_alpha", "ecm_beta", "ecm_omega", "ecm_codon_frequencies_dictionary"]
         },
 
+        "GTRGammaSeqGen": {
+            "req": ["seqgen_path", "seqgen_a_to_c", "seqgen_a_to_g", "seqgen_a_to_t", "seqgen_c_to_g", "seqgen_c_to_t", "seqgen_g_to_t", "seqgen_freq_a", "seqgen_freq_c", "seqgen_freq_g", "seqgen_freq_t", "seqgen_gamma_shape", "seqgen_num_gamma_rate_categories"]
+        },
+
         "MechanisticCodonModelPyvolve": {
             "req": ["mcm_style", "mcm_alpha", "mcm_beta", "mcm_omega", "mcm_kappa", "mcm_codon_frequencies_dictionary", "mcm_mutation_rates_dictionary"]
         },
