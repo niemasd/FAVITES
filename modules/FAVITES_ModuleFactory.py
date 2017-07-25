@@ -7,7 +7,7 @@ Store global FAVITES module-related variables.
 from sys import path
 from importlib import import_module
 
-HIDDEN_MODULES = set(['ContactNetworkEdge','ContactNetworkNode'])
+HIDDEN_MODULES = {'ContactNetworkEdge','ContactNetworkNode'}
 
 def favites_import(name):
     '''
@@ -28,14 +28,14 @@ def read_config(config, verbose):
 
     # import module implementations
     reqs = {}
-    for module in module_implementations:
+    for module in sorted(module_implementations.keys()):
         if module in HIDDEN_MODULES:
             continue
         assert module in config, "Module %r is not in the configuration file!" % module
         assert config[module] in module_implementations[module], "%r is not a valid %r!" % (config[module], module)
         modules[module] = module_implementations[module][config[module]]['class']
         modules[module]() # instantiate to force check of abstract methods
-        for req in module_implementations[module][config[module]]['req']:
+        for req in sorted(module_implementations[module][config[module]]['req']):
             assert req in config, "Parameter %r of %s_%s module is not in the configuration file!" % (req, module, config[module])
             reqs[req] = config[req]
     GC.init(reqs)
