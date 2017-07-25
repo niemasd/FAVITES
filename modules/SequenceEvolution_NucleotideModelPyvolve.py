@@ -7,10 +7,6 @@ Niema Moshiri 2016
 from SequenceEvolution import SequenceEvolution
 from SequenceEvolution_Pyvolve import SequenceEvolution_Pyvolve
 import FAVITES_GlobalContext as GC
-import modules.FAVITES_ModuleFactory as MF
-from datetime import datetime
-from os import makedirs
-from sys import stderr
 
 class SequenceEvolution_NucleotideModelPyvolve(SequenceEvolution):
     def cite():
