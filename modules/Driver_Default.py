@@ -18,7 +18,7 @@ def printMessage(LOG):
     '''
     LOG.writeln("/---------------------------------------------------------------------\\")
     LOG.writeln("| FAVITES - FrAmework for VIral Transmission and Evolution Simulation |")
-    LOG.writeln("|                        Moshiri & Mirarab 2016                       |")
+    LOG.writeln("|                          Niema Moshiri 2017                         |")
     LOG.writeln("\\---------------------------------------------------------------------/\n")
 
 class Driver_Default(Driver):
@@ -254,38 +254,18 @@ class Driver_Default(Driver):
             print('[%s] Wrote phylogenetic trees' % datetime.now(), file=stderr)
 
         # post-validation of sequence data
-        LOG.writeln("Scoring final sequence data...")
-        leaves = {} # dictionary where keys are CN nodes and values are set of tree leaves
-        for cn_node in GC.leaves_at_sample_time:
-            leaves[cn_node] = set()
-            for t in GC.leaves_at_sample_time[cn_node]:
-                for leaf in GC.leaves_at_sample_time[cn_node][t]:
-                    leaves[cn_node].add(leaf)
-        for cn_node in leaves:
-            seqs = [leaf.get_seq() for leaf in leaves[cn_node]]
-            for seq in seqs:
-                assert seq is not None, "Encountered a leaf without a sequence!"
-            score = str(MF.modules['PostValidation'].score_sequences(seqs))
-            LOG.writeln("Sequence data from individual %r had a final score of: %s" % (cn_node.get_name(),score))
-            if GC.VERBOSE:
-                print('[%s] Sequence data from Node %s score: %s' % (datetime.now(),str(cn_node),score), file=stderr)
-
-        # write sequence data as FASTA files
-        LOG.write("Writing true sequence data to files...")
-        for cn_node in sorted(leaves.keys()):
-            times = {}
-            for leaf in leaves[cn_node]:
-                t = leaf.get_time()
-                if t not in times:
-                    times[t] = {leaf}
-                else:
-                    times[t].add(leaf)
-            for t in times:
-                f = open('error_free_files/sequence_data/seqs_n%s_t%f.fasta' % (cn_node.get_name(),t), 'w')
-                for leaf in times[t]:
-                    f.write('>%s\n%s\n' % (str(leaf),leaf.get_seq()))
+        LOG.writeln("Scoring final sequence data and writing to file...")
+        for cn_node in GC.final_sequences:
+            cn_node_name = cn_node.get_name()
+            for t in GC.final_sequences[cn_node]:
+                f = open('error_free_files/sequence_data/seqs_n%s_t%f.fasta' % (cn_node_name,t), 'w')
+                seqs = set()
+                for l,s in GC.final_sequences[cn_node][t]:
+                    f.write(">%s\n%s\n" % (l,s))
+                    seqs.add(s)
                 f.close()
-        LOG.writeln(" done")
+                score = str(MF.modules['PostValidation'].score_sequences(seqs))
+                print("Sequence data from individual %r at time %f had a final score of: %s" % (cn_node_name,t,score))
         LOG.writeln("True sequence data were written to: %s/error_free_files/sequence_data/" % environ['out_dir_print'])
         LOG.writeln()
         if GC.VERBOSE:

@@ -43,6 +43,7 @@ class SequenceEvolution_SeqGen(SequenceEvolution):
         # perform sequence evolution
         label_to_node = MF.modules['TreeNode'].label_to_node()
         for root,treestr in GC.pruned_newick_trees:
+            # run Seq-Gen
             label = root.get_label()
             rootseq = root.get_seq()
             if GC.VERBOSE:
@@ -53,26 +54,19 @@ class SequenceEvolution_SeqGen(SequenceEvolution):
             f.close()
             command = [GC.seqgen_path,'-or','-k1'] + GC.seqgen_args.split()
             seqgen_out = check_output(command, stdin=open(label+'.txt'), stderr=open('log_'+label+'.txt','w')).decode('ascii')
-            seqs = {}
+
+            # store leaf sequences in GlobalContext
+            if not hasattr(GC,'final_sequences'): # GC.final_sequences[cn_node][t] = set of (label,seq) tuples
+                GC.final_sequences = {}
             for line in seqgen_out.splitlines()[1:]:
                 l,s = line.strip().split(' ')
-                seqs[l.strip()] = s.strip()
-            FIX_GC = False
-            if not hasattr(GC,'leaves_at_sample_time'):
-                FIX_GC = True
-                GC.leaves_at_sample_time = {} # see GlobalContext for what this is
-            leaves = set()
-            for label in seqs:
+                label = l.strip()
                 leaf = MF.modules['TreeNode'].str_to_node(label)
-                leaf.set_seq(seqs[label])
-                leaves.add(leaf)
-                if FIX_GC:
-                    cn_node = leaf.get_contact_network_node()
-                    t = leaf.get_time()
-                    if cn_node not in GC.leaves_at_sample_time:
-                        GC.leaves_at_sample_time[cn_node] = {}
-                    if t not in GC.leaves_at_sample_time[cn_node]:
-                        GC.leaves_at_sample_time[cn_node][t] = set()
-                    GC.leaves_at_sample_time[cn_node][t].add(leaf)
-            root.set_leaves(leaves)
+                cn_node = leaf.get_contact_network_node()
+                t = leaf.get_time()
+                if cn_node not in GC.final_sequences:
+                    GC.final_sequences[cn_node] = {}
+                if t not in GC.final_sequences[cn_node]:
+                    GC.final_sequences[cn_node][t] = set()
+                GC.final_sequences[cn_node][t].add((label,s.strip()))
         chdir(orig_dir)

@@ -84,6 +84,7 @@ class SequenceEvolution_Pyvolve(SequenceEvolution):
         makedirs("pyvolve_output", exist_ok=True)
         label_to_node = MF.modules['TreeNode'].label_to_node()
         for root,treestr in GC.pruned_newick_trees:
+            # run Pyvolve
             label = root.get_label()
             rootseq = root.get_seq()
             if GC.VERBOSE:
@@ -105,21 +106,16 @@ class SequenceEvolution_Pyvolve(SequenceEvolution):
             seqfile  = "pyvolve_output/" + label + "_seqfile.fasta"
             evolver(ratefile=ratefile, infofile=infofile, seqfile=seqfile)
             seqs = evolver.get_sequences() # use anc=True to get internal sequences as well
-            FIX_GC = False
-            if not hasattr(GC,'leaves_at_sample_time'):
-                FIX_GC = True
-                GC.leaves_at_sample_time = {} # see GlobalContext for what this is
-            leaves = set()
+
+            # store leaf sequences in GlobalContext
+            if not hasattr(GC,'final_sequences'): # GC.final_sequences[cn_node][t] = set of (label,seq) tuples
+                GC.final_sequences = {}
             for label in seqs:
                 leaf = MF.modules['TreeNode'].str_to_node(label)
-                leaf.set_seq(seqs[label])
-                leaves.add(leaf)
-                if FIX_GC:
-                    cn_node = leaf.get_contact_network_node()
-                    t = leaf.get_time()
-                    if cn_node not in GC.leaves_at_sample_time:
-                        GC.leaves_at_sample_time[cn_node] = {}
-                    if t not in GC.leaves_at_sample_time[cn_node]:
-                        GC.leaves_at_sample_time[cn_node][t] = set()
-                    GC.leaves_at_sample_time[cn_node][t].add(leaf)
-            root.set_leaves(leaves)
+                cn_node = leaf.get_contact_network_node()
+                t = leaf.get_time()
+                if cn_node not in GC.final_sequences:
+                    GC.final_sequences[cn_node] = {}
+                if t not in GC.final_sequences[cn_node]:
+                    GC.final_sequences[cn_node][t] = set()
+                GC.final_sequences[cn_node][t].add((label,seqs[label]))
