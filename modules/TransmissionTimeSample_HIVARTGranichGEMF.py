@@ -51,7 +51,7 @@ class TransmissionTimeSample_HIVARTGranichGEMF(TransmissionTimeSample):
         assert "TransmissionNodeSample_GEMF" in str(MF.modules['TransmissionNodeSample']), "Must use TransmissionNodeSample_GEMF module"
         assert "EndCriteria_GEMF" in str(MF.modules['EndCriteria']), "Must use EndCriteria_GEMF module"
         for p in dir(GC):
-            if p.startswith('hiv_to_'):
+            if p.startswith('hiv_') and '_to_' in p:
                 setattr(GC, p, float(getattr(GC,p)))
                 assert getattr(GC,p) >= 0, "%s must be at least 0" % p
         GC.end_time = float(GC.end_time)
