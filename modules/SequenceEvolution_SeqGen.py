@@ -53,7 +53,12 @@ class SequenceEvolution_SeqGen(SequenceEvolution):
             f.write("1 %d\n%s %s\n1\n%s" % (len(rootseq),label,rootseq,treestr))
             f.close()
             command = [GC.seqgen_path,'-or','-k1'] + GC.seqgen_args.split()
-            seqgen_out = check_output(command, stdin=open(label+'.txt'), stderr=open('log_'+label+'.txt','w')).decode('ascii')
+            try:
+                seqgen_out = check_output(command, stdin=open(label+'.txt'), stderr=open('log_'+label+'.txt','w')).decode('ascii')
+            except:
+                from os import chdir
+                chdir(GC.START_DIR)
+                assert False, "seqgen executable was not found: %s" % GC.seqgen_path
 
             # store leaf sequences in GlobalContext
             if not hasattr(GC,'final_sequences'): # GC.final_sequences[cn_node][t] = set of (label,seq) tuples
