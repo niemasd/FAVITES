@@ -296,7 +296,13 @@ class Driver_Default(Driver):
         if GC.VERBOSE:
             print('[%s] Outputting list of citations' % datetime.now(), file=stderr)
         LOG.writeln("\n============================   Citations   ============================")
-        citations = {MF.modules[module].cite().strip() for module in MF.modules if MF.modules[module].cite() is not None and len(MF.modules[module].cite().strip()) != 0}
+        citations = []
+        for module in modules:
+            cite = MF.modules[module].cite()
+            if isinstance(cite,str):
+                citations.append(cite.strip())
+            elif isinstance(cite,set) or isinstance(cite,list):
+                citations += [c.strip() for c in cite]
         for citation in sorted(citations):
             LOG.writeln(citation)
         LOG.close()
