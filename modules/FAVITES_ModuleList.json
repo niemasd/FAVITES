@@ -278,6 +278,10 @@
             "req": ["hmmemit_path", "viral_sequence_type"]
         },
 
+        "VirusBirthDeathGTRCodon": {
+            "req": ["hmmemit_path", "seqgen_path", "viral_sequence_type", "seed_birth_rate", "seed_death_rate", "seqgen_a_to_c", "seqgen_a_to_g", "seqgen_a_to_t", "seqgen_c_to_g", "seqgen_c_to_t", "seqgen_g_to_t", "seqgen_freq_a", "seqgen_freq_c", "seqgen_freq_g", "seqgen_freq_t", "seqgen_codon_site1_rate", "seqgen_codon_site2_rate", "seqgen_codon_site3_rate"]
+        },
+
         "VirusBirthDeathGTRGamma": {
             "req": ["hmmemit_path", "seqgen_path", "viral_sequence_type", "seed_birth_rate", "seed_death_rate", "seqgen_a_to_c", "seqgen_a_to_g", "seqgen_a_to_t", "seqgen_c_to_g", "seqgen_c_to_t", "seqgen_g_to_t", "seqgen_freq_a", "seqgen_freq_c", "seqgen_freq_g", "seqgen_freq_t", "seqgen_gamma_shape", "seqgen_num_gamma_rate_categories"]
         }
