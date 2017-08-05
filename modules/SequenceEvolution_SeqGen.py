@@ -56,7 +56,6 @@ class SequenceEvolution_SeqGen(SequenceEvolution):
             try:
                 seqgen_out = check_output(command, stdin=open(label+'.txt'), stderr=open('log_'+label+'.txt','w')).decode('ascii')
             except:
-                from os import chdir
                 chdir(GC.START_DIR)
                 assert False, "seqgen executable was not found: %s" % GC.seqgen_path
 
