@@ -17,6 +17,9 @@ from urllib.request import urlretrieve
 
 HMM_FOLDER = "virus_profile_HMM"
 URL = {
+    # HIV-1 Subtype B (San Diego) (Little et al 2014)
+    'HIV1-B-DNA-POL-LITTLE': 'https://raw.githubusercontent.com/niemasd/Virus-Data/master/HIV/profile_HMMs/DNA/HIV1_B_Little_pol_DNA.hmm',
+
     # HIV-1 All Subtypes (Los Alamos)
     'HIV1-DNA-ENV':    'https://raw.githubusercontent.com/niemasd/Virus-Data/master/HIV/profile_HMMs/DNA/HIV1_FLT_2016_env_DNA.hmm',
     'HIV1-DNA-GAG':    'https://raw.githubusercontent.com/niemasd/Virus-Data/master/HIV/profile_HMMs/DNA/HIV1_FLT_2016_gag_DNA.hmm',
