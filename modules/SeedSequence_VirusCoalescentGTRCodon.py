@@ -30,7 +30,6 @@ class SeedSequence_VirusCoalescentGTRCodon(SeedSequence):
 
     def generate():
         if not hasattr(GC, "seed_sequences"):
-            assert GC.seed_population >= len(GC.seed_nodes), "seed_population must be at least the number of seeds"
             rootseq = SeedSequence_Virus.generate()
             treestr = treesim.pure_kingman_tree(TaxonNamespace([str(i) for i in range(GC.contact_network.num_nodes())]), pop_size=GC.seed_population).as_string(schema='newick')
             makedirs(OUT_FOLDER, exist_ok=True)
