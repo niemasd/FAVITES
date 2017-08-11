@@ -4,8 +4,8 @@ Niema Moshiri 2016
 
 "SeedSequence" module, which samples a single viral sequence using a profile HMM
 generated from a multiple sequence alignment from some public dataset, then
-simulates a birth-death tree with "num_seeds" leaves, and then evolves the
-sequence down this tree under the GTR+Gamma model to get seed sequences for each
+simulates a coalescent tree with "num_seeds" leaves, and then evolves the
+sequence down this tree under a GTR codon model to get seed sequences for each
 seed.
 '''
 from SeedSequence import SeedSequence
@@ -15,26 +15,24 @@ import FAVITES_GlobalContext as GC
 from subprocess import check_output
 from os.path import expanduser
 from os import makedirs
+from dendropy import TaxonNamespace
 from dendropy.simulate import treesim
 
 OUT_FOLDER = "seed_sequences"
-class SeedSequence_VirusBirthDeathGTRGamma(SeedSequence):
+class SeedSequence_VirusCoalescentGTRGamma(SeedSequence):
     def cite():
         return [GC.CITATION_HMMER, GC.CITATION_DENDROPY, GC.CITATION_SEQGEN]
 
     def init():
         SeedSequence_Virus.init()
         SequenceEvolution_GTRGammaSeqGen.init()
-        GC.seed_birth_rate = float(GC.seed_birth_rate)
-        assert GC.seed_birth_rate > 0, "seed_birth_rate must be positive"
-        GC.seed_death_rate = float(GC.seed_death_rate)
-        assert GC.seed_death_rate >= 0, "seed_death_rate must be at least 0"
+        GC.seed_population = int(GC.seed_population)
 
     def generate():
         if not hasattr(GC, "seed_sequences"):
+            assert GC.seed_population >= len(GC.seed_nodes), "seed_population must be at least the number of seeds"
             rootseq = SeedSequence_Virus.generate()
-            treestr = treesim.birth_death_tree(birth_rate=GC.seed_birth_rate, death_rate=GC.seed_death_rate, ntax=GC.contact_network.num_nodes()).as_string(schema='newick')
-            treestr = treestr.split(']')[1].strip()
+            treestr = treesim.pure_kingman_tree(TaxonNamespace([str(i) for i in range(GC.contact_network.num_nodes())]), pop_size=GC.seed_population).as_string(schema='newick')
             makedirs(OUT_FOLDER, exist_ok=True)
             seqgen_file = OUT_FOLDER + '/seed.txt'
             f = open(seqgen_file, 'w')
@@ -42,7 +40,7 @@ class SeedSequence_VirusBirthDeathGTRGamma(SeedSequence):
             f.close()
             command = [GC.seqgen_path,'-or','-k1'] + GC.seqgen_args.split()
             try:
-                seqgen_out = check_output(command, stdin=open(seqgen_file), stderr=open('log_seqgen.txt','w')).decode('ascii')
+                seqgen_out = check_output(command, stdin=open(seqgen_file), stderr=open(OUT_FOLDER + '/log_seqgen.txt','w')).decode('ascii')
             except:
                 from os import chdir
                 chdir(GC.START_DIR)

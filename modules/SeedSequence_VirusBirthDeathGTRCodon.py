@@ -15,7 +15,6 @@ import FAVITES_GlobalContext as GC
 from subprocess import check_output
 from os.path import expanduser
 from os import makedirs
-import dendropy
 from dendropy.simulate import treesim
 
 OUT_FOLDER = "seed_sequences"
@@ -33,9 +32,8 @@ class SeedSequence_VirusBirthDeathGTRCodon(SeedSequence):
 
     def generate():
         if not hasattr(GC, "seed_sequences"):
-            num_seeds = len(GC.seed_nodes)
             rootseq = SeedSequence_Virus.generate()
-            treestr = treesim.birth_death_tree(birth_rate=GC.seed_birth_rate, death_rate=GC.seed_death_rate, ntax=num_seeds).as_string(schema='newick')
+            treestr = treesim.birth_death_tree(birth_rate=GC.seed_birth_rate, death_rate=GC.seed_death_rate, ntax=GC.contact_network.num_nodes()).as_string(schema='newick')
             treestr = treestr.split(']')[1].strip()
             makedirs(OUT_FOLDER, exist_ok=True)
             seqgen_file = OUT_FOLDER + '/seed.txt'
@@ -50,8 +48,4 @@ class SeedSequence_VirusBirthDeathGTRCodon(SeedSequence):
                 chdir(GC.START_DIR)
                 assert False, "seqgen executable was not found: %s" % GC.seqgen_path
             GC.seed_sequences = {line.split()[-1].strip() for line in seqgen_out.splitlines()[1:]}
-            letters = set()
-            for seq in GC.seed_sequences:
-                for c in seq:
-                    letters.add(c)
         return GC.seed_sequences.pop()
