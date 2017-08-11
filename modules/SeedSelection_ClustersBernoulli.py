@@ -27,6 +27,7 @@ class SeedSelection_ClustersBernoulli(SeedSelection):
         assert GC.seed_p > 0 and GC.seed_p <= 1, "The seed probability of success must be in the range 0 < p <= 1"
 
     def select_seeds():
+        assert GC.seed_m <= GC.contact_network.num_nodes(), "Number of seeds must be less than or equal to the number of contact network nodes"
         edges = [edge for edge in GC.contact_network.edges_iter()]
         initial_seeds = set()
         while len(initial_seeds) < GC.seed_k:
