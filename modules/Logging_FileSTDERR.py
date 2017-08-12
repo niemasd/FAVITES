@@ -5,6 +5,7 @@ Niema Moshiri 2016
 "Logging" module, where log messages are written to file and standard error.
 '''
 from Logging import Logging # abstract Logging class
+from Logging_File import Logging_File
 import FAVITES_GlobalContext as GC
 from os.path import expanduser
 from sys import stderr as t
@@ -14,27 +15,23 @@ class Logging_FileSTDERR(Logging):
         return GC.CITATION_FAVITES
 
     def init():
-        global s
-        s = open(expanduser(GC.log_file),'w')
+        Logging_File.init()
 
     def flush():
-        s.flush()
+        Logging_File.flush()
         t.flush()
 
     def close():
-        s.close()
+        Logging_File.close()
         t.flush()
 
     def write(message=''):
-        s.write(message)
-        s.flush()
+        Logging_File.write(message=message)
         t.write(message)
         t.flush()
 
     def writeln(message=''):
-        s.write(message)
-        s.write('\n')
-        s.flush()
+        Logging_File.writeln(message=message)
         t.write(message)
         t.write('\n')
         t.flush()

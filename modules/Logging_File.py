@@ -8,13 +8,15 @@ from Logging import Logging # abstract Logging class
 import FAVITES_GlobalContext as GC
 from os.path import expanduser
 
+LOG_FILE = 'FAVITES.log'
+
 class Logging_File(Logging):
     def cite():
         return GC.CITATION_FAVITES
 
     def init():
         global s
-        s = open(expanduser(GC.log_file),'w')
+        s = open(LOG_FILE,'w')
 
     def flush():
         s.flush()
