@@ -12,6 +12,7 @@ from SeedSequence import SeedSequence
 from SeedSequence_Virus import SeedSequence_Virus
 from SequenceEvolution_GTRGammaSeqGen import SequenceEvolution_GTRGammaSeqGen
 import FAVITES_GlobalContext as GC
+import modules.FAVITES_ModuleFactory as MF
 from subprocess import check_output
 from os.path import expanduser
 from os import makedirs
