@@ -9,18 +9,18 @@ import FAVITES_GlobalContext as GC
 from os.path import expanduser
 
 LOG_FILE = 'FAVITES.log'
-s = None
-
-def set_stream():
-    if s is None:
-        s = open(GC.out_dir + '/' + LOG_FILE,'w')
 
 class Logging_File(Logging):
+    def set_stream():
+        if s is None:
+            s = open(GC.out_dir + '/' + LOG_FILE,'w')
+
     def cite():
         return GC.CITATION_FAVITES
 
     def init():
-        pass
+        global s
+        s = None
 
     def flush():
         set_stream()
