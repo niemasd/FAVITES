@@ -16,7 +16,7 @@ class Logging_File(Logging):
 
     def init():
         global s
-        s = open(LOG_FILE,'w')
+        s = open(GC.out_dir + '/' + LOG_FILE,'w')
 
     def flush():
         s.flush()

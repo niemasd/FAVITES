@@ -109,15 +109,15 @@
 
     "Logging": {
         "File": {
-            "req": []
+            "req": ["out_dir"]
         },
 
         "FileSTDOUT": {
-            "req": []
+            "req": ["out_dir"]
         },
 
         "FileSTDERR": {
-            "req": []
+            "req": ["out_dir"]
         },
 
         "Null": {
