@@ -53,5 +53,10 @@ class TreeUnit(metaclass=abc.ABCMeta):
         ----------
         tree : str
             The tree to be converted (in Newick format)
+
+        Returns
+        -------
+        mutation_tree : str
+            The tree after conversion (in Newick format)
         '''
         pass

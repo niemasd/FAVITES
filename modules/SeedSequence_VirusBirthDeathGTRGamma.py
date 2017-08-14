@@ -35,6 +35,7 @@ class SeedSequence_VirusBirthDeathGTRGamma(SeedSequence):
             rootseq = SeedSequence_Virus.generate()
             treestr = treesim.birth_death_tree(birth_rate=GC.seed_birth_rate, death_rate=GC.seed_death_rate, ntax=GC.contact_network.num_nodes()).as_string(schema='newick')
             treestr = treestr.split(']')[1].strip()
+            treestr = MF.modules['TreeUnit'].time_to_mutation_rate(treestr)
             makedirs(OUT_FOLDER, exist_ok=True)
             seqgen_file = OUT_FOLDER + '/seed.txt'
             f = open(seqgen_file, 'w')
