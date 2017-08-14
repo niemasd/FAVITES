@@ -47,15 +47,9 @@ class Driver_Default(Driver):
         for module in MF.modules:
             MF.modules[module].init()
         LOG = MF.modules['Logging']
-        printMessage(LOG)
 
-        # begin simulation
-        LOG.writeln("\n========================   Simulation Process  ========================")
-        LOG.writeln("Beginning simulation...")
-        if GC.VERBOSE:
-            print('[%s] Starting simulation' % datetime.now(), file=stderr)
+        # set up environment
         orig_dir = getcwd()
-        LOG.write("Attempting to create the user-specified output directory: %r..." % environ['out_dir_print'])
         try:
             makedirs(GC.out_dir, exist_ok=True)
             pass
@@ -65,9 +59,14 @@ class Driver_Default(Driver):
                 if GC.VERBOSE:
                     print('[%s] Output directory exists: %s' % (datetime.now(), environ['out_dir_print']), file=stderr)
                 exit(-1)
-        if GC.VERBOSE:
-            print('[%s] Output directory: %s' % (datetime.now(), environ['out_dir_print']), file=stderr)
         chdir(GC.out_dir)
+
+        # begin simulation
+        printMessage(LOG)
+        LOG.writeln("\n========================   Simulation Process  ========================")
+        LOG.writeln("Beginning simulation...")
+        if GC.VERBOSE:
+            print('[%s] Starting simulation' % datetime.now(), file=stderr)
         makedirs("error_free_files", exist_ok=True)
         makedirs("error_free_files/phylogenetic_trees", exist_ok=True)
         makedirs("error_free_files/sequence_data", exist_ok=True)
