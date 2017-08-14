@@ -10,11 +10,11 @@ from os.path import expanduser
 
 LOG_FILE = 'FAVITES.log'
 
-def set_stream():
-    if s is None:
-        s = open(GC.out_dir + '/' + LOG_FILE,'w')
-
 class Logging_File(Logging):
+    def set_stream():
+        if s is None:
+            s = open(GC.out_dir + '/' + LOG_FILE,'w')
+
     def cite():
         return GC.CITATION_FAVITES
 
@@ -23,20 +23,20 @@ class Logging_File(Logging):
         s = None
 
     def flush():
-        set_stream()
+        Logging_File.set_stream()
         s.flush()
 
     def close():
-        set_stream()
+        Logging_File.set_stream()
         s.close()
 
     def write(message=''):
-        set_stream()
+        Logging_File.set_stream()
         s.write(message)
         s.flush()
 
     def writeln(message=''):
-        set_stream()
+        Logging_File.set_stream()
         s.write(message)
         s.write('\n')
         s.flush()
