@@ -21,7 +21,6 @@ class TreeUnit_LogNormal(TreeUnit):
             chdir(GC.START_DIR)
             assert False, "Error loading NumPy. Install with: pip3 install numpy"
         GC.tree_rate_mean = float(GC.tree_rate_mean)
-        assert GC.tree_rate_mean > 0, "tree_rate_mean must be positive"
         GC.tree_rate_stdev = float(GC.tree_rate_stdev)
         assert GC.tree_rate_stdev > 0, "tree_rate_stdev must be positive"
 
