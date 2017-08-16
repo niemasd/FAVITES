@@ -64,7 +64,6 @@ class Driver_Default(Driver):
         # begin simulation
         printMessage(LOG)
         LOG.writeln("\n========================   Simulation Process  ========================")
-        LOG.writeln("Beginning simulation...")
         if GC.VERBOSE:
             print('[%s] Starting simulation' % datetime.now(), file=stderr)
         makedirs("error_free_files", exist_ok=True)
