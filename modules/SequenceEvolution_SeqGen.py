@@ -58,7 +58,8 @@ class SequenceEvolution_SeqGen(SequenceEvolution):
                 seqgen_out = check_output(command, stdin=open(label+'.txt'), stderr=open('log_'+label+'.txt','w')).decode('ascii')
             except CalledProcessError as e:
                 chdir(GC.START_DIR)
-                assert False, "Seq-Gen error: \n%s" % e.output
+                f = open('error.log','w'); f.write(e.output); f.close()
+                assert False, "Seq-Gen encountered an error"
 
             # store leaf sequences in GlobalContext
             if not hasattr(GC,'final_sequences'): # GC.final_sequences[cn_node][t] = set of (label,seq) tuples

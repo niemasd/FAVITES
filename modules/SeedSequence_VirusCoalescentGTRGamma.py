@@ -45,6 +45,7 @@ class SeedSequence_VirusCoalescentGTRGamma(SeedSequence):
                 seqgen_out = check_output(command, stdin=open(seqgen_file), stderr=open(OUT_FOLDER + '/log_seqgen.txt','w')).decode('ascii')
             except CalledProcessError as e:
                 chdir(GC.START_DIR)
-                assert False, "Seq-Gen error: \n%s" % e.output
+                f = open('error.log','w'); f.write(e.output); f.close()
+                assert False, "Seq-Gen encountered an error"
             GC.seed_sequences = {line.split()[-1].strip() for line in seqgen_out.splitlines()[1:]}
         return GC.seed_sequences.pop()
