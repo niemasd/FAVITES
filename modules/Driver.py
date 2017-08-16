@@ -43,7 +43,7 @@ class Driver(metaclass=abc.ABCMeta):
 
     @staticmethod
     @abc.abstractmethod
-    def run():
+    def run(path, orig_config):
         '''
         Run the simulation. Will probably want to make use of FAVITES_Global
         variables.
@@ -52,5 +52,7 @@ class Driver(metaclass=abc.ABCMeta):
         ----------
         path : str
             Path in which run_favites.py is located
+        orig_config : str
+            The original configuration file (just to recreate in execution)
         '''
         pass

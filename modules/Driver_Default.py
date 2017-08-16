@@ -29,7 +29,7 @@ class Driver_Default(Driver):
         GC.out_dir = abspath(expanduser(GC.out_dir))
         GC.virus_history = {} # key: virus label; value: list of (time,cn_node) tuples representing the time virus was in cn_node
 
-    def run(path):
+    def run(path, ORIG_CONFIG):
         '''
         Simulation driver. Even if you add your own modules, you probably shouldn't
         need to modify this function. The one clear exception would be if your
@@ -60,6 +60,9 @@ class Driver_Default(Driver):
                     print('[%s] Output directory exists: %s' % (datetime.now(), environ['out_dir_print']), file=stderr)
                 exit(-1)
         chdir(GC.out_dir)
+        f = open('CONFIG.json','w')
+        f.write(ORIG_CONFIG)
+        f.close()
 
         # begin simulation
         printMessage(LOG)

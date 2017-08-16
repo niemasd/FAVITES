@@ -17,10 +17,12 @@ def parseArgs():
     implementations, you should modify the corresponding module argument parser
     and "import ____ module" section of this function accordingly.
     '''
+    global ORIG_CONFIG
 
     # if running in Docker image, hardcode config and output directory
     if 'FAVITES_DOCKER' in environ:
-        config = eval(open('/USER_CONFIG.JSON').read())
+        ORIG_CONFIG = open('/USER_CONFIG.JSON').read()
+        config = eval(ORIG_CONFIG)
         assert 'out_dir' in config, "Parameter 'out_dir' is not in the configuration file!"
         environ['out_dir_print'] = config['out_dir']
         config['out_dir'] = '/OUTPUT_DIR'
@@ -33,7 +35,8 @@ def parseArgs():
         parser.add_argument('-c', '--config', required=True, type=argparse.FileType('r'), help="Configuration file")
         parser.add_argument('-v', '--verbose', action="store_true", help="Print verbose messages to stderr")
         args = parser.parse_args()
-        config = eval(args.config.read())
+        ORIG_CONFIG = args.config.read()
+        config = eval(ORIG_CONFIG)
         assert 'out_dir' in config, "Parameter 'out_dir' is not in the configuration file!"
         environ['out_dir_print'] = config['out_dir']
         assert not isdir(abspath(expanduser(config['out_dir']))), "ERROR: Output directory exists"
@@ -51,4 +54,4 @@ if __name__ == "__main__":
     parseArgs()
 
     # run Driver
-    MF.modules['Driver'].run('/'.join(expanduser(abspath(argv[0])).split('/')[:-1]))
+    MF.modules['Driver'].run('/'.join(expanduser(abspath(argv[0])).split('/')[:-1]), ORIG_CONFIG)
