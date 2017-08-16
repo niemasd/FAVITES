@@ -15,7 +15,7 @@ import FAVITES_GlobalContext as GC
 import modules.FAVITES_ModuleFactory as MF
 from subprocess import check_output
 from os.path import expanduser
-from os import makedirs
+from os import chdir,makedirs
 from dendropy import TaxonNamespace
 from dendropy.simulate import treesim
 
@@ -28,6 +28,7 @@ class SeedSequence_VirusCoalescentGTRCodon(SeedSequence):
         SeedSequence_Virus.init()
         SequenceEvolution_GTRCodonSeqGen.init()
         GC.seed_population = int(GC.seed_population)
+        assert "Usage: seq-gen" in check_output(['seq-gen'],stderr=STDOUT).decode(), "seqgen executable was not found: %s" % GC.seqgen_path
 
     def generate():
         if not hasattr(GC, "seed_sequences"):
@@ -42,9 +43,8 @@ class SeedSequence_VirusCoalescentGTRCodon(SeedSequence):
             command = [GC.seqgen_path,'-or','-k1'] + GC.seqgen_args.split()
             try:
                 seqgen_out = check_output(command, stdin=open(seqgen_file), stderr=open(OUT_FOLDER + '/log_seqgen.txt','w')).decode('ascii')
-            except:
-                from os import chdir
+            except CalledProcessError as e:
                 chdir(GC.START_DIR)
-                assert False, "seqgen executable was not found: %s" % GC.seqgen_path
+                assert False, "Seq-Gen error: \n%s" % e.output
             GC.seed_sequences = {line.split()[-1].strip() for line in seqgen_out.splitlines()[1:]}
         return GC.seed_sequences.pop()

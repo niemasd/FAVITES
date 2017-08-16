@@ -10,7 +10,7 @@ import modules.FAVITES_ModuleFactory as MF
 from datetime import datetime
 from os.path import expanduser
 from os import chdir,getcwd,makedirs
-from subprocess import check_output,STDOUT
+from subprocess import CalledProcessError,check_output,STDOUT
 from sys import stderr
 
 SEQGEN_OUTPUT_DIR = "SeqGen_output"
@@ -30,6 +30,7 @@ class SequenceEvolution_SeqGen(SequenceEvolution):
         assert '-p' not in GC.seqgen_args, "Do not use the Seq-Gen -p argument"
         assert '-s' not in GC.seqgen_args, "Do not use the Seq-Gen -s argument"
         assert '-m' in GC.seqgen_args, "Must specify a Seq-Gen model using the -m argument"
+        assert "Usage: seq-gen" in check_output(['seq-gen'],stderr=STDOUT).decode(), "seqgen executable was not found: %s" % GC.seqgen_path
 
     def evolve_to_current_time(node):
         pass
@@ -55,9 +56,9 @@ class SequenceEvolution_SeqGen(SequenceEvolution):
             command = [GC.seqgen_path,'-or','-k1'] + GC.seqgen_args.split()
             try:
                 seqgen_out = check_output(command, stdin=open(label+'.txt'), stderr=open('log_'+label+'.txt','w')).decode('ascii')
-            except:
+            except CalledProcessError as e:
                 chdir(GC.START_DIR)
-                assert False, "seqgen executable was not found: %s" % GC.seqgen_path
+                assert False, "Seq-Gen error: \n%s" % e.output
 
             # store leaf sequences in GlobalContext
             if not hasattr(GC,'final_sequences'): # GC.final_sequences[cn_node][t] = set of (label,seq) tuples
