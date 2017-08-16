@@ -12,7 +12,7 @@ LOG_FILE = 'FAVITES.log'
 
 def set_stream():
     if GC.log_stream is None:
-        GC.log_stream = open(LOG_FILE,'w')
+        GC.log_stream = open(GC.out_dir + '/' + LOG_FILE,'w')
 
 class Logging_File(Logging):
     def cite():

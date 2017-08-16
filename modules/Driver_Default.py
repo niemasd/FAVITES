@@ -8,7 +8,7 @@ from Driver import Driver
 import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
 from datetime import datetime
-from os.path import expanduser
+from os.path import abspath,expanduser
 from os import environ,getcwd,makedirs,chdir
 from sys import stderr
 
@@ -26,7 +26,7 @@ class Driver_Default(Driver):
         return GC.CITATION_FAVITES
 
     def init():
-        GC.out_dir = expanduser(GC.out_dir)
+        GC.out_dir = abspath(expanduser(GC.out_dir))
         GC.virus_history = {} # key: virus label; value: list of (time,cn_node) tuples representing the time virus was in cn_node
 
     def run(path):
