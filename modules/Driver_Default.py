@@ -262,7 +262,7 @@ class Driver_Default(Driver):
                     seqs.add(s)
                 f.close()
                 score = str(MF.modules['PostValidation'].score_sequences(seqs))
-                print("Sequence data from individual %r at time %f had a final score of: %s" % (cn_node_name,t,score))
+                LOG.writeln("Sequence data from individual %r at time %f had a final score of: %s" % (cn_node_name,t,score))
         LOG.writeln("True sequence data were written to: %s/error_free_files/sequence_data/" % environ['out_dir_print'])
         LOG.writeln()
         if GC.VERBOSE:
