@@ -72,7 +72,6 @@ class Driver_Default(Driver):
         makedirs("error_free_files/sequence_data", exist_ok=True)
         makedirs("error_prone_files", exist_ok=True)
         makedirs("error_prone_files/sequence_data", exist_ok=True)
-        LOG.writeln(" done")
 
         # create ContactNetwork object from input contact network edge list
         LOG.write("Loading contact network edge list...")
