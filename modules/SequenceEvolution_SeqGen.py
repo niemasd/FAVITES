@@ -56,6 +56,9 @@ class SequenceEvolution_SeqGen(SequenceEvolution):
             command = [GC.seqgen_path,'-or','-k1'] + GC.seqgen_args.split()
             try:
                 seqgen_out = check_output(command, stdin=open(label+'.txt'), stderr=open('log_'+label+'.txt','w')).decode('ascii')
+                f = open('seqgen_%s.out' % label,'w')
+                f.write(seqgen_out)
+                f.close()
             except CalledProcessError as e:
                 f = open('seqgen.err','w'); f.write(str(e)); f.close()
                 chdir(GC.START_DIR)
