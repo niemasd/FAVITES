@@ -28,6 +28,7 @@ class Driver_Default(Driver):
     def init():
         GC.out_dir = abspath(expanduser(GC.out_dir))
         GC.virus_history = {} # key: virus label; value: list of (time,cn_node) tuples representing the time virus was in cn_node
+        GC.PRUNE_TREES = True # by default, we should prune the final trees
 
     def run(path, ORIG_CONFIG):
         '''
@@ -184,9 +185,10 @@ class Driver_Default(Driver):
             MF.modules['SequenceEvolution'].evolve_to_current_time(node)
 
         # prune sampled trees
-        if GC.VERBOSE:
-            print('[%s] Pruning sampled trees' % datetime.now(), file=stderr)
-        GC.prune_sampled_trees()
+        if GC.PRUNE_TREES:
+            if GC.VERBOSE:
+                print('[%s] Pruning sampled trees' % datetime.now(), file=stderr)
+            GC.prune_sampled_trees()
         pruned_newick_trees_time = [(root,root.newick()) for root in GC.sampled_trees]
 
         # convert trees from unit of time to unit of mutation rate

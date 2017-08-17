@@ -102,3 +102,4 @@ class NodeEvolution_VirusTreeSimulator(NodeEvolution):
                 virus.set_newick(tree)
                 GC.sampled_trees.add(virus)
             chdir(orig_dir)
+            GC.PRUNE_TREES = False
