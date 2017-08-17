@@ -59,7 +59,7 @@ class SequenceEvolution_SeqGen(SequenceEvolution):
             except CalledProcessError as e:
                 f = open('seqgen.err','w'); f.write(str(e)); f.close()
                 chdir(GC.START_DIR)
-                assert False, "Seq-Gen encountered an error"
+                assert False, "Seq-Gen encountered an error while processing: %s" % label
 
             # store leaf sequences in GlobalContext
             if not hasattr(GC,'final_sequences'): # GC.final_sequences[cn_node][t] = set of (label,seq) tuples
