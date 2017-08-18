@@ -33,7 +33,7 @@ class SeedSequence_VirusCoalescentGTRCodon(SeedSequence):
     def generate():
         if not hasattr(GC, "seed_sequences"):
             rootseq = SeedSequence_Virus.generate()
-            treestr = treesim.pure_kingman_tree(TaxonNamespace([str(i) for i in range(GC.contact_network.num_nodes())]), pop_size=GC.seed_population).as_string(schema='newick')
+            treestr = treesim.pure_kingman_tree(TaxonNamespace([str(i) for i in range(len(GC.seed_nodes))]), pop_size=GC.seed_population).as_string(schema='newick')
             treestr = MF.modules['TreeUnit'].time_to_mutation_rate(treestr)
             makedirs(OUT_FOLDER, exist_ok=True)
             seqgen_file = OUT_FOLDER + '/seed.txt'
@@ -48,4 +48,7 @@ class SeedSequence_VirusCoalescentGTRCodon(SeedSequence):
                 chdir(GC.START_DIR)
                 assert False, "Seq-Gen encountered an error"
             GC.seed_sequences = {line.split()[-1].strip() for line in seqgen_out.splitlines()[1:]}
-        return GC.seed_sequences.pop()
+        try:
+            return GC.seed_sequences.pop()
+        except KeyError:
+            assert False, "Late seeds are not supported at this time"
