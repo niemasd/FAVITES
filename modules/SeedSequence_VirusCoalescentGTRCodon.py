@@ -13,7 +13,7 @@ from SeedSequence_Virus import SeedSequence_Virus
 from SequenceEvolution_GTRCodonSeqGen import SequenceEvolution_GTRCodonSeqGen
 import FAVITES_GlobalContext as GC
 import modules.FAVITES_ModuleFactory as MF
-from subprocess import check_output
+from subprocess import check_output,STDOUT
 from os.path import expanduser
 from os import chdir,makedirs
 from dendropy import TaxonNamespace
