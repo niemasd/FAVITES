@@ -47,8 +47,8 @@ class SeedSequence_VirusCoalescentGTRGamma(SeedSequence):
                 f = open('seqgen.err','w'); f.write(str(e)); f.close()
                 chdir(GC.START_DIR)
                 assert False, "Seq-Gen encountered an error"
-            GC.seed_sequences = {line.split()[-1].strip() for line in seqgen_out.splitlines()[1:]}
+            GC.seed_sequences = [line.split()[-1].strip() for line in seqgen_out.splitlines()[1:]]
         try:
             return GC.seed_sequences.pop()
-        except KeyError:
+        except IndexError:
             assert False, "Late seeds are not supported at this time"
