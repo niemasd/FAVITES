@@ -68,14 +68,12 @@ class SequenceEvolution_SeqGen(SequenceEvolution):
             if not hasattr(GC,'final_sequences'): # GC.final_sequences[cn_node][t] = set of (label,seq) tuples
                 GC.final_sequences = {}
             for line in seqgen_out.splitlines()[1:]:
-                l,s = line.strip().split(' ')
-                label = l.strip()
-                leaf = MF.modules['TreeNode'].str_to_node(label)
-                cn_node = leaf.get_contact_network_node()
-                t = leaf.get_time()
-                if cn_node not in GC.final_sequences:
-                    GC.final_sequences[cn_node] = {}
-                if t not in GC.final_sequences[cn_node]:
-                    GC.final_sequences[cn_node][t] = set()
-                GC.final_sequences[cn_node][t].add((label,s.strip()))
+                leaf,seq = line.split(' ')
+                virus_label,cn_label,sample_time = leaf.split('|')
+                sample_time = float(sample_time)
+                if cn_label not in GC.final_sequences:
+                    GC.final_sequences[cn_label] = {}
+                if sample_time not in GC.final_sequences[cn_label]:
+                    GC.final_sequences[cn_label][sample_time] = []
+                GC.final_sequences[cn_label][sample_time].append((virus_label,seq))
         chdir(orig_dir)

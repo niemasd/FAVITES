@@ -257,17 +257,16 @@ class Driver_Default(Driver):
 
         # post-validation of sequence data
         LOG.writeln("Scoring final sequence data and writing to file...")
-        for cn_node in GC.final_sequences:
-            cn_node_name = cn_node.get_name()
-            for t in GC.final_sequences[cn_node]:
-                f = open('error_free_files/sequence_data/seqs_n%s_t%f.fasta' % (cn_node_name,t), 'w')
+        for cn_label in GC.final_sequences:
+            for t in GC.final_sequences[cn_label]:
+                f = open('error_free_files/sequence_data/seqs_n%s_t%f.fasta' % (cn_label,t), 'w')
                 seqs = set()
-                for l,s in GC.final_sequences[cn_node][t]:
+                for l,s in GC.final_sequences[cn_label][t]:
                     f.write(">%s\n%s\n" % (l,s))
                     seqs.add(s)
                 f.close()
                 score = str(MF.modules['PostValidation'].score_sequences(seqs))
-                LOG.writeln("Sequence data from individual %r at time %f had a final score of: %s" % (cn_node_name,t,score))
+                LOG.writeln("Sequence data from individual %r at time %f had a final score of: %s" % (cn_label,t,score))
         LOG.writeln("True sequence data were written to: %s/error_free_files/sequence_data/" % environ['out_dir_print'])
         LOG.writeln()
         if GC.VERBOSE:
