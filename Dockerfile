@@ -4,7 +4,7 @@ MAINTAINER Niema Moshiri <niemamoshiri@gmail.com>
 
 # Set up environment
 RUN apt-get update && apt-get -y upgrade && \
-    apt-get install -y curl git gsl-bin libcurl4-openssl-dev libgsl0-dev libssl-dev wget default-jre
+    apt-get install -y autoconf curl default-jre git gsl-bin libcurl4-openssl-dev libgsl0-dev libssl-dev wget
 
 # Set up R and packages
 RUN echo "deb http://cran.rstudio.com/bin/linux/ubuntu xenial/" >> /etc/apt/sources.list && \
@@ -49,6 +49,10 @@ RUN curl http://eddylab.org/software/hmmer3/3.1b2/hmmer-3.1b2-linux-intel-x86_64
 # Set up Seq-Gen
 RUN git clone https://github.com/rambaut/Seq-Gen.git && \
     cd Seq-Gen/source && make && mv seq-gen /usr/local/bin && cd ../.. && rm -rf Seq-Gen
+
+# Set up Newick Utilities
+RUN curl http://cegg.unige.ch/pub/newick-utils-1.6-Linux-x86_64-disabled-extra.tar.gz | tar xz && \
+    mv newick-utils*/src/nw_* /usr/local/bin && rm -rf newick-utils*
 
 # Set up FAVITES
 RUN git clone https://github.com/niemasd/FAVITES.git

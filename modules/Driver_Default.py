@@ -189,12 +189,12 @@ class Driver_Default(Driver):
             if GC.VERBOSE:
                 print('[%s] Pruning sampled trees' % datetime.now(), file=stderr)
             GC.prune_sampled_trees()
-        pruned_newick_trees_time = [(root,root.newick()) for root in GC.sampled_trees]
+        pruned_newick_trees_time = [e for e in GC.sampled_trees] # (rootvirus,treestr) tuples
 
         # convert trees from unit of time to unit of mutation rate
         if GC.VERBOSE:
             print('[%s] Converting sampled trees from time to mutation rate' % datetime.now(), file=stderr)
-        GC.pruned_newick_trees = [(root,MF.modules['TreeUnit'].time_to_mutation_rate(treestr_time)) for root,treestr_time in pruned_newick_trees_time]
+        GC.pruned_newick_trees = [(e[0],MF.modules['TreeUnit'].time_to_mutation_rate(e[1])) for e in pruned_newick_trees_time]
         LOG.writeln(" done")
 
         # finalize sequence data
@@ -238,7 +238,7 @@ class Driver_Default(Driver):
         LOG.writeln("Scoring final phylogenetic trees...")
         scores = [0 for i in range(len(GC.sampled_trees))]
         for i,e in enumerate(GC.pruned_newick_trees):
-            scores[i] = str(MF.modules['PostValidation'].score_phylogenetic_tree(e[1]))
+            scores[i] = str(MF.modules['PostValidation'].score_phylogenetic_tree(e))
             LOG.writeln("Phylogenetic tree %d had a final score of: %s" % (i,scores[i]))
             if GC.VERBOSE:
                 print('[%s] Phylogenetic tree %d score: %s' % (datetime.now(),i,scores[i]), file=stderr)
