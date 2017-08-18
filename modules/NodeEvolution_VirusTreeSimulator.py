@@ -88,7 +88,11 @@ class NodeEvolution_VirusTreeSimulator(NodeEvolution):
                 f.write('\n'.join(['%s\t%s' % e for e in translate]))
                 f.close()
                 tree = parts[1].split('] = [&R] ')[1].splitlines()[0].strip()
-                tree = check_output([GC.nw_rename_path,'-',translate_file],input=tree.encode('ascii')).decode()
+                tree_file = filename.split('.')[0] + '.tre'
+                f.write(tree_file,'w')
+                f.write(tree)
+                f.close()
+                tree = check_output([GC.nw_rename_path,tree_file,translate_file]).decode()
                 for virus in node.viruses():
                     GC.sampled_trees.add((virus.get_root(),tree))
                     break
