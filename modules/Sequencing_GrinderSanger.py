@@ -30,6 +30,7 @@ class Sequencing_GrinderSanger(Sequencing):
                 command += ["-total_reads","1"] # only get 1 read
                 command += ["-read_dist","999999999999"] # set average length absurdly long (it truncates at full length of sequence)
                 command += ["-mutation_dist","linear",'1','2',"-mutation_ratio",'80','20'] # Sanger parameters (see Grinder README)
+                command += ["-unidirectional",'1'] # only generate reads from forward strand
                 command += ["-fastq_output",'1',"-qual_levels",'30','10'] # for FASTQ output
                 command += ["-base_name",filename[:-6]]
                 try:
