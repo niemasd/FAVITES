@@ -75,5 +75,5 @@ class SequenceEvolution_SeqGen(SequenceEvolution):
                     GC.final_sequences[cn_label] = {}
                 if sample_time not in GC.final_sequences[cn_label]:
                     GC.final_sequences[cn_label][sample_time] = []
-                GC.final_sequences[cn_label][sample_time].append((virus_label,seq))
+                GC.final_sequences[cn_label][sample_time].append((leaf,seq))
         chdir(orig_dir)
