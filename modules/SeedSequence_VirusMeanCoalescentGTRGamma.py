@@ -4,7 +4,7 @@ Niema Moshiri 2016
 
 "SeedSequence" module, which samples a single viral sequence using a profile HMM
 generated from a multiple sequence alignment from some public dataset, then
-simulates a coalescent tree with "num_seeds" leaves, and then evolves the
+simulates a mean coalescent tree with "num_seeds" leaves, and then evolves the
 sequence down this tree under a GTR codon model to get seed sequences for each
 seed.
 '''
@@ -20,20 +20,22 @@ from dendropy import TaxonNamespace
 from dendropy.simulate import treesim
 
 OUT_FOLDER = "seed_sequences"
-class SeedSequence_VirusCoalescentGTRGamma(SeedSequence):
+class SeedSequence_VirusMeanCoalescentGTRGamma(SeedSequence):
     def cite():
         return [GC.CITATION_HMMER, GC.CITATION_DENDROPY, GC.CITATION_SEQGEN]
 
     def init():
         SeedSequence_Virus.init()
         SequenceEvolution_GTRGammaSeqGen.init()
-        GC.seed_population = int(GC.seed_population)
+        GC.seed_tree_height = float(GC.seed_tree_height)
+        assert GC.seed_tree_height > 0, "seed_tree_height must be positive"
         assert "Usage: seq-gen" in check_output(['seq-gen'],stderr=STDOUT).decode(), "seqgen executable was not found: %s" % GC.seqgen_path
 
     def generate():
         if not hasattr(GC, "seed_sequences"):
             rootseq = SeedSequence_Virus.generate()
-            treestr = treesim.pure_kingman_tree(TaxonNamespace([str(i) for i in range(len(GC.seed_nodes))]), pop_size=GC.seed_population).as_string(schema='newick')
+            GC.seed_population = (GC.seed_tree_height*len(GC.seed_nodes))/(2*len(GC.seed_nodes)-2)
+            treestr = treesim.mean_kingman_tree(TaxonNamespace([str(i) for i in range(len(GC.seed_nodes))]), pop_size=GC.seed_population).as_string(schema='newick')
             treestr = MF.modules['TreeUnit'].time_to_mutation_rate(treestr)
             makedirs(OUT_FOLDER, exist_ok=True)
             seqgen_file = OUT_FOLDER + '/seed.txt'
