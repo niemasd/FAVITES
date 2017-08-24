@@ -18,12 +18,12 @@ for line in open(args.trans):
         c = true_node_to_cluster[u]
         true_clusters[c].add(v)
         true_node_to_cluster[v] = c
-cp_clusters = {'-1':set()} # -1 implies no cluster?
+cp_clusters = {'-1':set()} # -1 implies no cluster
 cp_node_to_cluster = {}
 for line in open(args.clusterpicker_list):
     if 'SequenceName' in line:
         continue
-    n,c = line.split(); c = c.strip(); n = n.split('_')[0][1:]
+    n,c = line.split(); c = c.strip(); n = n.split('_')[1][1:]
     cp_node_to_cluster[n] = c
     if c == '-1':
         continue
