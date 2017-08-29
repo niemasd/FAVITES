@@ -31,6 +31,7 @@
     "num_sample_times_per_individual":                 3,
     "num_seeds":                                       2,
     "num_viruses_per_cn_sample":                       3,
+    "nw_rename_path":                                  "nw_rename",
     "out_dir":                                         "~/FAVITES_output",
     "seed_sequence_codon_length":                      300,
     "seqgen_a_to_c":1,
