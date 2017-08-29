@@ -505,7 +505,7 @@ def prune_sampled_trees():
                 stack += children
 
         # finished
-        sampled_trees.add(root_viruses[index])
+        sampled_trees.add((root_viruses[index],root_viruses[index].newick()))
 
 # PANGEA module check
 def pangea_module_check():
