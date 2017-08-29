@@ -110,12 +110,12 @@ class SequenceEvolution_Pyvolve(SequenceEvolution):
             # store leaf sequences in GlobalContext
             if not hasattr(GC,'final_sequences'): # GC.final_sequences[cn_node][t] = set of (label,seq) tuples
                 GC.final_sequences = {}
-            for label in seqs:
-                leaf = MF.modules['TreeNode'].str_to_node(label)
-                cn_node = leaf.get_contact_network_node()
-                t = leaf.get_time()
-                if cn_node not in GC.final_sequences:
-                    GC.final_sequences[cn_node] = {}
-                if t not in GC.final_sequences[cn_node]:
-                    GC.final_sequences[cn_node][t] = set()
-                GC.final_sequences[cn_node][t].add((label,seqs[label]))
+            for leaf in seqs:
+                seq = seqs[leaf]
+                virus_label,cn_label,sample_time = leaf.split('|')
+                sample_time = float(sample_time)
+                if cn_label not in GC.final_sequences:
+                    GC.final_sequences[cn_label] = {}
+                if sample_time not in GC.final_sequences[cn_label]:
+                    GC.final_sequences[cn_label][sample_time] = []
+                GC.final_sequences[cn_label][sample_time].append((leaf,seq))
