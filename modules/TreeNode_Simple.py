@@ -172,7 +172,7 @@ class TreeNode_Simple(TreeNode):
         # if internal node
         else:
             parts = [child.newick() + ':' + str(child.get_edge_length()) for child in self.children]
-            out = '(' + ','.join(parts) + ')' + str(self)
+            out = '(' + ','.join(parts) + ')'# + str(self) # removed internal node labels (breaks Seq-Gen)
             if self.parent == None: # if root, need semicolon (entire tree)
                 out += ':' + str(self.time) + ';'
             return out
