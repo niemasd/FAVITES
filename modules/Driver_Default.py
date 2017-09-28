@@ -222,17 +222,29 @@ class Driver_Default(Driver):
         if GC.VERBOSE:
             print('[%s] Wrote transmission network to file' % datetime.now(), file=stderr)
 
-        # write phylogenetic trees as Newick files
-        LOG.write("Writing true phylogenetic trees to files...")
+        # write phylogenetic trees (time) as Newick files
+        LOG.write("Writing true phylogenetic trees (time) to files...")
+        for i,e in enumerate(pruned_newick_trees_time):
+            f = open('error_free_files/phylogenetic_trees/tree_%d.time.tre' % i,'w')
+            f.write(e[1])
+            f.close()
+        LOG.writeln(" done")
+        LOG.writeln("True phylogenetic trees (time) were written to: %s/error_free_files/phylogenetic_trees/" % environ['out_dir_print'])
+        LOG.writeln()
+        if GC.VERBOSE:
+            print('[%s] Wrote phylogenetic trees (time)' % datetime.now(), file=stderr)
+
+        # write phylogenetic trees (expected number of mutations) as Newick files
+        LOG.write("Writing true phylogenetic trees (expected number of mutations) to files...")
         for i,e in enumerate(GC.pruned_newick_trees):
             f = open('error_free_files/phylogenetic_trees/tree_%d.tre' % i,'w')
             f.write(e[1])
             f.close()
         LOG.writeln(" done")
-        LOG.writeln("True phylogenetic trees were written to: %s/error_free_files/phylogenetic_trees/" % environ['out_dir_print'])
+        LOG.writeln("True phylogenetic trees (expected number of mutations) were written to: %s/error_free_files/phylogenetic_trees/" % environ['out_dir_print'])
         LOG.writeln()
         if GC.VERBOSE:
-            print('[%s] Wrote phylogenetic trees' % datetime.now(), file=stderr)
+            print('[%s] Wrote phylogenetic trees (expected number of mutations)' % datetime.now(), file=stderr)
 
         # introduce real data artifacts
         LOG.writeln("\n=======================   Real Data Artifacts   =======================")
