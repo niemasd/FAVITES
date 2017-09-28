@@ -217,12 +217,6 @@
         }
     },
 
-    "PostValidation": {
-        "Dummy": {
-            "req": []
-        }
-    },
-
     "SeedSelection": {
         "ClustersBernoulli": {
             "req": ["seed_k", "seed_m", "seed_p"]

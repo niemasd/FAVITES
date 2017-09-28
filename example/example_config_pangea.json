@@ -8,7 +8,6 @@
     "NodeEvolution":               "PANGEA",
     "NumBranchSample":             "All",
     "NumTimeSample":               "PANGEA",
-    "PostValidation":              "Dummy",
     "SeedSelection":               "PANGEA",
     "SeedSequence":                "PANGEA",
     "SequenceEvolution":           "PANGEA",

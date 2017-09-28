@@ -207,18 +207,6 @@ class Driver_Default(Driver):
         # output error-free files
         LOG.writeln("\n========================   Simulation Output   ========================")
 
-        # post-validation of transmission network
-        LOG.write("Scoring final transmission network...")
-        for u,v,t in GC.transmissions:
-            assert u is None or isinstance(u, MF.module_abstract_classes['ContactNetworkNode']), "get_transmissions() contains an invalid transmission event"
-            assert isinstance(v, MF.module_abstract_classes['ContactNetworkNode']), "get_transmissions() contains an invalid transmission event"
-            assert isinstance(t, float), "get_transmissions() contains an invalid transmission event"
-        score = str(MF.modules['PostValidation'].score_transmission_network())
-        LOG.writeln(" done")
-        LOG.writeln("Transmission network had a final score of: %s" % score)
-        if GC.VERBOSE:
-            print('[%s] Transmission network score: %s' % (datetime.now(),score), file=stderr)
-
         # write transmission network as edge list
         LOG.write("Writing true transmission network to file...")
         f = open('error_free_files/transmission_network.txt','w')
@@ -234,15 +222,6 @@ class Driver_Default(Driver):
         if GC.VERBOSE:
             print('[%s] Wrote transmission network to file' % datetime.now(), file=stderr)
 
-        # post-validation of phylogenetic trees
-        LOG.writeln("Scoring final phylogenetic trees...")
-        scores = [0 for i in range(len(GC.sampled_trees))]
-        for i,e in enumerate(GC.pruned_newick_trees):
-            scores[i] = str(MF.modules['PostValidation'].score_phylogenetic_tree(e))
-            LOG.writeln("Phylogenetic tree %d had a final score of: %s" % (i,scores[i]))
-            if GC.VERBOSE:
-                print('[%s] Phylogenetic tree %d score: %s' % (datetime.now(),i,scores[i]), file=stderr)
-
         # write phylogenetic trees as Newick files
         LOG.write("Writing true phylogenetic trees to files...")
         for i,e in enumerate(GC.pruned_newick_trees):
@@ -254,23 +233,6 @@ class Driver_Default(Driver):
         LOG.writeln()
         if GC.VERBOSE:
             print('[%s] Wrote phylogenetic trees' % datetime.now(), file=stderr)
-
-        # post-validation of sequence data
-        LOG.writeln("Scoring final sequence data and writing to file...")
-        for cn_label in GC.final_sequences:
-            for t in GC.final_sequences[cn_label]:
-                f = open('error_free_files/sequence_data/seqs_n%s_t%f.fasta' % (cn_label,t), 'w')
-                seqs = set()
-                for l,s in GC.final_sequences[cn_label][t]:
-                    f.write(">%s\n%s\n" % (l,s))
-                    seqs.add(s)
-                f.close()
-                score = str(MF.modules['PostValidation'].score_sequences(seqs))
-                LOG.writeln("Sequence data from individual %r at time %f had a final score of: %s" % (cn_label,t,score))
-        LOG.writeln("True sequence data were written to: %s/error_free_files/sequence_data/" % environ['out_dir_print'])
-        LOG.writeln()
-        if GC.VERBOSE:
-            print('[%s] Wrote true sequence data' % datetime.now(), file=stderr)
 
         # introduce real data artifacts
         LOG.writeln("\n=======================   Real Data Artifacts   =======================")

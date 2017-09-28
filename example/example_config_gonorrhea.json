@@ -8,7 +8,6 @@
     "NodeEvolution":                                   "Yule",
     "NumBranchSample":                                 "All",
     "NumTimeSample":                                   "Fixed",
-    "PostValidation":                                  "Dummy",
     "SeedSelection":                                   "EdgeWeighted",
     "SeedSequence":                                    "RandomCodon",
     "SequenceEvolution":                               "MechanisticCodonModelPyvolve",

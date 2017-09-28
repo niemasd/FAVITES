@@ -8,7 +8,6 @@
     "NodeEvolution":                                   "None",
     "NumBranchSample":                                 "All",
     "NumTimeSample":                                   "Once",
-    "PostValidation":                                  "Dummy",
     "SeedSelection":                                   "EdgeWeighted",
     "SeedSequence":                                    "Random",
     "SequenceEvolution":                               "NoMutation",

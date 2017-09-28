@@ -8,7 +8,6 @@
     "NodeEvolution":                                   "VirusTreeSimulator",
     "NumBranchSample":                                 "Fixed",
     "NumTimeSample":                                   "Fixed",
-    "PostValidation":                                  "Dummy",
     "SeedSelection":                                   "EdgeWeighted",
     "SeedSequence":                                    "RandomCodon",
     "SequenceEvolution":                               "GTRGammaSeqGen",
