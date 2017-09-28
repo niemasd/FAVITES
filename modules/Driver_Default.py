@@ -189,12 +189,12 @@ class Driver_Default(Driver):
             if GC.VERBOSE:
                 print('[%s] Pruning sampled trees' % datetime.now(), file=stderr)
             GC.prune_sampled_trees()
-        pruned_newick_trees_time = [e for e in GC.sampled_trees] # (rootvirus,treestr) tuples
+        GC.pruned_newick_trees_time = [e for e in GC.sampled_trees] # (rootvirus,treestr) tuples
 
         # convert trees from unit of time to unit of mutation rate
         if GC.VERBOSE:
             print('[%s] Converting sampled trees from time to mutation rate' % datetime.now(), file=stderr)
-        GC.pruned_newick_trees = [(e[0],MF.modules['TreeUnit'].time_to_mutation_rate(e[1])) for e in pruned_newick_trees_time]
+        GC.pruned_newick_trees = [(e[0],MF.modules['TreeUnit'].time_to_mutation_rate(e[1])) for e in GC.pruned_newick_trees_time]
         LOG.writeln(" done")
 
         # finalize sequence data
@@ -224,7 +224,7 @@ class Driver_Default(Driver):
 
         # write phylogenetic trees (time) as Newick files
         LOG.write("Writing true phylogenetic trees (time) to files...")
-        for i,e in enumerate(pruned_newick_trees_time):
+        for i,e in enumerate(GC.pruned_newick_trees_time):
             f = open('error_free_files/phylogenetic_trees/tree_%d.time.tre' % i,'w')
             f.write(e[1])
             f.close()
