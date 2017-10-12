@@ -1,0 +1,1 @@
+This directory contains a series of tools that can be used to post-validate the simulation output produced by FAVITES.
