@@ -4,10 +4,11 @@ Niema Moshiri 2017
 
 Align each given sequence against a given profile HMM.
 '''
+from common import readFASTQ
 from os.path import isfile
-from subprocess import check_output
+from subprocess import CalledProcessError,check_output
 import argparse
-INFORMATS = {'FASTA', 'EMBL', 'GENBANK', 'UNIPROT'}
+INFORMATS = {'FASTA', 'FASTQ', 'EMBL', 'GENBANK', 'UNIPROT'}
 OUTFORMATS = {'STOCKHOLM', 'PFAM', 'A2M', 'PSIBLAST'}
 
 # parse user args
@@ -25,5 +26,18 @@ assert len(args.informat) == 0 or args.informat in INFORMATS, "ERROR: Invalid in
 args.outformat = args.outformat.strip().upper()
 assert len(args.outformat) == 0 or args.outformat in OUTFORMATS, "ERROR: Invalid output format: %s (Choices: %s)" % (args.outformat, ', '.join(sorted(OUTFORMATS)))
 
+# if user specified FASTQ, convert to FASTA
+if args.informat == 'FASTQ':
+    from tempfile import NamedTemporaryFile
+    seqs = readFASTQ(open(args.seq))
+    tmp = NamedTemporaryFile(mode='w')
+    tmp.write('\n'.join([">%s\n%s" % (ID,seqs[ID][0]) for ID in seqs]))
+    tmp.flush()
+    args.seq = tmp.name
+    args.informat = 'FASTA'
+
 # perform alignment
-print(check_output([args.hmmalign,'--informat',args.informat,'--outformat',args.outformat,args.HMM,args.seq]).decode())
+try:
+    print(check_output([args.hmmalign,'--informat',args.informat,'--outformat',args.outformat,args.HMM,args.seq]).decode())
+except CalledProcessError as e:
+    print(e.output.decode())
