@@ -24,9 +24,11 @@ assert isfile(args.sim), "ERROR: Invalid file: %s" % args.sim
 ref_int_bl = [float(i) for i in check_output([args.nw_distance, '-mp', '-si', args.ref]).split()]
 ref_pen_bl = [float(i) for i in check_output([args.nw_distance, '-mp', '-sf', args.ref]).split()]
 ref_tot_bl = ref_int_bl + ref_pen_bl
+ref_root2tip = [float(i) for i in check_output([args.nw_distance, '-mr', '-sf', args.ref]).split()]
 sim_int_bl = [float(i) for i in check_output([args.nw_distance, '-mp', '-si', args.sim]).split()]
 sim_pen_bl = [float(i) for i in check_output([args.nw_distance, '-mp', '-sf', args.sim]).split()]
 sim_tot_bl = sim_int_bl + sim_pen_bl
+sim_root2tip = [float(i) for i in check_output([args.nw_distance, '-mr', '-sf', args.sim]).split()]
 
 # perform analyses
 print("Analysis\tReference Tree\tSimulated Tree\tTest Statistic\tp-value")
@@ -39,3 +41,6 @@ print("Kolmogorov-Smirnov Test Internal Branch Length\tNA\tNA\t%g\t%g" % ks_2sam
 print("Average Terminal Branch Length\t%g\t%g\tNA\tNA" % (avg(ref_pen_bl),avg(sim_pen_bl)))
 print("Standard Deviation Terminal Branch Length\t%g\t%g\tNA\tNA" % (std(ref_pen_bl),std(sim_pen_bl)))
 print("Kolmogorov-Smirnov Test Terminal Branch Length\tNA\tNA\t%g\t%g" % ks_2samp(ref_pen_bl,sim_pen_bl))
+print("Average Root-to-Tip Distance\t%g\t%g\tNA\tNA" % (avg(ref_root2tip),avg(sim_root2tip)))
+print("Standard Deviation Root-to-Tip Distance\t%g\t%g\tNA\tNA" % (std(ref_root2tip),std(sim_root2tip)))
+print("Kolmogorov-Smirnov Test Root-to-Tip Distance\tNA\tNA\t%g\t%g" % ks_2samp(ref_root2tip,sim_root2tip))
