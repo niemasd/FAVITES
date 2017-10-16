@@ -21,6 +21,8 @@ class ContactNetworkNode(metaclass=abc.ABCMeta):
         Return the attribute(s) of this ``ContactNetworkNode'' object
     get_contact_network()
         Return the ``ContactNetwork'' object this node is in
+    get_first_infection_time()
+        Returns the first time this node was infected (or None if never)
     get_infections()
         Return a list of infection(s) as (time, virus) tuples
     get_name()
