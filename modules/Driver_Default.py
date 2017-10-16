@@ -8,8 +8,8 @@ from Driver import Driver
 import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
 from datetime import datetime
-from os.path import abspath,expanduser
-from os import environ,getcwd,makedirs,chdir
+from os.path import abspath,expanduser,isdir
+from os import chdir,environ,getcwd,makedirs,rename
 from sys import stderr
 
 def printMessage(LOG):
@@ -118,6 +118,8 @@ class Driver_Default(Driver):
             GC.contact_network.add_transmission(None,node,0.0)
             GC.seed_to_first_virus[node] = virus
         f.close()
+        if isdir('seed_sequences'):
+            rename('seed_sequences.tsv','seed_sequences/seed_sequences.tsv')
         LOG.writeln(" done")
 
         # iterative step of transmissions
