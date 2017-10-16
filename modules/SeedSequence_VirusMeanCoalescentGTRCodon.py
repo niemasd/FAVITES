@@ -45,6 +45,9 @@ class SeedSequence_VirusMeanCoalescentGTRCodon(SeedSequence):
             command = [GC.seqgen_path,'-or','-k1'] + GC.seqgen_args.split()
             try:
                 seqgen_out = check_output(command, stdin=open(seqgen_file), stderr=open(OUT_FOLDER + '/log_seqgen.txt','w')).decode('ascii')
+                f = open(OUT_FOLDER + '/seqgen.out','w')
+                f.write(seqgen_out)
+                f.close()
             except CalledProcessError as e:
                 f = open('seqgen.err','w'); f.write(str(e)); f.close()
                 chdir(GC.START_DIR)

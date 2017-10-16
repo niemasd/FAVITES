@@ -108,13 +108,16 @@ class Driver_Default(Driver):
             print('[%s] Infecting seed nodes' % datetime.now(), file=stderr)
         GC.root_viruses = []
         GC.seed_to_first_virus = {}
+        f = open('seed_sequences.tsv','w')
         for node in GC.seed_nodes:
             seq = MF.modules['SeedSequence'].generate()
             virus = MF.modules['TreeNode'](time=0.0, seq=seq, contact_network_node=node)
+            f.write('%s\t%s\n' % (virus.get_label(),seq))
             GC.root_viruses.append(virus)
             node.infect(0.0,virus)
             GC.contact_network.add_transmission(None,node,0.0)
             GC.seed_to_first_virus[node] = virus
+        f.close()
         LOG.writeln(" done")
 
         # iterative step of transmissions
