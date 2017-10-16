@@ -15,10 +15,9 @@ class TreeNode_Simple(TreeNode):
 
     Attributes
     ----------
-    num_nodes : int
+    GC.num_TreeNodes : int
         The total number of nodes that have ever been created
     '''
-    num_nodes = 0
 
     def cite():
         return GC.CITATION_FAVITES
@@ -35,14 +34,16 @@ class TreeNode_Simple(TreeNode):
         parameters! They are set to "None" so that the abstract method
         implementation check can be done successfully.
         '''
+        if not hasattr(GC,'num_TreeNodes'):
+            GC.num_TreeNodes = 0
         self.seq = seq
         self.parent = None
         self.root = self
         self.children = set()
         self.time = time
         self.contact_network_node = contact_network_node
-        self.num = TreeNode_Simple.num_nodes
-        TreeNode_Simple.num_nodes += 1
+        self.num = GC.num_TreeNodes
+        GC.num_TreeNodes += 1
         if hasattr(GC,"label_to_node"): # for initialization
             GC.label_to_node[self.get_label()] = self
         if hasattr(GC,"virus_history"): # for initialization

@@ -78,23 +78,27 @@ class NodeEvolution_VirusTreeSimulator(NodeEvolution):
 
             # parse VirusTreeSimulator output
             GC.sampled_trees = set()
-            num_tree_nodes = 0
             for filename in glob('*_simple.nex'):
+                cn_node = GC.contact_network.get_node(filename.split('_')[1])
                 parts = open(filename).read().strip().split('Translate')[1].split('tree TREE1')
-                translate = [l.strip().replace(',','').replace("'",'').split() for l in parts[0].splitlines()][1:-1]
-                translate = [(a, 'N'+a+'|'+b.split('_')[1]+'|'+b.split('_')[-1]) for a,b in translate]
+                translate = [l.strip()[:-1].replace("'",'').split() for l in parts[0].splitlines()][1:-1]
+                translate = [(a, MF.modules['TreeNode']().get_label()+'|'+b.split('_')[1]+'|'+b.split('_')[-1]) for a,b in translate]
                 translate_file = filename.split('.')[0] + '.translate'
                 f = open(translate_file,'w')
                 f.write('\n'.join(['%s\t%s' % e for e in translate]))
                 f.close()
                 tree = parts[1].split('] = [&R] ')[1].splitlines()[0].strip()
+                # add root edge length
+                if '(' in tree:
+                    tree = "%s:%f;" % (tree[:-1], GC.first_time_transmitting[cn_node] - cn_node.get_first_infection_time())
+                else:
+                    tree = "(%s):%f;" % (tree[:-1], GC.time - cn_node.get_first_infection_time())
                 tree_file = filename.split('.')[0] + '.tre'
                 f = open(tree_file,'w')
                 f.write(tree)
                 f.close()
                 tree = check_output([GC.nw_rename_path,tree_file,translate_file]).decode()
-                for virus in node.viruses():
-                    GC.sampled_trees.add((virus.get_root(),tree))
-                    break
+                virus = GC.seed_to_first_virus[cn_node]
+                GC.sampled_trees.add((virus.get_root(),tree))
             chdir(orig_dir)
             GC.PRUNE_TREES = False

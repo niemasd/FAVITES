@@ -95,8 +95,11 @@ class ContactNetworkNode_NetworkX(ContactNetworkNode):
     def get_first_infection_time(self):
         return GC.first_times[self.num]
 
-    def get_infections(self):
-        return self.contact_network.contact_network.node[self.num]['infections']
+    def get_infections_from(self):
+        return self.contact_network.contact_network.node[self.num]['infections_from']
+
+    def get_infections_to(self):
+        return self.contact_network.contact_network.node[self.num]['infections_to']
 
     def num_infections(self):
         return len(self.get_infections())
@@ -107,7 +110,9 @@ class ContactNetworkNode_NetworkX(ContactNetworkNode):
         assert time == virus.get_time(), "Virus time and transmission time do not match!"
         if GC.first_times[self.num] is None:
             GC.first_times[self.num] = time
-        self.contact_network.contact_network.node[self.num]['infections'].append((time, virus))
+        self.contact_network.contact_network.node[self.num]['infections_to'].append((time, virus))
+        source = virus.get_contact_network_node()
+        self.contact_network.contact_network.node[source.num]['infections_from'].append((time, self))
         virus.set_contact_network_node(self)
         GC.virus_history[virus.get_label()].append((time,self))
         self.add_virus(virus)

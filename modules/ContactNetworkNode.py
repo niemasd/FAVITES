@@ -23,8 +23,10 @@ class ContactNetworkNode(metaclass=abc.ABCMeta):
         Return the ``ContactNetwork'' object this node is in
     get_first_infection_time()
         Returns the first time this node was infected (or None if never)
-    get_infections()
-        Return a list of infection(s) as (time, virus) tuples
+    get_infections_from()
+        Return a list of infection(s) (this_node,v) as (time, v) tuples
+    get_infections_to()
+        Return a list of infection(s) (u,this_node) as (time, virus) tuples
     get_name()
         Return the name of this ``ContactNetworkNode'' object
     infect(time, virus)
@@ -172,9 +174,23 @@ class ContactNetworkNode(metaclass=abc.ABCMeta):
         pass
 
     @abc.abstractmethod
-    def get_infections(self):
+    def get_infections_from(self):
         '''
-        Return the infections of this ``ContactNetworkNode'' object. If
+        Return the infections from this ``ContactNetworkNode'' object. If
+        only one infection, the list will contain a single element.
+
+        Returns
+        -------
+        infections : list of (float, TreeNode) tuples
+            The infections of this ``ContactNetworkNode'' object as
+            (time, virus) tuples
+        '''
+        pass
+
+    @abc.abstractmethod
+    def get_infections_to(self):
+        '''
+        Return the infections to this ``ContactNetworkNode'' object. If
         only one infection, the list will contain a single element.
 
         Returns

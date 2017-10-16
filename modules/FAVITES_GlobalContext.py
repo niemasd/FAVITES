@@ -282,7 +282,7 @@ def tn_favites2gexf(cn,tn):
         nodes.sort(key=lambda x: x.get_name())
     out += '    <nodes>\n'
     for node in nodes:
-        times = [i[0] for i in node.get_infections()]
+        times = [i[0] for i in node.get_infections_to()]
         out += '      <node id="'
         out += node.get_name()
         out += '" label="'

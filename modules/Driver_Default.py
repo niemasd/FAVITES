@@ -124,6 +124,7 @@ class Driver_Default(Driver):
         LOG.write("Performing transmission simulations...")
         if GC.VERBOSE:
             print('[%s] Performing transmission iterations' % datetime.now(), file=stderr)
+        GC.first_time_transmitting = {}
         while True:
             t = MF.modules['TransmissionTimeSample'].sample_time()
             if t is None or MF.modules['EndCriteria'].done():
@@ -154,6 +155,8 @@ class Driver_Default(Driver):
             v.infect(GC.time, virus)
             GC.contact_network.add_to_infected(v)
             GC.contact_network.add_transmission(u,v,GC.time)
+            if u not in GC.first_time_transmitting:
+                GC.first_time_transmitting[u] = GC.time
         GC.transmissions = GC.contact_network.get_transmissions()
         assert isinstance(GC.transmissions, list), "get_transmissions() did not return a list!"
         LOG.writeln(" done")

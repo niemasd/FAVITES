@@ -42,8 +42,12 @@ class SequenceEvolution_SeqGen(SequenceEvolution):
         chdir(SEQGEN_OUTPUT_DIR)
 
         # perform sequence evolution
-        label_to_node = MF.modules['TreeNode'].label_to_node()
         for root,treestr in GC.pruned_newick_trees:
+            treestr = treestr.strip()
+            # if one-node tree, add DUMMY 0-length leaf
+            if ',' not in treestr:
+                treestr = "(DUMMY:0,%s);" % treestr.replace('(','').replace(')','')[:-1]
+
             # run Seq-Gen
             label = root.get_label()
             rootseq = root.get_seq()
@@ -67,14 +71,15 @@ class SequenceEvolution_SeqGen(SequenceEvolution):
             if error:
                 chdir(GC.START_DIR)
                 assert False, "Seq-Gen encountered an error while processing: %s" % label
-            else:
-                f = open('seqgen_%s.out' % label,'w'); f.write(seqgen_out); f.close()
+            f = open('seqgen_%s.out' % label,'w'); f.write(seqgen_out); f.close()
 
             # store leaf sequences in GlobalContext
             if not hasattr(GC,'final_sequences'): # GC.final_sequences[cn_node][t] = set of (label,seq) tuples
                 GC.final_sequences = {}
             for line in seqgen_out.splitlines()[1:]:
                 leaf,seq = line.split(' ')
+                if leaf == 'DUMMY':
+                    continue
                 virus_label,cn_label,sample_time = leaf.split('|')
                 sample_time = float(sample_time)
                 if cn_label not in GC.final_sequences:
