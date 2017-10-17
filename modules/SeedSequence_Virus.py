@@ -77,3 +77,6 @@ class SeedSequence_Virus(SeedSequence):
             from os import chdir
             chdir(GC.START_DIR)
             assert False, "hmmemit executable was not found: %s" % GC.hmmemit_path
+
+    def merge_trees():
+        return []

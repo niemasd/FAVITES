@@ -18,3 +18,6 @@ class SeedSequence_PANGEA(SeedSequence):
 
     def generate():
         return ''
+
+    def merge_trees():
+        return []

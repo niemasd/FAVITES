@@ -48,3 +48,6 @@ class SeedSequence_HMMBuildEmit(SeedSequence):
             GC.hmmemit_hmmfile = HMMBuildEmit_path + "/" + HMM_filename
             GC.HMMBuildEmit_build = True
         return SeedSequence_HMMEmit.generate()
+
+    def merge_trees():
+        return []

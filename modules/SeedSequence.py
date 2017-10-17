@@ -18,6 +18,8 @@ class SeedSequence(metaclass=abc.ABCMeta):
         Infect ``node'' with an initial seed sequence(s)
     init()
         Initialize the module (if need be)
+    merge_trees()
+        Merge cluster trees with seed tree (if need be)
     '''
 
     @staticmethod
@@ -47,5 +49,18 @@ class SeedSequence(metaclass=abc.ABCMeta):
         '''
         Generate an initial seed sequence(s). Will probably want to use
         FAVITES_Global.seed_sequence_length.
+        '''
+        pass
+
+    @staticmethod
+    @abc.abstractmethod
+    def merge_trees():
+        '''
+        Merge cluster trees with seed tree (if need be)
+
+        Returns
+        -------
+        trees : set of str
+            The merged tree(s) (set to allow for multiple trees)
         '''
         pass

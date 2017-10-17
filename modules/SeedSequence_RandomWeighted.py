@@ -30,3 +30,6 @@ class SeedSequence_RandomWeighted(SeedSequence):
 
     def generate():
         return genString(GC.seed_sequence_length, GC.seed_nuc_probs)
+
+    def merge_trees():
+        return []

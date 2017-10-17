@@ -36,8 +36,11 @@ class SeedSequence_VirusMeanCoalescentGTRGamma(SeedSequence):
             rootseq = SeedSequence_Virus.generate()
             GC.seed_population = (GC.seed_tree_height*len(GC.seed_nodes))/(2*len(GC.seed_nodes)-2)
             treestr = treesim.mean_kingman_tree(TaxonNamespace([str(i) for i in range(len(GC.seed_nodes))]), pop_size=GC.seed_population).as_string(schema='newick')
-            treestr = MF.modules['TreeUnit'].time_to_mutation_rate(treestr)
             makedirs(OUT_FOLDER, exist_ok=True)
+            f = open(OUT_FOLDER + '/time_tree.tre','w')
+            f.write(treestr)
+            f.close()
+            treestr = MF.modules['TreeUnit'].time_to_mutation_rate(treestr)
             seqgen_file = OUT_FOLDER + '/seed.txt'
             f = open(seqgen_file, 'w')
             f.write("1 %d\nROOT %s\n1\n%s" % (len(rootseq),rootseq,treestr))
@@ -57,3 +60,6 @@ class SeedSequence_VirusMeanCoalescentGTRGamma(SeedSequence):
             return GC.seed_sequences.pop()
         except IndexError:
             assert False, "Late seeds are not supported at this time"
+
+    def merge_trees():
+        return GC.merge_trees_seqgen()

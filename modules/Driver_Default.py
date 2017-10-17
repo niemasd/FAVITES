@@ -244,15 +244,32 @@ class Driver_Default(Driver):
 
         # write phylogenetic trees (expected number of mutations) as Newick files
         LOG.write("Writing true phylogenetic trees (expected number of mutations) to files...")
+        GC.final_tree_to_root_seq = []
         for i,e in enumerate(GC.pruned_newick_trees):
             f = open('error_free_files/phylogenetic_trees/tree_%d.tre' % i,'w')
             f.write(e[1])
             f.close()
+            GC.final_tree_to_root_seq.append(e[0].get_seq())
         LOG.writeln(" done")
         LOG.writeln("True phylogenetic trees (expected number of mutations) were written to: %s/error_free_files/phylogenetic_trees/" % environ['out_dir_print'])
         LOG.writeln()
         if GC.VERBOSE:
             print('[%s] Wrote phylogenetic trees (expected number of mutations)' % datetime.now(), file=stderr)
+
+        # merge cluster trees with seed tree (if applicable)
+        LOG.write("Merging true cluster phylogenetic trees with true seed tree (if applicable)...")
+        GC.merged_trees,GC.merged_trees_time = MF.modules['SeedSequence'].merge_trees()
+        for i in range(len(GC.merged_trees)):
+            f = open('error_free_files/phylogenetic_trees/merged_tree_%d.tre' % i,'w')
+            f.write(GC.merged_trees[i])
+            f.close()
+            f = open('error_free_files/phylogenetic_trees/merged_tree_%d.time.tre' % i,'w')
+            f.write(GC.merged_trees_time[i])
+            f.close()
+        LOG.writeln(" done")
+        LOG.writeln()
+        if GC.VERBOSE:
+            print('[%s] Merged cluster trees with seed tree (if applicable)' % datetime.now(), file=stderr)
 
         # introduce real data artifacts
         LOG.writeln("\n=======================   Real Data Artifacts   =======================")

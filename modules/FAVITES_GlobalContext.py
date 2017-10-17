@@ -5,6 +5,7 @@ Niema Moshiri 2016
 Store global variables/functions to be accessible by all FAVITES modules.
 '''
 import modules.FAVITES_ModuleFactory as MF
+from glob import glob
 from random import uniform,sample
 from time import strftime
 from itertools import product
@@ -524,3 +525,37 @@ def pangea_module_check():
     assert "TransmissionNodeSample_PANGEA" in str(MF.modules['TransmissionNodeSample']), "Must use TransmissionNodeSample_PANGEA module"
     assert "TransmissionTimeSample_PANGEA" in str(MF.modules['TransmissionTimeSample']), "Must use TransmissionTimeSample_PANGEA module"
     assert "TreeUnit_Same" in str(MF.modules['TreeUnit']), "Must use TreeUnit_Same module"
+
+# merge seed/cluster trees generated using SeqGen seed sequence modules
+def merge_trees_seqgen():
+    import dendropy
+    seed_tree = dendropy.Tree.get(data=open('seed_sequences/seed.txt').read().strip().splitlines()[-1].strip(), schema='newick')
+    seed_leaves = {}
+    for leaf in seed_tree.leaf_node_iter():
+        seed_leaves[leaf.taxon.label] = leaf
+    seed_tree_time = dendropy.Tree.get(path='seed_sequences/time_tree.tre', schema='newick')
+    seed_leaves_time = {}
+    for leaf in seed_tree_time.leaf_node_iter():
+        seed_leaves_time[leaf.taxon.label] = leaf
+    seed_leaf_to_seq = {}
+    seq_to_seed_leaf = {}
+    for line in open('seed_sequences/seqgen.out').read().strip().splitlines()[1:]:
+        leaf,seq = line.strip().split()
+        if seq not in seq_to_seed_leaf:
+            seq_to_seed_leaf[seq] = {leaf}
+        else:
+            seq_to_seed_leaf[seq].add(leaf)
+        seed_leaf_to_seq[leaf] = seq
+    seed_leaf_to_tree = {}
+    seed_leaf_to_tree_time = {}
+    for treefile in glob('error_free_files/phylogenetic_trees/*.tre'):
+        if '.time.' in treefile:
+            continue
+        treenum = int(treefile.split('/')[-1].split('_')[1].split('.')[0])
+        seed_leaf = seq_to_seed_leaf[final_tree_to_root_seq[treenum]].pop()
+        seed_leaf_to_tree[seed_leaf] = dendropy.Tree.get(path=treefile,schema='newick')
+        seed_leaf_to_tree_time[seed_leaf] = dendropy.Tree.get(path=treefile.replace('.tre','.time.tre'),schema='newick')
+    for leaf in seed_leaves:
+        seed_leaves[leaf].add_child(seed_leaf_to_tree[leaf].seed_node)
+        seed_leaves_time[leaf].add_child(seed_leaf_to_tree_time[leaf].seed_node)
+    return [str(seed_tree) + ';'],[str(seed_tree_time) + ';']

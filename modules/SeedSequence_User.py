@@ -12,7 +12,7 @@ class SeedSequence_User(SeedSequence):
     Implement the ``SeedSequence'' module, where the user specifies the seed
     sequences
     '''
-    
+
     def cite():
         return GC.CITATION_FAVITES
 
@@ -26,3 +26,6 @@ class SeedSequence_User(SeedSequence):
         seq = GC.seed_seqs[num]
         GC.seed_seqs_num += 1
         return seq
+
+    def merge_trees():
+        return []

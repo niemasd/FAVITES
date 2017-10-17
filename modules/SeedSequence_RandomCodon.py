@@ -21,3 +21,6 @@ class SeedSequence_RandomCodon(SeedSequence):
         codons.difference_update({'TGA','TAA','TAG'}) # remove STOP codons
         codons = list(codons)
         return ''.join([choice(codons) for _ in range(GC.seed_sequence_codon_length)])
+
+    def merge_trees():
+        return []

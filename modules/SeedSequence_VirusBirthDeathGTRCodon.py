@@ -36,9 +36,12 @@ class SeedSequence_VirusBirthDeathGTRCodon(SeedSequence):
         if not hasattr(GC, "seed_sequences"):
             rootseq = SeedSequence_Virus.generate()
             treestr = treesim.birth_death_tree(birth_rate=GC.seed_birth_rate, death_rate=GC.seed_death_rate, ntax=len(GC.seed_nodes)).as_string(schema='newick')
+            makedirs(OUT_FOLDER, exist_ok=True)
+            f = open(OUT_FOLDER + '/time_tree.tre','w')
+            f.write(treestr)
+            f.close()
             treestr = treestr.split(']')[1].strip()
             treestr = MF.modules['TreeUnit'].time_to_mutation_rate(treestr)
-            makedirs(OUT_FOLDER, exist_ok=True)
             seqgen_file = OUT_FOLDER + '/seed.txt'
             f = open(seqgen_file, 'w')
             f.write("1 %d\nROOT %s\n1\n%s" % (len(rootseq),rootseq,treestr))
@@ -58,3 +61,6 @@ class SeedSequence_VirusBirthDeathGTRCodon(SeedSequence):
             return GC.seed_sequences.pop()
         except IndexError:
             assert False, "Late seeds are not supported at this time"
+
+    def merge_trees():
+        return GC.merge_trees_seqgen()
