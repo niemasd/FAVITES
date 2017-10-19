@@ -26,19 +26,7 @@ class TreeUnit_Gamma(TreeUnit):
         assert GC.tree_rate_scale > 0, "tree_rate_scale must be positive"
 
     def time_to_mutation_rate(tree):
-        parts = tree.split(':')
-        for i in range(1,len(parts)):
-            try: # branch length is just before a comma
-                ind = parts[i].index(',')
-                parts[i] = "%f%s" % (float(parts[i][:ind])*gamma(shape=GC.tree_rate_shape,scale=GC.tree_rate_scale), parts[i][ind:])
-            except ValueError: # branch length is just before a right parenthesis
-                try:
-                    ind = parts[i].index(')')
-                    parts[i] = "%f%s" % (float(parts[i][:ind])*gamma(shape=GC.tree_rate_shape,scale=GC.tree_rate_scale), parts[i][ind:])
-                except ValueError: # branch length is just before the semicolon (root)
-                    try:
-                        ind = parts[i].index(';')
-                        parts[i] = "%f%s" % (float(parts[i][:ind])*gamma(shape=GC.tree_rate_shape,scale=GC.tree_rate_scale), parts[i][ind:])
-                    except:
-                        assert False, "Failed to parse branch length from tree substring: %s" % parts[i]
-        return ':'.join(parts)
+        t = dendropy.Tree.get(data=tree,schema='newick')
+        for edge in t.preorder_edge_iter():
+            edge.length *= gamma(shape=GC.tree_rate_shape,scale=GC.tree_rate_scale)
+        return str(t) + ';'
