@@ -10,7 +10,7 @@ parser.add_argument('-t', '--trans', required=False, type=argparse.FileType('r')
 args = parser.parse_args()
 for line in args.trans:
     parts = line.strip().split(',')
-    if len(parts) == 0 or parts == PANGEA_HEADER:
+    if len(parts) == 1 or parts == PANGEA_HEADER:
         continue
     u = parts[0]
     if u == '-1':
