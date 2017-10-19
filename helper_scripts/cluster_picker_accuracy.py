@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+'''
+For each possible pair of individuals, compute TP, TN, FP, FN, Precision, and
+Recall.
+- Positive: Individuals are in the same cluster
+- Negative: Individuals are not in the same cluster
+'''
 import argparse
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument('-c', '--clusterpicker_list', required=True, type=str, help="ClusterPicker list.txt file")
