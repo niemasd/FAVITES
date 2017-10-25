@@ -19,5 +19,6 @@ class TreeUnit_ConstantRate(TreeUnit):
     def time_to_mutation_rate(tree):
         t = dendropy.Tree.get(data=tree,schema='newick')
         for edge in t.preorder_edge_iter():
-            edge.length *= GC.tree_mutation_rate
+            if edge is not None:
+               edge.length *= GC.tree_mutation_rate
         return str(t) + ';'

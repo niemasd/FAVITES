@@ -28,5 +28,6 @@ class TreeUnit_Gamma(TreeUnit):
     def time_to_mutation_rate(tree):
         t = dendropy.Tree.get(data=tree,schema='newick')
         for edge in t.preorder_edge_iter():
-            edge.length *= gamma(shape=GC.tree_rate_shape,scale=GC.tree_rate_scale)
+            if edge is not None:
+                edge.length *= gamma(shape=GC.tree_rate_shape,scale=GC.tree_rate_scale)
         return str(t) + ';'
