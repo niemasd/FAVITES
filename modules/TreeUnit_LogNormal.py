@@ -34,6 +34,6 @@ class TreeUnit_LogNormal(TreeUnit):
     def time_to_mutation_rate(tree):
         t = dendropy.Tree.get(data=tree,schema='newick')
         for edge in t.preorder_edge_iter():
-            if edge is not None:
+            if edge.length is not None:
                 edge.length *= lognormal(mean=GC.tree_rate_mean,sigma=GC.tree_rate_stdev)
         return str(t) + ';'

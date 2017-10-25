@@ -26,6 +26,6 @@ class TreeUnit_Exponential(TreeUnit):
     def time_to_mutation_rate(tree):
         t = dendropy.Tree.get(data=tree,schema='newick')
         for edge in t.preorder_edge_iter():
-            if edge is not None:
+            if edge.length is not None:
                 edge.length *= exponential(scale=GC.tree_rate_scale)
         return str(t) + ';'
