@@ -271,6 +271,21 @@ class Driver_Default(Driver):
         if GC.VERBOSE:
             print('[%s] Merged cluster trees with seed tree (if applicable)' % datetime.now(), file=stderr)
 
+        # write error-free sequence data
+        LOG.writeln("Writing final sequence data to file...")
+        for cn_label in GC.final_sequences:
+            for t in GC.final_sequences[cn_label]:
+                f = open('error_free_files/sequence_data/seqs_n%s_t%f.fasta' % (cn_label,t), 'w')
+                seqs = set()
+                for l,s in GC.final_sequences[cn_label][t]:
+                    f.write(">%s\n%s\n" % (l,s))
+                    seqs.add(s)
+                f.close()
+        LOG.writeln("True sequence data were written to: %s/error_free_files/sequence_data/" % environ['out_dir_print'])
+        LOG.writeln()
+        if GC.VERBOSE:
+            print('[%s] Wrote true sequence data' % datetime.now(), file=stderr)
+
         # introduce real data artifacts
         LOG.writeln("\n=======================   Real Data Artifacts   =======================")
 
