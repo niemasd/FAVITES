@@ -558,4 +558,5 @@ def merge_trees_seqgen():
     for leaf in seed_leaves:
         seed_leaves[leaf].add_child(seed_leaf_to_tree[leaf].seed_node)
         seed_leaves_time[leaf].add_child(seed_leaf_to_tree_time[leaf].seed_node)
+    seed_tree.suppress_unifurcations()
     return [str(seed_tree) + ';'],[str(seed_tree_time) + ';']
