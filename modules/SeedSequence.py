@@ -14,8 +14,6 @@ class SeedSequence(metaclass=abc.ABCMeta):
     -------
     cite()
         Return citation string (or None)
-    infect(node)
-        Infect ``node'' with an initial seed sequence(s)
     init()
         Initialize the module (if need be)
     merge_trees()
