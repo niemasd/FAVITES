@@ -20,4 +20,4 @@ class SeedSequence_PANGEA(SeedSequence):
         return ''
 
     def merge_trees():
-        return []
+        return [],[]

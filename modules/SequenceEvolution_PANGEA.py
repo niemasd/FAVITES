@@ -17,7 +17,7 @@ class SequenceEvolution_PANGEA(SequenceEvolution):
         GC.pangea_module_check()
 
     def finalize():
-        pass
+        GC.final_sequences = {}
 
     def evolve_to_current_time(node):
         pass
