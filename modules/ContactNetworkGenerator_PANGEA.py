@@ -33,6 +33,9 @@ class ContactNetworkGenerator_PANGEA(ContactNetworkGenerator):
             val = getattr(GC,arg)
             if isinstance(val,str):
                 val = val.strip()
+                if len(val) == 0 and arg.split('_')[1].strip() == 'seed': # if no seed given, randomly generate
+                    from random import randint
+                    val = str(randint(0,32767))
                 if len(val) != 0:
                     args.append(arg.split('_')[1] + "='" + val + "'")
             else:
