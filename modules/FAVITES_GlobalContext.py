@@ -560,3 +560,9 @@ def merge_trees_seqgen():
         seed_leaves_time[leaf].add_child(seed_leaf_to_tree_time[leaf].seed_node)
     seed_tree.suppress_unifurcations()
     return [str(seed_tree) + ';'],[str(seed_tree_time) + ';']
+
+# generate a Mean Coalescent tree (return as Newick string)
+def mean_kingman_tree(num_leaves, pop_size):
+    from dendropy.simulate import treesim
+    from dendropy import TaxonNamespace
+    return treesim.mean_kingman_tree(TaxonNamespace([str(i) for i in range(num_leaves)]), pop_size=pop_size).as_string(schema='newick')

@@ -27,15 +27,14 @@ class SeedSequence_VirusMeanCoalescentGTRCodon(SeedSequence):
     def init():
         SeedSequence_Virus.init()
         SequenceEvolution_GTRCodonSeqGen.init()
-        GC.seed_tree_height = float(GC.seed_tree_height)
-        assert GC.seed_tree_height > 0, "seed_tree_height must be positive"
+        GC.seed_population = int(GC.seed_population)
+        assert GC.seed_population > 0, "seed_population must be positive"
         assert "Usage: seq-gen" in check_output(['seq-gen'],stderr=STDOUT).decode(), "seqgen executable was not found: %s" % GC.seqgen_path
 
     def generate():
         if not hasattr(GC, "seed_sequences"):
             rootseq = SeedSequence_Virus.generate()
-            GC.seed_population = (GC.seed_tree_height*len(GC.seed_nodes))/(2*len(GC.seed_nodes)-2)
-            treestr = treesim.mean_kingman_tree(TaxonNamespace([str(i) for i in range(len(GC.seed_nodes))]), pop_size=GC.seed_population).as_string(schema='newick')
+            treestr = GC.mean_kingman_tree(len(GC.seed_nodes), pop_size=GC.seed_population)
             makedirs(OUT_FOLDER, exist_ok=True)
             f = open(OUT_FOLDER + '/time_tree.tre','w')
             f.write(treestr)
