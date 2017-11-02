@@ -14,8 +14,6 @@ from random import choice
 from os.path import expanduser
 from os import makedirs
 from urllib.request import urlretrieve
-import ssl
-ssl._create_default_https_context = ssl._create_unverified_context
 
 HMM_FOLDER = "virus_profile_HMM"
 URL = {
