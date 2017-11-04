@@ -17,7 +17,7 @@ true_clusters = {}
 true_node_to_cluster = {}
 for line in open(args.trans):
     u,v,t = line.split(); u,v,t = u.strip(),v.strip(),t.strip()
-    if u == 'None':
+    if u == 'None' or u[0] == '-': # check negative for PANGEA transmission network
         true_clusters[v] = {v}
         true_node_to_cluster[v] = v
     else:

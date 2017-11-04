@@ -13,7 +13,7 @@ for line in args.trans:
     if len(parts) == 1 or parts == PANGEA_HEADER:
         continue
     u = parts[0]
-    if u == '-1':
+    if u[0] == '-':
         u = 'None'
     v = parts[1]
     t = parts[2]
