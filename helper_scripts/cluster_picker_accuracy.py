@@ -10,14 +10,11 @@ parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.A
 parser.add_argument('-c', '--clusterpicker_list', required=True, type=str, help="ClusterPicker list.txt file")
 parser.add_argument('-t', '--trans', required=True, type=str, help="FAVITES transmission network (.txt)")
 args = parser.parse_args()
-for name in [e.strip() for e in args.trans.split('/')]:
-    if 'CLUSTERS_' in name:
-        break
 true_clusters = {}
 true_node_to_cluster = {}
 for line in open(args.trans):
     u,v,t = line.split(); u,v,t = u.strip(),v.strip(),t.strip()
-    if u == 'None':
+    if u == 'None' or u[0] == '-': # handle negative PANGEA sources
         true_clusters[v] = {v}
         true_node_to_cluster[v] = v
     else:
@@ -29,7 +26,7 @@ cp_node_to_cluster = {}
 for line in open(args.clusterpicker_list):
     if 'SequenceName' in line:
         continue
-    n,c = line.split(); c = c.strip(); n = n.split('_')[1][1:]
+    n,c = line.split(); c = c.strip(); n = n.split('|')[1]
     cp_node_to_cluster[n] = c
     if c == '-1':
         continue
