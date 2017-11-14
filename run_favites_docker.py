@@ -6,7 +6,7 @@ from sys import stderr
 from subprocess import call,DEVNULL,STDOUT
 
 # pull the latest Docker image
-print("Pulling latest Docker image...", end=' ', file=stderr)
+print("Pulling latest Docker image...", end=' ', file=stderr); stderr.flush()
 call(['docker','pull','niemasd/favites'], stdout=DEVNULL, stderr=STDOUT)
 print("done", file=stderr)
 
