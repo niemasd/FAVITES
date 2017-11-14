@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 import argparse
 from os import geteuid,getegid,makedirs
-from os.path import abspath,expanduser,isdir
+from os.path import abspath,expanduser,isdir,isfile
 from sys import stderr
 from subprocess import call,DEVNULL,STDOUT
 
