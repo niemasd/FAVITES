@@ -20,6 +20,13 @@ class TreeUnit_Gamma(TreeUnit):
             from os import chdir
             chdir(GC.START_DIR)
             assert False, "Error loading NumPy. Install with: pip3 install numpy"
+        try:
+            global dendropy
+            import dendropy
+        except:
+            from os import chdir
+            chdir(GC.START_DIR)
+            assert False, "Error loading DendroPy. Install with: pip3 install dendropy"
         GC.tree_rate_shape = float(GC.tree_rate_shape)
         assert GC.tree_rate_shape > 0, "tree_rate_shape must be positive"
         GC.tree_rate_scale = float(GC.tree_rate_scale)

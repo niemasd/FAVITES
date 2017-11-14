@@ -7,6 +7,7 @@ a rate that is sampled from a user-parameterized exponential distribution.
 '''
 from TreeUnit import TreeUnit
 import FAVITES_GlobalContext as GC
+import dendropy
 
 class TreeUnit_Exponential(TreeUnit):
     def cite():
@@ -20,6 +21,13 @@ class TreeUnit_Exponential(TreeUnit):
             from os import chdir
             chdir(GC.START_DIR)
             assert False, "Error loading NumPy. Install with: pip3 install numpy"
+        try:
+            global dendropy
+            import dendropy
+        except:
+            from os import chdir
+            chdir(GC.START_DIR)
+            assert False, "Error loading DendroPy. Install with: pip3 install dendropy"
         GC.tree_rate_scale = float(GC.tree_rate_scale)
         assert GC.tree_rate_scale > 0, "tree_rate_scale must be positive"
 

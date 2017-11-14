@@ -7,12 +7,20 @@ all trees (i.e., just multiply branch length by mutation rate).
 '''
 from TreeUnit import TreeUnit
 import FAVITES_GlobalContext as GC
+import dendropy
 
 class TreeUnit_ConstantRate(TreeUnit):
     def cite():
         return GC.CITATION_FAVITES
 
     def init():
+        try:
+            global dendropy
+            import dendropy
+        except:
+            from os import chdir
+            chdir(GC.START_DIR)
+            assert False, "Error loading DendroPy. Install with: pip3 install dendropy"
         GC.tree_mutation_rate = float(GC.tree_mutation_rate)
         assert GC.tree_mutation_rate > 0, "tree_mutation_rate must be positive"
 
