@@ -7,6 +7,7 @@ Store global variables/functions to be accessible by all FAVITES modules.
 import modules.FAVITES_ModuleFactory as MF
 from glob import glob
 from random import uniform,sample
+from subprocess import check_output,STDOUT
 from time import strftime
 from itertools import product
 try:
@@ -566,3 +567,11 @@ def mean_kingman_tree(num_leaves, pop_size):
     from dendropy.simulate import treesim
     from dendropy import TaxonNamespace
     return treesim.mean_kingman_tree(TaxonNamespace([str(i) for i in range(num_leaves)]), pop_size=pop_size).as_string(schema='newick')
+
+# Seq-Gen executable check
+def check_seqgen_executable():
+    try:
+        s = check_output([seqgen_path],stderr=STDOUT).decode()
+    except Exception as e:
+        s = str(e.output)
+    assert "Usage: seq-gen" in s, "seqgen executable was not found: %s" % GC.seqgen_path

@@ -30,7 +30,7 @@ class SequenceEvolution_SeqGen(SequenceEvolution):
         assert '-p' not in GC.seqgen_args, "Do not use the Seq-Gen -p argument"
         assert '-s' not in GC.seqgen_args, "Do not use the Seq-Gen -s argument"
         assert '-m' in GC.seqgen_args, "Must specify a Seq-Gen model using the -m argument"
-        assert "Usage: seq-gen" in check_output(['seq-gen'],stderr=STDOUT).decode(), "seqgen executable was not found: %s" % GC.seqgen_path
+        GC.check_seqgen_executable()
 
     def evolve_to_current_time(node):
         pass

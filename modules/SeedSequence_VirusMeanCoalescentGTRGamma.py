@@ -29,7 +29,7 @@ class SeedSequence_VirusMeanCoalescentGTRGamma(SeedSequence):
         SequenceEvolution_GTRGammaSeqGen.init()
         GC.seed_population = float(GC.seed_population)
         assert GC.seed_population > 0, "seed_population must be positive"
-        assert "Usage: seq-gen" in check_output(['seq-gen'],stderr=STDOUT).decode(), "seqgen executable was not found: %s" % GC.seqgen_path
+        GC.check_seqgen_executable()
 
     def generate():
         if not hasattr(GC, "seed_sequences"):

@@ -30,7 +30,7 @@ class SeedSequence_VirusBirthDeathGTRCodon(SeedSequence):
         assert GC.seed_birth_rate > 0, "seed_birth_rate must be positive"
         GC.seed_death_rate = float(GC.seed_death_rate)
         assert GC.seed_death_rate >= 0, "seed_death_rate must be at least 0"
-        assert "Usage: seq-gen" in check_output(['seq-gen'],stderr=STDOUT).decode(), "seqgen executable was not found: %s" % GC.seqgen_path
+        GC.check_seqgen_executable()
 
     def generate():
         if not hasattr(GC, "seed_sequences"):
