@@ -6,9 +6,8 @@ Niema Moshiri 2016
 '''
 from Logging import Logging # abstract Logging class
 from Logging_File import Logging_File
+from Logging_STDERR import Logging_STDERR
 import FAVITES_GlobalContext as GC
-from os.path import expanduser
-from sys import stderr as t
 
 class Logging_FileSTDERR(Logging):
     def cite():
@@ -16,22 +15,20 @@ class Logging_FileSTDERR(Logging):
 
     def init():
         Logging_File.init()
+        Logging_STDERR.init()
 
     def flush():
         Logging_File.flush()
-        t.flush()
+        Logging_STDERR.flush()
 
     def close():
         Logging_File.close()
-        t.flush()
+        Logging_STDERR.close()
 
     def write(message=''):
         Logging_File.write(message=message)
-        t.write(message)
-        t.flush()
+        Logging_STDERR.write(message='')
 
     def writeln(message=''):
         Logging_File.writeln(message=message)
-        t.write(message)
-        t.write('\n')
-        t.flush()
+        Logging_STDERR.writeln(message='')
