@@ -28,4 +28,4 @@ class SeedSequence_User(SeedSequence):
         return seq
 
     def merge_trees():
-        return []
+        return [],[]

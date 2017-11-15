@@ -39,4 +39,4 @@ class SeedSequence_HMMEmit(SeedSequence):
             assert False, "hmmemit executable was not found: %s" % GC.hmmemit_path
 
     def merge_trees():
-        return []
+        return [],[]

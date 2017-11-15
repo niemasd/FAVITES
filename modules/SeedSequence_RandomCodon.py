@@ -23,4 +23,4 @@ class SeedSequence_RandomCodon(SeedSequence):
         return ''.join([choice(codons) for _ in range(GC.seed_sequence_codon_length)])
 
     def merge_trees():
-        return []
+        return [],[]

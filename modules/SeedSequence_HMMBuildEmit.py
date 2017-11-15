@@ -50,4 +50,4 @@ class SeedSequence_HMMBuildEmit(SeedSequence):
         return SeedSequence_HMMEmit.generate()
 
     def merge_trees():
-        return []
+        return [],[]

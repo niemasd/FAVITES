@@ -25,4 +25,4 @@ class SeedSequence_Random(SeedSequence):
         return ''.join([choice('ACGT') for _ in range(GC.seed_sequence_length)])
 
     def merge_trees():
-        return []
+        return [],[]
