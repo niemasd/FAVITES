@@ -94,12 +94,12 @@ class ContactNetwork_NetworkX(ContactNetwork):
                 vNum = self.name_to_num[vName]
                 self.contact_network.add_edge(uNum,vNum)
                 if parts[3] == '.':
-                    self.contact_network.edge[uNum][vNum]['attribute'] = set()
+                    self.contact_network[uNum][vNum]['attribute'] = set()
                 else:
-                    self.contact_network.edge[uNum][vNum]['attribute'] = set(parts[3].split(','))
+                    self.contact_network[uNum][vNum]['attribute'] = set(parts[3].split(','))
                 if parts[4] == 'u': # undirected edge, so add v to u too
                     self.contact_network.add_edge(vNum,uNum)
-                    self.contact_network.edge[vNum][uNum]['attribute'] = self.contact_network.edge[uNum][vNum]['attribute']
+                    self.contact_network[vNum][uNum]['attribute'] = self.contact_network[uNum][vNum]['attribute']
 
             # invalid type
             else:
@@ -147,18 +147,18 @@ class ContactNetwork_NetworkX(ContactNetwork):
     def edges_iter(self):
         for edge in self.contact_network.edges():
             uNum,vNum = edge
-            attr = self.contact_network.edge[uNum][vNum]['attribute']
+            attr = self.contact_network[uNum][vNum]['attribute']
             u = Node(self, self.num_to_name[uNum], uNum)
             v = Node(self, self.num_to_name[vNum], vNum)
             yield Edge(u,v,attr)
 
     def get_edges_from(self, node):
         nx_edges = self.contact_network.out_edges(self.name_to_num[node.get_name()])
-        return [Edge(node, Node(self, self.num_to_name[vNum], vNum), self.contact_network.edge[uNum][vNum]['attribute']) for uNum,vNum in nx_edges]
+        return [Edge(node, Node(self, self.num_to_name[vNum], vNum), self.contact_network[uNum][vNum]['attribute']) for uNum,vNum in nx_edges]
 
     def get_edges_to(self,node):
         nx_edges = self.contact_network.in_edges(self.name_to_num[node.get_name()])
-        return [Edge(Node(self, self.num_to_name[uNum], uNum), node, self.contact_network.edge[uNum][vNum]['attribute']) for uNum,vNum in nx_edges]
+        return [Edge(Node(self, self.num_to_name[uNum], uNum), node, self.contact_network[uNum][vNum]['attribute']) for uNum,vNum in nx_edges]
 
     def get_transmissions(self):
         return copy(self.transmissions)
