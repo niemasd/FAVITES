@@ -76,8 +76,8 @@ class Driver_Default(Driver):
         makedirs("error_prone_files", exist_ok=True)
         makedirs("error_prone_files/sequence_data", exist_ok=True)
 
-        # create ContactNetwork object from input contact network edge list
-        LOG.write("Loading contact network edge list...")
+        # create ContactNetwork object
+        LOG.write("Loading contact network...")
         if GC.VERBOSE:
             print('[%s] Loading contact network' % datetime.now(), file=stderr)
         GC.cn_edge_list = MF.modules['ContactNetworkGenerator'].get_edge_list()
