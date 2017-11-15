@@ -22,7 +22,7 @@ RUN Rscript -e "library(devtools); install_github('olli0601/PANGEA.HIV.sim')"
 RUN apt-get install -y python3 python3-pip && \
     pip3 install --upgrade pip && \
     pip3 install dendropy && \
-    pip3 install networkx && \
+    pip3 install "networkx<2.0" && \
     pip3 install numpy && \
     pip3 install pyvolve
 
