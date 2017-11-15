@@ -6,12 +6,9 @@ This directory contains a series of tools that can be used to post-validate the 
         * `REF`: Reference tree (Newick format)
         * `SIM`: Simulated tree (Newick format)
         * `NW_DISTANCE`: Path to `nw_distance` executable (if not in `PATH`)
-* **[sequence_align_profile_HMM.py](sequence_align_profile_HMM.py):** Align a given sequence dataset against a given profile HMM
-    * Usage: sequence_align_profile_HMM.py [-h] -H HMM -s SEQ [-if INFORMAT] [-of OUTFORMAT] [-a HMMALIGN]
+* **[sequence_score_profile_HMM.py](sequence_score_profile_HMM.py):** Score a given sequence dataset against a given profile HMM
+    * Usage: sequence_score_profile_HMM.py [-h] -H HMM -s SEQ [-q] [-a HMMSCAN]
         * `HMM`: Profile HMM (HMMER format)
         * `SEQ`: Sequence file
-        * `INFORMAT`: Input sequence format (FASTA, FASTQ, EMBL, GENBANK, UNIPROT)
-            * Default: FASTA
-        * `OUTFORMAT`: Output format (STOCKHOLM, PFAM, A2M, PSIBLAST)
-            * Default: STOCKHOLM
-        * `HMMALIGN`: Path to `HMMALIGN` executable (if not in `PATH`)
+        * `-q`: Input file is FASTQ (not FASTA)
+        * `HMMSCAN`: Path to `HMMSCAN` executable (if not in `PATH`)
