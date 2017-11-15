@@ -89,7 +89,7 @@ class NodeEvolution_VirusTreeSimulator(NodeEvolution):
                 f.close()
                 tree = parts[1].split('] = [&R] ')[1].splitlines()[0].strip()
                 # add root edge length
-                if '(' in tree:
+                if '(' in tree and cn_node in GC.first_time_transmitting:
                     tree = "%s:%f;" % (tree[:-1], GC.first_time_transmitting[cn_node] - cn_node.get_first_infection_time())
                 else:
                     tree = "(%s):%f;" % (tree[:-1], GC.time - cn_node.get_first_infection_time())
