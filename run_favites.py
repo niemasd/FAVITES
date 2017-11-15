@@ -1,8 +1,6 @@
 #! /usr/bin/env python3
 '''
-Niema Moshiri 2016
-
-"Viewer": Command Line Interface for FAVITES
+FAVITES: FrAmework for VIral Transmission and Evolution Simulation
 '''
 from modules import FAVITES_ModuleFactory as MF
 from modules import FAVITES_GlobalContext as GC
