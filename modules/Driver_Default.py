@@ -67,7 +67,7 @@ class Driver_Default(Driver):
 
         # begin simulation
         printMessage(LOG)
-        LOG.writeln("\n========================   Simulation Process  ========================")
+        LOG.writeln("========================   Simulation Process  ========================")
         if GC.VERBOSE:
             print('[%s] Starting simulation' % datetime.now(), file=stderr)
         makedirs("error_free_files", exist_ok=True)
@@ -164,12 +164,28 @@ class Driver_Default(Driver):
         LOG.writeln(" done")
 
         # finalize global time
-        LOG.write("Finalizing transmission and evolution simulations...")
+        LOG.write("Finalizing transmission simulations...")
         if GC.VERBOSE:
             print('[%s] Finalizing transmissions/evolution' % datetime.now(), file=stderr)
         MF.modules['EndCriteria'].finalize_time()
+        LOG.writeln(" done")
+
+        # write transmission network as edge list
+        LOG.write("Writing true transmission network to file...")
+        f = open('error_free_files/transmission_network.txt','w')
+        for e in GC.transmissions:
+            f.write("%s\t%s\t%f\n" % e)
+        f.close()
+        f = open('error_free_files/transmission_network.gexf','w')
+        f.write(GC.tn_favites2gexf(contact_network,GC.transmissions))
+        f.close()
+        LOG.writeln(" done")
+        LOG.writeln("True transmission network was written to: %s/error_free_files/transmission_network.txt" % environ['out_dir_print'])
+        if GC.VERBOSE:
+            print('[%s] Wrote transmission network to file' % datetime.now(), file=stderr)
 
         # perform patient sampling in time (on all infected nodes; will subsample from this later)
+        LOG.write("Sampling patients in time...")
         GC.cn_sample_times = {}
         if GC.VERBOSE:
             print('[%s] Performing person sampling (sequencing)' % datetime.now(), file=stderr)
@@ -185,50 +201,24 @@ class Driver_Default(Driver):
                     print('[%s] Node %s sampled at times %s' % (datetime.now(),str(node),str(times)), file=stderr)
             elif GC.VERBOSE:
                 print('[%s] Node %s not sampled' % (datetime.now(),str(node)), file=stderr)
+        LOG.writeln(" done")
 
-        # finalize phylogenetic trees
+        # evolve to end time
+        LOG.write("Evolving trees and sequences to end time...")
         nodes = [node for node in GC.contact_network.get_infected_nodes()]
         for node in nodes:
             MF.modules['NodeEvolution'].evolve_to_current_time(node, finalize=True)
             MF.modules['SequenceEvolution'].evolve_to_current_time(node)
+        LOG.writeln(" done")
 
         # prune sampled trees
+        LOG.write("Pruning sampled trees...")
         if GC.PRUNE_TREES:
             if GC.VERBOSE:
                 print('[%s] Pruning sampled trees' % datetime.now(), file=stderr)
             GC.prune_sampled_trees()
         GC.pruned_newick_trees_time = [e for e in GC.sampled_trees] # (rootvirus,treestr) tuples
-
-        # convert trees from unit of time to unit of mutation rate
-        if GC.VERBOSE:
-            print('[%s] Converting sampled trees from time to mutation rate' % datetime.now(), file=stderr)
-        GC.pruned_newick_trees = [(e[0],MF.modules['TreeUnit'].time_to_mutation_rate(e[1])) for e in GC.pruned_newick_trees_time]
         LOG.writeln(" done")
-
-        # finalize sequence data
-        LOG.write("Finalizing sequence simulations...")
-        if GC.VERBOSE:
-            print('[%s] Finalizing sequences' % datetime.now(), file=stderr)
-        MF.modules['SequenceEvolution'].finalize() # in case the module creates all sequences at the end
-        LOG.writeln(" done\n")
-
-        # output error-free files
-        LOG.writeln("\n========================   Simulation Output   ========================")
-
-        # write transmission network as edge list
-        LOG.write("Writing true transmission network to file...")
-        f = open('error_free_files/transmission_network.txt','w')
-        for e in GC.transmissions:
-            f.write("%s\t%s\t%f\n" % e)
-        f.close()
-        f = open('error_free_files/transmission_network.gexf','w')
-        f.write(GC.tn_favites2gexf(contact_network,GC.transmissions))
-        f.close()
-        LOG.writeln(" done")
-        LOG.writeln("True transmission network was written to: %s/error_free_files/transmission_network.txt" % environ['out_dir_print'])
-        LOG.writeln()
-        if GC.VERBOSE:
-            print('[%s] Wrote transmission network to file' % datetime.now(), file=stderr)
 
         # write phylogenetic trees (time) as Newick files
         LOG.write("Writing true phylogenetic trees (time) to files...")
@@ -238,9 +228,15 @@ class Driver_Default(Driver):
             f.close()
         LOG.writeln(" done")
         LOG.writeln("True phylogenetic trees (time) were written to: %s/error_free_files/phylogenetic_trees/" % environ['out_dir_print'])
-        LOG.writeln()
         if GC.VERBOSE:
             print('[%s] Wrote phylogenetic trees (time)' % datetime.now(), file=stderr)
+
+        # convert trees from unit of time to unit of mutation rate
+        LOG.write("Converting trees from time to mutation rate...")
+        if GC.VERBOSE:
+            print('[%s] Converting sampled trees from time to mutation rate' % datetime.now(), file=stderr)
+        GC.pruned_newick_trees = [(e[0],MF.modules['TreeUnit'].time_to_mutation_rate(e[1])) for e in GC.pruned_newick_trees_time]
+        LOG.writeln(" done")
 
         # write phylogenetic trees (expected number of mutations) as Newick files
         LOG.write("Writing true phylogenetic trees (expected number of mutations) to files...")
@@ -252,7 +248,6 @@ class Driver_Default(Driver):
             GC.final_tree_to_root_seq.append(e[0].get_seq())
         LOG.writeln(" done")
         LOG.writeln("True phylogenetic trees (expected number of mutations) were written to: %s/error_free_files/phylogenetic_trees/" % environ['out_dir_print'])
-        LOG.writeln()
         if GC.VERBOSE:
             print('[%s] Wrote phylogenetic trees (expected number of mutations)' % datetime.now(), file=stderr)
 
@@ -267,9 +262,15 @@ class Driver_Default(Driver):
             f.write(GC.merged_trees_time[i])
             f.close()
         LOG.writeln(" done")
-        LOG.writeln()
         if GC.VERBOSE:
             print('[%s] Merged cluster trees with seed tree (if applicable)' % datetime.now(), file=stderr)
+
+        # finalize sequence data
+        LOG.write("Finalizing sequence simulations...")
+        if GC.VERBOSE:
+            print('[%s] Finalizing sequences' % datetime.now(), file=stderr)
+        MF.modules['SequenceEvolution'].finalize() # in case the module creates all sequences at the end
+        LOG.writeln(" done")
 
         # write error-free sequence data
         LOG.writeln("Writing final sequence data to file...")
