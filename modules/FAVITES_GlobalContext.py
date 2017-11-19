@@ -357,23 +357,6 @@ def prob_exp_min(i, L):
     assert i >= 0 and i < len(L), "Invalid index i. Must be 0 <= i < |L|"
     return L[i]/sum(L)
 
-# fix single-child nodes by attaching child to parent
-def fix_single_child_nodes(root):
-    stack = [root]
-    while len(stack) != 0:
-        curr = stack.pop()
-        children = [c for c in curr.get_children()]
-        if len(children) == 1:
-            curr_parent = curr.get_parent()
-            if curr_parent is not None:
-                curr_parent.remove_child(curr)
-                curr_parent.add_child(children[0])
-                children[0].set_parent(curr_parent)
-            else:
-                curr.replace_content(children[0])
-        for c in children:
-            stack.append(c)
-
 # prune sampled phylogenetic trees
 def prune_sampled_trees():
     # if a NodeEvolution module already created pruned trees, do nothing (make sure to create and update GC.leaves_at_sample_time!)
@@ -400,7 +383,6 @@ def prune_sampled_trees():
     all_cn_sample_times = {inner for outer in cn_sample_times.values() for inner in outer}
     for index in range(len(root_viruses)):
         WAS_SAMPLED = False
-        #print(sampled_trees[index].newick())
         final_tree_leaves = set()
         present_at_time = {t:set() for t in all_cn_sample_times}
         desired_times = {}
@@ -538,7 +520,6 @@ def merge_trees_seqgen():
     seed_leaves_time = {}
     for leaf in seed_tree_time.leaf_node_iter():
         seed_leaves_time[leaf.taxon.label] = leaf
-    seed_leaf_to_seq = {}
     seq_to_seed_leaf = {}
     for line in open('seed_sequences/seqgen.out').read().strip().splitlines()[1:]:
         leaf,seq = line.strip().split()
@@ -546,19 +527,23 @@ def merge_trees_seqgen():
             seq_to_seed_leaf[seq] = {leaf}
         else:
             seq_to_seed_leaf[seq].add(leaf)
-        seed_leaf_to_seq[leaf] = seq
     seed_leaf_to_tree = {}
     seed_leaf_to_tree_time = {}
+    its = 0
     for treefile in glob('error_free_files/phylogenetic_trees/*.tre'):
         if '.time.' in treefile:
             continue
+        its += 1
         treenum = int(treefile.split('/')[-1].split('_')[1].split('.')[0])
         seed_leaf = seq_to_seed_leaf[final_tree_to_root_seq[treenum]].pop()
         seed_leaf_to_tree[seed_leaf] = dendropy.Tree.get(path=treefile,schema='newick')
         seed_leaf_to_tree_time[seed_leaf] = dendropy.Tree.get(path=treefile.replace('.tre','.time.tre'),schema='newick')
     for leaf in seed_leaves:
-        seed_leaves[leaf].add_child(seed_leaf_to_tree[leaf].seed_node)
-        seed_leaves_time[leaf].add_child(seed_leaf_to_tree_time[leaf].seed_node)
+        if leaf in seed_leaf_to_tree: # if this seed's cluster was sampled (so tree exists)
+            seed_leaves[leaf].add_child(seed_leaf_to_tree[leaf].seed_node)
+            seed_leaves_time[leaf].add_child(seed_leaf_to_tree_time[leaf].seed_node)
+        else: # if not, delete this seed leaf
+            leaf.get_parent().remove_child(leaf)
     seed_tree.suppress_unifurcations()
     return [str(seed_tree) + ';'],[str(seed_tree_time) + ';']
 
