@@ -543,7 +543,7 @@ def merge_trees_seqgen():
             seed_leaves[leaf].add_child(seed_leaf_to_tree[leaf].seed_node)
             seed_leaves_time[leaf].add_child(seed_leaf_to_tree_time[leaf].seed_node)
         else: # if not, delete this seed leaf
-            leaf.get_parent().remove_child(leaf)
+            seed_leaves[leaf].get_parent().remove_child(seed_leaves[leaf])
     seed_tree.suppress_unifurcations()
     return [str(seed_tree) + ';'],[str(seed_tree_time) + ';']
 
