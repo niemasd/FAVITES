@@ -24,7 +24,7 @@ class NumTimeSample_Poisson(NumTimeSample):
         assert GC.num_time_sample_lambda >= 0, "num_time_sample_lambda must be at least 0"
 
     def sample_num_times(node):
-        if node.get_first_infection_time() is not None:
+        if node.get_first_infection_time() is not None and node.get_first_infection_time() != GC.time:
             return poisson(lam=GC.num_time_sample_lambda)
         else:
             return 0
