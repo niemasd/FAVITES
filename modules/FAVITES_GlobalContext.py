@@ -511,6 +511,7 @@ def pangea_module_check():
 
 # merge seed/cluster trees generated using SeqGen seed sequence modules
 def merge_trees_seqgen():
+    from queue import Queue
     import dendropy
     seed_tree = dendropy.Tree.get(data=open('seed_sequences/seed.txt').read().strip().splitlines()[-1].strip(), schema='newick')
     seed_leaves = {}
@@ -538,14 +539,30 @@ def merge_trees_seqgen():
         seed_leaf = seq_to_seed_leaf[final_tree_to_root_seq[treenum]].pop()
         seed_leaf_to_tree[seed_leaf] = dendropy.Tree.get(path=treefile,schema='newick')
         seed_leaf_to_tree_time[seed_leaf] = dendropy.Tree.get(path=treefile.replace('.tre','.time.tre'),schema='newick')
+    to_prune = Queue()
     for leaf in seed_leaves:
         if leaf in seed_leaf_to_tree: # if this seed's cluster was sampled (so tree exists)
             seed_leaves[leaf].add_child(seed_leaf_to_tree[leaf].seed_node)
             seed_leaves_time[leaf].add_child(seed_leaf_to_tree_time[leaf].seed_node)
         else: # if not, delete this seed leaf
-            seed_leaves[leaf].get_parent().remove_child(seed_leaves[leaf])
-    seed_tree.suppress_unifurcations()
-    return [str(seed_tree) + ';'],[str(seed_tree_time) + ';']
+            to_prune.put(seed_leaves[leaf])
+            to_prune.put(seed_leaves_time[leaf])
+    merged_tree_exists = True
+    while not to_prune.empty():
+        leaf = to_prune.get()
+        parent = leaf.get_parent()
+        parent.remove_child(leaf)
+        if parent.num_child_nodes() == 0:
+            if parent.edge.rootedge:
+                merged_tree_exists = False; break
+            else:
+                to_prune.put(parent)
+    if merged_tree_exists:
+        seed_tree.suppress_unifurcations()
+        seed_tree_time.suppress_unifurcations()
+        return [str(seed_tree) + ';'],[str(seed_tree_time) + ';']
+    else:
+        return [],[]
 
 # generate a Mean Coalescent tree (return as Newick string)
 def mean_kingman_tree(num_leaves, pop_size):

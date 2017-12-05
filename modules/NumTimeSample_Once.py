@@ -15,7 +15,7 @@ class NumTimeSample_Once(NumTimeSample):
         pass
 
     def sample_num_times(node):
-        if node.get_first_infection_time() is not None:
+        if node.get_first_infection_time() is not None and node.get_first_infection_time() != GC.time:
             return 1
         else:
             return 0

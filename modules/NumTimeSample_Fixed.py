@@ -17,7 +17,7 @@ class NumTimeSample_Fixed(NumTimeSample):
         assert GC.num_sample_times_per_individual > 0, "num_sample_times_per_individual must be a positive integer"
 
     def sample_num_times(node):
-        if node.get_first_infection_time() is not None:
+        if node.get_first_infection_time() is not None and node.get_first_infection_time() != GC.time:
             return GC.num_sample_times_per_individual
         else:
             return 0
