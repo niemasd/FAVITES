@@ -37,6 +37,13 @@ class NodeEvolution_VirusTreeSimulator(NodeEvolution):
         GC.vts_growthRate = float(GC.vts_growthRate)
         assert GC.vts_growthRate >= 0, "vts_growthRate cannot be negative"
         GC.vts_t50 = float(GC.vts_t50)
+        try:
+            global dendropy
+            import dendropy
+        except:
+            from os import chdir
+            chdir(GC.START_DIR)
+            assert False, "Error loading Dendropy. Install with: pip3 install dendropy"
 
     def evolve_to_current_time(node, finalize=False):
         # if it's not the end yet, just dummy
@@ -93,6 +100,13 @@ class NodeEvolution_VirusTreeSimulator(NodeEvolution):
                     tree = "%s:%f;" % (tree[:-1], GC.first_time_transmitting[cn_node] - cn_node.get_first_infection_time())
                 else:
                     tree = "(%s):%f;" % (tree[:-1], GC.time - cn_node.get_first_infection_time())
+                # add 0 length to branches with missing lengths
+                tree = dendropy.Tree.get(data=tree, schema='newick')
+                for e in tree.postorder_edge_iter():
+                    if e.length is None:
+                        e.length = 0
+                tree = tree.as_string(schema='newick')
+                #write to disk
                 tree_file = filename.split('.')[0] + '.tre'
                 f = open(tree_file,'w')
                 f.write(tree)
