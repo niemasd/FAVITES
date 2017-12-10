@@ -1,9 +1,17 @@
 #!/usr/bin/env python3
 '''
 Score a given ClusterPicker-format clustering against the known truth clustering (from the transmission network).
+    * AMI = Adjusted Mutual Information
+    * ARI = Adjusted Rand Index
+    * COM = Completeness Score
+    * FMI = Fowlkes-Mallows Index
+    * HOM = Homogeneity Score
+    * MI = Mutual Information
+    * NMI = Normalized Mutual Information
+    * VM = V-Measure
 '''
-from sklearn.metrics.cluster import adjusted_mutual_info_score,adjusted_rand_score
-METRICS = {'AMI':adjusted_mutual_info_score, 'AR':adjusted_rand_score}
+from sklearn.metrics.cluster import *
+METRICS = {'AMI':adjusted_mutual_info_score, 'ARI':adjusted_rand_score, 'COM':completeness_score, 'FMI':fowlkes_mallows_score, 'HOM':homogeneity_score, 'MI':mutual_info_score, 'NMI':normalized_mutual_info_score, 'VM':v_measure_score}
 if __name__ == "__main__":
     # parse args
     import argparse
@@ -27,7 +35,7 @@ if __name__ == "__main__":
         if u == 'None' or u[0] == '-': # handle negative PANGEA sources
             true_node_to_cluster[v] = name_to_num[v]
         else:
-            true_node_to_cluster[v] = name_to_num[u]
+            true_node_to_cluster[v] = true_node_to_cluster[u]
     true_clusters_list = [true_node_to_cluster[num_to_name[i]] for i in range(len(num_to_name))]
 
     # load inferred transmission clusters
