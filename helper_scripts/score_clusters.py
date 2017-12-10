@@ -18,7 +18,6 @@ if __name__ == "__main__":
     # load true transmission network
     name_to_num = {}
     num_to_name = []
-    true_clusters = {}
     true_node_to_cluster = {}
     for line in args.trans:
         u,v,t = line.split(); u,v,t = u.strip(),v.strip(),t.strip()
@@ -26,13 +25,10 @@ if __name__ == "__main__":
             name_to_num[v] = len(name_to_num)
             num_to_name.append(v)
         if u == 'None' or u[0] == '-': # handle negative PANGEA sources
-            true_clusters[v] = {v}
-            true_node_to_cluster[v] = v
+            true_node_to_cluster[v] = name_to_num[v]
         else:
-            c = true_node_to_cluster[u]
-            true_clusters[c].add(v)
-            true_node_to_cluster[v] = c
-    true_clusters_list = [name_to_num[true_clusters[num_to_name[i]]] for i in range(len(num_to_name))]
+            true_node_to_cluster[v] = name_to_num[u]
+    true_clusters_list = [true_node_to_cluster[num_to_name[i]] for i in range(len(num_to_name))]
 
     # load inferred transmission clusters
     cp_node_to_cluster = {}
