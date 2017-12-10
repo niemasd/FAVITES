@@ -45,7 +45,12 @@ if __name__ == "__main__":
     for n in cp_node_to_cluster:
         if cp_node_to_cluster[n] == -1:
             cp_node_to_cluster[n] = c; c += 1
-    cp_clusters_list = [cp_node_to_cluster[num_to_name[i]] for i in range(len(num_to_name))]
+    cp_clusters_list = []
+    for i in range(len(num_to_name)):
+        try:
+            cp_clusters_list.append(cp_node_to_cluster[num_to_name[i]])
+        except KeyError: # tn93 doesn't output singletons
+            cp_clusters_list.append(c); c += 1
 
     # compute and output score
     print("%s: %f" % (args.metric, METRICS[args.metric](true_clusters_list,cp_clusters_list)))
