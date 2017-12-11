@@ -387,6 +387,10 @@
             "req": []
         },
 
+        "Gamma": {
+            "req": ["ts_gamma_shape", "ts_gamma_scale"]
+        },
+
         "GranichFirstART": {
             "req": []
         },
