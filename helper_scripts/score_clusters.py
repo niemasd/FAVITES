@@ -5,13 +5,14 @@ Score a given ClusterPicker-format clustering against the known truth clustering
     * ARI = Adjusted Rand Index
     * COM = Completeness Score
     * FMI = Fowlkes-Mallows Index
+    * HCV = Compute Homogenity, Completeness, and V-Measure together
     * HOM = Homogeneity Score
     * MI = Mutual Information
     * NMI = Normalized Mutual Information
     * VM = V-Measure
 '''
 from sklearn.metrics.cluster import *
-METRICS = {'AMI':adjusted_mutual_info_score, 'ARI':adjusted_rand_score, 'COM':completeness_score, 'FMI':fowlkes_mallows_score, 'HOM':homogeneity_score, 'MI':mutual_info_score, 'NMI':normalized_mutual_info_score, 'VM':v_measure_score}
+METRICS = {'AMI':adjusted_mutual_info_score, 'ARI':adjusted_rand_score, 'COM':completeness_score, 'FMI':fowlkes_mallows_score, 'HCV':homogeneity_completeness_v_measure, 'HOM':homogeneity_score, 'MI':mutual_info_score, 'NMI':normalized_mutual_info_score, 'VM':v_measure_score}
 if __name__ == "__main__":
     # parse args
     import argparse
@@ -61,4 +62,8 @@ if __name__ == "__main__":
             cp_clusters_list.append(c); c += 1
 
     # compute and output score
-    print("%s: %f" % (args.metric, METRICS[args.metric](true_clusters_list,cp_clusters_list)))
+    if args.metric == 'HCV':
+        h,c,v = METRICS[args.metric](true_clusters_list,cp_clusters_list)
+        print("HOM: %f" % h); print("COM: %f" % c); print("VM: %f" % v)
+    else:
+        print("%s: %f" % (args.metric, METRICS[args.metric](true_clusters_list,cp_clusters_list)))
