@@ -391,7 +391,11 @@ def prune_sampled_trees():
             curr = stack.pop()
             for t in all_cn_sample_times:
                 if curr.get_time() >= t:
-                    if curr.get_parent() is None or curr.get_parent().get_time() < t:
+                    try:
+                        curr_parent = curr.get_parent()
+                    except AttributeError: # Dendropy update
+                        curr_parent = curr.parent_node
+                    if curr_parent is None or curr_parent.get_time() < t:
                         present_at_time[t].add(curr)
             for c in curr.get_children():
                 stack.append(c)
@@ -412,7 +416,10 @@ def prune_sampled_trees():
             curr = leaf
             while curr != None:
                 curr.has_sampled_descendant = True
-                curr = curr.get_parent()
+                try:
+                    curr = curr.get_parent()
+                except AttributeError: # DendroPy update
+                    curr = curr.parent_node
         if not hasattr(root_viruses[index],"has_sampled_descendant"):
             continue
         stack = [root_viruses[index]]
@@ -424,10 +431,14 @@ def prune_sampled_trees():
                 while (len(children) != 0 and len(curr_times) > 0) or (len(children) == 0 and len(curr_times) > 1):
                     t = curr_times.pop()
                     newnode = TreeNode(time=t, seq=curr.get_seq(), contact_network_node=curr.get_contact_network_node())
-                    newnode.set_parent(curr.get_parent())
-                    if curr.get_parent() is not None:
-                        curr.get_parent().remove_child(curr)
-                        curr.get_parent().add_child(newnode)
+                    try:
+                        curr_parent = curr.get_parent()
+                    except AttributeError: # DendroPy update
+                        curr_parent = curr.parent_node
+                    newnode.set_parent(curr_parent)
+                    if curr_parent is not None:
+                        curr_parent.remove_child(curr)
+                        curr_parent.add_child(newnode)
                     else:
                         newnode.set_seq(root_viruses[index].get_seq())
                         root_viruses[index] = newnode
@@ -450,9 +461,13 @@ def prune_sampled_trees():
             if len(children) == 0:
                 continue
             elif len(children) == 1:
-                if curr.get_parent() is not None:
-                    curr.get_parent().remove_child(curr)
-                    curr.get_parent().add_child(children[0])
+                try:
+                    curr_parent = curr.get_parent()
+                except AttributeError: # DendroPy update
+                    curr_parent = curr.parent_node
+                if curr_parent is not None:
+                    curr_parent.remove_child(curr)
+                    curr_parent.add_child(children[0])
                 else:
                     children[0].set_seq(root_viruses[index].get_seq())
                     root_viruses[index] = children[0]
@@ -550,7 +565,10 @@ def merge_trees_seqgen():
     merged_tree_exists = True
     while not to_prune.empty():
         leaf = to_prune.get()
-        parent = leaf.get_parent()
+        try:
+            parent = leaf.get_parent()
+        except AttributeError: # DendroPy update
+            parent = leaf.parent_node
         parent.remove_child(leaf)
         if parent.num_child_nodes() == 0:
             if parent.edge.rootedge:
