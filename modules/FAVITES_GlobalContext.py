@@ -569,12 +569,13 @@ def merge_trees_seqgen():
             parent = leaf.get_parent()
         except AttributeError: # DendroPy update
             parent = leaf.parent_node
-        parent.remove_child(leaf)
-        if parent.num_child_nodes() == 0:
-            if parent.edge.rootedge:
-                merged_tree_exists = False; break
-            else:
-                to_prune.put(parent)
+        if parent is not None:
+            parent.remove_child(leaf)
+            if parent.num_child_nodes() == 0:
+                if parent.edge.rootedge:
+                    merged_tree_exists = False; break
+                else:
+                    to_prune.put(parent)
     if merged_tree_exists:
         seed_tree.suppress_unifurcations()
         seed_tree_time.suppress_unifurcations()
