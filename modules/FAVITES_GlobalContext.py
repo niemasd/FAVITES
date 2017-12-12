@@ -570,6 +570,12 @@ def mean_kingman_tree(num_leaves, pop_size):
     from dendropy import TaxonNamespace
     return treesim.mean_kingman_tree(TaxonNamespace([str(i) for i in range(num_leaves)]), pop_size=pop_size).as_string(schema='newick')
 
+# generate a Pure Coalescent tree (return as Newick string)
+def pure_kingman_tree(num_leaves, pop_size):
+    from dendropy.simulate import treesim
+    from dendropy import TaxonNamespace
+    return treesim.pure_kingman_tree(TaxonNamespace([str(i) for i in range(num_leaves)]), pop_size=pop_size).as_string(schema='newick')
+
 # Seq-Gen executable check
 def check_seqgen_executable():
     try:
