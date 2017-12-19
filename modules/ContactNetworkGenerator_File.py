@@ -3,7 +3,8 @@
 Niema Moshiri 2016
 
 "ContactNetworkGenerator" module, where the contact network edge list is loaded
-from a file
+from a file in the FAVITES format:
+https://github.com/niemasd/FAVITES/wiki/File-Formats#contact-network-file-format
 '''
 from ContactNetworkGenerator import ContactNetworkGenerator
 import FAVITES_GlobalContext as GC
