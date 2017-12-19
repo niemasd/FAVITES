@@ -37,7 +37,6 @@ def parseArgs():
         config = eval(ORIG_CONFIG)
         assert 'out_dir' in config, "Parameter 'out_dir' is not in the configuration file!"
         environ['out_dir_print'] = config['out_dir']
-        assert not isdir(abspath(expanduser(config['out_dir']))), "ERROR: Output directory exists"
         config['verbose'] = args.verbose
 
     # import modules and store in global access variables

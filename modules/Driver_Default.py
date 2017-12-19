@@ -52,14 +52,24 @@ class Driver_Default(Driver):
         # set up environment
         orig_dir = getcwd()
         try:
-            makedirs(GC.out_dir, exist_ok=True)
-            pass
+            makedirs(GC.out_dir)
         except:
             if 'FAVITES_DOCKER' not in environ: # bypass error (Docker makes the folder automatically)
-                LOG.writeln("\nERROR: Unable to create the output directory. Perhaps it already exists?")
-                if GC.VERBOSE:
-                    print('[%s] Output directory exists: %s' % (datetime.now(), environ['out_dir_print']), file=stderr)
-                exit(-1)
+                if isdir(abspath(expanduser(GC.out_dir))):
+                    if GC.VERBOSE:
+                        print('[%s] Output directory exists: %s' % (datetime.now(), environ['out_dir_print']), file=stderr)
+                    response = 'x'
+                    while len(response) == 0 or response[0] not in {'y','n'}:
+                        LOG.writeln("ERROR: Output directory exists. Overwrite? All contents will be deleted. (y/n)")
+                        response = input().strip().lower()
+                    if response == 'y':
+                        from shutil import rmtree
+                        rmtree(GC.out_dir); makedirs(GC.out_dir)
+                    else:
+                        exit(-1)
+                else:
+                    LOG.writeln("ERROR: Unable to create the output directory")
+                    exit(-1)
         chdir(GC.out_dir)
         f = open('CONFIG.json','w')
         f.write(ORIG_CONFIG)
