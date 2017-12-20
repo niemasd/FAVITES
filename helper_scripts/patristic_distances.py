@@ -19,6 +19,6 @@ if __name__ == "__main__":
         assert False, "Error loading DendroPy. Install with: pip3 install dendropy"
     t = Tree.get(file=args.tree, schema=args.schema.strip())
     d = t.phylogenetic_distance_matrix()
-    print(",%s" % ','.join([str(e)[1:-1] for e in t.taxon_namespace]))
+    args.output.write(",%s\n" % ','.join([str(e)[1:-1] for e in t.taxon_namespace]))
     for t1 in t.taxon_namespace:
-        print("%s,%s" % (str(t1)[1:-1], ','.join([str(d(t1,t2)) for t2 in t.taxon_namespace])))
+        args.output.write("%s,%s\n" % (str(t1)[1:-1], ','.join([str(d(t1,t2)) for t2 in t.taxon_namespace])))
