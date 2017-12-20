@@ -52,7 +52,7 @@ class TreeNode_Simple(TreeNode):
         self.manual_leaves = None # have the ability to set leaves manually
 
     def __str__(self): # label|contact network node|time
-        return self.get_label() + '|' + str(self.get_contact_network_node()) + '|' + str(self.get_time())
+        return '%s|%s|%s' % (self.get_label(),str(self.get_contact_network_node()),str(self.get_time()))
 
     def str_to_node(string):
         return GC.label_to_node[string.split('|')[0]]
@@ -95,7 +95,7 @@ class TreeNode_Simple(TreeNode):
         return self.time - self.parent.get_time()
 
     def get_label(self):
-        return "N" + str(self.num)
+        return "N%s" % str(self.num)
 
     def get_parent(self):
         return self.parent
@@ -166,16 +166,16 @@ class TreeNode_Simple(TreeNode):
         # if leaf
         if len(self.children) == 0:
             if self.parent == None: # one-node tree
-                return '(' + str(self) + ':' + str(self.time) + ');'
+                return '(%s:%s);' % (str(self),str(self.time))
             else:
                 return str(self)
 
         # if internal node
         else:
-            parts = [child.newick() + ':' + str(child.get_edge_length()) for child in self.children]
-            out = '(' + ','.join(parts) + ')'# + str(self) # removed internal node labels (breaks Seq-Gen)
+            parts = ['%s:%s' % (child.newick(),str(child.get_edge_length())) for child in self.children]
+            out = '(%s)' % ','.join(parts)
             if self.parent == None: # if root, need semicolon (entire tree)
-                out += ':' + str(self.time) + ';'
+                out += ':%s;' % str(self.time)
             return out
 
     def replace_content(self, other):

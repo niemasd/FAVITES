@@ -76,7 +76,7 @@ class NodeEvolution_VirusTreeSimulator(NodeEvolution):
             f.close()
 
             # run VirusTreeSimulator
-            jar_file = GC.FAVITES_DIR + '/dependencies/VirusTreeSimulator.jar'
+            jar_file = '%s/dependencies/VirusTreeSimulator.jar' % GC.FAVITES_DIR
             try:
                 call([GC.java_path,'-jar',jar_file,'-demoModel',GC.vts_model,'-N0',str(GC.vts_n0),'-growthRate',str(GC.vts_growthRate),'-t50',str(GC.vts_t50),VTS_TRANSMISSIONS,VTS_SAMPLES,VTS_OUTPUT_PREFIX], stdout=open("log.txt",'w'))
             except FileNotFoundError:
@@ -90,7 +90,7 @@ class NodeEvolution_VirusTreeSimulator(NodeEvolution):
                 parts = open(filename).read().strip().split('Translate')[1].split('tree TREE1')
                 translate = [l.strip()[:-1].replace("'",'').split() for l in parts[0].splitlines()][1:-1]
                 translate = [(a, MF.modules['TreeNode']().get_label()+'|'+b.split('_')[1]+'|'+b.split('_')[-1]) for a,b in translate]
-                translate_file = filename.split('.')[0] + '.translate'
+                translate_file = '%s.translate' % filename.split('.')[0]
                 f = open(translate_file,'w')
                 f.write('\n'.join(['%s\t%s' % e for e in translate]))
                 f.close()
@@ -107,7 +107,7 @@ class NodeEvolution_VirusTreeSimulator(NodeEvolution):
                         e.length = 0
                 tree = tree.as_string(schema='newick')
                 #write to disk
-                tree_file = filename.split('.')[0] + '.tre'
+                tree_file = '%s.tre' % filename.split('.')[0]
                 f = open(tree_file,'w')
                 f.write(tree)
                 f.close()

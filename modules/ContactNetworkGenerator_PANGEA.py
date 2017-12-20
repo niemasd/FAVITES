@@ -37,9 +37,9 @@ class ContactNetworkGenerator_PANGEA(ContactNetworkGenerator):
                     from random import randint
                     val = str(randint(0,32767))
                 if len(val) != 0:
-                    args.append(arg.split('_')[1] + "='" + val + "'")
+                    args.append("%s='%s'" % (arg.split('_')[1],val))
             else:
-                args.append(arg.split('_')[1] + "=" + str(val))
+                args.append("%s=%s" % (arg.split('_')[1],val))
         orig_dir = getcwd()
         makedirs(PANGEA_path, exist_ok=True)
         chdir(PANGEA_path)
@@ -59,9 +59,9 @@ class ContactNetworkGenerator_PANGEA(ContactNetworkGenerator):
             break
         script_str = open(script,'r').read()
         f = open(script,'w')
-        f.write('#!/usr/bin/env bash\n' + script_str)
+        f.write('#!/usr/bin/env bash\n%s' % script_str)
         f.close()
-        check_output(['./' + script], stderr=open(script + '_output.log','w'))
+        check_output(['./%s' % script], stderr=open('%s_output.log' % script,'w'))
         for archive in glob('*_INTERNAL.zip'):
             break
         z = ZipFile(archive, 'r')
@@ -71,30 +71,30 @@ class ContactNetworkGenerator_PANGEA(ContactNetworkGenerator):
         f.close()
         f = open(PANGEA_trans_net_script,'w')
         f.write("library(PANGEA.HIV.sim)\n")
-        f.write("load('" + internal + "')\n")
+        f.write("load('%s')\n" % internal)
         f.write("trans <- df.trms[,c('IDTR','IDREC','TIME_TR')]\n")
-        f.write("write.table(trans[order(trans$TIME_TR),], file='" + PANGEA_trans_file + "', append=FALSE, sep='\\t', row.names=FALSE, col.names=FALSE, quote=FALSE)")
+        f.write("write.table(trans[order(trans$TIME_TR),], file='%s', append=FALSE, sep='\\t', row.names=FALSE, col.names=FALSE, quote=FALSE)" % PANGEA_trans_file)
         f.close()
         check_output([GC.Rscript_path,PANGEA_trans_net_script], stderr=open(devnull,'w'))
         GC.PANGEA_TRANSMISSION_NETWORK = [i.strip().split() for i in open(PANGEA_trans_file) if len(i.strip()) > 0]
         chdir(orig_dir)
-        for archive in glob(PANGEA_path + '/*_SIMULATED_SEQ.zip'):
+        for archive in glob('%s/*_SIMULATED_SEQ.zip' % PANGEA_path):
             break
         z = ZipFile(archive, 'r')
         fasta_files = [item for item in z.namelist() if item.endswith('.fa')]
         for fasta in fasta_files:
-            ending = '_' + fasta.split('_')[-1].split('.')[0] + '.fasta'
+            ending = '_%s.fasta' % fasta.split('_')[-1].split('.')[0]
             seqs = GC.parseFASTA(z.read(fasta).decode('ascii').splitlines())
             for seqID in seqs:
-                f = open("error_free_files/sequence_data/seqs_" + seqID.split('|')[0] + ending, 'w')
-                f.write('>' + seqID + '\n' + seqs[seqID] + '\n')
+                f = open("error_free_files/sequence_data/seqs_%s%s" % (seqID.split('|')[0],ending), 'w')
+                f.write('>%s\n%s\n' % (seqID,seqs[seqID]))
                 f.close()
-        for archive in glob(PANGEA_path + '/*_SIMULATED_TREE.zip'):
+        for archive in glob('%s/*_SIMULATED_TREE.zip' % PANGEA_path):
             break
         z = ZipFile(archive, 'r')
         trees = [item for item in z.namelist() if item.endswith('.newick')]
         for tree in trees:
-            f = open("error_free_files/phylogenetic_trees/" + tree, 'wb')
+            f = open("error_free_files/phylogenetic_trees/%s" % tree, 'wb')
             f.write(z.read(tree))
             f.close()
         return []

@@ -25,13 +25,13 @@ class ContactNetworkGenerator_RandomNumsNodeEdge(ContactNetworkGenerator):
 
     def get_edge_list():
         nodes = [str(i) for i in range(GC.num_cn_nodes)]
-        out = ["NODE\t" + node + "\t." for node in nodes]
+        out = ["NODE\t%s\t." % node for node in nodes]
         poss_edges = set([(u,v) for u in nodes for v in nodes if u != v])
         for _ in range(GC.num_cn_edges):
             edge = sample(poss_edges,1)[0]
             poss_edges.remove(edge)
-            out.append("EDGE\t" + edge[0] + "\t" + edge[1] + "\t.\t" + GC.d_or_u)
-        f = open(expanduser(GC.out_dir + "/contact_network.txt"),'w')
+            out.append("EDGE\t%s\t%s\t.\t%s" % (edge[0],edge[1],GC.d_or_u))
+        f = open(expanduser("%s/contact_network.txt" % GC.out_dir),'w')
         f.write('\n'.join(out))
         f.close()
         return out

@@ -62,7 +62,7 @@ def init(mod_dir):
 
     # load list of all module implementations
     global module_implementations
-    module_implementations = eval(open(dir_modules + '/FAVITES_ModuleList.json').read())
+    module_implementations = eval(open('%s/FAVITES_ModuleList.json' % dir_modules).read())
 
     # load abstract module classes
     global module_abstract_classes
@@ -73,8 +73,8 @@ def init(mod_dir):
     # validate all module implementations
     for module in module_implementations:
         for implementation in module_implementations[module]:
-            module_implementations[module][implementation]['class'] = favites_import(module + '_' + implementation)
-            assert issubclass(module_implementations[module][implementation]['class'], module_abstract_classes[module]), "Class " + module + "_" + implementation + " is not a valid " + module
+            module_implementations[module][implementation]['class'] = favites_import('%s_%s' % (module,implementation))
+            assert issubclass(module_implementations[module][implementation]['class'], module_abstract_classes[module]), "Class %s_%s is not a valid %s" % (module,implementation,module)
 
     # dictionary to store which implementation of each module was chosen
     global modules

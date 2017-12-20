@@ -22,7 +22,7 @@ class Sequencing_Perfect(Sequencing):
         l = [leaf for leaf in node.viruses()]
         seq_data = [leaf.get_seq() for leaf in l]
         labels = [leaf.get_label() for leaf in l]
-        f = open("seqs_" + node.get_name() + ".fastq", 'w')
+        f = open("seqs_%s.fastq" % node.get_name(), 'w')
         f.write('\n'.join(["@%s\n%s\n+\n%s" % (labels[i], seq_data[i], '~'*len(seq_data[i])) for i in range(len(l))]))
         f.close()
         os.chdir(orig_dir)

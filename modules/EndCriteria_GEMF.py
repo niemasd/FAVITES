@@ -29,7 +29,7 @@ class EndCriteria_GEMF(EndCriteria):
     def init():
         assert "GEMF" in str(MF.modules['TransmissionNodeSample']), "Must use a GEMF TransmissionNodeSample module"
         assert "GEMF" in str(MF.modules['TransmissionTimeSample']), "Must use a GEMF TransmissionTimeSample module"
-        GC.gemf_out_dir = (GC.out_dir + '/GEMF_output').replace('//','/')
+        GC.gemf_out_dir = ('%s/GEMF_output' % GC.out_dir).replace('//','/')
 
     def done():
         return GC.transmission_num == len(GC.transmission_file)
@@ -39,12 +39,12 @@ class EndCriteria_GEMF(EndCriteria):
 
     def finalize_time():
         # write GEMF output README for user
-        f = open(GC.gemf_out_dir + '/README.TXT', 'w')
-        f.write(gemf_general_help + '\n\n')
-        f.write(gemf_output_txt_help + '\n\n')
-        f.write(gemf_state_translate_help + '\n')
+        f = open('%s/README.TXT' % GC.gemf_out_dir, 'w')
+        f.write('%s\n\n' % gemf_general_help)
+        f.write('%s\n\n' % gemf_output_txt_help)
+        f.write('%s\n' % gemf_state_translate_help)
         for state in GC.gemf_state_to_num:
-            f.write(state + ' = ' + str(GC.gemf_state_to_num[state]) + '\n')
+            f.write('%s = %s\n' % (state,str(GC.gemf_state_to_num[state])))
         f.close()
 
         # update global time

@@ -25,7 +25,7 @@ class Sequencing_ARTSOLiDPairedEnd(Sequencing):
 
     def introduce_sequencing_error(node):
         command = [GC.art_SOLiD_path] + GC.art_SOLiD_options
-        command.append(GC.out_dir + "/error_free_files/sequence_data/seqs_" + node.get_name() + ".fasta")
+        command.append("%s/error_free_files/sequence_data/seqs_%s.fasta" % (GC.out_dir,node.get_name()))
         command.append(node.get_name())
         command.append(str(GC.art_SOLiD_len_read_F3))
         command.append(str(GC.art_SOLiD_len_read_F5))
@@ -37,7 +37,7 @@ class Sequencing_ARTSOLiDPairedEnd(Sequencing):
         makedirs("error_prone_files/sequence_data", exist_ok=True)
         chdir("error_prone_files/sequence_data")
         try:
-            call(command, stdout=open("log_" + node.get_name() + ".txt", 'w'))
+            call(command, stdout=open("log_%s.txt" % node.get_name(), 'w'))
         except FileNotFoundError:
             chdir(GC.START_DIR)
             assert False, "art_SOLiD executable was not found: %s" % GC.art_SOLiD_path

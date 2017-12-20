@@ -54,7 +54,7 @@ class SequenceEvolution_SeqGen(SequenceEvolution):
             if GC.VERBOSE:
                 print('[%s] Seq-Gen evolving sequences on tree: %s' % (datetime.now(),treestr), file=stderr)
                 print('[%s] Seq-Gen root sequence: %s' % (datetime.now(),rootseq), file=stderr)
-            f = open(label + '.txt','w')
+            f = open('%s.txt' % label,'w')
             f.write("1 %d\n%s %s\n1\n%s" % (len(rootseq),label,rootseq,treestr))
             f.close()
             command = [GC.seqgen_path,'-or','-k1'] + GC.seqgen_args.split()

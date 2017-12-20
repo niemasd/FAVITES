@@ -11,7 +11,7 @@ from os.path import expanduser
 class ContactNetworkGenerator_Complete(ContactNetworkGenerator):
     def cite():
         return GC.CITATION_NETWORKX
-        
+
     def init():
         try:
             global complete_graph
@@ -26,7 +26,7 @@ class ContactNetworkGenerator_Complete(ContactNetworkGenerator):
     def get_edge_list():
         cn = complete_graph(GC.num_cn_nodes)
         out = GC.nx2favites(cn, 'u')
-        f = open(expanduser(GC.out_dir + "/contact_network.txt"),'w')
+        f = open(expanduser("%s/contact_network.txt" % GC.out_dir),'w')
         f.write('\n'.join(out))
         f.close()
         return out

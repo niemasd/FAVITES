@@ -29,4 +29,7 @@ class ContactNetworkGenerator_FileAdjacencyMatrix(ContactNetworkGenerator):
                     out.append("EDGE\t%s\t%s\t.\t%s" % (str(i),str(j),'d'))
                 else:
                     assert parts[j] == '0', "Invalid matrix element. Must only contain 1s and 0s"
+        f = open(expanduser("%s/contact_network.txt" % GC.out_dir),'w')
+        f.write('\n'.join(out))
+        f.close()
         return out

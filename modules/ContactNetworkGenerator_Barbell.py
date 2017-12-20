@@ -29,7 +29,7 @@ class ContactNetworkGenerator_Barbell(ContactNetworkGenerator):
     def get_edge_list():
         cn = barbell_graph(GC.barbell_m1, GC.barbell_m2)
         out = GC.nx2favites(cn, 'u')
-        f = open(expanduser(GC.out_dir + "/contact_network.txt"),'w')
+        f = open(expanduser("%s/contact_network.txt" % GC.out_dir),'w')
         f.write('\n'.join(out))
         f.close()
         return out

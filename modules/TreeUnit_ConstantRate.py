@@ -29,4 +29,4 @@ class TreeUnit_ConstantRate(TreeUnit):
         for edge in t.preorder_edge_iter():
             if edge.length is not None:
                edge.length *= GC.tree_mutation_rate
-        return str(t) + ';'
+        return '%s;' % str(t)

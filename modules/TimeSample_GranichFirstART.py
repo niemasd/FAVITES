@@ -21,7 +21,7 @@ class TimeSample_GranichFirstART(TimeSample):
     def sample_times(node, num_times):
         if not hasattr(GC,'granich_art_time'):
             GC.granich_art_time = {}
-            for line in open(GC.gemf_out_dir + "/output.txt"):
+            for line in open("%s/output.txt" % GC.gemf_out_dir):
                 t,rate,vNum,pre,post,num0,num1,num2,num3,num4,num5,num6,num7,num8,num9,num10,lists = [i.strip() for i in line.split()]
                 v = GC.gemf_num2node[int(vNum)]
                 if v not in GC.granich_art_time and GC.gemf_num_to_state[int(post)] in {'A1','A2','A3','A4'}:

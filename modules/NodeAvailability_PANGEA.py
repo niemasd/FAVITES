@@ -20,6 +20,6 @@ class NodeAvailability_PANGEA(NodeAvailability):
 
     def subsample_transmission_network():
         out = set()
-        for f in glob(GC.out_dir + "/error_free_files/sequence_data/seqs_*"):
+        for f in glob("%s/error_free_files/sequence_data/seqs_*" % GC.out_dir):
             out.add(Node(None,f.split('/')[-1][5:-6],None))
         return out

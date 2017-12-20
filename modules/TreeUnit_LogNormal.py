@@ -36,4 +36,4 @@ class TreeUnit_LogNormal(TreeUnit):
         for edge in t.preorder_edge_iter():
             if edge.length is not None:
                 edge.length *= lognormal(mean=GC.tree_rate_mean,sigma=GC.tree_rate_stdev)
-        return str(t) + ';'
+        return '%s;' % str(t)

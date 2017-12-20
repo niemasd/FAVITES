@@ -12,7 +12,7 @@ from os.path import expanduser
 class ContactNetworkGenerator_ErdosRenyi(ContactNetworkGenerator):
     def cite():
         return GC.CITATION_NETWORKX
-        
+
     def init():
         try:
             global fast_gnp_random_graph
@@ -32,7 +32,7 @@ class ContactNetworkGenerator_ErdosRenyi(ContactNetworkGenerator):
         du = GC.d_or_u == 'd'
         cn = fast_gnp_random_graph(GC.num_cn_nodes, GC.er_prob, directed=du)
         out = GC.nx2favites(cn, GC.d_or_u)
-        f = open(expanduser(GC.out_dir + "/contact_network.txt"),'w')
+        f = open(expanduser("%s/contact_network.txt" % GC.out_dir),'w')
         f.write('\n'.join(out))
         f.close()
         return out

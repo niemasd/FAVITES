@@ -68,7 +68,7 @@ class SeedSequence_Virus(SeedSequence):
 
     def generate():
         makedirs(HMM_FOLDER, exist_ok=True)
-        hmm_file = HMM_FOLDER + '/' + URL[GC.viral_sequence_type].split('/')[-1]
+        hmm_file = '%s/%s' % (HMM_FOLDER,URL[GC.viral_sequence_type].split('/')[-1])
         urlretrieve(URL[GC.viral_sequence_type], hmm_file)
         command = [GC.hmmemit_path, hmm_file]
         try:

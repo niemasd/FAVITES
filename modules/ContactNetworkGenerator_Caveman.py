@@ -11,7 +11,7 @@ from os.path import expanduser
 class ContactNetworkGenerator_Caveman(ContactNetworkGenerator):
     def cite():
         return GC.CITATION_NETWORKX
-        
+
     def init():
         try:
             global caveman_graph
@@ -28,7 +28,7 @@ class ContactNetworkGenerator_Caveman(ContactNetworkGenerator):
     def get_edge_list():
         cn = caveman_graph(GC.cave_num_cliques, GC.cave_clique_size)
         out = GC.nx2favites(cn, 'u')
-        f = open(expanduser(GC.out_dir + "/contact_network.txt"),'w')
+        f = open(expanduser("%s/contact_network.txt" % GC.out_dir),'w')
         f.write('\n'.join(out))
         f.close()
         return out

@@ -24,14 +24,14 @@ class Sequencing_ART454SingleEnd(Sequencing):
         chdir(GC.out_dir)
         makedirs("error_prone_files/sequence_data", exist_ok=True)
         chdir("error_prone_files/sequence_data")
-        for filename in listdir(GC.out_dir + "/error_free_files/sequence_data"):
+        for filename in listdir("%s/error_free_files/sequence_data" % GC.out_dir):
             if filename.split('_')[1][1:] == node.get_name():
                 command = [GC.art_454_path] + GC.art_454_options
-                command.append(GC.out_dir + "/error_free_files/sequence_data/" + filename)
+                command.append("%s/error_free_files/sequence_data/%s" % (GC.out_dir,filename))
                 command.append(filename[:-6])
                 command.append(str(GC.art_454_fold_coverage))
                 try:
-                    call(command, stdout=open("log_" + filename[5:-6] + ".txt", 'w'))
+                    call(command, stdout=open("log_%s.txt" % filename[5:-6], 'w'))
                 except FileNotFoundError:
                     chdir(GC.START_DIR)
                     assert False, "art_454 executable was not found: %s" % GC.art_454_path

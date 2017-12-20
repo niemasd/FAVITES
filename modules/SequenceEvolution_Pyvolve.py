@@ -101,9 +101,9 @@ class SequenceEvolution_Pyvolve(SequenceEvolution):
                 evolver = pyvolve.Evolver(partitions=partition, tree=tree)
             except AssertionError:
                 assert False, "Error setting up Pyvolve. Tree: %s" % treestr
-            ratefile = "pyvolve_output/" + label + "_ratefile.txt" # set each to None to not generate these files
-            infofile = "pyvolve_output/" + label + "_infofile.txt"
-            seqfile  = "pyvolve_output/" + label + "_seqfile.fasta"
+            ratefile = "pyvolve_output/%s_ratefile.txt" % label # set each to None to not generate these files
+            infofile = "pyvolve_output/%s_infofile.txt" % label
+            seqfile  = "pyvolve_output/%s_seqfile.fasta" % label
             evolver(ratefile=ratefile, infofile=infofile, seqfile=seqfile)
             seqs = evolver.get_sequences() # use anc=True to get internal sequences as well
 

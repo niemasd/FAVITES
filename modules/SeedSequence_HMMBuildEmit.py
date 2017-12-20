@@ -38,14 +38,14 @@ class SeedSequence_HMMBuildEmit(SeedSequence):
     def generate():
         if not GC.HMMBuildEmit_build:
             makedirs(HMMBuildEmit_path, exist_ok=True)
-            command = [GC.hmmbuild_path] + GC.hmmbuild_options + [HMMBuildEmit_path + "/" + HMM_filename, GC.hmmbuild_msafile]
+            command = [GC.hmmbuild_path] + GC.hmmbuild_options + ["%s/%s" % (HMMBuildEmit_path,HMM_filename), GC.hmmbuild_msafile]
             try:
                 check_output(command)
             except FileNotFoundError:
                 from os import chdir
                 chdir(GC.START_DIR)
                 assert False, "hmmbuild executable was not found: %s" % GC.hmmbuild_path
-            GC.hmmemit_hmmfile = HMMBuildEmit_path + "/" + HMM_filename
+            GC.hmmemit_hmmfile = "%s/%s" % (HMMBuildEmit_path,HMM_filename)
             GC.HMMBuildEmit_build = True
         return SeedSequence_HMMEmit.generate()
 

@@ -37,4 +37,4 @@ class TreeUnit_Gamma(TreeUnit):
         for edge in t.preorder_edge_iter():
             if edge.length is not None:
                 edge.length *= gamma(shape=GC.tree_rate_shape,scale=GC.tree_rate_scale)
-        return str(t) + ';'
+        return '%s;' % str(t)

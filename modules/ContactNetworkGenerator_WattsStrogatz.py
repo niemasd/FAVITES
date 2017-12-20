@@ -12,7 +12,7 @@ from os.path import expanduser
 class ContactNetworkGenerator_WattsStrogatz(ContactNetworkGenerator):
     def cite():
         return GC.CITATION_NETWORKX
-        
+
     def init():
         try:
             global watts_strogatz_graph
@@ -31,7 +31,7 @@ class ContactNetworkGenerator_WattsStrogatz(ContactNetworkGenerator):
     def get_edge_list():
         cn = watts_strogatz_graph(GC.num_cn_nodes, GC.ws_k, GC.ws_prob)
         out = GC.nx2favites(cn, 'u')
-        f = open(expanduser(GC.out_dir + "/contact_network.txt"),'w')
+        f = open(expanduser("%s/contact_network.txt" % GC.out_dir),'w')
         f.write('\n'.join(out))
         f.close()
         return out
