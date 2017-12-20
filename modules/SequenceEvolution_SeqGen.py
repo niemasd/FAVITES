@@ -17,7 +17,7 @@ SEQGEN_OUTPUT_DIR = "SeqGen_output"
 
 class SequenceEvolution_SeqGen(SequenceEvolution):
     def cite():
-        return GC.CITATION_SEQGEN
+        return [GC.CITATION_DENDROPY, GC.CITATION_SEQGEN]
 
     def init():
         GC.seqgen_path = expanduser(GC.seqgen_path.strip())
