@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 '''
 Compute useful statistics of the degrees of nodes in a given FAVITES-format
-contact network.
+contact network or transmission network.
 '''
-MALFORMED = "Malformed contact network file (must be in FAVITES format)"
+MALFORMED = "Malformed file (must be in FAVITES format)"
 
 # compute median of sorted list
 def med(l):
@@ -35,33 +35,42 @@ if __name__ == "__main__":
     # parse args
     import argparse
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('-c', '--contact_network', required=True, type=argparse.FileType('r'), help="Contact Network File")
+    parser.add_argument('-i', '--input_file', required=True, type=argparse.FileType('r'), help="Contact or Transmission Network File")
     args = parser.parse_args()
 
-    # parse contact network
-    outdegree = {}; indegree = {}
-    for line in args.contact_network:
+    # parse contact/transmission network
+    transmission = None; outdegree = {}; indegree = {}
+    for line in args.input_file:
         l = line.strip()
         if len(l) == 0 or l[0] == '#':
             continue
         parts = l.split('\t')
-        assert len(parts) != 0 and parts[0] in {'NODE','EDGE'}, MALFORMED
-        if parts[0] == 'NODE':
+        assert len(parts) != 0, MALFORMED
+        if transmission is None:
+            transmission = {True:False,False:True}[parts[0] in {'NODE','EDGE'}]
+        if transmission:
             assert len(parts) == 3, MALFORMED
-            assert parts[1] not in outdegree, "Duplicate node: %s" % parts[1]
-            outdegree[parts[1]] = 0; indegree[parts[1]] = 0
-        elif parts[0] == 'EDGE':
-            assert len(parts) == 5, MALFORMED
-            assert parts[1] in outdegree, "Node %s not specified before edges" % parts[1]
-            assert parts[2] in outdegree, "Node %s not specified before edges" % parts[2]
-            assert parts[4] in {'d','u'}, MALFORMED
-            outdegree[parts[1]] += 1; indegree[parts[2]] += 1
-            if parts[4] == 'u':
-                outdegree[parts[2]] += 1; indegree[parts[1]] += 1
+            if parts[0] not in outdegree:
+                outdegree[parts[0]] = 0
+            outdegree[parts[0]] += 1
+        else:
+            assert parts[0] in {'NODE','EDGE'}, MALFORMED
+            if parts[0] == 'NODE':
+                assert len(parts) == 3, MALFORMED
+                assert parts[1] not in outdegree, "Duplicate node: %s" % parts[1]
+                outdegree[parts[1]] = 0; indegree[parts[1]] = 0
+            elif parts[0] == 'EDGE':
+                assert len(parts) == 5, MALFORMED
+                assert parts[1] in outdegree, "Node %s not specified before edges" % parts[1]
+                assert parts[2] in outdegree, "Node %s not specified before edges" % parts[2]
+                assert parts[4] in {'d','u'}, MALFORMED
+                outdegree[parts[1]] += 1; indegree[parts[2]] += 1
+                if parts[4] == 'u':
+                    outdegree[parts[2]] += 1; indegree[parts[1]] += 1
 
     # compute degree statistics
     outdegrees = [outdegree[n] for n in outdegree]; indegrees = [indegree[n] for n in indegree]
-    #(len, sum, avg, var, std, min, q1, med, q3, max)
     print("### Out-Degree Stats ###\nLength:\t%d\nSum:\t%d\nAvg:\t%f\nVar:\t%f\nStdev:\t%f\nMin:\t%f\nQ1:\t%f\nMed:\t%f\nQ3:\t%f\nMax:\t%f" % stats(outdegrees))
-    print()
-    print("### In-Degree Stats ###\nLength:\t%d\nSum:\t%d\nAvg:\t%f\nVar:\t%f\nStdev:\t%f\nMin:\t%f\nQ1:\t%f\nMed:\t%f\nQ3:\t%f\nMax:\t%f" % stats(indegrees))
+    if not transmission:
+        print()
+        print("### In-Degree Stats ###\nLength:\t%d\nSum:\t%d\nAvg:\t%f\nVar:\t%f\nStdev:\t%f\nMin:\t%f\nQ1:\t%f\nMed:\t%f\nQ3:\t%f\nMax:\t%f" % stats(indegrees))
