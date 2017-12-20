@@ -31,6 +31,13 @@ class SequenceEvolution_SeqGen(SequenceEvolution):
         assert '-s' not in GC.seqgen_args, "Do not use the Seq-Gen -s argument"
         assert '-m' in GC.seqgen_args, "Must specify a Seq-Gen model using the -m argument"
         GC.check_seqgen_executable()
+        try:
+            global Tree
+            from dendropy import Tree
+        except:
+            from os import chdir
+            chdir(GC.START_DIR)
+            assert False, "Error loading Dendropy. Install with: pip3 install dendropy"
 
     def evolve_to_current_time(node):
         pass
@@ -44,9 +51,12 @@ class SequenceEvolution_SeqGen(SequenceEvolution):
         # perform sequence evolution
         for root,treestr in GC.pruned_newick_trees:
             treestr = treestr.strip()
-            # if one-node tree, add DUMMY 0-length leaf
-            if ',' not in treestr:
+            if ',' not in treestr: # if one-node tree, add DUMMY 0-length leaf
                 treestr = "(DUMMY:0,%s);" % treestr.replace('(','').replace(')','')[:-1]
+            else: # otherwise, resolve polytomies and unifurcations
+                tmp = Tree.get(data=treestr, schema='newick')
+                tmp.suppress_unifurcations(); tmp.resolve_polytomies()
+                treestr = str(tmp)
 
             # run Seq-Gen
             label = root.get_label()
