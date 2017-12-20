@@ -16,8 +16,6 @@ import modules.FAVITES_ModuleFactory as MF
 from subprocess import check_output,STDOUT
 from os.path import expanduser
 from os import chdir,makedirs
-from dendropy import TaxonNamespace
-from dendropy.simulate import treesim
 
 OUT_FOLDER = "seed_sequences"
 class SeedSequence_VirusMeanCoalescentGTRCodon(SeedSequence):
@@ -30,6 +28,15 @@ class SeedSequence_VirusMeanCoalescentGTRCodon(SeedSequence):
         GC.seed_population = int(GC.seed_population)
         assert GC.seed_population > 0, "seed_population must be positive"
         GC.check_seqgen_executable()
+        try:
+            global TaxonNamespace
+            from dendropy import TaxonNamespace
+            global treesim
+            from dendropy.simulate import treesim
+        except:
+            from os import chdir
+            chdir(GC.START_DIR)
+            assert False, "Error loading Dendropy. Install with: pip3 install dendropy"
 
     def generate():
         if not hasattr(GC, "seed_sequences"):

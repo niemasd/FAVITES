@@ -16,7 +16,6 @@ import modules.FAVITES_ModuleFactory as MF
 from subprocess import check_output,STDOUT
 from os.path import expanduser
 from os import chdir,makedirs
-from dendropy.simulate import treesim
 
 OUT_FOLDER = "seed_sequences"
 class SeedSequence_VirusBirthDeathGTRGamma(SeedSequence):
@@ -31,6 +30,13 @@ class SeedSequence_VirusBirthDeathGTRGamma(SeedSequence):
         GC.seed_death_rate = float(GC.seed_death_rate)
         assert GC.seed_death_rate >= 0, "seed_death_rate must be at least 0"
         GC.check_seqgen_executable()
+        try:
+            global treesim
+            from dendropy.simulate import treesim
+        except:
+            from os import chdir
+            chdir(GC.START_DIR)
+            assert False, "Error loading Dendropy. Install with: pip3 install dendropy"
 
     def generate():
         if not hasattr(GC, "seed_sequences"):
