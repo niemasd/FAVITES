@@ -9,7 +9,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('-t', '--tree', required=True, type=argparse.FileType('r'), help="Tree File")
     parser.add_argument('-s', '--schema', required=False, type=str, default="newick", help="Tree File Schema")
-    parser.add_argument('-o', '--output', required=False, type=argparse.FileType('r'), default=stdout, help="Output")
+    parser.add_argument('-o', '--output', required=False, type=argparse.FileType('w'), default=stdout, help="Output File")
     args = parser.parse_args()
 
     # load tree and compute distances
