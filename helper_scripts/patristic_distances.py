@@ -13,7 +13,10 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # load tree and compute distances
-    from dendropy import Tree
+    try:
+        from dendropy import Tree
+    except:
+        assert False, "Error loading DendroPy. Install with: pip3 install dendropy"
     t = Tree.get(file=args.tree, schema=args.schema.strip())
     d = t.phylogenetic_distance_matrix()
     print(",%s" % ','.join([str(e)[1:-1] for e in t.taxon_namespace]))

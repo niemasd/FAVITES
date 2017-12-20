@@ -36,7 +36,7 @@ class SeedSequence_VirusMeanCoalescentGTRGamma(SeedSequence):
         except:
             from os import chdir
             chdir(GC.START_DIR)
-            assert False, "Error loading Dendropy. Install with: pip3 install dendropy"
+            assert False, "Error loading DendroPy. Install with: pip3 install dendropy"
 
     def generate():
         if not hasattr(GC, "seed_sequences"):

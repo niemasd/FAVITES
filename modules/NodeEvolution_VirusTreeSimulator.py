@@ -43,7 +43,7 @@ class NodeEvolution_VirusTreeSimulator(NodeEvolution):
         except:
             from os import chdir
             chdir(GC.START_DIR)
-            assert False, "Error loading Dendropy. Install with: pip3 install dendropy"
+            assert False, "Error loading DendroPy. Install with: pip3 install dendropy"
 
     def evolve_to_current_time(node, finalize=False):
         # if it's not the end yet, just dummy

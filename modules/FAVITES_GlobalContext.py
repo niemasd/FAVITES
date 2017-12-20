@@ -393,7 +393,7 @@ def prune_sampled_trees():
                 if curr.get_time() >= t:
                     try:
                         curr_parent = curr.get_parent()
-                    except AttributeError: # Dendropy update
+                    except AttributeError: # DendroPy update
                         curr_parent = curr.parent_node
                     if curr_parent is None or curr_parent.get_time() < t:
                         present_at_time[t].add(curr)
