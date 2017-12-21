@@ -1,7 +1,5 @@
 #! /usr/bin/env python3
 '''
-Niema Moshiri 2017
-
 Compare a given simulated tree against a given realistic reference tree.
 '''
 from common import avg
