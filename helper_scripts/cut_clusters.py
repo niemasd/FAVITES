@@ -42,7 +42,7 @@ if __name__ == "__main__":
     parser.add_argument('-t', '--tree', required=True, type=argparse.FileType('r'), help="Tree File")
     parser.add_argument('-s', '--schema', required=False, type=str, default="newick", help="Tree File Schema")
     parser.add_argument('-m', '--mode', required=True, type=str, help="Mode (r for root, l for lowest leaf)")
-    parser.add_argument('-d', '--distance', required=True, type=float, help="Distance from Root")
+    parser.add_argument('-d', '--distance', required=True, type=float, help="Distance")
     parser.add_argument('-o', '--output', required=False, type=argparse.FileType('w'), default=stdout, help="Output File")
     args = parser.parse_args()
     assert args.mode.lower() in CUT, "Invalid mode: %s" % args.mode

@@ -50,7 +50,7 @@ if __name__ == "__main__":
         if n in q_node_to_cluster:
             q_cluster_list.append(q_node_to_cluster[n])
         else: # tn93 doesn't output singletons
-            q_cluster_list.append(c); c += 1
+            q_cluster_list.append(r_c); r_c += 1
 
     # compute and output score
     if args.metric == 'HCV':
