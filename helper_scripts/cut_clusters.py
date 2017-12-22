@@ -42,7 +42,7 @@ def cut_length(t,d,o):
         n = q.get()
         if n.is_leaf():
             leaves.add(n)
-        if n.edge_length is None or n.edge_length > d:
+        if n == t.seed_node or n.edge_length > d:
             root[n] = n
         else:
             root[n] = root[n.parent_node]
