@@ -22,7 +22,10 @@ class ContactNetworkGenerator_FileAdjacencyMatrix(ContactNetworkGenerator):
         lines = [i.strip() for i in open(expanduser(GC.contact_network_file)) if len(i.strip()) > 0 and i.strip()[0] != '#']
         out = ["NODE\t%d\t." % i for i in range(len(lines))]
         for i in range(len(lines)):
-            parts = lines[i].split(GC.contact_network_delimiter)
+            if len(GC.contact_network_delimiter) == 0:
+                parts = lines[i]
+            else:
+                parts = lines[i].split(GC.contact_network_delimiter)
             assert len(parts) == len(lines), "The number of rows and columns must be the same"
             for j in range(len(parts)):
                 if parts[j] == '1':
