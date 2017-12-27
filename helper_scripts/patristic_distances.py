@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 '''
-Compute the pairwise distances between leaves of a given phylogenetic tree.
+Compute the pairwise distances between leaves of a given phylogenetic tree and
+output as a CSV.
 '''
 
 if __name__ == "__main__":

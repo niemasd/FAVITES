@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 '''
 Convert tn93 output to ClusterPicker cluster format
-Niema Moshiri 2017
 '''
 # parse args
 from sys import stdin
