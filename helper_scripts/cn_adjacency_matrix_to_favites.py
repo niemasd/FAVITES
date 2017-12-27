@@ -11,7 +11,7 @@ if __name__ == "__main__":
     parser.add_argument('-i', '--input', required=True, type=argparse.FileType('r'), help="Contact Network File (binary adjacency matrix)")
     parser.add_argument('-o', '--output', required=False, default=stdout, type=argparse.FileType('w'), help="Output File")
     parser.add_argument('-d', '--delim', required=False, default=None, type=str, help="Column Delimiter")
-    args = parser.parse_args()
+    args,unknown = parser.parse_known_args()
 
     # parse contact network
     g = {}

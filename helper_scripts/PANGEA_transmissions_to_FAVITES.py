@@ -7,7 +7,7 @@ import argparse
 PANGEA_HEADER = ['IdInfector', 'IdInfected', 'TimeOfInfection', 'IsInfectorAcute']
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument('-t', '--trans', required=False, type=argparse.FileType('r'), default=stdin, help="PANGEA transmission network (.csv)")
-args = parser.parse_args()
+args,unknown = parser.parse_known_args()
 for line in args.trans:
     parts = line.strip().split(',')
     if len(parts) == 1 or parts == PANGEA_HEADER:

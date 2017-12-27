@@ -14,7 +14,7 @@ import argparse
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument('-r', '--ref', required=True, type=str, help="Reference Contact Network")
 parser.add_argument('-s', '--sim', required=True, type=str, help="Simulated Contact Network")
-args = parser.parse_args()
+args,unknown = parser.parse_known_args()
 assert isfile(args.ref), "ERROR: Invalid file: %s" % args.ref
 assert isfile(args.sim), "ERROR: Invalid file: %s" % args.sim
 

@@ -11,7 +11,7 @@ if __name__ == "__main__":
     parser.add_argument('-t', '--tree', required=True, type=argparse.FileType('r'), help="Tree File")
     parser.add_argument('-s', '--schema', required=False, type=str, default="newick", help="Tree File Schema")
     parser.add_argument('-o', '--output', required=False, type=argparse.FileType('w'), default=stdout, help="Output File")
-    args = parser.parse_args()
+    args,unknown = parser.parse_known_args()
 
     # load tree and compute distances
     try:

@@ -36,7 +36,7 @@ if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('-i', '--input_file', required=True, type=argparse.FileType('r'), help="Contact or Transmission Network File")
-    args = parser.parse_args()
+    args,unknown = parser.parse_known_args()
 
     # parse contact/transmission network
     transmission = None; outdegree = {}; indegree = {}

@@ -71,7 +71,7 @@ if __name__ == "__main__":
     parser.add_argument('-m', '--mode', required=True, type=str, help="Mode (r for root, ll for lowest leaf, l for length)")
     parser.add_argument('-d', '--distance', required=True, type=float, help="Distance")
     parser.add_argument('-o', '--output', required=False, type=argparse.FileType('w'), default=stdout, help="Output File")
-    args = parser.parse_args()
+    args,unknown = parser.parse_known_args()
     assert args.mode.lower() in CUT, "Invalid mode: %s" % args.mode
 
     # load tree
