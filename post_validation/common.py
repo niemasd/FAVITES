@@ -38,7 +38,7 @@ def readFASTQ(stream):
 def degrees(f):
     d = {}
     for line in f:
-        if line[0] == '#' or len(line.strip()) == 0:
+        if len(line.strip()) == 0 or line[0] == '#':
             continue
         parts = line.split()
         assert len(parts) in {3,5} and parts[0] in {'NODE','EDGE'}, "Malformed contact network file"
