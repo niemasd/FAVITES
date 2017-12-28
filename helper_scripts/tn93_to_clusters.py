@@ -3,21 +3,18 @@
 Convert tn93 output to ClusterPicker cluster format
 '''
 # parse args
-from sys import stdin
+from sys import stdout
 import argparse
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-parser.add_argument('-i', '--input', required=False, type=str, default='stdin', help="Input (tn93 Output CSV")
+parser.add_argument('-i', '--input', required=True, type=argparse.FileType('r'), help="Input (tn93 Output CSV")
 parser.add_argument('-t', '--threshold', required=False, type=float, default=float('inf'), help="Distance Threshold")
+parser.add_argument('-o', '--output', required=False, default=stdout, type=argparse.FileType('w'), help="Output File")
 args,unknown = parser.parse_known_args()
 assert args.threshold >= 0, "ERROR: Length threshold must be at least 0"
-if args.input == 'stdin':
-    from sys import stdin; infile = stdin
-else:
-    infile = open(args.input)
 
 # build graph
 g = {} # g[node] = set of neighbors of node
-for line in infile:
+for line in args.input:
     l = line.strip()
     if l == 'ID1,ID2,Distance':
         continue
@@ -33,7 +30,7 @@ for line in infile:
 # output clusters
 from queue import Queue
 explore = set(g.keys()); CLUST = 0
-print("SequenceName\tClusterNumber")
+args.output.write("SequenceName\tClusterNumber\n")
 while len(explore) != 0:
     curr = explore.pop(); cluster = set()
     q = Queue(); q.put(curr)
@@ -43,8 +40,8 @@ while len(explore) != 0:
             if n in explore:
                 q.put(n); explore.remove(n)
     if len(cluster) == 1:
-        print('%s\t-1' % cluster.pop())
+        args.output.write('%s\t-1\n' % cluster.pop())
     else:
         CLUST += 1
         for n in cluster:
-            print('%s\t%d' % (n,CLUST))
+            args.output.write('%s\t%d\n' % (n,CLUST))

@@ -35,12 +35,12 @@ if __name__ == "__main__":
     # parse args
     import argparse
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('-i', '--input_file', required=True, type=argparse.FileType('r'), help="Contact or Transmission Network File")
+    parser.add_argument('-i', '--input', required=True, type=argparse.FileType('r'), help="Contact or Transmission Network File")
     args,unknown = parser.parse_known_args()
 
     # parse contact/transmission network
     transmission = None; outdegree = {}; indegree = {}
-    for line in args.input_file:
+    for line in args.input:
         l = line.strip()
         if len(l) == 0 or l[0] == '#':
             continue

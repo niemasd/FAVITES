@@ -2,13 +2,14 @@
 '''
 Convert a PANGEA transmission network into the FAVITES edge-list format.
 '''
-from sys import stdin
+from sys import stdout
 import argparse
 PANGEA_HEADER = ['IdInfector', 'IdInfected', 'TimeOfInfection', 'IsInfectorAcute']
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-parser.add_argument('-t', '--trans', required=False, type=argparse.FileType('r'), default=stdin, help="PANGEA transmission network (.csv)")
+parser.add_argument('-i', '--input', required=True, type=argparse.FileType('r'), help="PANGEA transmission network (.csv)")
+parser.add_argument('-o', '--output', required=False, default=stdout, type=argparse.FileType('w'), help="Output File")
 args,unknown = parser.parse_known_args()
-for line in args.trans:
+for line in args.input:
     parts = line.strip().split(',')
     if len(parts) == 1 or parts == PANGEA_HEADER:
         continue
@@ -17,4 +18,4 @@ for line in args.trans:
         u = 'None'
     v = parts[1]
     t = parts[2]
-    print("%s\t%s\t%s" % (u,v,t))
+    args.output.write("%s\t%s\t%s\n" % (u,v,t))
