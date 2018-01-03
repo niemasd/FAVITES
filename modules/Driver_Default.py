@@ -97,6 +97,7 @@ class Driver_Default(Driver):
             print('[%s] Initializing ContactNetwork object...' % datetime.now(), file=stderr)
         contact_network = MF.modules['ContactNetwork'](GC.cn_edge_list)
         assert isinstance(contact_network, MF.module_abstract_classes['ContactNetwork']), "contact_network is not a ContactNetwork object"
+        MF.modules['TransmissionNodeSample'].check_contact_network(contact_network)
         GC.contact_network = contact_network
         LOG.writeln(" done")
 
