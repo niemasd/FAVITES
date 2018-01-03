@@ -15,7 +15,7 @@ class NodeEvolution_None(NodeEvolution):
         return GC.CITATION_FAVITES
 
     def init():
-        assert "SequenceEvolution_NoMutation" in str(MF.modules['SequenceEvolution']), "Must use SequenceEvolution_NoMutation module"
+        assert "SequenceEvolution_NoMutation" in str(MF.modules['SequenceEvolution']) or "SequenceEvolution_NoSeqs" in str(MF.modules['SequenceEvolution']), "Must use SequenceEvolution_NoMutation or SequenceEvolution_NoSeqs module"
 
     def evolve_to_current_time(node, finalize=False):
         for virus in node.viruses():
