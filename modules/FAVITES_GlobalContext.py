@@ -157,6 +157,7 @@ class SortedLinkedList:
 
 # roll a weighted die (keys = faces, values = probabilities)
 def roll(orig_die):
+    assert len(orig_die) != 0, "Empty weighted die"
     total = float(sum(orig_die.values()))
     die = {face:orig_die[face]/total for face in orig_die}
     faces = sorted(die.keys())
