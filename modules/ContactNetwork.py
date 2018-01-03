@@ -37,6 +37,8 @@ class ContactNetwork(metaclass=abc.ABCMeta):
         Return a list of (u,v,time) transmission events that have happened
     init()
         Initialize the module (if need be)
+    is_directed()
+        Return whether or not this ``ContactNetwork'' is directed
     nodes_iter()
         Perform an iteration over the nodes in this ``ContactNetwork''
     num_edges()
@@ -65,6 +67,18 @@ class ContactNetwork(metaclass=abc.ABCMeta):
             The Contact Network from which to create this ``ContactNetwork''
             object, where each element is a single edge in the specified
             edge-list input format (see framework README)
+        '''
+        pass
+
+    @abc.abstractmethod
+    def is_directed(self):
+        '''
+        Return whether or not this ``ContactNetwork'' is directed
+
+        Returns
+        -------
+        directed : bool
+            True if directed, or False if undirected
         '''
         pass
 

@@ -57,6 +57,7 @@ class ContactNetwork_NetworkX(ContactNetwork):
         self.uninfected_nodes = set() # store uninfected nodes
         self.infected_nodes = set()   # store infected nodes
         self.transmissions = []       # store u->v transmission as (u,v,time)
+        self.directed = False         # am I directed (True) or undirected (False)?
 
         # read in Contact Network as node+edge list
         for line in edge_list:
@@ -97,9 +98,13 @@ class ContactNetwork_NetworkX(ContactNetwork):
                     self.contact_network[uNum][vNum]['attribute'] = set()
                 else:
                     self.contact_network[uNum][vNum]['attribute'] = set(parts[3].split(','))
+                if parts[4] not in {'d','u'}:
+                    raise ValueError("Invalid directionality: %r" % parts[4])
                 if parts[4] == 'u': # undirected edge, so add v to u too
                     self.contact_network.add_edge(vNum,uNum)
                     self.contact_network[vNum][uNum]['attribute'] = self.contact_network[uNum][vNum]['attribute']
+                else:
+                    self.directed = True
 
             # invalid type
             else:
@@ -110,6 +115,9 @@ class ContactNetwork_NetworkX(ContactNetwork):
             self.nodes.add(Node(self, self.num_to_name[node], node))
         for node in self.nodes:
             self.uninfected_nodes.add(node)
+
+    def is_directed(self):
+        return self.directed
 
     def num_transmissions(self):
         return len(self.transmissions)

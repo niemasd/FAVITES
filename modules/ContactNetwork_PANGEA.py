@@ -31,6 +31,9 @@ class ContactNetwork_PANGEA(ContactNetwork):
                 self.edges.add(Edge(u,v,None))
                 self.edges.add(Edge(v,u,None))
 
+    def is_directed(self):
+        return False
+
     def num_transmissions(self):
         return None
 
