@@ -27,7 +27,6 @@ class EndCriteria_GEMF(EndCriteria):
         return GC.CITATION_GEMF
 
     def init():
-        assert not hasattr(GC, "d_or_u") or GC.d_or_u.strip() != "d", "GEMF does not currently handle directed contact networks properly. Please use an undirected contact network"
         assert "GEMF" in str(MF.modules['TransmissionNodeSample']), "Must use a GEMF TransmissionNodeSample module"
         assert "GEMF" in str(MF.modules['TransmissionTimeSample']), "Must use a GEMF TransmissionTimeSample module"
         GC.gemf_out_dir = ('%s/GEMF_output' % GC.out_dir).replace('//','/')

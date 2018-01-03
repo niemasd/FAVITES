@@ -18,6 +18,9 @@ class TransmissionNodeSample_GEMF(TransmissionNodeSample):
         assert "GEMF" in str(MF.modules['TransmissionTimeSample']), "Must use a GEMF TransmissionTimeSample module"
         assert "EndCriteria_GEMF" in str(MF.modules['EndCriteria']), "Must use EndCriteria_GEMF module"
 
+    def check_contact_network(cn):
+        assert not cn.is_directed(), "GEMF does not currently handle directed contact networks properly. Please use an undirected contact network"
+
     def sample_nodes(time):
         if not GC.gemf_ready:
             MF.modules['TransmissionTimeSample'].prep_GEMF()
