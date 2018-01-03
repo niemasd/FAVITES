@@ -260,7 +260,10 @@ def tn_favites2gexf(cn,tn):
     edges = {(edge.get_from(),edge.get_to()):[0,time+1] for edge in cn.edges_iter()} # include CN edges
     for u,v,t in tn:
         if u is not None and u != v:
-            times = edges[(u,v)]
+            try:
+                times = edges[(u,v)]
+            except KeyError:
+                raise KeyError("(%s,%s)" % (str(u),str(v)))
             for i in range(len(times)):
                 if times[i] > t:
                     break
