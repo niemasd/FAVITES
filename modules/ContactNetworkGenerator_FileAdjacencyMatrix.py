@@ -20,6 +20,7 @@ class ContactNetworkGenerator_FileAdjacencyMatrix(ContactNetworkGenerator):
 
     def get_edge_list():
         lines = [i.strip() for i in open(expanduser(GC.contact_network_file)) if len(i.strip()) > 0 and i.strip()[0] != '#']
+        edges = set()
         out = ["NODE\t%d\t." % i for i in range(len(lines))]
         for i in range(len(lines)):
             if len(GC.contact_network_delimiter) == 0:
@@ -29,9 +30,17 @@ class ContactNetworkGenerator_FileAdjacencyMatrix(ContactNetworkGenerator):
             assert len(parts) == len(lines), "The number of rows and columns must be the same"
             for j in range(len(parts)):
                 if parts[j] == '1':
-                    out.append("EDGE\t%s\t%s\t.\t%s" % (str(i),str(j),'d'))
+                    edges.add((str(i),str(j)))
                 else:
                     assert parts[j] == '0', "Invalid matrix element. Must only contain 1s and 0s"
+        output_edges = []
+        for u,v in edges:
+            if (v,u) in edges:
+                output_edges.append((str(min(u,v)),str(max(u,v)),'u'))
+            else:
+                output_edges.append((str(u),str(v),'d'))
+        for e in sorted(output_edges):
+            out.append("EDGE\t%s\t%s\t.\t%s" % e)
         f = open(expanduser("%s/contact_network.txt" % GC.out_dir),'w')
         f.write('\n'.join(out))
         f.close()
