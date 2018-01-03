@@ -36,4 +36,7 @@ class ContactNetworkGenerator_RandomPartitionGraph(ContactNetworkGenerator):
         f = open(expanduser("%s/contact_network.txt" % GC.out_dir),'w')
         f.write('\n'.join(out))
         f.close()
+        f = open(expanduser("%s/contact_network_partitions.txt" % GC.out_dir),'w')
+        f.write(str(cn.graph['partition']))
+        f.close()
         return out
