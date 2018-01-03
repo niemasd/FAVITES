@@ -43,6 +43,19 @@ class TransmissionNodeSample(metaclass=abc.ABCMeta):
 
     @staticmethod
     @abc.abstractmethod
+    def check_contact_network(cn):
+        '''
+        Check if the given contact network is compatible
+
+        Parameters
+        ----------
+        cn : ContactNetwork
+            The contact network to check for compatibility with module
+        '''
+        pass
+
+    @staticmethod
+    @abc.abstractmethod
     def sample_nodes(time):
         '''
         Returns two nodes to be involved in a transmission event at ``time''

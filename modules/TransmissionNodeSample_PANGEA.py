@@ -18,3 +18,6 @@ class TransmissionNodeSample_PANGEA(TransmissionNodeSample):
 
     def sample_nodes(time):
         return None
+
+    def check_contact_network(cn):
+        pass

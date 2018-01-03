@@ -41,3 +41,6 @@ class TransmissionNodeSample_SI(TransmissionNodeSample):
                 GC.trans_pq.put(neighbor,time)
                 GC.trans_pq_v2trans[neighbor] = (infector,neighbor,time)
         return u,v
+
+    def check_contact_network(cn):
+        pass

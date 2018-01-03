@@ -29,3 +29,6 @@ class TransmissionNodeSample_RandomSingleInfection(TransmissionNodeSample):
             neighbors[source] = {edge.get_to() for edge in GC.contact_network.get_edges_from(source) if not edge.get_to().is_infected()}
         target = sample(neighbors[source],1)[0]
         return source,target
+
+    def check_contact_network(cn):
+        pass

@@ -30,3 +30,6 @@ class TransmissionNodeSample_TransmissionFile(TransmissionNodeSample):
         GC.transmission_state.add('node')
         u,v,t = GC.transmission_file[GC.transmission_num]
         return GC.contact_network.get_node(u), GC.contact_network.get_node(v)
+
+    def check_contact_network(cn):
+        pass
