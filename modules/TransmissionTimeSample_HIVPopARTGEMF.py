@@ -329,12 +329,15 @@ class TransmissionTimeSample_HIVPopARTGEMF(TransmissionTimeSample):
                 vName = num2node[int(vNum)].get_name()
                 GC.transmission_file.append((vName,vName,float(t)))
             elif len(lists[0]) == 0:
+                v = num2node[int(vNum)]
                 uNodes = [num2node[num] for num in uNums]
                 uRates = [matrices[uNode.gemf_state][pre][post] for uNode in uNodes]
                 die = {uNodes[i]:GC.prob_exp_min(i, uRates) for i in range(len(uNodes))}
-                u = GC.roll(die) # roll die weighted by exponential infectious rates
-                v = num2node[int(vNum)]
-                GC.transmission_file.append((u.get_name(),v.get_name(),float(t)))
+                if len(die) != 0:
+                    uName = GC.roll(die).get_name() # roll die weighted by exponential infectious rates
+                elif len(die) == 0 or u == v: # new seed
+                    uName = None
+                GC.transmission_file.append((uName,v.get_name(),float(t)))
             num2node[int(vNum)].gemf_state = post
         assert len(GC.transmission_file) != 0, "GEMF didn't output any transmissions"
         GC.gemf_ready = True

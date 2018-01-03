@@ -140,12 +140,13 @@ class TransmissionTimeSample_SAISGEMF(TransmissionTimeSample):
                     print('[%s] Uninfection\tTime %s\tNode %s (%s->%s)\tTotal Infected: %d\tTotal Uninfected: %d' % (datetime.now(),t,vName,GC.gemf_num_to_state[pre],GC.gemf_num_to_state[post],NUM_INFECTED,len(num2node)-NUM_INFECTED), file=stderr)
             elif post == GC.gemf_state_to_num['I']:
                 NUM_INFECTED += 1
+                v = num2node[int(vNum)]
                 uNodes = [num2node[num] for num in uNums]
                 uRates = [matrices[uNode.gemf_state][pre][post] for uNode in uNodes]
                 die = {uNodes[i]:GC.prob_exp_min(i, uRates) for i in range(len(uNodes))}
-                u = GC.roll(die) # roll die weighted by exponential infectious rates
-                v = num2node[int(vNum)]
-                if u == v: # new seed
+                if len(die) != 0:
+                    u = GC.roll(die) # roll die weighted by exponential infectious rates
+                elif len(die) == 0 or u == v: # new seed
                     uName = None
                     if GC.VERBOSE:
                         print('[%s] Seed\tTime %s\tNode %s\tTotal Infected: %d\tTotal Uninfected: %d' % (datetime.now(),t,vName,NUM_INFECTED,len(num2node)-NUM_INFECTED), file=stderr)
