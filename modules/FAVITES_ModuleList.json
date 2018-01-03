@@ -64,6 +64,10 @@
             "req": ["out_dir", "num_cn_nodes", "num_cn_edges", "d_or_u"]
         },
 
+        "RandomPartitionGraph": {
+            "req": ["out_dir", "rpg_sizes", "rpg_p_in", "rpg_p_out"]
+        },
+
         "WattsStrogatz": {
             "req": ["out_dir", "num_cn_nodes", "ws_k", "ws_prob"]
         }
