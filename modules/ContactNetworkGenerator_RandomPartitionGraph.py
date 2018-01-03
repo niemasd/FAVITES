@@ -26,10 +26,13 @@ class ContactNetworkGenerator_RandomPartitionGraph(ContactNetworkGenerator):
             assert isinstance(e, int), "rpg_sizes must be a list of integers"
         assert GC.rpg_p_in >= 0 and GC.rpg_p_in <= 1, "rpg_p_in must be between 0 and 1"
         assert GC.rpg_p_out >= 0 and GC.rpg_p_in <= 1, "rpg_p_in must be between 0 and 1"
+        GC.d_or_u = GC.d_or_u.strip()
+        assert GC.d_or_u == 'd' or GC.d_or_u == 'u', '"d_or_u" must be either "d" or "u"'
 
     def get_edge_list():
-        cn = random_partition_graph(GC.rpg_sizes, GC.rpg_p_in, GC.rpg_p_out)
-        out = GC.nx2favites(cn, 'u')
+        du = GC.d_or_u == 'd'
+        cn = random_partition_graph(GC.rpg_sizes, GC.rpg_p_in, GC.rpg_p_out, directed=du)
+        out = GC.nx2favites(cn, GC.d_or_u)
         f = open(expanduser("%s/contact_network.txt" % GC.out_dir),'w')
         f.write('\n'.join(out))
         f.close()

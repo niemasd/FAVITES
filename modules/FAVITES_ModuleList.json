@@ -65,7 +65,7 @@
         },
 
         "RandomPartitionGraph": {
-            "req": ["out_dir", "rpg_sizes", "rpg_p_in", "rpg_p_out"]
+            "req": ["out_dir", "rpg_sizes", "rpg_p_in", "rpg_p_out", "d_or_u"]
         },
 
         "WattsStrogatz": {
