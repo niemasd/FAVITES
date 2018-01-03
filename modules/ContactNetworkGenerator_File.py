@@ -25,5 +25,6 @@ class ContactNetworkGenerator_File(ContactNetworkGenerator):
             if parts[0] == 'NODE':
                 assert len(parts) == 3, "Invalid contact network format. NODE rows must have 3 columns"
             else:
-                assert len(parts) == 5, "Invalid contact network format. EDGE rows must have 4 columns"
+                assert len(parts) == 5, "Invalid contact network format. EDGE rows must have 5 columns"
+                assert parts[-1] in {'d','u'}, 'Invalid contact network format. The last column of EDGE rows must be either "d" or "u"'
         return lines
