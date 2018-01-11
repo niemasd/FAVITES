@@ -34,7 +34,10 @@ def parseArgs():
         parser.add_argument('-v', '--verbose', action="store_true", help="Print verbose messages to stderr")
         args = parser.parse_args()
         ORIG_CONFIG = args.config.read()
-        config = eval(ORIG_CONFIG)
+        try:
+            config = eval(ORIG_CONFIG)
+        except:
+            raise SyntaxError("Malformed FAVITES configuration file. Must be valid JSON")
         assert 'out_dir' in config, "Parameter 'out_dir' is not in the configuration file!"
         environ['out_dir_print'] = config['out_dir']
         config['verbose'] = args.verbose

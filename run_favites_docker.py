@@ -19,7 +19,10 @@ args = parser.parse_args()
 # check user args
 CONFIG = abspath(expanduser(args.config))
 assert isfile(CONFIG), "ERROR: Cannot open configuration file: %s" % CONFIG
-CONFIG_DICT = eval(open(CONFIG).read())
+try:
+    CONFIG_DICT = eval(open(CONFIG).read())
+except:
+    raise SyntaxError("Malformed FAVITES configuration file. Must be valid JSON")
 assert 'out_dir' in CONFIG_DICT, "Parameter 'out_dir' is not in the configuration file!"
 OUTPUT_DIR = abspath(CONFIG_DICT['out_dir'])
 
