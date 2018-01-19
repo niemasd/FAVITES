@@ -12,7 +12,7 @@ clusterings are in the Cluster Picker format.
     * NMI = Normalized Mutual Information
     * VM  = V-Measure
 '''
-from sklearn.metrics.cluster import *
+from sklearn.metrics.cluster import adjusted_mutual_info_score,adjusted_rand_score,completeness_score,fowlkes_mallows_score,homogeneity_completeness_v_measure,homogeneity_score,mutual_info_score,normalized_mutual_info_score,v_measure_score
 METRICS = {'AMI':adjusted_mutual_info_score, 'ARI':adjusted_rand_score, 'COM':completeness_score, 'FMI':fowlkes_mallows_score, 'HCV':homogeneity_completeness_v_measure, 'HOM':homogeneity_score, 'MI':mutual_info_score, 'NMI':normalized_mutual_info_score, 'VM':v_measure_score}
 
 # load a Cluster Picker format clustering file
