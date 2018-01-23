@@ -35,6 +35,16 @@ This directory contains a series of tools that can be used to help users with va
         * `SCHEMA`: Input tree schema (default: Newick)
         * `OUTPUT`: Output file (default: standard output)
 
+* **[scale_tree.py](scale_tree.py):** Given a phylogenetic tree (in the Newick format), scale all branches
+    * Usage: `scale_tree.py [-h] -t TREE [-o OUTPUT] -m MODE [parameters]`
+        * `TREE`: Input tree
+        * `OUTPUT`: Output file (default: stdout)
+        * `MODE`: Scaling mode
+            * Constant: `scale_tree.py -t TREE [-o OUTPUT] -m c CONSTANT`
+            * Exponential: `scale_tree.py -t TREE [-o OUTPUT] -m e SCALE`
+            * Gamma: `scale_tree.py -t TREE [-o OUTPUT] -m g SHAPE SCALE`
+            * Log-Normal: `Log-Normal Mode Usage: scale_tree.py -t TREE [-o OUTPUT] -m ln MU SIGMA`
+
 * **[score_clusters.py](score_clusters.py):** Score a given query clustering against a given true reference clustering
     * Usage: `score_clusters.py [-h] -q QUERY -r REFERENCE -m METRIC`
         * `QUERY`: Query clustering file (Cluster Picker format)
