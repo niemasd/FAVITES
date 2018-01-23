@@ -5,7 +5,7 @@ Niema Moshiri 2016
 "SeedSequence" module, which samples a single viral sequence using a profile HMM
 generated from a multiple sequence alignment from some public dataset, then
 simulates a mean coalescent tree with "num_seeds" leaves, and then evolves the
-sequence down this tree under a GTR codon model to get seed sequences for each
+sequence down this tree under a GTR+Gamma model to get seed sequences for each
 seed.
 '''
 from SeedSequence import SeedSequence
