@@ -13,6 +13,7 @@ import argparse
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument('-H', '--HMM', required=True, type=str, help="Profile HMM")
 parser.add_argument('-s', '--seq', required=True, type=str, help="Sequences")
+parser.add_argument('-p', '--cpu', required=False, type=int, default=1, help="Number of CPUs")
 parser.add_argument('-q', '--fastq', action='store_true', help="Input file is FASTQ (not FASTA)")
 parser.add_argument('-a', '--hmmscan', required=False, type=str, default='hmmscan', help="Path to hmmscan")
 args,unknown = parser.parse_known_args()
@@ -30,7 +31,7 @@ if args.fastq:
 
 # perform alignment
 try:
-    s = check_output([args.hmmscan,'--noali','--notextw',args.HMM,args.seq]).decode()
+    s = check_output([args.hmmscan,'--cpu',str(args.cpu),'--noali','--notextw',args.HMM,args.seq]).decode()
 except CalledProcessError as e:
     print(e.output.decode())
     exit(1)
