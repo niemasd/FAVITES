@@ -36,6 +36,7 @@ if __name__ == "__main__":
     parser.add_argument('-q', '--query', required=True, type=argparse.FileType('r'), help="Query Clustering File")
     parser.add_argument('-r', '--reference', required=True, type=argparse.FileType('r'), help="Reference Clustering File")
     parser.add_argument('-m', '--metric', required=True, type=str, help="Scoring Method (options: %s)" % ', '.join(sorted(METRICS.keys())))
+    parser.add_argument('-ns', '--no_singletons', action='store_true', help="Exclude (True) Singletons from Calculation")
     args,unknown = parser.parse_known_args()
     args.metric = args.metric.strip().upper()
     assert args.metric in METRICS, "ERROR: Invalid metric: %s" % args.metric
@@ -44,12 +45,20 @@ if __name__ == "__main__":
     q_node_to_cluster,q_c = load_clusters(args.query)
     r_node_to_cluster,r_c = load_clusters(args.reference)
     nodes = list(r_node_to_cluster.keys())
+    if args.no_singletons: # remove true singletons from nodes
+        cluster_size = {}
+        for n in r_node_to_cluster:
+            c = r_node_to_cluster[n]
+            if c not in cluster_size:
+                cluster_size[c] = 0
+            cluster_size[c] += 1
+        nodes = [n in nodes if cluster_size[r_node_to_cluster[n]] > 1]
     r_cluster_list = [r_node_to_cluster[n] for n in nodes]
     q_cluster_list = []
     for n in nodes:
         if n in q_node_to_cluster:
             q_cluster_list.append(q_node_to_cluster[n])
-        else: # tn93 doesn't output singletons
+        elif not args.no_singletons: # tn93 doesn't output singletons
             q_cluster_list.append(q_c); q_c += 1
 
     # compute and output score
