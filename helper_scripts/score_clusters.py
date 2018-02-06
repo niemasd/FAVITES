@@ -52,7 +52,7 @@ if __name__ == "__main__":
             if c not in cluster_size:
                 cluster_size[c] = 0
             cluster_size[c] += 1
-        nodes = [n in nodes if cluster_size[r_node_to_cluster[n]] > 1]
+        nodes = [n for n in nodes if cluster_size[r_node_to_cluster[n]] > 1]
     r_cluster_list = [r_node_to_cluster[n] for n in nodes]
     q_cluster_list = []
     for n in nodes:
