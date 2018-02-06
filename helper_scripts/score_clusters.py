@@ -36,7 +36,7 @@ if __name__ == "__main__":
     parser.add_argument('-q', '--query', required=True, type=argparse.FileType('r'), help="Query Clustering File")
     parser.add_argument('-r', '--reference', required=True, type=argparse.FileType('r'), help="Reference Clustering File")
     parser.add_argument('-m', '--metric', required=True, type=str, help="Scoring Method (options: %s)" % ', '.join(sorted(METRICS.keys())))
-    parser.add_argument('-ns', '--no_singletons', action='store_true', help="Exclude (True) Singletons from Calculation")
+    parser.add_argument('-ns', '--no_singletons', action='store_true', help="Exclude True Singletons from Calculation")
     args,unknown = parser.parse_known_args()
     args.metric = args.metric.strip().upper()
     assert args.metric in METRICS, "ERROR: Invalid metric: %s" % args.metric
