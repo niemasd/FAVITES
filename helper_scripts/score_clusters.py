@@ -58,7 +58,7 @@ if __name__ == "__main__":
     for n in nodes:
         if n in q_node_to_cluster:
             q_cluster_list.append(q_node_to_cluster[n])
-        elif not args.no_singletons: # tn93 doesn't output singletons
+        else: # tn93 doesn't output singletons
             q_cluster_list.append(q_c); q_c += 1
 
     # compute and output score
