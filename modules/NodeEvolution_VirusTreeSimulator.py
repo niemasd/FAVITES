@@ -94,6 +94,7 @@ class NodeEvolution_VirusTreeSimulator(NodeEvolution):
                 f = open(translate_file,'w')
                 f.write('\n'.join(['%s\t%s' % e for e in translate]))
                 f.close()
+                old2new = {old:new for old,new in translate}
                 tree = parts[1].split('] = [&R] ')[1].splitlines()[0].strip()
                 # add root edge length
                 if '(' in tree and cn_node in GC.first_time_transmitting:
@@ -105,13 +106,15 @@ class NodeEvolution_VirusTreeSimulator(NodeEvolution):
                 for e in tree.postorder_edge_iter():
                     if e.length is None:
                         e.length = 0
+                # translate labels back to FAVITES nodes
+                for n in tree.leaf_node_iter():
+                    n.taxon = dendropy.datamodel.taxonmodel.Taxon(old2new[str(n.taxon).replace("'","")])
+                # write to disk
                 tree = tree.as_string(schema='newick')
-                #write to disk
                 tree_file = '%s.tre' % filename.split('.')[0]
                 f = open(tree_file,'w')
                 f.write(tree)
                 f.close()
-                tree = check_output([GC.nw_rename_path,tree_file,translate_file]).decode()
                 virus = GC.seed_to_first_virus[cn_node]
                 GC.sampled_trees.add((virus.get_root(),tree))
             chdir(orig_dir)
