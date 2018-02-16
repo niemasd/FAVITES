@@ -14,6 +14,8 @@ class Sequencing(metaclass=abc.ABCMeta):
     -------
     cite()
         Return citation string (or None)
+    finalize()
+        Finalize the sequencing simulation (if necessary)
     init()
         Initialize the module (if need be)
     introduce_sequencing_error(node)
@@ -25,6 +27,14 @@ class Sequencing(metaclass=abc.ABCMeta):
     def init():
         '''
         Initialize the module (if need be)
+        '''
+        pass
+
+    @staticmethod
+    @abc.abstractmethod
+    def finalize():
+        '''
+        Finalize the sequencing simulation (if necessary)
         '''
         pass
 

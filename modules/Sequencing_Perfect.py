@@ -16,14 +16,12 @@ class Sequencing_Perfect(Sequencing):
         pass
 
     def introduce_sequencing_error(node):
-        orig_dir = getcwd()
-        makedirs("error_prone_files/sequence_data", exist_ok=True)
-        chdir("error_prone_files/sequence_data")
-        for filename in listdir("%s/error_free_files/sequence_data" % GC.out_dir):
-            if filename.split('_')[1][1:] == node.get_name():
-                seqs = GC.parseFASTA(open("%s/error_free_files/sequence_data/%s" % (GC.out_dir,filename)))
-                f = open(filename.replace('.fasta','.fastq'), 'w')
-                for k in seqs:
-                    f.write("@%s\n%s\n+\n%s\n" % (k, seqs[k], '~'*len(seqs[k])))
-                f.close()
-        chdir(orig_dir)
+        if not hasattr(GC,"sequencing_file"):
+            GC.sequencing_file = open('%s/error_prone_files/sequence_data_subsampled_errorprone.fastq'%GC.out_dir, 'w')
+        cn_label = node.get_name()
+        for t in GC.final_sequences[cn_label]:
+            for l,s in GC.final_sequences[cn_label][t]:
+                GC.sequencing_file.write("@%s\n%s\n+\n%s\n" % (l,s,'~'*len(s)))
+
+    def finalize():
+        GC.sequencing_file.close()

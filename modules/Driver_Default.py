@@ -82,9 +82,7 @@ class Driver_Default(Driver):
             print('[%s] Starting simulation' % datetime.now(), file=stderr)
         makedirs("error_free_files", exist_ok=True)
         makedirs("error_free_files/phylogenetic_trees", exist_ok=True)
-        makedirs("error_free_files/sequence_data", exist_ok=True)
         makedirs("error_prone_files", exist_ok=True)
-        makedirs("error_prone_files/sequence_data", exist_ok=True)
 
         # create ContactNetwork object
         LOG.write("Loading contact network...")
@@ -287,15 +285,13 @@ class Driver_Default(Driver):
 
         # write error-free sequence data
         LOG.writeln("Writing final sequence data to file...")
+        f = open('error_free_files/sequence_data.fasta', 'w')
         for cn_label in GC.final_sequences:
             for t in GC.final_sequences[cn_label]:
-                f = open('error_free_files/sequence_data/seqs_n%s_t%f.fasta' % (cn_label,t), 'w')
-                seqs = set()
                 for l,s in GC.final_sequences[cn_label][t]:
                     f.write(">%s\n%s\n" % (l,s))
-                    seqs.add(s)
-                f.close()
-        LOG.writeln("True sequence data were written to: %s/error_free_files/sequence_data/" % environ['out_dir_print'])
+        f.close()
+        LOG.writeln("True sequence data were written to: %s/error_free_files" % environ['out_dir_print'])
         LOG.writeln()
         if GC.VERBOSE:
             print('[%s] Wrote true sequence data' % datetime.now(), file=stderr)
@@ -303,21 +299,29 @@ class Driver_Default(Driver):
         # introduce real data artifacts
         LOG.writeln("\n=======================   Real Data Artifacts   =======================")
 
-        # subsample the contact network nodes
+        # subsample the contact network nodes and write sequences to file
         LOG.write("Subsampling contact network nodes...")
         if GC.VERBOSE:
             print('[%s] Subsampling contact network nodes' % datetime.now(), file=stderr)
-        subsampled_nodes = MF.modules['NodeAvailability'].subsample_transmission_network()
+        GC.subsampled_nodes = MF.modules['NodeAvailability'].subsample_transmission_network()
+        f = open('error_prone_files/sequence_data_subsampled_errorfree.fasta', 'w')
+        for node in GC.subsampled_nodes:
+            cn_label = node.get_name()
+            for t in GC.final_sequences[cn_label]:
+                for l,s in GC.final_sequences[cn_label][t]:
+                    f.write(">%s\n%s\n" % (l,s))
+        f.close()
         LOG.writeln(" done")
 
         # introduce sequencing error
         LOG.write("Simulating sequencing error...")
-        for node in subsampled_nodes:
+        for node in GC.subsampled_nodes:
             if GC.VERBOSE:
                 print('[%s] Sequencing error for Node %s' % (datetime.now(),str(node)), file=stderr)
             MF.modules['Sequencing'].introduce_sequencing_error(node)
+        MF.modules['Sequencing'].finalize()
         LOG.writeln(" done")
-        LOG.writeln("Error prone sequence data were written to: %s/error_prone_files/sequence_data/" % environ['out_dir_print'])
+        LOG.writeln("Error prone sequence data were written to: %s/error_prone_files" % environ['out_dir_print'])
         LOG.writeln()
 
         # return to original directory and finish

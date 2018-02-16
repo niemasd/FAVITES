@@ -7,6 +7,7 @@ Niema Moshiri 2016
 from Sequencing import Sequencing
 import FAVITES_GlobalContext as GC
 from subprocess import call
+from tempfile import NamedTemporaryFile
 from os.path import expanduser
 from os import getcwd
 from os import makedirs
@@ -23,18 +24,33 @@ class Sequencing_ARTSOLiDSingleEnd(Sequencing):
         assert GC.art_SOLiD_len_read <= 75, "Maximum ART SOLiD read length is 75"
 
     def introduce_sequencing_error(node):
-        command = [GC.art_SOLiD_path] + GC.art_SOLiD_options
-        command.append("%s/error_free_files/sequence_data/seqs_%s.fasta" % (GC.out_dir,node.get_name()))
-        command.append(node.get_name())
-        command.append(str(GC.art_SOLiD_len_read))
-        command.append(str(GC.art_SOLiD_fold_coverage))
         orig_dir = getcwd()
         chdir(GC.out_dir)
-        makedirs("error_prone_files/sequence_data", exist_ok=True)
-        chdir("error_prone_files/sequence_data")
-        try:
-            call(command, stdout=open("log_%s.txt" % node.get_name(), 'w'))
-        except FileNotFoundError:
-            chdir(GC.START_DIR)
-            assert False, "art_SOLiD executable was not found: %s" % GC.art_SOLiD_path
+        makedirs("ART_output", exist_ok=True)
+        chdir("ART_output")
+        cn_label = node.get_name()
+        for t in GC.final_sequences[cn_label]:
+            f = NamedTemporaryFile(mode='w')
+            for l,s in GC.final_sequences[cn_label][t]:
+                f.write(">%s\n%s\n" % (l,s))
+            f.flush()
+            command = [GC.art_SOLiD_path] + GC.art_SOLiD_options
+            command.append(f.name)
+            command.append('%s_%f' % (cn_label,t))
+            command.append(str(GC.art_SOLiD_len_read))
+            command.append(str(GC.art_SOLiD_fold_coverage))
+            try:
+                call(command, stdout=open('%s_%f.log' % (cn_label,t), 'w'))
+            except FileNotFoundError:
+                chdir(GC.START_DIR)
+                assert False, "art_SOLiD executable was not found: %s" % GC.art_illumina_path
+            f.close()
+            if not hasattr(GC,"sequencing_file"):
+                GC.sequencing_file = open('%s/error_prone_files/sequence_data_subsampled_errorprone.fastq'%GC.out_dir, 'w')
+            for l in open('%s_%f.fq' % (cn_label,t)):
+                GC.sequencing_file.write(l)
         chdir(orig_dir)
+
+    def finalize():
+        if hasattr(GC,"sequencing_file"):
+            GC.sequencing_file.close()
