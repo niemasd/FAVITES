@@ -3,7 +3,7 @@ This directory contains a series of tools that can be used to help users with va
 * **[clean_sequence_headers.py](clean_sequence_headers.py):** For each read of the given sequence file, remove everything from the read's header except for the contact network individual's name
     * Usage: `clean_sequence_headers.py [-h] [-i INPUT] [-o OUTPUT]`
         * `INPUT`: Input FASTA or FASTQ file (default: standard input)
-        * `OUTPUT`: Input FASTA or FASTQ file (default: standard input)
+        * `OUTPUT`: Input FASTA or FASTQ file (default: standard output)
             * The output format (FASTA/FASTQ) matches the input format and is detected automatically
             * If you wish to convert a FASTQ file to FASTA, refer to [fastq2fasta.py](https://github.com/niemasd/tools/blob/master/fastq2fasta.py) in my [tools repository](https://github.com/niemasd/tools)
 
