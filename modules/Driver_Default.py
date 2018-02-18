@@ -60,8 +60,7 @@ class Driver_Default(Driver):
                         print('[%s] Output directory exists: %s' % (datetime.now(), environ['out_dir_print']), file=stderr)
                     response = 'x'
                     while len(response) == 0 or response[0] not in {'y','n'}:
-                        LOG.writeln("ERROR: Output directory exists. Overwrite? All contents will be deleted. (y/n)")
-                        response = input().strip().lower()
+                        response = input("ERROR: Output directory exists. Overwrite? All contents will be deleted. (y/n)").strip().lower()
                     if response[0] == 'y':
                         from shutil import rmtree
                         rmtree(GC.out_dir); makedirs(GC.out_dir)
