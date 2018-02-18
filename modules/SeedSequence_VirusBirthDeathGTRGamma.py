@@ -41,7 +41,7 @@ class SeedSequence_VirusBirthDeathGTRGamma(SeedSequence):
     def generate():
         if not hasattr(GC, "seed_sequences"):
             rootseq = SeedSequence_Virus.generate()
-            treestr = treesim.birth_death_tree(birth_rate=GC.seed_birth_rate, death_rate=GC.seed_death_rate, ntax=len(GC.seed_nodes)).as_string(schema='newick')
+            treestr = treesim.birth_death_tree(birth_rate=GC.seed_birth_rate, death_rate=GC.seed_death_rate, num_extant_tips=len(GC.seed_nodes)).as_string(schema='newick')
             makedirs(OUT_FOLDER, exist_ok=True)
             f = open(OUT_FOLDER + '/time_tree.tre','w')
             f.write(treestr)
