@@ -1,10 +1,10 @@
 This directory contains a series of tools that can be used to help users with various miscellaneous tasks.
 
-* **[clean_sequence_headers.py](clean_sequence_headers.py):** For each read of the given sequence file, remove everything from the read's header except for the contact network individual's name
+* **[clean_labels.py](clean_labels.py):** For each read of the given sequence file or each leaf of a given phylogenetic tree, remove everything from the label except for the contact network individual's name
     * Usage: `clean_sequence_headers.py [-h] [-i INPUT] [-o OUTPUT]`
-        * `INPUT`: Input FASTA or FASTQ file (default: standard input)
-        * `OUTPUT`: Input FASTA or FASTQ file (default: standard output)
-            * The output format (FASTA/FASTQ) matches the input format and is detected automatically
+        * `INPUT`: Input FASTQ/FASTA/Newick File (default: standard input)
+        * `OUTPUT`: Input FASTQ/FASTA/Newick File (default: standard output)
+            * The output format (FASTA/FASTQ/Newick) matches the input format and is detected automatically
             * If you wish to convert a FASTQ file to FASTA, refer to [fastq2fasta.py](https://github.com/niemasd/tools/blob/master/fastq2fasta.py) in my [tools repository](https://github.com/niemasd/tools)
 
 * **[cn_adjacency_matrix_to_favites.py](cn_adjacency_matrix_to_favites.py):** Convert a given contact network from a binary adjacency matrix to the FAVITES format
