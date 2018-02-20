@@ -37,10 +37,10 @@ for line in args.input:
                 assert False, "Must install DendroPy (pip install dendropy) for Newick files"
     try:
         if filetype[0] == 'f': # FASTQ/FASTA
-            i = c%{'fasta':2,'fastq':4}[fasta]
+            i = c%{'fasta':2,'fastq':4}[filetype]
             if i == 0:
                 head = line[1:].split('|')[1]
-                if fasta:
+                if filetype == 'fasta':
                     args.output.write(">%s\n" % head)
                 else:
                     args.output.write("@%s\n" % head)
