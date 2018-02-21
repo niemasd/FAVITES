@@ -8,9 +8,10 @@ from Driver import Driver
 import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
 from datetime import datetime
-from os.path import abspath,expanduser,isdir
-from os import chdir,environ,getcwd,makedirs,rename
+from os.path import abspath,expanduser,isdir,join,getsize
+from os import chdir,environ,getcwd,makedirs,rename,walk
 from sys import stderr
+from time import time
 
 def printMessage(LOG):
     '''
@@ -39,6 +40,7 @@ class Driver_Default(Driver):
         '''
 
         # store starting directory
+        GC.FAVITES_START_TIME = time()
         GC.FAVITES_DIR = path
         if GC.VERBOSE:
             print('[%s] FAVITES Driver starting' % datetime.now(), file=stderr)
@@ -326,8 +328,18 @@ class Driver_Default(Driver):
         # return to original directory and finish
         chdir(orig_dir)
         if GC.VERBOSE:
+            print('[%s] Outputting simulation information' % datetime.now(), file=stderr)
+        LOG.writeln("\n===========================   Information   ===========================")
+        GC.FAVITES_OUTPUT_SIZE = 0
+        for dirpath,dirnames,filenames in walk(GC.out_dir):
+            for f in filenames:
+                fp = join(dirpath, f)
+                GC.FAVITES_OUTPUT_SIZE += getsize(fp)
+        LOG.writeln("Output Size (bytes): %d" % GC.FAVITES_OUTPUT_SIZE)
+        LOG.writeln("Execution Time (seconds): %d" % time())
+        if GC.VERBOSE:
             print('[%s] Outputting list of citations' % datetime.now(), file=stderr)
-        LOG.writeln("\n============================   Citations   ============================")
+        LOG.writeln("\n\n============================   Citations   ============================")
         citations = set()
         for module in MF.modules:
             cite = MF.modules[module].cite()
