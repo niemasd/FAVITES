@@ -2,8 +2,8 @@
 '''
 Niema Moshiri 2016
 
-"SeedSelection" module, where the same number of seed individuals are chosen
-from each community
+"SeedSelection" module, where the same number of seed individuals are randomly
+chosen from each community
 '''
 from SeedSelection import SeedSelection
 import modules.FAVITES_ModuleFactory as MF

@@ -21,9 +21,9 @@ class ContactNetworkGenerator_RandomPartitionGraph(ContactNetworkGenerator):
             from os import chdir
             chdir(GC.START_DIR)
             assert False, "Error loading NetworkX. Install with: pip3 install networkx"
-        assert isinstance(GC.rpg_sizes, list), "rpg_sizes must be a list of integers"
+        assert isinstance(GC.rpg_sizes, list), "rpg_sizes must be a list of positive integers"
         for e in GC.rpg_sizes:
-            assert isinstance(e, int), "rpg_sizes must be a list of integers"
+            assert isinstance(e, int) and e > 0, "rpg_sizes must be a list of positive integers"
         assert GC.rpg_p_in >= 0 and GC.rpg_p_in <= 1, "rpg_p_in must be between 0 and 1"
         assert GC.rpg_p_out >= 0 and GC.rpg_p_in <= 1, "rpg_p_in must be between 0 and 1"
         GC.d_or_u = GC.d_or_u.strip()
