@@ -28,26 +28,24 @@ if args.fastq:
     tmp.write('\n'.join([">%s\n%s" % (ID,seqs[ID][0]) for ID in seqs]))
     tmp.flush()
     args.seq = tmp.name
+IDs = {l.strip()[1:] for l in open(args.seq) if l[0] == '>'}
 
 # perform alignment
 try:
-    s = check_output([args.hmmsearch,'--cpu',str(args.cpu),'--noali','--notextw',args.HMM,args.seq]).decode()
+    s = check_output([args.hmmsearch,'--cpu',str(args.cpu),'--noali','--notextw','-T','0',args.HMM,args.seq]).decode()
 except CalledProcessError as e:
     print(e.output.decode())
     exit(1)
+s = s.split('Scores for complete sequences')[1].split('Domain annotation for each sequence')[0].splitlines()[4:]
 print('ID,E-value,score,bias')
-for entry in s.split('//'):
-    if len(entry) < 10: # ending [ok] line
+for line in s:
+    l = line.strip()
+    if len(l) == 0:
         continue
-    lines = [l.strip() for l in entry.strip().splitlines() if len(l) > 0 and l[0] != '#']
-    if len(lines) < 5: # header HMMER line
+    try:
+        parts = l.split(); evalue,score,bias = parts[:3]; query = parts[8]; IDs.remove(query)
+        print("%s,%s,%s,%s" % (query,evalue,score,bias))
+    except KeyError:
         continue
-    queryline = -1; scoreline = -1
-    for i in range(len(lines)):
-        if lines[i].startswith('Query:'):
-            queryline = i; scoreline = i+5
-    if queryline == -1:
-        continue
-    query = lines[queryline].split()[1]
-    evalue,score,bias = lines[scoreline].split()[:3]
-    print("%s,%s,%s,%s" % (query,evalue,score,bias))
+for ID in IDs:
+    print("%s,inf,0,0"%ID)
