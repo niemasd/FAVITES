@@ -226,6 +226,10 @@
             "req": ["seed_k", "seed_m", "seed_p"]
         },
 
+        "CommunityRandomConstant": {
+            "req": ["num_seeds_per_community"]
+        },
+
         "EdgeWeighted": {
             "req": ["num_seeds"]
         },
