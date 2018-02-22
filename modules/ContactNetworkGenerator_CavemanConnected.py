@@ -31,5 +31,9 @@ class ContactNetworkGenerator_CavemanConnected(ContactNetworkGenerator):
         f = open(expanduser("%s/contact_network.txt" % GC.out_dir),'w')
         f.write('\n'.join(out))
         f.close()
-        GC.cn_communities = [{str(c*GC.cave_clique_size+i) for i in range(GC.cave_clique_size)} for c in range(GC.cave_num_cliques)]
+        GC.cn_communities = [{c*GC.cave_clique_size+i for i in range(GC.cave_clique_size)} for c in range(GC.cave_num_cliques)]
+        f = open(expanduser("%s/contact_network_partitions.txt" % GC.out_dir),'w')
+        f.write(str(GC.cn_communities))
+        f.close()
+        GC.cn_communities = [{str(i) for i in c} for c in GC.cn_communities]
         return out
