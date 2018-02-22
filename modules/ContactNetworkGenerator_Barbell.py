@@ -32,4 +32,5 @@ class ContactNetworkGenerator_Barbell(ContactNetworkGenerator):
         f = open(expanduser("%s/contact_network.txt" % GC.out_dir),'w')
         f.write('\n'.join(out))
         f.close()
+        GC.cn_communities = [{str(i) for i in range(GC.barbell_m1)}, {str(i) for i in range(GC.barbell_m1+GC.barbell_m1+GC.barbell_m2, 2*GC.barbell_m1+GC.barbell_m1+GC.barbell_m2)}] # only left and right communities, not the path
         return out

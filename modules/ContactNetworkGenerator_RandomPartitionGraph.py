@@ -39,4 +39,5 @@ class ContactNetworkGenerator_RandomPartitionGraph(ContactNetworkGenerator):
         f = open(expanduser("%s/contact_network_partitions.txt" % GC.out_dir),'w')
         f.write(str(cn.graph['partition']))
         f.close()
+        GC.cn_communities = [{str(n) for n in c} for c in cn.graph['partition']]
         return out

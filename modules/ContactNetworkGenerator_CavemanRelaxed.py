@@ -33,4 +33,5 @@ class ContactNetworkGenerator_CavemanRelaxed(ContactNetworkGenerator):
         f = open(expanduser("%s/contact_network.txt" % GC.out_dir),'w')
         f.write('\n'.join(out))
         f.close()
+        GC.cn_communities = [{str(c*GC.cave_clique_size+i) for i in range(GC.cave_clique_size)} for c in range(GC.cave_num_cliques)]
         return out
