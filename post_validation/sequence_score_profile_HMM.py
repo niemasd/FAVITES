@@ -15,7 +15,7 @@ parser.add_argument('-H', '--HMM', required=True, type=str, help="Profile HMM")
 parser.add_argument('-s', '--seq', required=True, type=str, help="Sequences")
 parser.add_argument('-p', '--cpu', required=False, type=int, default=1, help="Number of CPUs")
 parser.add_argument('-q', '--fastq', action='store_true', help="Input file is FASTQ (not FASTA)")
-parser.add_argument('-a', '--hmmscan', required=False, type=str, default='hmmscan', help="Path to hmmscan")
+parser.add_argument('-a', '--hmmsearch', required=False, type=str, default='hmmsearch', help="Path to hmmsearch")
 args,unknown = parser.parse_known_args()
 assert isfile(args.HMM), "ERROR: Invalid file: %s" % args.HMM
 assert isfile(args.seq), "ERROR: Invalid file: %s" % args.seq
@@ -31,7 +31,7 @@ if args.fastq:
 
 # perform alignment
 try:
-    s = check_output([args.hmmscan,'--cpu',str(args.cpu),'--noali','--notextw',args.HMM,args.seq]).decode()
+    s = check_output([args.hmmsearch,'--cpu',str(args.cpu),'--noali','--notextw',args.HMM,args.seq]).decode()
 except CalledProcessError as e:
     print(e.output.decode())
     exit(1)

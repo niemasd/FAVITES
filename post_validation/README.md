@@ -14,8 +14,8 @@ This directory contains a series of tools that can be used to post-validate the 
         * `NW_DISTANCE`: Path to `nw_distance` executable (if not in `PATH`)
 
 * **[sequence_score_profile_HMM.py](sequence_score_profile_HMM.py):** Score a given sequence dataset against a given profile HMM
-    * Usage: sequence_score_profile_HMM.py [-h] -H HMM -s SEQ [-q] [-a HMMSCAN]
+    * Usage: sequence_score_profile_HMM.py [-h] -H HMM -s SEQ [-q] [-a HMMSEARCH]
         * `HMM`: Profile HMM (HMMER format)
         * `SEQ`: Sequence file
         * `-q`: Input file is FASTQ (not FASTA)
-        * `HMMSCAN`: Path to `HMMSCAN` executable (if not in `PATH`)
+        * `HMMSEARCH`: Path to `hmmsearch` executable (if not in `PATH`)
