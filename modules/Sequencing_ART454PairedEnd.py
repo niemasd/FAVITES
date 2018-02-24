@@ -55,5 +55,6 @@ class Sequencing_ART454PairedEnd(Sequencing):
         chdir(orig_dir)
 
     def finalize():
-        GC.sequencing_file.close()
-        GC.sequencing_file2.close()
+        if hasattr(GC,"sequencing_file"):
+            GC.sequencing_file.close()
+            GC.sequencing_file2.close()

@@ -66,6 +66,7 @@ class Sequencing_ART454Amplicon(Sequencing):
         chdir(orig_dir)
 
     def finalize():
-        GC.sequencing_file.close()
+        if hasattr(GC,"sequencing_file"):
+            GC.sequencing_file.close()
         if hasattr(GC,"sequencing_file2"):
             GC.sequencing_file2.close()

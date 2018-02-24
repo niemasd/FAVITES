@@ -24,4 +24,5 @@ class Sequencing_Perfect(Sequencing):
                 GC.sequencing_file.write("@%s\n%s\n+\n%s\n" % (l,s,'~'*len(s)))
 
     def finalize():
-        GC.sequencing_file.close()
+        if hasattr(GC,"sequencing_file"):
+            GC.sequencing_file.close()

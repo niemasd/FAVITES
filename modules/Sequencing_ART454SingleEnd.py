@@ -49,4 +49,5 @@ class Sequencing_ART454SingleEnd(Sequencing):
         chdir(orig_dir)
 
     def finalize():
-        GC.sequencing_file.close()
+        if hasattr(GC,"sequencing_file"):
+            GC.sequencing_file.close()

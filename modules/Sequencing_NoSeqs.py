@@ -16,3 +16,6 @@ class Sequencing_NoSeqs(Sequencing):
 
     def introduce_sequencing_error(node):
         pass
+
+    def finalize():
+        pass
