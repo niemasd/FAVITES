@@ -39,7 +39,7 @@ RUN git clone https://github.com/niemasd/GEMF.git && \
     cd GEMF && make && mv GEMF /usr/local/bin && cd .. && rm -rf GEMF
 
 # Set up Grinder
-RUN wget -qO- https://sourceforge.net/projects/biogrinder/files/latest/download | tar -xz && \
+RUN wget -qO- https://tenet.dl.sourceforge.net/project/biogrinder/biogrinder/Grinder-0.5.4/Grinder-0.5.4.tar.gz | tar -xz && \
     cd Grinder* && perl Makefile.PL && make && make install && cd .. && rm -rf Grinder*
 
 # Set up HMMER
