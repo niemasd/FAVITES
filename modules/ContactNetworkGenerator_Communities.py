@@ -54,22 +54,22 @@ class ContactNetworkGenerator_Communities(ContactNetworkGenerator):
         out = []
         for edgelist_i,edgelist in enumerate(edgelists):
             GC.cn_communities.append([])
-            node_prefix = "CNG%d_COM%d"%(GC.cng_community_num,edgelist_i)
+            node_prefix = "CNG%d-COM%d"%(GC.cng_community_num,edgelist_i)
             for line in edgelist:
                 if len(line) == 0 or line[0] == '#':
                     continue
                 parts = line.split()
                 assert parts[0] in {'NODE','EDGE'}, "Invalid FAVITES edge list encountered"
                 if parts[0] == 'NODE':
-                    name = "%s_%s" % (node_prefix,parts[1])
+                    name = "%s-%s" % (node_prefix,parts[1])
                     assert name not in g, "Duplicate node name encountered"
                     g[name] = {'edges':[], 'attributes':parts[2]}
                     out.append("NODE\t%s\t%s" % (name,parts[2]))
                     GC.cn_communities[-1].append(name)
                 else:
-                    u = "%s_%s" % (node_prefix,parts[1])
+                    u = "%s-%s" % (node_prefix,parts[1])
                     assert u in g, "Encountered non-existant node name"
-                    v = "%s_%s" % (node_prefix,parts[2])
+                    v = "%s-%s" % (node_prefix,parts[2])
                     assert v in g, "Encountered non-existant node name"
                     g[u]['edges'].append((v,parts[3],parts[4]))
             assert len(GC.cn_communities[-1]) != 0, "Encountered empty community"
