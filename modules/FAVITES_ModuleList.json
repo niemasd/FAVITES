@@ -21,31 +21,35 @@
 
     "ContactNetworkGenerator": {
         "BarabasiAlbert": {
-            "req": ["out_dir", "num_cn_nodes", "num_edges_from_new"]
+            "req": ["num_cn_nodes", "num_edges_from_new"]
         },
 
         "Barbell": {
-            "req": ["out_dir", "barbell_m1", "barbell_m2"]
+            "req": ["barbell_m1", "barbell_m2"]
         },
 
         "Caveman": {
-            "req": ["out_dir", "cave_num_cliques", "cave_clique_size"]
+            "req": ["cave_num_cliques", "cave_clique_size"]
         },
 
         "CavemanConnected": {
-            "req": ["out_dir", "cave_num_cliques", "cave_clique_size"]
+            "req": ["cave_num_cliques", "cave_clique_size"]
         },
 
         "CavemanRelaxed": {
-            "req": ["out_dir", "cave_num_cliques", "cave_clique_size", "cave_prob"]
+            "req": ["cave_num_cliques", "cave_clique_size", "cave_prob"]
+        },
+
+        "Communities": {
+            "req": ["cn_generators", "cn_p_across"]
         },
 
         "Complete": {
-            "req": ["out_dir", "num_cn_nodes"]
+            "req": ["num_cn_nodes"]
         },
 
         "ErdosRenyi": {
-            "req": ["out_dir", "num_cn_nodes", "er_prob", "d_or_u"]
+            "req": ["num_cn_nodes", "er_prob", "d_or_u"]
         },
 
         "File": {
@@ -61,11 +65,11 @@
         },
 
         "RandomPartitionGraph": {
-            "req": ["out_dir", "rpg_sizes", "rpg_p_in", "rpg_p_out", "d_or_u"]
+            "req": ["rpg_sizes", "rpg_p_in", "rpg_p_out", "d_or_u"]
         },
 
         "WattsStrogatz": {
-            "req": ["out_dir", "num_cn_nodes", "ws_k", "ws_prob"]
+            "req": ["num_cn_nodes", "ws_k", "ws_prob"]
         }
     },
 
