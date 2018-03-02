@@ -256,6 +256,10 @@
     },
 
     "SeedSequence": {
+        "CommunityVirusPureCoalescentGTRGamma": {
+            "req": ["hmmemit_path", "seqgen_path", "viral_sequence_type", "community_root_population", "community_seed_populations", "seqgen_a_to_c", "seqgen_a_to_g", "seqgen_a_to_t", "seqgen_c_to_g", "seqgen_c_to_t", "seqgen_g_to_t", "seqgen_freq_a", "seqgen_freq_c", "seqgen_freq_g", "seqgen_freq_t", "seqgen_gamma_shape", "seqgen_num_gamma_rate_categories"]
+        },
+
         "HMMBuildEmit": {
             "req": ["hmmbuild_path", "hmmbuild_options", "hmmbuild_msafile", "hmmemit_path", "hmmemit_options"]
         },
