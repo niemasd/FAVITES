@@ -31,7 +31,7 @@ CITATION_PANGEA = 'Ratmann, O., Hodcroft, E.B., Pickles, M., Cori, A., Hall, M.,
 CITATION_PHYLOMMAND = 'Ryberg, M. (2016). "Phylommand - a command line software package for phylogenetics [version 1; referees: 2 approved with reservations]". F1000Research 2016, 5:2903 (doi: 10.12688/f1000research.10446.1).'
 CITATION_PYVOLVE = 'Spielman, S.J. and Wilke, C.O. (2015). "Pyvolve: A Flexible Python Module for Simulating Sequences along Phylogenies". PLoS One 10(9):e0139047.'
 CITATION_SEQGEN = 'Rambaut, A. and Grassly, N. C. (1997). "Seq-Gen: An application for the Monte Carlo simulation of DNA sequence evolution along phylogenetic trees". Comput. Appl. Biosci. 13: 235-238.'
-COMMUNITY_GENERATORS = ['ContactNetworkGenerator_Barbell','ContactNetworkGenerator_Caveman','ContactNetworkGenerator_CavemanConnected','ContactNetworkGenerator_CavemanRelaxed','ContactNetworkGenerator_RandomPartitionGraph']
+COMMUNITY_GENERATORS = ['ContactNetworkGenerator_Communities','ContactNetworkGenerator_Barbell','ContactNetworkGenerator_Caveman','ContactNetworkGenerator_CavemanConnected','ContactNetworkGenerator_CavemanRelaxed','ContactNetworkGenerator_RandomPartitionGraph']
 
 def init(reqs):
     '''
