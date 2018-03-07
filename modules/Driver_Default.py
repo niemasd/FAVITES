@@ -17,10 +17,16 @@ def printMessage(LOG):
     '''
     Print author message
     '''
-    LOG.writeln("/---------------------------------------------------------------------\\")
-    LOG.writeln("| FAVITES - FrAmework for VIral Transmission and Evolution Simulation |")
-    LOG.writeln("|                          Niema Moshiri 2017                         |")
-    LOG.writeln("\\---------------------------------------------------------------------/\n")
+    title = "FAVITES - FrAmework for VIral Transmission and Evolution Simulation"
+    version = "Version %s" % GC.FAVITES_VERSION
+    devel = "Niema Moshiri 2017"
+    l = max(len(title),len(version),len(devel))
+    LOG.writeln("/-%s-\\" % ('-'*l))
+    for e in (title,version,devel):
+        lpad = int((l-len(e))/2)
+        rpad = l - lpad - len(e)
+        LOG.writeln("| %s%s%s |" % (lpad*' ',e,rpad*' '))
+    LOG.writeln("\\-%s-/\n" % ('-'*l))
 
 class Driver_Default(Driver):
     def cite():
