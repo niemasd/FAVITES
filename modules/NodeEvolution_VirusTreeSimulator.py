@@ -82,6 +82,8 @@ class NodeEvolution_VirusTreeSimulator(NodeEvolution):
             except FileNotFoundError:
                 chdir(GC.START_DIR)
                 assert False, "Java executable was not found: %s" % GC.java_path
+            if open("log.txt").read().startswith("Error"):
+                raise RuntimeError("VirusTreeSimulator.jar failed to run. See %s/log.txt for error information."%VTS_OUTPUT_DIR)
 
             # parse VirusTreeSimulator output
             GC.sampled_trees = set()
