@@ -51,7 +51,10 @@ class Sequencing_DWGSIM(Sequencing):
             else:
                 raise FileNotFoundError("Couldn't find %s_%f.bwa.read1.fastq or %s_%f.bwa.read1.fastq.gz" % (cn_label,t,cn_label,t))
             for l in f:
-                GC.sequencing_file.write(l)
+                if isinstance(l,bytes):
+                    GC.sequencing_file.write(l.decode())
+                else:
+                    GC.sequencing_file.write(l)
             if isfile('%s_%f.bwa.read2.fastq' % (cn_label,t)):
                 f = open('%s_%f.bwa.read2.fastq' % (cn_label,t))
             elif isfile('%s_%f.bwa.read2.fastq.gz' % (cn_label,t)):
@@ -59,7 +62,10 @@ class Sequencing_DWGSIM(Sequencing):
             else:
                 raise FileNotFoundError("Couldn't find %s_%f.bwa.read2.fastq or %s_%f.bwa.read2.fastq.gz" % (cn_label,t,cn_label,t))
             for l in f:
-                GC.sequencing_file2.write(l)
+                if isinstance(l,bytes):
+                    GC.sequencing_file2.write(l.decode())
+                else:
+                    GC.sequencing_file2.write(l)
         chdir(orig_dir)
 
     def finalize():
