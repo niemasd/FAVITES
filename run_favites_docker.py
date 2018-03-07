@@ -21,44 +21,47 @@ except:
     raise SyntaxError("Malformed FAVITES configuration file. Must be valid JSON")
 assert 'out_dir' in CONFIG_DICT, "Parameter 'out_dir' is not in the configuration file!"
 OUTPUT_DIR = abspath(CONFIG_DICT['out_dir'])
+version = 'niemasd/favites'
 
 # pull the latest Docker image (if applicable)
 try:
-	has_image = False
-	o = check_output(['docker','images']).decode().splitlines()
-	for l in o:
-		if l.startswith('niemasd/favites'):
-			has_image = True; break
-	if not has_image:
-		args.update = []
+    has_image = False
+    o = check_output(['docker','images']).decode().splitlines()
+    for l in o:
+        if l.startswith('niemasd/favites'):
+            has_image = True; break
+    if not has_image:
+        args.update = []
 except CalledProcessError as e:
-	raise RuntimeError("docker images command failed\n%s"%e.output)
+    raise RuntimeError("docker images command failed\n%s"%e.output)
 if args.update is not None:
-	assert len(args.update) < 2, "More than one Docker image version specified. Must either specify just -u or -u <VERSION>"
-	if len(args.update) == 0:
-		tag = 'latest'
-	else:
-		tag = args.update[0]
-	version = 'niemasd/favites:%s'%tag
-	print("Pulling Docker image (%s)..." % tag, end=' ', file=stderr); stderr.flush()
-	try:
-		o = check_output(['docker','pull',version], stderr=STDOUT)
-	except CalledProcessError as e:
-		if "manifest for %s not found"%version in e.output.decode():
-			raise ValueError("Invalid FAVITES version specified: %s"%tag)
-		else:
-			raise RuntimeError("docker pull command failed\n%s"%e.output)
-	# try to remove old images
-	try:
-		o = check_output(['docker','images']).decode().splitlines()
-		for l in o:
-			if l.startswith('niemasd/favites'):
-				p = l.split()
-				if tag != p[1]:
-					check_output(['docker','image','rm','--force',p[2]])
-		print("done", file=stderr)
-	except:
-		print("Failed to remove old Docker images", file=stderr); stderr.flush()
+    assert len(args.update) < 2, "More than one Docker image version specified. Must either specify just -u or -u <VERSION>"
+    if len(args.update) == 0:
+        tag = 'latest'
+    else:
+        tag = args.update[0]
+    version = 'niemasd/favites:%s'%tag
+    print("Pulling Docker image (%s)..." % tag, end=' ', file=stderr); stderr.flush()
+    try:
+        o = check_output(['docker','pull',version], stderr=STDOUT)
+        print("done", file=stderr); stderr.flush()
+    except CalledProcessError as e:
+        if "manifest for %s not found"%version in e.output.decode():
+            raise ValueError("Invalid FAVITES version specified: %s"%tag)
+        else:
+            raise RuntimeError("docker pull command failed\n%s"%e.output)
+    # try to remove old images
+    try:
+        print("Removing old Docker images...", end=' ', file=stderr); stderr.flush()
+        o = check_output(['docker','images']).decode().splitlines()
+        for l in o:
+            if l.startswith('niemasd/favites'):
+                p = l.split()
+                if tag != p[1]:
+                    check_output(['docker','image','rm','--force',p[2]])
+        print("done", file=stderr)
+    except:
+        print("Failed to remove old Docker images", file=stderr); stderr.flush()
 
 # create output directory
 try:
@@ -81,8 +84,8 @@ COMMAND += ['-v',OUTPUT_DIR+':/OUTPUT_DIR']             # mount output directory
 if not platform.startswith('win'):                      # if not Windows,
     from os import geteuid,getegid
     COMMAND += ['-u',str(geteuid())+':'+str(getegid())] # make output files owned by user instead of root
-COMMAND += ['niemasd/favites']                          # Docker image
+COMMAND += [version]                                    # Docker image
 try:
-	call(COMMAND)
+    call(COMMAND)
 except:
-	exit(-1)
+    exit(-1)
