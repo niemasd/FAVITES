@@ -6,9 +6,10 @@ Niema Moshiri 2016
 '''
 from Sequencing import Sequencing
 import FAVITES_GlobalContext as GC
+from gzip import open as gopen
 from subprocess import call,DEVNULL
 from tempfile import NamedTemporaryFile
-from os.path import expanduser
+from os.path import expanduser,isfile
 from os import getcwd,makedirs,chdir,listdir
 
 class Sequencing_DWGSIM(Sequencing):
@@ -43,9 +44,21 @@ class Sequencing_DWGSIM(Sequencing):
                 chdir(GC.START_DIR)
                 assert False, "dwgsim executable was not found: %s" % GC.dwgsim_path
             f.close()
-            for l in open('%s_%f.bwa.read1.fastq' % (cn_label,t)):
+            if isfile('%s_%f.bwa.read1.fastq' % (cn_label,t)):
+                f = open('%s_%f.bwa.read1.fastq' % (cn_label,t))
+            elif isfile('%s_%f.bwa.read1.fastq.gz' % (cn_label,t)):
+                f = gopen('%s_%f.bwa.read1.fastq.gz' % (cn_label,t))
+            else:
+                raise FileNotFoundError("Couldn't find %s_%f.bwa.read1.fastq or %s_%f.bwa.read1.fastq.gz" % (cn_label,t,cn_label,t))
+            for l in f:
                 GC.sequencing_file.write(l)
-            for l in open('%s_%f.bwa.read2.fastq' % (cn_label,t)):
+            if isfile('%s_%f.bwa.read2.fastq' % (cn_label,t)):
+                f = open('%s_%f.bwa.read2.fastq' % (cn_label,t))
+            elif isfile('%s_%f.bwa.read2.fastq.gz' % (cn_label,t)):
+                f = gopen('%s_%f.bwa.read2.fastq.gz' % (cn_label,t))
+            else:
+                raise FileNotFoundError("Couldn't find %s_%f.bwa.read2.fastq or %s_%f.bwa.read2.fastq.gz" % (cn_label,t,cn_label,t))
+            for l in f:
                 GC.sequencing_file2.write(l)
         chdir(orig_dir)
 
