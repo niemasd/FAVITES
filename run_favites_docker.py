@@ -3,7 +3,7 @@ import argparse
 from os import makedirs
 from os.path import abspath,expanduser,isdir,isfile
 from sys import platform,stderr
-from subprocess import check_output,CalledProcessError,STDOUT
+from subprocess import call,check_output,CalledProcessError,STDOUT
 
 # parse user args
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -83,6 +83,6 @@ if not platform.startswith('win'):                      # if not Windows,
     COMMAND += ['-u',str(geteuid())+':'+str(getegid())] # make output files owned by user instead of root
 COMMAND += ['niemasd/favites']                          # Docker image
 try:
-	check_output(COMMAND)
+	call(COMMAND)
 except:
 	exit(-1)
