@@ -22,7 +22,7 @@ install:
   - sudo apt-get update -qq
   - sudo apt-get install -y r-base-core r-cran-mgcv r-recommended r-base r-base-dev
   - git clone https://github.com/ropensci/git2r.git
-  - R CMD INSTALL --configure-args="--with-libssl-include=/usr/lib/" git2r
+  - sudo R CMD INSTALL --configure-args="--with-libssl-include=/usr/lib/" git2r
   - sudo rm -rf git2r /tmp/*
   - Rscript -e "install.packages(c('ape','data.table','devtools','distr','gamlss','phytools'), repos='https://cloud.r-project.org/')"
   - Rscript -e "library(devtools); install_github('olli0601/PANGEA.HIV.sim')"
