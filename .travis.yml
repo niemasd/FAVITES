@@ -8,7 +8,7 @@ python:
   - "3.6"
 
 # install dependencies
-before_install:
+install:
   # Set up environment
   - sudo apt-get update -qq
   - sudo apt-get -y upgrade
