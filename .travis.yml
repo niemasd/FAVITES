@@ -11,6 +11,7 @@ python:
 # install dependencies
 install:
   # Set up environment
+  - export PERL_MM_USE_DEFAULT=1
   - sudo apt-get update -qq
   - sudo apt-get install -y autoconf curl default-jre git gsl-bin libcurl4-openssl-dev libgsl0-dev libssl-dev wget
 
