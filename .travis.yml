@@ -28,12 +28,10 @@ before_install:
   - Rscript -e "library(devtools); install_github('olli0601/PANGEA.HIV.sim')"
 
   # Set up Python 3 and modules
-  - sudo apt-get install -y python3 python3-pip python3-scipy
-  - pip3 install --upgrade pip
-  - pip3 install dendropy
-  - pip3 install networkx
-  - pip3 install numpy
-  - pip3 install pyvolve
+  - pip install dendropy
+  - pip install networkx
+  - pip install numpy
+  - pip install pyvolve
 
   # Set up ART (MountRainier-2016-06-05)
   - curl https://www.niehs.nih.gov/research/resources/assets/docs/artsrcmountrainier20160605linuxtgz.tgz | tar xz
