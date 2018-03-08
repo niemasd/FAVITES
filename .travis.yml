@@ -4,63 +4,17 @@ os: linux
 dist: trusty
 language: python
 python:
+  - "3.3"
   - "3.4"
   - "3.5"
+  - "3.5-dev"
   - "3.6"
+  - "3.6-dev"
+  - "3.7-dev"
 
-# install dependencies
+# set up dependencies
 install:
-  # Set up environment
-  - export PERL_MM_USE_DEFAULT=1
-  - sudo apt-get update -qq
-  - sudo apt-get install -y autoconf curl default-jre git gsl-bin libcurl4-openssl-dev libgsl0-dev libssl-dev wget
-
-  # Set up R and packages
-  - echo "deb http://cran.rstudio.com/bin/linux/ubuntu trusty/" | sudo tee -a /etc/apt/sources.list
-  - gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9
-  - gpg -a --export E084DAB9 | sudo apt-key add -
-  - sudo apt-get update -qq
-  - sudo apt-get install -y r-base-core r-cran-mgcv r-recommended r-base r-base-dev
-  - git clone https://github.com/ropensci/git2r.git
-  - sudo R CMD INSTALL --configure-args="--with-libssl-include=/usr/lib/" git2r
-  - sudo rm -rf git2r /tmp/*
-  - sudo Rscript -e "install.packages(c('ape','data.table','devtools','distr','gamlss','phytools'), repos='https://cloud.r-project.org/')"
-  - sudo Rscript -e "library(devtools); install_github('olli0601/PANGEA.HIV.sim')"
-  - sudo Rscript -e "library(devtools); install_github('olli0601/PANGEA.HIV.sim')"
-
-  # Set up Python 3 and modules
-  - pip install dendropy
-  - pip install networkx
-  - pip install numpy
-  - pip install pyvolve
-
-  # Set up ART (MountRainier-2016-06-05)
-  - curl https://www.niehs.nih.gov/research/resources/assets/docs/artsrcmountrainier20160605linuxtgz.tgz | tar xz
-  - cd art_src_MountRainier_Linux && make && sudo mv art_* /usr/local/bin && cd .. && rm -rf art_src_MountRainier_Linux
-
-  # Set up DWGSIM
-  - git clone --recursive https://github.com/nh13/DWGSIM.git
-  - cd DWGSIM && make && sudo mv dwgsim* /usr/local/bin && cd .. && rm -rf DWGSIM
-
-  # Set up GEMF
-  - git clone https://github.com/niemasd/GEMF.git
-  - cd GEMF && make && sudo mv GEMF /usr/local/bin && cd .. && rm -rf GEMF
-
-  # Set up Grinder (commented out because it times out)
-  #- wget -qO- https://tenet.dl.sourceforge.net/project/biogrinder/biogrinder/Grinder-0.5.4/Grinder-0.5.4.tar.gz | tar -xz
-  #- cd Grinder* && perl Makefile.PL && make && sudo make install && cd .. && rm -rf Grinder*
-
-  # Set up HMMER
-  - curl http://eddylab.org/software/hmmer3/3.1b2/hmmer-3.1b2-linux-intel-x86_64.tar.gz | tar xz
-  - sudo mv hmmer*/binaries/* /usr/local/bin && rm -rf hmmer*
-
-  # Set up Seq-Gen
-  - git clone https://github.com/rambaut/Seq-Gen.git
-  - cd Seq-Gen/source && make && sudo mv seq-gen /usr/local/bin && cd ../.. && rm -rf Seq-Gen
-
-  # Set up Newick Utilities
-  - curl http://cegg.unige.ch/pub/newick-utils-1.6-Linux-x86_64-disabled-extra.tar.gz | tar xz
-  - sudo mv newick-utils*/src/nw_* /usr/local/bin && rm -rf newick-utils*
-
-  # Set up FAVITES
-  - git clone https://github.com/niemasd/FAVITES.git
+  - wget https://raw.githubusercontent.com/niemasd/FAVITES/master/run_favites_docker.py
+  - chmod a+x run_favites_docker.py
+  - ls -l
+  - ./run_favites_docker.py -h
