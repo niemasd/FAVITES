@@ -24,9 +24,9 @@ install:
   - git clone https://github.com/ropensci/git2r.git
   - sudo R CMD INSTALL --configure-args="--with-libssl-include=/usr/lib/" git2r
   - sudo rm -rf git2r /tmp/*
-  - Rscript -e "install.packages(c('ape','data.table','devtools','distr','gamlss','phytools'), repos='https://cloud.r-project.org/')"
-  - Rscript -e "library(devtools); install_github('olli0601/PANGEA.HIV.sim')"
-  - Rscript -e "library(devtools); install_github('olli0601/PANGEA.HIV.sim')"
+  - sudo Rscript -e "install.packages(c('ape','data.table','devtools','distr','gamlss','phytools'), repos='https://cloud.r-project.org/')"
+  - sudo Rscript -e "library(devtools); install_github('olli0601/PANGEA.HIV.sim')"
+  - sudo Rscript -e "library(devtools); install_github('olli0601/PANGEA.HIV.sim')"
 
   # Set up Python 3 and modules
   - pip install dendropy
