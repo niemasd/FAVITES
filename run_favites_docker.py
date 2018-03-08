@@ -24,6 +24,7 @@ OUTPUT_DIR = abspath(CONFIG_DICT['out_dir'])
 
 # pull the latest Docker image (if applicable)
 if args.update is None:
+    version = None
     try:
         o = check_output(['docker','images']).decode().splitlines()
         for l in o:
