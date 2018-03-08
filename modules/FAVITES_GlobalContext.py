@@ -363,6 +363,20 @@ def prob_exp_min(i, L):
     assert i >= 0 and i < len(L), "Invalid index i. Must be 0 <= i < |L|"
     return L[i]/sum(L)
 
+# helper for BirthDeath and DualBirth
+def treenode_add_child(parent_treenode, child_dpnode, cn_node):
+    if parent_treenode.get_time() >= time:
+        parent_treenode.set_time(time)
+        cn_node.add_virus(parent_treenode)
+        return
+    newnode = MF.modules['TreeNode'](time=parent_treenode.get_time()+child_dpnode.edge_length, contact_network_node=cn_node)
+    parent_treenode.add_child(newnode)
+    for c in child_dpnode.child_node_iter():
+        treenode_add_child(newnode,c,cn_node)
+    if child_dpnode.num_child_nodes() == 0:
+        newnode.set_time(time)
+        cn_node.add_virus(newnode)
+
 # prune sampled phylogenetic trees
 def prune_sampled_trees():
     # if a NodeEvolution module already created pruned trees, do nothing (make sure to create and update GC.leaves_at_sample_time!)

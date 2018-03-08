@@ -7,79 +7,38 @@ Niema Moshiri 2016
 from NodeEvolution import NodeEvolution
 import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
-try:
-    import Queue as Q  # ver. < 3.0
-except ImportError:
-    import queue as Q
+from os.path import expanduser
+from subprocess import check_output
 
 class NodeEvolution_DualBirth(NodeEvolution):
     def cite():
         return GC.CITATION_DUALBIRTH
 
     def init():
+        GC.rate_A = float(GC.rate_A)
+        GC.rate_B = float(GC.rate_B)
+        GC.dualbirth_path = expanduser(GC.dualbirth_path.strip())
         try:
-            global exponential
-            from numpy.random import exponential
+            global Tree
+            from dendropy import Tree
         except:
             from os import chdir
             chdir(GC.START_DIR)
-            assert False, "Error loading NumPy. Install with: pip3 install numpy"
-        GC.dualbirth_beta = 1/(float(GC.rate_B))
-        GC.dualbirth_betaP = 1/(float(GC.rate_A))
+            assert False, "Error loading DendroPy. Install with: pip3 install dendropy"
 
     def evolve_to_current_time(node, finalize=False):
-        TreeNode = MF.modules['TreeNode']
         viruses = [virus for virus in node.viruses()]
         for virus in viruses:
-            # if this is the first time this node is evolving, it must start active
-            if not hasattr(virus,'active'):
-                virus.active = True
-
-            # can't assume virus immediately starts replicating
-            extra_time = 0
-            if virus.active:
-                extra_time = exponential(scale=GC.dualbirth_betaP)
-            else:
-                extra_time = exponential(scale=GC.dualbirth_beta)
-            virus.set_time(virus.get_time() + extra_time)
-
-            # initialize simulation
-            done = []
-            pq = Q.PriorityQueue()
-            if virus.get_time() < GC.time:
-                pq.put((virus.get_time(), virus))
-            else:
-                done.append(virus)
-
-
-            # perform simulation
-            while not pq.empty():
-                # get next node
-                currTime, currNode = pq.get()
-                currNode.active = True
-
-                # self propagation
-                leftLength = exponential(scale=GC.dualbirth_betaP)
-                leftChild = TreeNode(time=currNode.get_time()+leftLength, contact_network_node=node)
-                leftChild.active = True
-                currNode.add_child(leftChild)
-                if leftChild.get_time() < GC.time:
-                    pq.put((leftChild.get_time(), leftChild))
-                else:
-                    done.append(leftChild)
-
-                # newly created inactive child
-                rightLength = exponential(scale=GC.dualbirth_beta)
-                rightChild = TreeNode(time=currNode.get_time()+rightLength, contact_network_node=node)
-                rightChild.active = False
-                currNode.add_child(rightChild)
-                if rightChild.get_time() < GC.time:
-                    pq.put((rightChild.get_time(), rightChild))
-                else:
-                    done.append(rightChild)
-
-            # truncate final edges to be same as shortest leaf and add back to node
-            node.remove_virus(virus)
-            for leaf in done:
-                leaf.set_time(GC.time)
-                node.add_virus(leaf)
+            time = GC.time-virus.get_time()
+            if time > 0:
+                node.remove_virus(virus)
+                try:
+                    treestr = check_output([GC.dualbirth_path,str(GC.rate_A),str(GC.rate_B),'-t',str(time)]).decode()
+                except FileNotFoundError:
+                    from os import chdir
+                    chdir(GC.START_DIR)
+                    assert False, "dualbirth executable was not found: %s" % GC.dualbirth_path
+                tree = Tree.get(data=treestr,schema='newick')
+                virus.set_time(virus.get_time() + tree.seed_node.edge_length)
+                for c in tree.seed_node.child_node_iter():
+                    GC.treenode_add_child(virus,c,node)

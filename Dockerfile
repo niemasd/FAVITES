@@ -50,6 +50,10 @@ RUN curl http://eddylab.org/software/hmmer3/3.1b2/hmmer-3.1b2-linux-intel-x86_64
 RUN git clone https://github.com/rambaut/Seq-Gen.git && \
     cd Seq-Gen/source && make && mv seq-gen /usr/local/bin && cd ../.. && rm -rf Seq-Gen
 
+# Set up Dual-Birth Simulator
+RUN git clone https://github.com/niemasd/Dual-Birth-Simulator.git && \
+    cd Dual-Birth-Simulator && make && mv dualbirth /usr/local/bin && mv yule /usr/local/bin && cd .. && rm -rf Dual-Birth-Simulator
+
 # Set up Newick Utilities
 RUN curl http://cegg.unige.ch/pub/newick-utils-1.6-Linux-x86_64-disabled-extra.tar.gz | tar xz && \
     mv newick-utils*/src/nw_* /usr/local/bin && rm -rf newick-utils*

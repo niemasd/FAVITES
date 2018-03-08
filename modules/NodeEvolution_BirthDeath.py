@@ -8,26 +8,11 @@ from NodeEvolution import NodeEvolution
 import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
 
-def add_child(parent_treenode, child_dpnode, cn_node):
-    if parent_treenode.get_time() >= GC.time:
-        parent_treenode.set_time(GC.time)
-        cn_node.add_virus(parent_treenode)
-        return
-    newnode = TreeNode(time=parent_treenode.get_time()+child_dpnode.edge_length, contact_network_node=cn_node)
-    parent_treenode.add_child(newnode)
-    for c in child_dpnode.child_node_iter():
-        add_child(newnode,c,cn_node)
-    if child_dpnode.num_child_nodes() == 0:
-        newnode.set_time(GC.time)
-        cn_node.add_virus(newnode)
-
 class NodeEvolution_BirthDeath(NodeEvolution):
     def cite():
         return GC.CITATION_DENDROPY
 
     def init():
-        global TreeNode
-        TreeNode = MF.modules['TreeNode']
         try:
             global birth_death_tree
             from dendropy.model.birthdeath import birth_death_tree
@@ -51,4 +36,4 @@ class NodeEvolution_BirthDeath(NodeEvolution):
                 assert success, "Failed to create non-empty Birth-Death tree after 100 attempts. Perhaps try a higher birth rate or lower death rate?"
                 virus.set_time(virus.get_time() + tree.seed_node.edge_length)
                 for c in tree.seed_node.child_node_iter():
-                    add_child(virus,c,node)
+                    GC.treenode_add_child(virus,c,node)

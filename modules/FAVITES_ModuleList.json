@@ -169,7 +169,7 @@
         },
 
         "DualBirth": {
-            "req": ["rate_A", "rate_B"]
+            "req": ["dualbirth_path", "rate_A", "rate_B"]
         },
 
         "None": {
@@ -185,7 +185,7 @@
         },
 
         "Yule": {
-            "req": ["yule_rate"]
+            "req": ["dualbirth_path", "yule_rate"]
         }
     },
 
