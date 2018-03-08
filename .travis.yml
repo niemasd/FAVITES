@@ -14,4 +14,4 @@ python:
 
 # run tests
 script:
-  - ./run_favites_docker.py -c example/example_config.json
+  - for c in .travis_tests/*.json; do ./run_favites_docker.py -c $c; done
