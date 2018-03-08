@@ -12,7 +12,6 @@ python:
   - "3.6-dev"
   - "3.7-dev"
 
-# set up dependencies
-install:
-  - ls -l
-  - ./run_favites_docker.py -u -c example/example_config.json
+# run tests
+script:
+  - ./run_favites_docker.py -c example/example_config.json
