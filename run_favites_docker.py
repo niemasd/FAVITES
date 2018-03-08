@@ -33,7 +33,13 @@ if args.update is None:
     except CalledProcessError as e:
         raise RuntimeError("docker images command failed\n%s"%e.output)
     if version is None:
-        version = 'niemasd/favites:latest'
+        tag = 'latest'; version = 'niemasd/favites:%s'%tag
+        print("Pulling Docker image (%s)..." % tag, end=' ', file=stderr); stderr.flush()
+        try:
+            o = check_output(['docker','pull',version], stderr=STDOUT)
+            print("done", file=stderr); stderr.flush()
+        except CalledProcessError as e:
+            raise RuntimeError("docker pull command failed\n%s"%e.output)
 else:
     assert len(args.update) < 2, "More than one Docker image version specified. Must either specify just -u or -u <VERSION>"
     if len(args.update) == 0:
