@@ -11,7 +11,6 @@ python:
 install:
   # Set up environment
   - sudo apt-get update -qq
-  - sudo apt-get -y upgrade
   - sudo apt-get install -y autoconf curl default-jre git gsl-bin libcurl4-openssl-dev libgsl0-dev libssl-dev wget
 
   # Set up R and packages
