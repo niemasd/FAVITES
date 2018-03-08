@@ -181,7 +181,7 @@
         },
 
         "VirusTreeSimulator": {
-            "req": ["java_path", "nw_rename_path", "vts_model", "vts_n0", "vts_growthRate", "vts_t50"]
+            "req": ["java_path", "vts_model", "vts_n0", "vts_growthRate", "vts_t50"]
         },
 
         "Yule": {

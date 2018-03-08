@@ -29,7 +29,6 @@ class NodeEvolution_VirusTreeSimulator(NodeEvolution):
 
     def init():
         GC.java_path = expanduser(GC.java_path.strip())
-        GC.nw_rename_path = expanduser(GC.nw_rename_path.strip())
         GC.vts_model = GC.vts_model.strip().lower()
         assert GC.vts_model in {"constant", "exponential", "logistic"}, 'vts_model must be either "constant", "exponential", or "logistic"'
         GC.vts_n0 = int(GC.vts_n0)
