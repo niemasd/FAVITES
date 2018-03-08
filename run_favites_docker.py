@@ -21,20 +21,19 @@ except:
     raise SyntaxError("Malformed FAVITES configuration file. Must be valid JSON")
 assert 'out_dir' in CONFIG_DICT, "Parameter 'out_dir' is not in the configuration file!"
 OUTPUT_DIR = abspath(CONFIG_DICT['out_dir'])
-version = 'niemasd/favites'
 
 # pull the latest Docker image (if applicable)
-try:
-    has_image = False
-    o = check_output(['docker','images']).decode().splitlines()
-    for l in o:
-        if l.startswith('niemasd/favites'):
-            has_image = True; break
-    if not has_image:
-        args.update = []
-except CalledProcessError as e:
-    raise RuntimeError("docker images command failed\n%s"%e.output)
-if args.update is not None:
+if args.update is None:
+    try:
+        o = check_output(['docker','images']).decode().splitlines()
+        for l in o:
+            if l.startswith('niemasd/favites'):
+                version = 'niemasd/favites:%s' % l.split()[1]; break
+    except CalledProcessError as e:
+        raise RuntimeError("docker images command failed\n%s"%e.output)
+    if version is None:
+        version = 'niemasd/favites:latest'
+else:
     assert len(args.update) < 2, "More than one Docker image version specified. Must either specify just -u or -u <VERSION>"
     if len(args.update) == 0:
         tag = 'latest'
