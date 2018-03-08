@@ -14,7 +14,5 @@ python:
 
 # set up dependencies
 install:
-  - wget https://raw.githubusercontent.com/niemasd/FAVITES/master/run_favites_docker.py
-  - chmod a+x run_favites_docker.py
   - ls -l
-  - ./run_favites_docker.py -h
+  - ./run_favites_docker.py -u -c example/example_config.json
