@@ -62,8 +62,10 @@ class ContactNetworkGenerator_PANGEA(ContactNetworkGenerator):
         f.write('#!/usr/bin/env bash\n%s' % script_str)
         f.close()
         check_output(['./%s' % script], stderr=open('%s_output.log' % script,'w'))
+        archive = None
         for archive in glob('*_INTERNAL.zip'):
             break
+        assert archive is not None, "PANGEA failed to run successfully"
         z = ZipFile(archive, 'r')
         internal = [item for item in z.namelist() if item.endswith('_SIMULATED_INTERNAL.R')][0]
         f = open(internal,'wb')
