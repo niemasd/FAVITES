@@ -24,7 +24,7 @@
     "pangea_s.MODEL":              "",
     "pangea_s.PREV.base":          "",
     "pangea_s.PREV.max":           "",
-    "pangea_s.PREV.max.n":         "",
+    "pangea_s.PREV.max.n":         100,
     "pangea_s.PREV.min":           "",
     "pangea_seed":                 "",
     "pangea_seqtime.mode":         "",

@@ -84,15 +84,19 @@ class ContactNetworkGenerator_PANGEA(ContactNetworkGenerator):
             break
         z = ZipFile(archive, 'r')
         fasta_files = [item for item in z.namelist() if item.endswith('.fa')]
+        f = open("error_free_files/sequence_data.fasta",'w')
         for fasta in fasta_files:
             ending = '_%s.fasta' % fasta.split('_')[-1].split('.')[0]
             seqs = GC.parseFASTA(z.read(fasta).decode('ascii').splitlines())
             for seqID in seqs:
-                f = open("error_free_files/sequence_data/seqs_%s%s" % (seqID.split('|')[0],ending), 'w')
+                #f = open("error_free_files/sequence_data/seqs_%s%s" % (seqID.split('|')[0],ending), 'w')
                 f.write('>%s\n%s\n' % (seqID,seqs[seqID]))
-                f.close()
+                #f.close()
+        f.close()
+        archive = None
         for archive in glob('%s/*_SIMULATED_TREE.zip' % PANGEA_path):
             break
+        assert archive is not None, "PANGEA failed to run successfully"
         z = ZipFile(archive, 'r')
         trees = [item for item in z.namelist() if item.endswith('.newick')]
         for tree in trees:

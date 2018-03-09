@@ -38,7 +38,7 @@ class ContactNetwork_PANGEA(ContactNetwork):
         return None
 
     def num_nodes(self):
-        return None
+        return 2
 
     def get_nodes(self):
         return set()
@@ -59,7 +59,7 @@ class ContactNetwork_PANGEA(ContactNetwork):
         return set()
 
     def num_edges(self):
-        return None
+        return 1
 
     def nodes_iter(self):
         for node in self.nodes:
