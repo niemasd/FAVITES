@@ -31,7 +31,9 @@ class ContactNetworkGenerator_RandomPartitionGraph(ContactNetworkGenerator):
 
     def get_edge_list():
         du = GC.d_or_u == 'd'
-        cn = random_partition_graph(GC.rpg_sizes, GC.rpg_p_in, GC.rpg_p_out, directed=du)
+        cn = random_partition_graph(GC.rpg_sizes, GC.rpg_p_in, GC.rpg_p_out, directed=du, seed=GC.random_number_seed)
+        if GC.random_number_seed is not None:
+            GC.random_number_seed += 1
         out = GC.nx2favites(cn, GC.d_or_u)
         f = open(expanduser("%s/contact_network.txt" % GC.out_dir),'w')
         f.write('\n'.join(out))

@@ -35,6 +35,11 @@ class TimeSample_TruncatedNormal(TimeSample):
             assert False, "Error loading SciPy. Install with: pip3 install scipy"
 
     def sample_times(node, num_times):
+        if not hasattr(GC,"NUMPY_SEEDED"):
+            from numpy.random import seed as numpy_seed
+            numpy_seed(seed=GC.random_number_seed)
+            GC.random_number_seed += 1
+            GC.NUMPY_SEEDED = True
         assert hasattr(GC,'transmissions'), "No transmission network found in global context! Run this after the transmission network simulation is done"
         first_time = node.get_first_infection_time()
         if first_time is None:

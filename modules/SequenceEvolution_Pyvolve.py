@@ -81,6 +81,9 @@ class SequenceEvolution_Pyvolve(SequenceEvolution):
         pass
 
     def finalize():
+        if GC.random_number_seed is not None:
+            from warnings import warn
+            warn("random_number_seed specified, but Pyvolve does not support seeding its random generator")
         makedirs("pyvolve_output", exist_ok=True)
         label_to_node = MF.modules['TreeNode'].label_to_node()
         for root,treestr in GC.pruned_newick_trees:

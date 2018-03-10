@@ -77,11 +77,16 @@ class NodeEvolution_VirusTreeSimulator(NodeEvolution):
             # run VirusTreeSimulator
             jar_file = '%s/dependencies/VirusTreeSimulator.jar' % GC.FAVITES_DIR
             try:
-                call([GC.java_path,'-jar',jar_file,'-demoModel',GC.vts_model,'-N0',str(GC.vts_n0),'-growthRate',str(GC.vts_growthRate),'-t50',str(GC.vts_t50),VTS_TRANSMISSIONS,VTS_SAMPLES,VTS_OUTPUT_PREFIX], stdout=open("log.txt",'w'))
+                command = [GC.java_path,'-jar',jar_file,'-demoModel',GC.vts_model,'-N0',str(GC.vts_n0),'-growthRate',str(GC.vts_growthRate),'-t50',str(GC.vts_t50)]
+                if GC.random_number_seed is not None:
+                    command += ['-seed',str(GC.random_number_seed)]
+                    GC.random_number_seed += 1
+                command += [VTS_TRANSMISSIONS,VTS_SAMPLES,VTS_OUTPUT_PREFIX]
+                call(command, stdout=open("log.txt",'w'))
             except FileNotFoundError:
                 chdir(GC.START_DIR)
                 assert False, "Java executable was not found: %s" % GC.java_path
-            if open("log.txt").read().startswith("Error"):
+            if "Usage: virusTreeBuilder" in open("log.txt").read():
                 raise RuntimeError("VirusTreeSimulator.jar failed to run. See %s/log.txt for error information."%VTS_OUTPUT_DIR)
 
             # parse VirusTreeSimulator output

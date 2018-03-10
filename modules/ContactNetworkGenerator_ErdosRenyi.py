@@ -30,7 +30,9 @@ class ContactNetworkGenerator_ErdosRenyi(ContactNetworkGenerator):
 
     def get_edge_list():
         du = GC.d_or_u == 'd'
-        cn = fast_gnp_random_graph(GC.num_cn_nodes, GC.er_prob, directed=du)
+        cn = fast_gnp_random_graph(GC.num_cn_nodes, GC.er_prob, directed=du, seed=GC.random_number_seed)
+        if GC.random_number_seed is not None:
+            GC.random_number_seed += 1
         out = GC.nx2favites(cn, GC.d_or_u)
         f = open(expanduser("%s/contact_network.txt" % GC.out_dir),'w')
         f.write('\n'.join(out))

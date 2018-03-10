@@ -24,6 +24,11 @@ class NumTimeSample_Poisson(NumTimeSample):
         assert GC.num_time_sample_lambda >= 0, "num_time_sample_lambda must be at least 0"
 
     def sample_num_times(node):
+        if not hasattr(GC,"NUMPY_SEEDED"):
+            from numpy.random import seed as numpy_seed
+            numpy_seed(seed=GC.random_number_seed)
+            GC.random_number_seed += 1
+            GC.NUMPY_SEEDED = True
         if node.get_first_infection_time() is not None and node.get_first_infection_time() != GC.time:
             return poisson(lam=GC.num_time_sample_lambda)
         else:

@@ -36,6 +36,9 @@ class Sequencing_ARTSOLiDPairedEnd(Sequencing):
                 f.write(">%s\n%s\n" % (l,s))
             f.flush()
             command = [GC.art_SOLiD_path] + GC.art_SOLiD_options
+            if GC.random_number_seed is not None:
+                command += ['-r',str(GC.random_number_seed)]
+                GC.random_number_seed += 1
             command.append(f.name)
             command.append('%s_%f' % (cn_label,t))
             command.append(str(GC.art_SOLiD_len_read_F3))

@@ -25,6 +25,11 @@ class TransmissionNodeSample_SI(TransmissionNodeSample):
         # handle parameter checking in TransmissionTimeSample_SI
 
     def sample_nodes(time):
+        if not hasattr(GC,"NUMPY_SEEDED"):
+            from numpy.random import seed as numpy_seed
+            numpy_seed(seed=GC.random_number_seed)
+            GC.random_number_seed += 1
+            GC.NUMPY_SEEDED = True
         assert GC.next_trans is not None, "Must call TransmissionTimeSample_SI before TransmissionNodeSample_SI"
         u,v,t = GC.next_trans
         assert not v.is_infected(), "Destination virus is already infected"

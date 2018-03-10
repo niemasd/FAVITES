@@ -29,7 +29,9 @@ class ContactNetworkGenerator_WattsStrogatz(ContactNetworkGenerator):
         assert GC.ws_prob >= 0 and GC.ws_prob <= 1, "ws_prob must be between 0 and 1"
 
     def get_edge_list():
-        cn = watts_strogatz_graph(GC.num_cn_nodes, GC.ws_k, GC.ws_prob)
+        cn = watts_strogatz_graph(GC.num_cn_nodes, GC.ws_k, GC.ws_prob, seed=GC.random_number_seed)
+        if GC.random_number_seed is not None:
+            GC.random_number_seed += 1
         out = GC.nx2favites(cn, 'u')
         f = open(expanduser("%s/contact_network.txt" % GC.out_dir),'w')
         f.write('\n'.join(out))

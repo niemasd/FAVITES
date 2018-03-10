@@ -49,6 +49,7 @@ class SequenceEvolution_SeqGen(SequenceEvolution):
         chdir(SEQGEN_OUTPUT_DIR)
 
         # perform sequence evolution
+        assert len(GC.pruned_newick_trees) != 0, "No trees were generated"
         for root,treestr in GC.pruned_newick_trees:
             treestr = treestr.strip()
             if ',' not in treestr: # if one-node tree, add DUMMY 0-length leaf
@@ -67,7 +68,11 @@ class SequenceEvolution_SeqGen(SequenceEvolution):
             f = open('%s.txt' % label,'w')
             f.write("1 %d\n%s %s\n1\n%s" % (len(rootseq),label,rootseq,treestr))
             f.close()
-            command = [GC.seqgen_path,'-or','-k1'] + GC.seqgen_args.split()
+            command = [GC.seqgen_path,'-or','-k1']
+            if GC.random_number_seed is not None:
+                command += ['-z%d'%GC.random_number_seed]
+                GC.random_number_seed += 1
+            command += GC.seqgen_args.split()
             try:
                 seqgen_out = check_output(command, stdin=open(label+'.txt'), stderr=open('log_'+label+'.txt','w')).decode('ascii')
             except CalledProcessError as e:

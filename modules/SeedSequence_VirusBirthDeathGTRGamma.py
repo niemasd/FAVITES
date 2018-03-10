@@ -16,6 +16,7 @@ import modules.FAVITES_ModuleFactory as MF
 from subprocess import check_output,STDOUT
 from os.path import expanduser
 from os import chdir,makedirs
+import random as rng
 
 OUT_FOLDER = "seed_sequences"
 class SeedSequence_VirusBirthDeathGTRGamma(SeedSequence):
@@ -41,7 +42,7 @@ class SeedSequence_VirusBirthDeathGTRGamma(SeedSequence):
     def generate():
         if not hasattr(GC, "seed_sequences"):
             rootseq = SeedSequence_Virus.generate()
-            treestr = treesim.birth_death_tree(birth_rate=GC.seed_birth_rate, death_rate=GC.seed_death_rate, num_extant_tips=len(GC.seed_nodes)).as_string(schema='newick')
+            treestr = treesim.birth_death_tree(birth_rate=GC.seed_birth_rate, death_rate=GC.seed_death_rate, num_extant_tips=len(GC.seed_nodes), rng=rng).as_string(schema='newick')
             makedirs(OUT_FOLDER, exist_ok=True)
             f = open(OUT_FOLDER + '/time_tree.tre','w')
             f.write(treestr)
@@ -52,7 +53,11 @@ class SeedSequence_VirusBirthDeathGTRGamma(SeedSequence):
             f = open(seqgen_file, 'w')
             f.write("1 %d\nROOT %s\n1\n%s" % (len(rootseq),rootseq,treestr))
             f.close()
-            command = [GC.seqgen_path,'-or','-k1'] + GC.seqgen_args.split()
+            command = [GC.seqgen_path,'-or','-k1']
+            if GC.random_number_seed is not None:
+                command += ['-z%d'%GC.random_number_seed]
+                GC.random_number_seed += 1
+            command += GC.seqgen_args.split()
             try:
                 seqgen_out = check_output(command, stdin=open(seqgen_file), stderr=open('log_seqgen.txt','w')).decode('ascii')
                 f = open(OUT_FOLDER + '/seqgen.out','w')

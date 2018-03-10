@@ -32,6 +32,11 @@ class TreeUnit_LogNormal(TreeUnit):
         assert GC.tree_rate_stdev > 0, "tree_rate_stdev must be positive"
 
     def time_to_mutation_rate(tree):
+        if not hasattr(GC,"NUMPY_SEEDED"):
+            from numpy.random import seed as numpy_seed
+            numpy_seed(seed=GC.random_number_seed)
+            GC.random_number_seed += 1
+            GC.NUMPY_SEEDED = True
         t = dendropy.Tree.get(data=tree,schema='newick')
         for edge in t.preorder_edge_iter():
             if edge.length is not None:

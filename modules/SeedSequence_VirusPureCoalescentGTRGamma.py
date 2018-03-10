@@ -51,7 +51,10 @@ class SeedSequence_VirusPureCoalescentGTRGamma(SeedSequence):
             f = open(seqgen_file, 'w')
             f.write("1 %d\nROOT %s\n1\n%s" % (len(rootseq),rootseq,treestr))
             f.close()
-            command = [GC.seqgen_path,'-or','-k1'] + GC.seqgen_args.split()
+            command = [GC.seqgen_path,'-or','-k1']
+            if GC.random_number_seed is not None:
+                command += ['-z%d'%GC.random_number_seed]
+            command += GC.seqgen_args.split()
             try:
                 seqgen_out = check_output(command, stdin=open(seqgen_file), stderr=open(OUT_FOLDER + '/log_seqgen.txt','w')).decode('ascii')
                 f = open(OUT_FOLDER + '/seqgen.out','w')

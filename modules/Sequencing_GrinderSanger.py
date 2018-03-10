@@ -40,6 +40,9 @@ class Sequencing_GrinderSanger(Sequencing):
             command += ["-unidirectional",'1'] # only generate reads from forward strand
             command += ["-fastq_output",'1',"-qual_levels",'30','10'] # for FASTQ output
             command += ["-base_name",'%s_%f' % (cn_label,t)]
+            if GC.random_number_seed is not None:
+                command += ['-rs',str(GC.random_number_seed)]
+                GC.random_number_seed += 1
             try:
                 call(command, stdout=open('%s_%f.log' % (cn_label,t), 'w'))
             except FileNotFoundError:

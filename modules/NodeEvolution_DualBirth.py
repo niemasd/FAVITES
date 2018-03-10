@@ -33,7 +33,11 @@ class NodeEvolution_DualBirth(NodeEvolution):
             if time > 0:
                 node.remove_virus(virus)
                 try:
-                    treestr = check_output([GC.dualbirth_path,str(GC.rate_A),str(GC.rate_B),'-t',str(time)]).decode()
+                    command = [GC.dualbirth_path,str(GC.rate_A),str(GC.rate_B),'-t',str(time)]
+                    if GC.random_number_seed is not None:
+                        command += ['-s',str(GC.random_number_seed)]
+                        GC.random_number_seed += 1
+                    treestr = check_output(command).decode()
                 except FileNotFoundError:
                     from os import chdir
                     chdir(GC.START_DIR)

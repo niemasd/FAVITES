@@ -36,6 +36,16 @@ class Driver_Default(Driver):
         GC.out_dir = abspath(expanduser(GC.out_dir))
         GC.virus_history = {} # key: virus label; value: list of (time,cn_node) tuples representing the time virus was in cn_node
         GC.PRUNE_TREES = True # by default, we should prune the final trees
+        if isinstance(GC.random_number_seed, str):
+            GC.random_number_seed = GC.random_number_seed.strip()
+            if GC.random_number_seed == "":
+                GC.random_number_seed = None
+        assert GC.random_number_seed is None or (isinstance(GC.random_number_seed, int) and GC.random_number_seed >= 0), "random_number_seed must be an integer >= 0"
+        if isinstance(GC.random_number_seed, int):
+            from random import seed as python_random_seed
+            python_random_seed(GC.random_number_seed)
+        else:
+            GC.NUMPY_SEEDED = True # to make sure Numpy doesn't get seeded later
 
     def run(path, ORIG_CONFIG):
         '''

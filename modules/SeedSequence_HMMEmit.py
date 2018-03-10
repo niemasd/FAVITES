@@ -30,7 +30,10 @@ class SeedSequence_HMMEmit(SeedSequence):
         GC.hmmemit_options = [i.strip() for i in GC.hmmemit_options.strip().split()]
 
     def generate():
-        command = [GC.hmmemit_path] + GC.hmmemit_options + [GC.hmmemit_hmmfile]
+        command = [GC.hmmemit_path] + GC.hmmemit_options
+        if GC.random_number_seed is not None:
+            command += ['--seed',str(GC.random_number_seed)]
+        command += [GC.hmmemit_hmmfile]
         try:
             return ''.join(choice(check_output(command).decode("ascii").strip().replace('-','').split('>')[1:]).splitlines()[1:])
         except FileNotFoundError:

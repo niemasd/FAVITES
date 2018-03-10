@@ -27,4 +27,9 @@ class TransmissionTimeSample_Exponential(TransmissionTimeSample):
             assert False, "Error loading Numpy. Install with: pip3 install numpy"
 
     def sample_time():
+        if not hasattr(GC,"NUMPY_SEEDED"):
+            from numpy.random import seed as numpy_seed
+            numpy_seed(seed=GC.random_number_seed)
+            GC.random_number_seed += 1
+            GC.NUMPY_SEEDED = True
         return GC.time + exponential(scale=1/(float(GC.time_sample_rate)))

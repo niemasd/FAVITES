@@ -237,6 +237,8 @@ class TransmissionTimeSample_HIVPopARTGEMF(TransmissionTimeSample):
         f.write("[SHOW_INDUCER]\n1\n\n")
         f.write("[DATA_FILE]\n" + '\n'.join(["network.txt"]*len(infectious)) + "\n\n")
         f.write("[STATUS_FILE]\nstatus.txt\n\n")
+        if GC.random_number_seed is not None:
+            f.write("[RANDOM_SEED]\n%d\n\n"%GC.random_number_seed)
         f.write("[OUT_FILE]\noutput.txt")
         f.close()
 

@@ -40,6 +40,9 @@ class Sequencing_ART454Amplicon(Sequencing):
                 f.write(">%s\n%s\n" % (l,s))
             f.flush()
             command = [GC.art_454_path] + GC.art_454_options
+            if GC.random_number_seed is not None:
+                command += ['-r',str(GC.random_number_seed)]
+                GC.random_number_seed += 1
             if GC.art_454_amplicon_mode == "single":
                 command.append('-A')
             else:

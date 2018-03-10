@@ -35,6 +35,9 @@ class Sequencing_ART454SingleEnd(Sequencing):
             f.flush()
 
             command = [GC.art_454_path] + GC.art_454_options
+            if GC.random_number_seed is not None:
+                command += ['-r',str(GC.random_number_seed)]
+                GC.random_number_seed += 1
             command.append(f.name)
             command.append('%s_%f' % (cn_label,t))
             command.append(str(GC.art_454_fold_coverage))

@@ -27,7 +27,9 @@ class ContactNetworkGenerator_BarabasiAlbert(ContactNetworkGenerator):
         assert GC.num_edges_from_new > 0, "Must have at least 1 edge to attach from a new node to existing nodes"
 
     def get_edge_list():
-        cn = barabasi_albert_graph(GC.num_cn_nodes, GC.num_edges_from_new)
+        cn = barabasi_albert_graph(GC.num_cn_nodes, GC.num_edges_from_new, seed=GC.random_number_seed)
+        if GC.random_number_seed is not None:
+            GC.random_number_seed += 1
         out = GC.nx2favites(cn, 'u')
         f = open(expanduser("%s/contact_network.txt" % GC.out_dir),'w')
         f.write('\n'.join(out))

@@ -7,6 +7,7 @@ Niema Moshiri 2016
 from NodeEvolution import NodeEvolution
 import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
+import random as rng
 
 class NodeEvolution_BirthDeath(NodeEvolution):
     def cite():
@@ -29,7 +30,7 @@ class NodeEvolution_BirthDeath(NodeEvolution):
                 node.remove_virus(virus)
                 success = False
                 for _ in range(100):
-                    tree = birth_death_tree(GC.bd_birth, GC.bd_death, birth_rate_sd=GC.bd_birth_sd, death_rate_sd=GC.bd_death_sd, max_time=time, repeat_until_success=True)
+                    tree = birth_death_tree(GC.bd_birth, GC.bd_death, birth_rate_sd=GC.bd_birth_sd, death_rate_sd=GC.bd_death_sd, max_time=time, repeat_until_success=True, rng=rng)
                     if tree.seed_node.num_child_nodes() > 1:
                         success = True
                         break

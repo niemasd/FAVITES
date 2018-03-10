@@ -70,7 +70,11 @@ class SeedSequence_Virus(SeedSequence):
         makedirs(HMM_FOLDER, exist_ok=True)
         hmm_file = '%s/%s' % (HMM_FOLDER,URL[GC.viral_sequence_type].split('/')[-1])
         urlretrieve(URL[GC.viral_sequence_type], hmm_file)
-        command = [GC.hmmemit_path, hmm_file]
+        command = [GC.hmmemit_path]
+        if GC.random_number_seed is not None:
+            command += ['--seed',str(GC.random_number_seed)]
+            GC.random_number_seed += 1
+        command.append(hmm_file)
         try:
             return ''.join(choice(check_output(command).decode("ascii").strip().replace('-','').split('>')[1:]).splitlines()[1:])
         except FileNotFoundError:

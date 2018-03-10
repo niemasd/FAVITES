@@ -36,6 +36,9 @@ class Sequencing_DWGSIM(Sequencing):
                 f.write(">%s\n%s\n" % (l,s))
             f.flush()
             command = [GC.dwgsim_path] + GC.dwgsim_options
+            if GC.random_number_seed is not None:
+                command += ['-z',str(GC.random_number_seed)]
+                GC.random_number_seed += 1
             command.append(f.name)
             command.append('%s_%f' % (cn_label,t))
             try:

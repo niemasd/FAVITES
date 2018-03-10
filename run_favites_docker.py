@@ -21,6 +21,8 @@ except:
     raise SyntaxError("Malformed FAVITES configuration file. Must be valid JSON")
 assert 'out_dir' in CONFIG_DICT, "Parameter 'out_dir' is not in the configuration file!"
 OUTPUT_DIR = abspath(CONFIG_DICT['out_dir'])
+if "random_number_seed" not in CONFIG_DICT:
+    CONFIG_DICT["random_number_seed"] = ""
 
 # pull the latest Docker image (if applicable)
 if args.update is None:

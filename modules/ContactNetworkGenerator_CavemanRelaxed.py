@@ -28,7 +28,9 @@ class ContactNetworkGenerator_CavemanRelaxed(ContactNetworkGenerator):
         assert GC.cave_prob >= 0 and GC.cave_prob <= 1, "cave_prob must be between 0 and 1"
 
     def get_edge_list():
-        cn = relaxed_caveman_graph(GC.cave_num_cliques, GC.cave_clique_size, GC.cave_prob)
+        cn = relaxed_caveman_graph(GC.cave_num_cliques, GC.cave_clique_size, GC.cave_prob, seed=GC.random_number_seed)
+        if GC.random_number_seed is not None:
+            GC.random_number_seed += 1
         out = GC.nx2favites(cn, 'u')
         f = open(expanduser("%s/contact_network.txt" % GC.out_dir),'w')
         f.write('\n'.join(out))

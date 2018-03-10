@@ -43,6 +43,8 @@ def parseArgs():
         config['verbose'] = args.verbose
 
     # import modules and store in global access variables
+    if "random_number_seed" not in config:
+        config["random_number_seed"] = ""
     MF.read_config(config, config['verbose'])
     GC.VERBOSE = config['verbose']
 

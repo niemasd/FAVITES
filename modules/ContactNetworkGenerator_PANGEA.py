@@ -47,6 +47,9 @@ class ContactNetworkGenerator_PANGEA(ContactNetworkGenerator):
         f.write("library(PANGEA.HIV.sim)\n")
         f.write("outdir <- getwd()\n")
         f.write("pipeline.args <- sim.regional.args(")
+        if GC.random_number_seed is not None:
+            f.write("seed=%d,"%GC.random_number_seed)
+            GC.random_number_seed += 1
         f.write(', '.join(args))
         f.write(")\ncat(sim.regional(outdir, pipeline.args=pipeline.args))")
         f.close()

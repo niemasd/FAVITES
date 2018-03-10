@@ -85,7 +85,7 @@
 
     "Driver": {
         "Default": {
-            "req": ["out_dir"]
+            "req": ["out_dir", "random_number_seed"]
         }
     },
 

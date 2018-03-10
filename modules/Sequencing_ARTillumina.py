@@ -34,6 +34,9 @@ class Sequencing_ARTillumina(Sequencing):
                 f.write(">%s\n%s\n" % (l,s))
             f.flush()
             command = [GC.art_illumina_path] + GC.art_illumina_options
+            if GC.random_number_seed is not None:
+                command += ['-rs',str(GC.random_number_seed)]
+                GC.random_number_seed += 1
             command.append("-i")
             command.append(f.name)
             command.append("-o")

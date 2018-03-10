@@ -34,7 +34,11 @@ class Sequencing_ARTSOLiDMatePair(Sequencing):
             for l,s in GC.final_sequences[cn_label][t]:
                 f.write(">%s\n%s\n" % (l,s))
             f.flush()
-            command = [GC.art_SOLiD_path] + GC.art_SOLiD_options + ['-A','m']
+            command = [GC.art_SOLiD_path] + GC.art_SOLiD_options
+            if GC.random_number_seed is not None:
+                command += ['-r',str(GC.random_number_seed)]
+                GC.random_number_seed += 1
+            command += ['-A','m']
             command.append(f.name)
             command.append('%s_%f' % (cn_label,t))
             command.append(str(GC.art_SOLiD_len_read))
