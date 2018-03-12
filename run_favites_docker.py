@@ -8,6 +8,8 @@ from subprocess import call,check_output,CalledProcessError,STDOUT
 # parse user args
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument('-c', '--config', required=True, type=str, help="Configuration file")
+parser.add_argument('-o', '--out_dir', required=False, type=str, help="Output directory")
+parser.add_argument('-s', '--random_number_seed', required=False, type=int, help="Random number seed")
 parser.add_argument('-v', '--verbose', action="store_true", help="Print verbose messages to stderr")
 parser.add_argument('-u', '--update', nargs='*', help="Update Docker image (-u to pull latest, -u <VERSION> to pull <VERSION>)")
 args = parser.parse_args()
@@ -19,8 +21,16 @@ try:
     CONFIG_DICT = eval(open(CONFIG).read())
 except:
     raise SyntaxError("Malformed FAVITES configuration file. Must be valid JSON")
+if args.out_dir is not None:
+    if 'out_dir' in CONFIG_DICT:
+        warn("Output directory specified in command line (%s) and config file (%s). Command line will take precedence" % (args.out_dir, CONFIG_DICT['out_dir']))
+    CONFIG_DICT['out_dir'] = args.out_dir
 assert 'out_dir' in CONFIG_DICT, "Parameter 'out_dir' is not in the configuration file!"
 OUTPUT_DIR = abspath(CONFIG_DICT['out_dir'])
+if args.random_number_seed is not None:
+    if "random_number_seed" in CONFIG_DICT:
+        warn("Random number seed specified in command line (%d) and config file (%s). Command line will take precedence" % (args.random_number_seed, CONFIG_DICT['random_number_seed']))
+    CONFIG_DICT["random_number_seed"] = args.random_number_seed
 if "random_number_seed" not in CONFIG_DICT:
     CONFIG_DICT["random_number_seed"] = ""
 
