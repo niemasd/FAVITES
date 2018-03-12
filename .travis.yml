@@ -12,6 +12,12 @@ python:
   - "3.6-dev"
   - "3.7-dev"
 
+# pull latest FAVITES Docker image
+install:
+  - echo "{}" > dummy.json
+  - ./run_favites_docker.py -c dummy.json -o dummy
+  - rm -f dummy
+
 # run tests
 script:
   - for c in .travis_tests/*.json; do echo "========== $c ==========" && ./run_favites_docker.py -c $c && echo ""; done
