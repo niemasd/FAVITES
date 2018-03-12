@@ -4,7 +4,9 @@ from os import makedirs
 from os.path import abspath,expanduser,isdir,isfile
 from sys import platform,stderr
 from subprocess import call,check_output,CalledProcessError,STDOUT
+from urllib.request import urlopen
 DOCKER_IMAGE = "niemasd/favites"
+DOCKER_LATEST_TAG = sorted([t for t in urlopen("https://hub.docker.com/r/%s/tags/"%DOCKER_IMAGE).read().decode('utf-8').split('"tags":')[1].split(':')[-1][1:-2].replace('"','').split(',') if '.' in t])[-1]
 
 # parse user args
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -12,7 +14,7 @@ parser.add_argument('-c', '--config', required=True, type=str, help="Configurati
 parser.add_argument('-o', '--out_dir', required=False, type=str, help="Output directory")
 parser.add_argument('-s', '--random_number_seed', required=False, type=int, help="Random number seed")
 parser.add_argument('-v', '--verbose', action="store_true", help="Print verbose messages to stderr")
-parser.add_argument('-u', '--update', nargs='*', help="Update Docker image (-u to pull latest, -u <VERSION> to pull <VERSION>)")
+parser.add_argument('-u', '--update', nargs='*', help="Update Docker image (-u to pull newest version, -u <VERSION> to pull <VERSION>)")
 args = parser.parse_args()
 
 # check user args
@@ -35,7 +37,7 @@ if args.random_number_seed is not None:
 if "random_number_seed" not in CONFIG_DICT:
     CONFIG_DICT["random_number_seed"] = ""
 
-# pull the latest Docker image (if applicable)
+# pull the newest versioned Docker image (if applicable)
 if args.update is None:
     version = None
     try:
@@ -46,7 +48,7 @@ if args.update is None:
     except CalledProcessError as e:
         raise RuntimeError("docker images command failed\n%s"%e.output)
     if version is None:
-        tag = 'latest'; version = '%s:%s'%(DOCKER_IMAGE,tag)
+        tag = DOCKER_LATEST_TAG; version = '%s:%s'%(DOCKER_IMAGE,tag)
         print("Pulling Docker image (%s)..." % tag, end=' ', file=stderr); stderr.flush()
         try:
             o = check_output(['docker','pull',version], stderr=STDOUT)
@@ -56,7 +58,7 @@ if args.update is None:
 else:
     assert len(args.update) < 2, "More than one Docker image version specified. Must either specify just -u or -u <VERSION>"
     if len(args.update) == 0:
-        tag = 'latest'
+        tag = DOCKER_LATEST_TAG
     else:
         tag = args.update[0]
     version = '%s:%s'%(DOCKER_IMAGE,tag)
