@@ -10,7 +10,7 @@
     "EndCriteria":                   "Transmissions",
     "end_transmissions":             5,
 
-    "Logging":                       "File",
+    "Logging":                       "STDOUT",
 
     "NodeAvailability":              "Perfect",
 
