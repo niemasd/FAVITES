@@ -16,7 +16,7 @@ python:
 install:
   - echo "{}" > dummy.json
   - ./run_favites_docker.py -c dummy.json -o dummy
-  - rm -f dummy
+  - rm -rf dummy
 
 # run tests
 script:
