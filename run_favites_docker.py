@@ -4,6 +4,7 @@ from os import makedirs
 from os.path import abspath,expanduser,isdir,isfile
 from sys import platform,stderr
 from subprocess import call,check_output,CalledProcessError,STDOUT
+DOCKER_IMAGE = "niemasd/favites"
 
 # parse user args
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -40,12 +41,12 @@ if args.update is None:
     try:
         o = check_output(['docker','images']).decode().splitlines()
         for l in o:
-            if l.startswith('niemasd/favites'):
-                version = 'niemasd/favites:%s' % l.split()[1]; break
+            if l.startswith(DOCKER_IMAGE):
+                version = '%s:%s' % (DOCKER_IMAGE,l.split()[1]); break
     except CalledProcessError as e:
         raise RuntimeError("docker images command failed\n%s"%e.output)
     if version is None:
-        tag = 'latest'; version = 'niemasd/favites:%s'%tag
+        tag = 'latest'; version = '%s:%s'%(DOCKER_IMAGE,tag)
         print("Pulling Docker image (%s)..." % tag, end=' ', file=stderr); stderr.flush()
         try:
             o = check_output(['docker','pull',version], stderr=STDOUT)
@@ -58,7 +59,7 @@ else:
         tag = 'latest'
     else:
         tag = args.update[0]
-    version = 'niemasd/favites:%s'%tag
+    version = '%s:%s'%(DOCKER_IMAGE,tag)
     print("Pulling Docker image (%s)..." % tag, end=' ', file=stderr); stderr.flush()
     try:
         o = check_output(['docker','pull',version], stderr=STDOUT)
@@ -73,7 +74,7 @@ else:
         print("Removing old Docker images...", end=' ', file=stderr); stderr.flush()
         o = check_output(['docker','images']).decode().splitlines()
         for l in o:
-            if l.startswith('niemasd/favites'):
+            if l.startswith(DOCKER_IMAGE):
                 p = l.split()
                 if tag != p[1]:
                     check_output(['docker','image','rm','--force',p[2]])
