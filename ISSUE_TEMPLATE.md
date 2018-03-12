@@ -10,4 +10,4 @@
 <!--- Include your configuration file here -->
 
 ## Unexpected Behavior
-<!--- What happened, and how did it deviate from what you were expecting? -->
+<!--- What happened, and how did it deviate from what you were expecting? Include the full error message if applicable -->
