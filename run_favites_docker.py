@@ -4,6 +4,7 @@ from os import makedirs
 from os.path import abspath,expanduser,isdir,isfile
 from sys import platform,stderr
 from subprocess import call,check_output,CalledProcessError,STDOUT
+from warnings import warn
 from urllib.request import urlopen
 DOCKER_IMAGE = "niemasd/favites"
 DOCKER_LATEST_TAG = sorted([t for t in urlopen("https://hub.docker.com/r/%s/tags/"%DOCKER_IMAGE).read().decode('utf-8').split('"tags":')[1].split(':')[-1][1:-2].replace('"','').split(',') if '.' in t])[-1]
