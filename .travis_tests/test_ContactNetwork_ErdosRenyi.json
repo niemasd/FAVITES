@@ -1,11 +1,13 @@
 {
     "ContactNetwork":                "NetworkX",
 
-    "ContactNetworkGenerator":       "Complete",
+    "ContactNetworkGenerator":       "ErdosRenyi",
+    "d_or_u":                        "u",
+    "er_prob":                       0.5,
     "num_cn_nodes":                  10,
 
     "Driver":                        "Default",
-    "out_dir":                       "out_Default",
+    "out_dir":                       "out_ContactNetwork_ErdosRenyi",
 
     "EndCriteria":                   "Transmissions",
     "end_transmissions":             5,

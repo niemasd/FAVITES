@@ -1,11 +1,12 @@
 {
     "ContactNetwork":                "NetworkX",
 
-    "ContactNetworkGenerator":       "Complete",
+    "ContactNetworkGenerator":       "BarabasiAlbert",
     "num_cn_nodes":                  10,
+    "num_edges_from_new":            2,
 
     "Driver":                        "Default",
-    "out_dir":                       "out_Default",
+    "out_dir":                       "out_ContactNetwork_BarabasiAlbert",
 
     "EndCriteria":                   "Transmissions",
     "end_transmissions":             5,

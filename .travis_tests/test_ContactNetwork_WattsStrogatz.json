@@ -1,11 +1,13 @@
 {
     "ContactNetwork":                "NetworkX",
 
-    "ContactNetworkGenerator":       "Complete",
+    "ContactNetworkGenerator":       "WattsStrogatz",
     "num_cn_nodes":                  10,
+    "ws_k":                          2,
+    "ws_prob":                       0.1,
 
     "Driver":                        "Default",
-    "out_dir":                       "out_Default",
+    "out_dir":                       "out_ContactNetwork_WattsStrogatz",
 
     "EndCriteria":                   "Transmissions",
     "end_transmissions":             5,

@@ -1,11 +1,13 @@
 {
     "ContactNetwork":                "NetworkX",
 
-    "ContactNetworkGenerator":       "Complete",
-    "num_cn_nodes":                  10,
+    "ContactNetworkGenerator":       "FileAdjacencyMatrix",
+    "contact_network_file":          "cn_file_am.txt",
+    "contact_network_delimiter":     "",
+    "dummy": exec("f=open('cn_file_am.txt','w'); f.write('111\\n111\\n111'); f.close()"),
 
     "Driver":                        "Default",
-    "out_dir":                       "out_Default",
+    "out_dir":                       "out_ContactNetwork_FileAdjacencyMatrix",
 
     "EndCriteria":                   "Transmissions",
     "end_transmissions":             5,

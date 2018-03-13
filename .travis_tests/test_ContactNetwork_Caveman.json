@@ -1,11 +1,12 @@
 {
     "ContactNetwork":                "NetworkX",
 
-    "ContactNetworkGenerator":       "Complete",
-    "num_cn_nodes":                  10,
+    "ContactNetworkGenerator":       "Caveman",
+    "cave_clique_size":              10,
+    "cave_num_cliques":              3,
 
     "Driver":                        "Default",
-    "out_dir":                       "out_Default",
+    "out_dir":                       "out_ContactNetwork_Caveman",
 
     "EndCriteria":                   "Transmissions",
     "end_transmissions":             5,

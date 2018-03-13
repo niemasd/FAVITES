@@ -1,11 +1,41 @@
 {
     "ContactNetwork":                "NetworkX",
 
-    "ContactNetworkGenerator":       "Complete",
-    "num_cn_nodes":                  10,
+    "ContactNetworkGenerator":       "Communities",
+    "cn_p_across":                   0.2,
+    "cn_generators": [
+        {
+            "ContactNetworkGenerator": "Communities",
+            "cn_p_across":             0.1,
+            "cn_generators": [
+                {
+                    "ContactNetworkGenerator": "Complete",
+                    "num_cn_nodes":            10,
+                },
+                {
+                    "ContactNetworkGenerator": "Complete",
+                    "num_cn_nodes":            5,
+                },
+            ]
+        },
+        {
+            "ContactNetworkGenerator": "Communities",
+            "cn_p_across":             0.1,
+            "cn_generators": [
+                {
+                    "ContactNetworkGenerator": "Complete",
+                    "num_cn_nodes":            10,
+                },
+                {
+                    "ContactNetworkGenerator": "Complete",
+                    "num_cn_nodes":            5,
+                },
+            ]
+        },
+    ],
 
     "Driver":                        "Default",
-    "out_dir":                       "out_Default",
+    "out_dir":                       "out_ContactNetwork_Communities",
 
     "EndCriteria":                   "Transmissions",
     "end_transmissions":             5,
