@@ -48,12 +48,12 @@ def parseArgs():
         assert 'out_dir' in config, "Parameter 'out_dir' is not in the configuration file!"
         environ['out_dir_print'] = config['out_dir']
         config['verbose'] = args.verbose
+        if args.random_number_seed is not None:
+            if "random_number_seed" in config:
+                warn("Random number seed specified in command line (%d) and config file (%s). Command line will take precedence" % (args.random_number_seed, config['random_number_seed']))
+            config["random_number_seed"] = args.random_number_seed
 
     # import modules and store in global access variables
-    if args.random_number_seed is not None:
-        if "random_number_seed" in config:
-            warn("Random number seed specified in command line (%d) and config file (%s). Command line will take precedence" % (args.random_number_seed, config['random_number_seed']))
-        config["random_number_seed"] = args.random_number_seed
     if "random_number_seed" not in config:
         config["random_number_seed"] = ""
 
