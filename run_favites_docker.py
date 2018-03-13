@@ -4,6 +4,7 @@ from os import makedirs
 from os.path import abspath,expanduser,isdir,isfile
 from sys import platform,stderr
 from subprocess import call,check_output,CalledProcessError,STDOUT
+from tempfile import NamedTemporaryFile
 from warnings import warn
 from urllib.request import urlopen
 DOCKER_IMAGE = "niemasd/favites"
@@ -37,6 +38,9 @@ if args.random_number_seed is not None:
     CONFIG_DICT["random_number_seed"] = args.random_number_seed
 if "random_number_seed" not in CONFIG_DICT:
     CONFIG_DICT["random_number_seed"] = ""
+TMP_CONFIG = NamedTemporaryFile('w')
+TMP_CONFIG.write(str(CONFIG_DICT))
+TMP_CONFIG.flush()
 
 # pull the newest versioned Docker image (if applicable)
 if args.update is None:
@@ -101,7 +105,7 @@ except:
 
 # call Docker image for user
 COMMAND =  ['docker','run',]                            # Docker command
-COMMAND += ['-v',CONFIG+':/USER_CONFIG.JSON']           # mount config file
+COMMAND += ['-v',TMP_CONFIG.name+':/USER_CONFIG.JSON']  # mount config file
 COMMAND += ['-v',OUTPUT_DIR+':/OUTPUT_DIR']             # mount output directory
 if not platform.startswith('win'):                      # if not Windows,
     from os import geteuid,getegid
@@ -111,3 +115,4 @@ try:
     call(COMMAND)
 except:
     exit(-1)
+TMP_CONFIG.close()
