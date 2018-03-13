@@ -10,6 +10,8 @@ from ContactNetworkGenerator import ContactNetworkGenerator
 import FAVITES_GlobalContext as GC
 import modules.FAVITES_ModuleFactory as MF
 from copy import deepcopy
+from gzip import open as gopen
+from os.path import expanduser
 from random import choice,sample,shuffle
 
 class ContactNetworkGenerator_Communities(ContactNetworkGenerator):
@@ -91,4 +93,10 @@ class ContactNetworkGenerator_Communities(ContactNetworkGenerator):
                 u,v = choice(GC.cn_communities[i]),choice(GC.cn_communities[j])
             done.add((u,v))
             out.append("EDGE\t%s\t%s\t.\tu" % (u,v))
+        f = gopen(expanduser("%s/contact_network.txt.gz" % GC.out_dir),'wb',9)
+        f.write('\n'.join(out).encode()); f.write(b'\n')
+        f.close()
+        f = gopen(expanduser("%s/contact_network_partitions.txt.gz" % GC.out_dir),'wb',9)
+        f.write(str(GC.cn_communities).encode()); f.write(b'\n')
+        f.close()
         return out

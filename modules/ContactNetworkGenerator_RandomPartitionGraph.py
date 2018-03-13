@@ -7,6 +7,7 @@ Random Partition Graph.
 '''
 from ContactNetworkGenerator import ContactNetworkGenerator
 import FAVITES_GlobalContext as GC
+from gzip import open as gopen
 from os.path import expanduser
 
 class ContactNetworkGenerator_RandomPartitionGraph(ContactNetworkGenerator):
@@ -35,11 +36,11 @@ class ContactNetworkGenerator_RandomPartitionGraph(ContactNetworkGenerator):
         if GC.random_number_seed is not None:
             GC.random_number_seed += 1
         out = GC.nx2favites(cn, GC.d_or_u)
-        f = open(expanduser("%s/contact_network.txt" % GC.out_dir),'w')
-        f.write('\n'.join(out))
+        f = gopen(expanduser("%s/contact_network.txt.gz" % GC.out_dir),'wb',9)
+        f.write('\n'.join(out).encode()); f.write(b'\n')
         f.close()
-        f = open(expanduser("%s/contact_network_partitions.txt" % GC.out_dir),'w')
-        f.write(str(cn.graph['partition']))
+        f = gopen(expanduser("%s/contact_network_partitions.txt.gz" % GC.out_dir),'wb',9)
+        f.write(str(cn.graph['partition']).encode()); f.write(b'\n')
         f.close()
         GC.cn_communities = [{str(n) for n in c} for c in cn.graph['partition']]
         return out

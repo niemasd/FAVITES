@@ -6,6 +6,7 @@ Niema Moshiri 2016
 '''
 from ContactNetworkGenerator import ContactNetworkGenerator
 import FAVITES_GlobalContext as GC
+from gzip import open as gopen
 from os.path import expanduser
 
 class ContactNetworkGenerator_Caveman(ContactNetworkGenerator):
@@ -28,12 +29,12 @@ class ContactNetworkGenerator_Caveman(ContactNetworkGenerator):
     def get_edge_list():
         cn = caveman_graph(GC.cave_num_cliques, GC.cave_clique_size)
         out = GC.nx2favites(cn, 'u')
-        f = open(expanduser("%s/contact_network.txt" % GC.out_dir),'w')
-        f.write('\n'.join(out))
+        f = gopen(expanduser("%s/contact_network.txt.gz" % GC.out_dir),'wb',9)
+        f.write('\n'.join(out).encode()); f.write(b'\n')
         f.close()
         GC.cn_communities = [{c*GC.cave_clique_size+i for i in range(GC.cave_clique_size)} for c in range(GC.cave_num_cliques)]
-        f = open(expanduser("%s/contact_network_partitions.txt" % GC.out_dir),'w')
-        f.write(str(GC.cn_communities))
+        f = gopen(expanduser("%s/contact_network_partitions.txt.gz" % GC.out_dir),'wb',9)
+        f.write(str(GC.cn_communities).encode()); f.write(b'\n')
         f.close()
         GC.cn_communities = [{str(i) for i in c} for c in GC.cn_communities]
         return out

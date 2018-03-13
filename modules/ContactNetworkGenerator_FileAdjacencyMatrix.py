@@ -9,7 +9,8 @@ and empty lines are ignored.
 '''
 from ContactNetworkGenerator import ContactNetworkGenerator
 import FAVITES_GlobalContext as GC
-from os.path import expanduser
+from gzip import open as gopen
+from os.path import abspath,expanduser
 
 class ContactNetworkGenerator_FileAdjacencyMatrix(ContactNetworkGenerator):
     def cite():
@@ -17,9 +18,14 @@ class ContactNetworkGenerator_FileAdjacencyMatrix(ContactNetworkGenerator):
 
     def init():
         assert isinstance(GC.contact_network_delimiter, str), "Contact Network Adjacency Matrix delimiter must be a string"
+        GC.contact_network_file = abspath(expanduser((GC.contact_network_file)))
 
     def get_edge_list():
-        lines = [i.strip() for i in open(expanduser(GC.contact_network_file)) if len(i.strip()) > 0 and i.strip()[0] != '#']
+        if GC.contact_network_file.lower().endswith('.gz'):
+            infile = gopen(GC.contact_network_file)
+        else:
+            infile = open(GC.contact_network_file)
+        lines = [i.strip() for i in infile if len(i.strip()) > 0 and i.strip()[0] != '#']
         edges = set()
         out = ["NODE\t%d\t." % i for i in range(len(lines))]
         for i in range(len(lines)):
@@ -41,7 +47,7 @@ class ContactNetworkGenerator_FileAdjacencyMatrix(ContactNetworkGenerator):
                 output_edges.append((str(u),str(v),'d'))
         for e in sorted(output_edges):
             out.append("EDGE\t%s\t%s\t.\t%s" % e)
-        f = open(expanduser("%s/contact_network.txt" % GC.out_dir),'w')
-        f.write('\n'.join(out))
+        f = gopen(expanduser("%s/contact_network.txt.gz" % GC.out_dir),'wb',9)
+        f.write('\n'.join(out).encode()); f.write(b'\n')
         f.close()
         return out

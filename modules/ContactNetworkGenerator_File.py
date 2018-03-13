@@ -8,17 +8,22 @@ https://github.com/niemasd/FAVITES/wiki/File-Formats#contact-network-file-format
 '''
 from ContactNetworkGenerator import ContactNetworkGenerator
 import FAVITES_GlobalContext as GC
-from os.path import expanduser
+from os.path import abspath,expanduser
 
 class ContactNetworkGenerator_File(ContactNetworkGenerator):
     def cite():
         return GC.CITATION_FAVITES
 
     def init():
-        pass
+        GC.contact_network_file = abspath(expanduser((GC.contact_network_file)))
 
     def get_edge_list():
-        lines = [i.strip() for i in open(expanduser(GC.contact_network_file)) if len(i.strip()) > 0 and i.strip()[0] != '#']
+        if GC.contact_network_file.lower().endswith('.gz'):
+            from gzip import open as gopen
+            infile = gopen(GC.contact_network_file)
+        else:
+            infile = open(GC.contact_network_file)
+        lines = [i.strip() for i in infile if len(i.strip()) > 0 and i.strip()[0] != '#']
         for line in lines:
             parts = [e.strip() for e in line.split()]
             assert parts[0] in {'NODE','EDGE'}, "Invalid contact network format. First column must be NODE or EDGE"

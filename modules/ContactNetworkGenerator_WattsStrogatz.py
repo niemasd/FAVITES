@@ -7,6 +7,7 @@ Watts-Strogatz model.
 '''
 from ContactNetworkGenerator import ContactNetworkGenerator
 import FAVITES_GlobalContext as GC
+from gzip import open as gopen
 from os.path import expanduser
 
 class ContactNetworkGenerator_WattsStrogatz(ContactNetworkGenerator):
@@ -33,7 +34,7 @@ class ContactNetworkGenerator_WattsStrogatz(ContactNetworkGenerator):
         if GC.random_number_seed is not None:
             GC.random_number_seed += 1
         out = GC.nx2favites(cn, 'u')
-        f = open(expanduser("%s/contact_network.txt" % GC.out_dir),'w')
-        f.write('\n'.join(out))
+        f = gopen(expanduser("%s/contact_network.txt.gz" % GC.out_dir),'wb',9)
+        f.write('\n'.join(out).encode()); f.write(b'\n')
         f.close()
         return out

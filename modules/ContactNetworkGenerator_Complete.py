@@ -6,6 +6,7 @@ Niema Moshiri 2016
 '''
 from ContactNetworkGenerator import ContactNetworkGenerator
 import FAVITES_GlobalContext as GC
+from gzip import open as gopen
 from os.path import expanduser
 
 class ContactNetworkGenerator_Complete(ContactNetworkGenerator):
@@ -26,7 +27,7 @@ class ContactNetworkGenerator_Complete(ContactNetworkGenerator):
     def get_edge_list():
         cn = complete_graph(GC.num_cn_nodes)
         out = GC.nx2favites(cn, 'u')
-        f = open(expanduser("%s/contact_network.txt" % GC.out_dir),'w')
-        f.write('\n'.join(out))
+        f = gopen(expanduser("%s/contact_network.txt.gz" % GC.out_dir),'wb',9)
+        f.write('\n'.join(out).encode()); f.write(b'\n')
         f.close()
         return out

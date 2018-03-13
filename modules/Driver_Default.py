@@ -8,6 +8,7 @@ from Driver import Driver
 import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
 from datetime import datetime
+from gzip import open as gopen
 from os.path import abspath,expanduser,isdir,join,getsize
 from os import chdir,environ,getcwd,makedirs,rename,walk
 from sys import stderr
@@ -136,18 +137,18 @@ class Driver_Default(Driver):
             print('[%s] Infecting seed nodes' % datetime.now(), file=stderr)
         GC.root_viruses = []
         GC.seed_to_first_virus = {}
-        f = open('seed_sequences.tsv','w')
+        f = gopen('seed_sequences.tsv.gz','wb',9)
         for node in GC.seed_nodes:
             seq = MF.modules['SeedSequence'].generate()
             virus = MF.modules['TreeNode'](time=0.0, seq=seq, contact_network_node=node)
-            f.write('%s\t%s\n' % (virus.get_label(),seq))
+            f.write(('%s\t%s\n' % (virus.get_label(),seq)).encode())
             GC.root_viruses.append(virus)
             node.infect(0.0,virus)
             GC.contact_network.add_transmission(None,node,0.0)
             GC.seed_to_first_virus[node] = virus
         f.close()
         if isdir('seed_sequences'):
-            rename('seed_sequences.tsv','seed_sequences/seed_sequences.tsv')
+            rename('seed_sequences.tsv.gz','seed_sequences/seed_sequences.tsv.gz')
         LOG.writeln(" done")
 
         # iterative step of transmissions
@@ -200,9 +201,9 @@ class Driver_Default(Driver):
 
         # write transmission network as edge list
         LOG.write("Writing true transmission network to file...")
-        f = open('error_free_files/transmission_network.txt','w')
+        f = gopen('error_free_files/transmission_network.txt.gz','wb',9)
         for e in GC.transmissions:
-            f.write("%s\t%s\t%f\n" % e)
+            f.write(("%s\t%s\t%f\n" % e).encode())
         f.close()
         LOG.writeln(" done")
         LOG.writeln("True transmission network was written to: %s/error_free_files/transmission_network.txt" % environ['out_dir_print'])
@@ -248,8 +249,8 @@ class Driver_Default(Driver):
         # write phylogenetic trees (time) as Newick files
         LOG.write("Writing true phylogenetic trees (time) to files...")
         for i,e in enumerate(GC.pruned_newick_trees_time):
-            f = open('error_free_files/phylogenetic_trees/tree_%d.time.tre' % i,'w')
-            f.write(e[1])
+            f = gopen('error_free_files/phylogenetic_trees/tree_%d.time.tre.gz' % i,'wb',9)
+            f.write(e[1].encode())
             f.close()
         LOG.writeln(" done")
         LOG.writeln("True phylogenetic trees (time) were written to: %s/error_free_files/phylogenetic_trees/" % environ['out_dir_print'])
@@ -267,8 +268,8 @@ class Driver_Default(Driver):
         LOG.write("Writing true phylogenetic trees (expected number of mutations) to files...")
         GC.final_tree_to_root_seq = []
         for i,e in enumerate(GC.pruned_newick_trees):
-            f = open('error_free_files/phylogenetic_trees/tree_%d.tre' % i,'w')
-            f.write(e[1])
+            f = gopen('error_free_files/phylogenetic_trees/tree_%d.tre.gz' % i,'wb',9)
+            f.write(e[1].encode())
             f.close()
             GC.final_tree_to_root_seq.append(e[0].get_seq())
         LOG.writeln(" done")
@@ -280,11 +281,11 @@ class Driver_Default(Driver):
         LOG.write("Merging true cluster phylogenetic trees with true seed tree (if applicable)...")
         GC.merged_trees,GC.merged_trees_time = MF.modules['SeedSequence'].merge_trees()
         for i in range(len(GC.merged_trees)):
-            f = open('error_free_files/phylogenetic_trees/merged_tree_%d.tre' % i,'w')
-            f.write(GC.merged_trees[i])
+            f = gopen('error_free_files/phylogenetic_trees/merged_tree_%d.tre.gz' % i,'wb',9)
+            f.write(GC.merged_trees[i].encode())
             f.close()
-            f = open('error_free_files/phylogenetic_trees/merged_tree_%d.time.tre' % i,'w')
-            f.write(GC.merged_trees_time[i])
+            f = gopen('error_free_files/phylogenetic_trees/merged_tree_%d.time.tre.gz' % i,'wb',9)
+            f.write(GC.merged_trees_time[i].encode())
             f.close()
         LOG.writeln(" done")
         if GC.VERBOSE:
@@ -299,11 +300,11 @@ class Driver_Default(Driver):
 
         # write error-free sequence data
         LOG.writeln("Writing final sequence data to file...")
-        f = open('error_free_files/sequence_data.fasta', 'w')
+        f = gopen('error_free_files/sequence_data.fasta.gz','wb',9)
         for cn_label in GC.final_sequences:
             for t in GC.final_sequences[cn_label]:
                 for l,s in GC.final_sequences[cn_label][t]:
-                    f.write(">%s\n%s\n" % (l,s))
+                    f.write((">%s\n%s\n" % (l,s)).encode())
         f.close()
         LOG.writeln("True sequence data were written to: %s/error_free_files" % environ['out_dir_print'])
         LOG.writeln()
@@ -318,12 +319,12 @@ class Driver_Default(Driver):
         if GC.VERBOSE:
             print('[%s] Subsampling contact network nodes' % datetime.now(), file=stderr)
         GC.subsampled_nodes = MF.modules['NodeAvailability'].subsample_transmission_network()
-        f = open('error_prone_files/sequence_data_subsampled_errorfree.fasta', 'w')
+        f = gopen('error_prone_files/sequence_data_subsampled_errorfree.fasta.gz','wb',9)
         for node in GC.subsampled_nodes:
             cn_label = node.get_name()
             for t in GC.final_sequences[cn_label]:
                 for l,s in GC.final_sequences[cn_label][t]:
-                    f.write(">%s\n%s\n" % (l,s))
+                    f.write((">%s\n%s\n" % (l,s)).encode())
         f.close()
         LOG.writeln(" done")
 

@@ -9,6 +9,7 @@ from ContactNetworkGenerator import ContactNetworkGenerator
 import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
 from glob import glob
+from gzip import open as gopen
 from os.path import expanduser
 from os import chdir,getcwd,makedirs,devnull
 from subprocess import check_output
@@ -87,15 +88,13 @@ class ContactNetworkGenerator_PANGEA(ContactNetworkGenerator):
             break
         z = ZipFile(archive, 'r')
         fasta_files = [item for item in z.namelist() if item.endswith('.fa')]
-        f = open("error_free_files/sequence_data.fasta",'w')
+        f = gopen("error_free_files/sequence_data.fasta.gz",'wb',9)
         for fasta in fasta_files:
             ending = '_%s.fasta' % fasta.split('_')[-1].split('.')[0]
             seqs = GC.parseFASTA(z.read(fasta).decode('ascii').splitlines())
             for seqID in seqs:
-                #f = open("error_free_files/sequence_data/seqs_%s%s" % (seqID.split('|')[0],ending), 'w')
-                f.write('>%s\n%s\n' % (seqID,seqs[seqID]))
-                #f.close()
-        f.close()
+                f.write(('>%s\n%s\n' % (seqID,seqs[seqID])).encode())
+        f.write(b'\n'); f.close()
         archive = None
         for archive in glob('%s/*_SIMULATED_TREE.zip' % PANGEA_path):
             break
@@ -103,7 +102,7 @@ class ContactNetworkGenerator_PANGEA(ContactNetworkGenerator):
         z = ZipFile(archive, 'r')
         trees = [item for item in z.namelist() if item.endswith('.newick')]
         for tree in trees:
-            f = open("error_free_files/phylogenetic_trees/%s" % tree, 'wb')
-            f.write(z.read(tree))
+            f = gopen("error_free_files/phylogenetic_trees/%s.gz" % tree,'wb',9)
+            f.write(z.read(tree).encode()); f.write(b'\n')
             f.close()
         return []

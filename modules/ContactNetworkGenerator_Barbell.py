@@ -7,6 +7,7 @@ Barbell Graph.
 '''
 from ContactNetworkGenerator import ContactNetworkGenerator
 import FAVITES_GlobalContext as GC
+from gzip import open as gopen
 from os.path import expanduser
 
 class ContactNetworkGenerator_Barbell(ContactNetworkGenerator):
@@ -29,12 +30,12 @@ class ContactNetworkGenerator_Barbell(ContactNetworkGenerator):
     def get_edge_list():
         cn = barbell_graph(GC.barbell_m1, GC.barbell_m2)
         out = GC.nx2favites(cn, 'u')
-        f = open(expanduser("%s/contact_network.txt" % GC.out_dir),'w')
-        f.write('\n'.join(out))
+        f = gopen(expanduser("%s/contact_network.txt.gz" % GC.out_dir),'wb',9)
+        f.write('\n'.join(out).encode()); f.write(b'\n')
         f.close()
         GC.cn_communities = [{i for i in range(GC.barbell_m1)}, {i for i in range(GC.barbell_m1+GC.barbell_m2, 2*GC.barbell_m1+GC.barbell_m2)}] # only left and right communities, not the path
-        f = open(expanduser("%s/contact_network_partitions.txt" % GC.out_dir),'w')
-        f.write(str(GC.cn_communities))
+        f = gopen(expanduser("%s/contact_network_partitions.txt.gz" % GC.out_dir),'wb',9)
+        f.write(str(GC.cn_communities).encode()); f.write(b'\n')
         f.close()
         GC.cn_communities = [{str(i) for i in c} for c in GC.cn_communities]
         return out
