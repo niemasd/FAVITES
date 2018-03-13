@@ -12,10 +12,10 @@ python:
   - "3.6-dev"
   - "3.7-dev"
 
-# pull latest FAVITES Docker image
+# pull latest FAVITES Docker image (test "latest" image)
 install:
   - echo "{}" > dummy.json
-  - ./run_favites_docker.py -c dummy.json -o dummy
+  - ./run_favites_docker.py -c dummy.json -o dummy -u latest
   - rm -rf dummy
 
 # run tests
