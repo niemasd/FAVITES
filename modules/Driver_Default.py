@@ -204,9 +204,6 @@ class Driver_Default(Driver):
         for e in GC.transmissions:
             f.write("%s\t%s\t%f\n" % e)
         f.close()
-        f = open('error_free_files/transmission_network.gexf','w')
-        f.write(GC.tn_favites2gexf(contact_network,GC.transmissions))
-        f.close()
         LOG.writeln(" done")
         LOG.writeln("True transmission network was written to: %s/error_free_files/transmission_network.txt" % environ['out_dir_print'])
         if GC.VERBOSE:
