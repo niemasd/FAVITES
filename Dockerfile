@@ -15,8 +15,8 @@ RUN echo "deb http://cran.rstudio.com/bin/linux/ubuntu xenial/" >> /etc/apt/sour
     R CMD INSTALL --configure-args="--with-libssl-include=/usr/lib/" git2r && \
     rm -rf git2r /tmp/* && \
     Rscript -e "install.packages(c('ape','data.table','devtools','distr','gamlss','phytools'), repos='https://cloud.r-project.org/')" && \
-    Rscript -e "library(devtools); install_github('olli0601/PANGEA.HIV.sim')"
-RUN Rscript -e "library(devtools); install_github('olli0601/PANGEA.HIV.sim')"
+    Rscript -e "library(devtools); install_github('niemasd/PANGEA.HIV.sim')"
+RUN Rscript -e "library(devtools); install_github('niemasd/PANGEA.HIV.sim')"
 
 # Set up Python 3 and modules
 RUN apt-get install -y python3 python3-pip python3-scipy && \
