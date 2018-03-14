@@ -16,7 +16,7 @@
 
     "NodeEvolution":                 "Yule",
     "dualbirth_path":                "dualbirth",
-    "yule_rate":                     3,
+    "yule_rate":                     2,
 
     "NumBranchSample":               "Single",
 

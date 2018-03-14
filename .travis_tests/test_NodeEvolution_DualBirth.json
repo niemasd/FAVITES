@@ -16,8 +16,8 @@
 
     "NodeEvolution":                 "DualBirth",
     "dualbirth_path":                "dualbirth",
-    "rate_A":                        3,
-    "rate_B":                        3,
+    "rate_A":                        2,
+    "rate_B":                        2,
 
     "NumBranchSample":               "Single",
 
