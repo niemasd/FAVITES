@@ -47,7 +47,7 @@ class SequenceEvolution_Pyvolve(SequenceEvolution):
         # config validity checks
         GC.pyvolve_model_type = GC.pyvolve_model_type.strip()
         GC.pyvolve_state_frequencies_class = GC.pyvolve_state_frequencies_class.strip()
-        assert GC.pyvolve_state_frequencies_class in {"EqualFrequencies","RandomFrequencies","CustomFrequencies"}, 'Unsupported Pyvolve model_type selected. Choose "EqualFrequencies", "RandomFrequencies", or "CustomFrequencies"'
+        assert GC.pyvolve_state_frequencies_class in {"EqualFrequencies","RandomFrequencies","CustomFrequencies"}, 'Unsupported Pyvolve state_frequencies_class selected. Choose "EqualFrequencies", "RandomFrequencies", or "CustomFrequencies"'
         assert isinstance(GC.pyvolve_custom_model_parameters_dictionary, dict), "Specified pyvolve_custom_model_parameters_dictionary is not a dictionary"
         assert isinstance(GC.pyvolve_state_frequencies_parameters_dictionary, dict), "Specified pyvolve_state_frequencies_parameters_dictionary is not a dictionary"
         assert "alphabet" in GC.pyvolve_state_frequencies_parameters_dictionary, 'Specified pyvolve_state_frequencies_parameters_dictionary does not contain mandatory "alphabet" key'
