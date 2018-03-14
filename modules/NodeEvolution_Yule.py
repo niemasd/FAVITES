@@ -10,7 +10,7 @@ import FAVITES_GlobalContext as GC
 
 class NodeEvolution_Yule(NodeEvolution):
     def cite():
-        return GC.CITATION_FAVITES
+        return GC.CITATION_DUALBIRTH
 
     def init():
         GC.rate_A = float(GC.yule_rate)
