@@ -6,7 +6,7 @@
     "num_edges_from_new":            2,
 
     "Driver":                        "Default",
-    "out_dir":                       "out_ContactNetwork_BarabasiAlbert",
+    "out_dir":                       "out_ContactNetworkGenerator_BarabasiAlbert",
 
     "EndCriteria":                   "Transmissions",
     "end_transmissions":             5,

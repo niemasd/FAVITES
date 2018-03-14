@@ -35,7 +35,7 @@
     ],
 
     "Driver":                        "Default",
-    "out_dir":                       "out_ContactNetwork_Communities",
+    "out_dir":                       "out_ContactNetworkGenerator_Communities",
 
     "EndCriteria":                   "Transmissions",
     "end_transmissions":             5,

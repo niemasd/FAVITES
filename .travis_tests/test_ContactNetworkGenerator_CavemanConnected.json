@@ -6,7 +6,7 @@
     "cave_num_cliques":              3,
 
     "Driver":                        "Default",
-    "out_dir":                       "out_ContactNetwork_CavemanConnected",
+    "out_dir":                       "out_ContactNetworkGenerator_CavemanConnected",
 
     "EndCriteria":                   "Transmissions",
     "end_transmissions":             5,

@@ -6,7 +6,7 @@
     "barbell_m2":                    5,
 
     "Driver":                        "Default",
-    "out_dir":                       "out_ContactNetwork_Barbell",
+    "out_dir":                       "out_ContactNetworkGenerator_Barbell",
 
     "EndCriteria":                   "Transmissions",
     "end_transmissions":             5,

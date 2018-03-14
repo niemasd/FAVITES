@@ -7,7 +7,7 @@
     "cave_prob":                     0.2,
 
     "Driver":                        "Default",
-    "out_dir":                       "out_ContactNetwork_CavemanRelaxed",
+    "out_dir":                       "out_ContactNetworkGenerator_CavemanRelaxed",
 
     "EndCriteria":                   "Transmissions",
     "end_transmissions":             5,

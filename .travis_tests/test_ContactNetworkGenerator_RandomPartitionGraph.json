@@ -8,7 +8,7 @@
     "rpg_sizes":                     [10,20],
 
     "Driver":                        "Default",
-    "out_dir":                       "out_ContactNetwork_RandomPartitionGraph",
+    "out_dir":                       "out_ContactNetworkGenerator_RandomPartitionGraph",
 
     "EndCriteria":                   "Transmissions",
     "end_transmissions":             5,
