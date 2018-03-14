@@ -14,6 +14,7 @@ from subprocess import CalledProcessError,check_output,STDOUT
 from sys import stderr
 
 SEQGEN_OUTPUT_DIR = "SeqGen_output"
+SEQGEN_MODES = "HKY, F84, GTR, JTT, WAG, PAM, BLOSUM, MTREV, CPREV45, MTART, LG, GENERAL"
 
 class SequenceEvolution_SeqGen(SequenceEvolution):
     def cite():
@@ -30,6 +31,8 @@ class SequenceEvolution_SeqGen(SequenceEvolution):
         assert '-p' not in GC.seqgen_args, "Do not use the Seq-Gen -p argument"
         assert '-s' not in GC.seqgen_args, "Do not use the Seq-Gen -s argument"
         assert '-m' in GC.seqgen_args, "Must specify a Seq-Gen model using the -m argument"
+        mode = GC.seqgen_args.split('-m ')[1].split(' ')[0]
+        assert mode in SEQGEN_MODES.split(', '), "Invalid Seq-Gen model (%s). Options: %s" % (mode,SEQGEN_MODES)
         GC.check_seqgen_executable()
         try:
             global Tree
