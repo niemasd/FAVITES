@@ -23,8 +23,8 @@ class Sequencing_DWGSIM(Sequencing):
 
     def introduce_sequencing_error(node):
         if not hasattr(GC,"sequencing_file"):
-            GC.sequencing_file = open('%s/error_prone_files/sequence_data_subsampled_errorprone_read1.fastq'%GC.out_dir, 'w')
-            GC.sequencing_file2 = open('%s/error_prone_files/sequence_data_subsampled_errorprone_read2.fastq'%GC.out_dir, 'w')
+            GC.sequencing_file = gopen('%s/error_prone_files/sequence_data_subsampled_errorprone_read1.fastq.gz'%GC.out_dir, 'wb', 9)
+            GC.sequencing_file2 = gopen('%s/error_prone_files/sequence_data_subsampled_errorprone_read2.fastq.gz'%GC.out_dir, 'wb', 9)
         orig_dir = getcwd()
         chdir(GC.out_dir)
         makedirs("DWGSIM_output", exist_ok=True)
@@ -66,9 +66,9 @@ class Sequencing_DWGSIM(Sequencing):
                 raise FileNotFoundError("Couldn't find %s_%f.bwa.read2.fastq or %s_%f.bwa.read2.fastq.gz" % (cn_label,t,cn_label,t))
             for l in f:
                 if isinstance(l,bytes):
-                    GC.sequencing_file2.write(l.decode())
-                else:
                     GC.sequencing_file2.write(l)
+                else:
+                    GC.sequencing_file2.write(l.encode())
         chdir(orig_dir)
 
     def finalize():

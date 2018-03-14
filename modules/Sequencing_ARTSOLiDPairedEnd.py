@@ -6,6 +6,7 @@ Niema Moshiri 2016
 '''
 from Sequencing import Sequencing
 import FAVITES_GlobalContext as GC
+from gzip import open as gopen
 from subprocess import call
 from tempfile import NamedTemporaryFile
 from os.path import expanduser
@@ -53,13 +54,13 @@ class Sequencing_ARTSOLiDPairedEnd(Sequencing):
                 assert False, "art_SOLiD executable was not found: %s" % GC.art_illumina_path
             f.close()
             if not hasattr(GC,"sequencing_file_F3"):
-                GC.sequencing_file_F3 = open('%s/error_prone_files/sequence_data_subsampled_errorprone_F3.fastq'%GC.out_dir, 'w')
+                GC.sequencing_file_F3 = gopen('%s/error_prone_files/sequence_data_subsampled_errorprone_F3.fastq.gz'%GC.out_dir, 'wb', 9)
             for l in open('%s_%f_F3.fq' % (cn_label,t)):
-                GC.sequencing_file_F3.write(l)
+                GC.sequencing_file_F3.write(l.encode())
             if not hasattr(GC,"sequencing_file_F5"):
-                GC.sequencing_file_F5 = open('%s/error_prone_files/sequence_data_subsampled_errorprone_F5.fastq'%GC.out_dir, 'w')
+                GC.sequencing_file_F5 = gopen('%s/error_prone_files/sequence_data_subsampled_errorprone_F5.fastq.gz'%GC.out_dir, 'wb', 9)
             for l in open('%s_%f_F5.fq' % (cn_label,t)):
-                GC.sequencing_file_F5.write(l)
+                GC.sequencing_file_F5.write(l.encode())
         chdir(orig_dir)
 
     def finalize():

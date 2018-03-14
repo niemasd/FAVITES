@@ -6,6 +6,7 @@ Niema Moshiri 2016
 '''
 from Sequencing import Sequencing
 import FAVITES_GlobalContext as GC
+from gzip import open as gopen
 from subprocess import call
 from tempfile import NamedTemporaryFile
 from os.path import expanduser
@@ -48,9 +49,9 @@ class Sequencing_ARTSOLiDAmpliconSingleEnd(Sequencing):
                 assert False, "art_SOLiD executable was not found: %s" % GC.art_illumina_path
             f.close()
             if not hasattr(GC,"sequencing_file"):
-                GC.sequencing_file = open('%s/error_prone_files/sequence_data_subsampled_errorprone.fastq'%GC.out_dir, 'w')
+                GC.sequencing_file = gopen('%s/error_prone_files/sequence_data_subsampled_errorprone.fastq.gz'%GC.out_dir, 'wb', 9)
             for l in open('%s_%f.fq' % (cn_label,t)):
-                GC.sequencing_file.write(l)
+                GC.sequencing_file.write(l.encode())
         chdir(orig_dir)
 
     def finalize():
