@@ -1,0 +1,52 @@
+{
+    "ContactNetwork":                "NetworkX",
+
+    "ContactNetworkGenerator":       "Complete",
+    "num_cn_nodes":                  10,
+
+    "Driver":                        "Default",
+    "out_dir":                       "out_TreeUnit_Gamma",
+
+    "EndCriteria":                   "Transmissions",
+    "end_transmissions":             5,
+
+    "Logging":                       "STDOUT",
+
+    "NodeAvailability":              "Perfect",
+
+    "NodeEvolution":                 "VirusTreeSimulator",
+    "java_path":                     "java",
+    "vts_growthRate":                2.851904,
+    "vts_model":                     "logistic",
+    "vts_n0":                        1,
+    "vts_t50":                       -2,
+
+    "NumBranchSample":               "Single",
+
+    "NumTimeSample":                 "Once",
+
+    "SeedSelection":                 "Random",
+    "num_seeds":                     2,
+
+    "SeedSequence":                  "Random",
+    "seed_sequence_length":          10,
+
+    "SequenceEvolution":             "NoMutation",
+
+    "Sequencing":                    "Perfect",
+
+    "SourceSample":                  "Random",
+
+    "TimeSample":                    "End",
+
+    "TransmissionNodeSample":        "RandomSingleInfection",
+
+    "TransmissionTimeSample":        "Fixed",
+    "fixed_transmission_time_delta": 1,
+
+    "TreeNode":                      "Simple",
+
+    "TreeUnit":                      "Gamma",
+    "tree_rate_scale":               1,
+    "tree_rate_shape":               1,
+}
