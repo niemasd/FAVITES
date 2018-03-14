@@ -19,11 +19,12 @@ class SeedSequence_User(SeedSequence):
     def init():
         GC.num_seeds = int(GC.num_seeds)
         assert GC.num_seeds >= 1, "Must have at least 1 seed node"
+        assert isinstance(GC.seed_seqs, list), "seed_seqs must be a list of strings"
         assert len(GC.seed_seqs) == GC.num_seeds, "seed_seqs must have exactly num_seeds sequences!"
         GC.seed_seqs_num = 0
 
     def generate():
-        seq = GC.seed_seqs[num]
+        seq = GC.seed_seqs[GC.seed_seqs_num]
         GC.seed_seqs_num += 1
         return seq
 
