@@ -11,7 +11,7 @@ from SeedSequence_HMMEmit import SeedSequence_HMMEmit
 import FAVITES_GlobalContext as GC
 from subprocess import check_output
 from random import choice
-from os.path import expanduser
+from os.path import abspath,expanduser
 from os import makedirs
 
 HMMBuildEmit_path = "HMMBuildEmit_files"
@@ -28,7 +28,7 @@ class SeedSequence_HMMBuildEmit(SeedSequence):
         return GC.CITATION_HMMER
 
     def init():
-        GC.hmmbuild_msafile = expanduser(GC.hmmbuild_msafile.strip())
+        GC.hmmbuild_msafile = abspath(expanduser(GC.hmmbuild_msafile.strip()))
         GC.hmmbuild_path = expanduser(GC.hmmbuild_path.strip())
         GC.hmmemit_path = expanduser(GC.hmmemit_path.strip())
         GC.hmmbuild_options = [i.strip() for i in GC.hmmbuild_options.strip().split()]
