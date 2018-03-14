@@ -1,6 +1,8 @@
 # .travis.yml setup
 sudo: enabled
-os: linux
+os:
+  - linux
+  - osx
 dist: trusty
 language: python
 python:
