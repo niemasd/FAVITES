@@ -146,7 +146,7 @@ class Driver_Default(Driver):
             node.infect(0.0,virus)
             GC.contact_network.add_transmission(None,node,0.0)
             GC.seed_to_first_virus[node] = virus
-        f.close()
+        f.write(b'\n'); f.close()
         if isdir('seed_sequences'):
             rename('seed_sequences.tsv.gz','seed_sequences/seed_sequences.tsv.gz')
         LOG.writeln(" done")
@@ -204,7 +204,7 @@ class Driver_Default(Driver):
         f = gopen('error_free_files/transmission_network.txt.gz','wb',9)
         for e in GC.transmissions:
             f.write(("%s\t%s\t%f\n" % e).encode())
-        f.close()
+        f.write(b'\n'); f.close()
         LOG.writeln(" done")
         LOG.writeln("True transmission network was written to: %s/error_free_files/transmission_network.txt" % environ['out_dir_print'])
         if GC.VERBOSE:
@@ -250,7 +250,7 @@ class Driver_Default(Driver):
         LOG.write("Writing true phylogenetic trees (time) to files...")
         for i,e in enumerate(GC.pruned_newick_trees_time):
             f = gopen('error_free_files/phylogenetic_trees/tree_%d.time.tre.gz' % i,'wb',9)
-            f.write(e[1].encode())
+            f.write(e[1].encode()); f.write(b'\n')
             f.close()
         LOG.writeln(" done")
         LOG.writeln("True phylogenetic trees (time) were written to: %s/error_free_files/phylogenetic_trees/" % environ['out_dir_print'])
@@ -269,7 +269,7 @@ class Driver_Default(Driver):
         GC.final_tree_to_root_seq = []
         for i,e in enumerate(GC.pruned_newick_trees):
             f = gopen('error_free_files/phylogenetic_trees/tree_%d.tre.gz' % i,'wb',9)
-            f.write(e[1].encode())
+            f.write(e[1].encode()); f.write(b'\n')
             f.close()
             GC.final_tree_to_root_seq.append(e[0].get_seq())
         LOG.writeln(" done")
@@ -282,10 +282,10 @@ class Driver_Default(Driver):
         GC.merged_trees,GC.merged_trees_time = MF.modules['SeedSequence'].merge_trees()
         for i in range(len(GC.merged_trees)):
             f = gopen('error_free_files/phylogenetic_trees/merged_tree_%d.tre.gz' % i,'wb',9)
-            f.write(GC.merged_trees[i].encode())
+            f.write(GC.merged_trees[i].encode()); f.write(b'\n')
             f.close()
             f = gopen('error_free_files/phylogenetic_trees/merged_tree_%d.time.tre.gz' % i,'wb',9)
-            f.write(GC.merged_trees_time[i].encode())
+            f.write(GC.merged_trees_time[i].encode()); f.write(b'\n')
             f.close()
         LOG.writeln(" done")
         if GC.VERBOSE:
@@ -305,7 +305,7 @@ class Driver_Default(Driver):
             for t in GC.final_sequences[cn_label]:
                 for l,s in GC.final_sequences[cn_label][t]:
                     f.write((">%s\n%s\n" % (l,s)).encode())
-        f.close()
+        f.write(b'\n'); f.close()
         LOG.writeln("True sequence data were written to: %s/error_free_files" % environ['out_dir_print'])
         LOG.writeln()
         if GC.VERBOSE:
@@ -326,7 +326,7 @@ class Driver_Default(Driver):
                 for t in GC.final_sequences[cn_label]:
                     for l,s in GC.final_sequences[cn_label][t]:
                         f.write((">%s\n%s\n" % (l,s)).encode())
-            f.close()
+            f.write(b'\n'); f.close()
             LOG.writeln(" done")
 
         # introduce sequencing error
