@@ -6,7 +6,7 @@ Niema Moshiri 2016
 '''
 from Sequencing import Sequencing
 import FAVITES_GlobalContext as GC
-from subprocess import call
+from subprocess import call,STDOUT
 from tempfile import NamedTemporaryFile
 from os.path import expanduser
 from os import getcwd,makedirs,chdir,listdir,rename
@@ -44,11 +44,12 @@ class Sequencing_ART454PairedEnd(Sequencing):
             command.append(str(GC.art_454_mean_frag_len))
             command.append(str(GC.art_454_std_dev))
             try:
-                call(command, stdout=open('%s_%f.log' % (cn_label,t), 'w'))
+                call(command, stdout=open('%s_%f.log' % (cn_label,t), 'w'), stderr=STDOUT)
             except FileNotFoundError:
                 chdir(GC.START_DIR)
                 assert False, "art_454 executable was not found: %s" % GC.art_454_path
             f.close()
+            assert "Error: " not in open('%s_%f.log' % (cn_label,t)).read(), "art_454 crashed. See ART_output/%s_%f.log" % (cn_label,t)
             rename('%s_%f1.fq' % (cn_label,t), '%s_%f_read1.fq' % (cn_label,t))
             for l in open('%s_%f_read1.fq' % (cn_label,t)):
                 GC.sequencing_file.write(l)
