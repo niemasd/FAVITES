@@ -148,14 +148,13 @@ class TransmissionTimeSample_SAISGEMF(TransmissionTimeSample):
                 die = {uNodes[i]:GC.prob_exp_min(i, uRates) for i in range(len(uNodes))}
                 if len(die) != 0:
                     u = GC.roll(die) # roll die weighted by exponential infectious rates
+                    uName = u.get_name()
+                    if GC.VERBOSE:
+                        print('[%s] Infection\tTime %s\tFrom Node %s (%s)\tTo Node %s (%s->%s)\tTotal Infected: %d\tTotal Uninfected: %d' % (datetime.now(),t,uName,GC.gemf_num_to_state[u.gemf_state],vName,GC.gemf_num_to_state[pre],GC.gemf_num_to_state[post],NUM_INFECTED,len(num2node)-NUM_INFECTED), file=stderr)
                 elif len(die) == 0 or u == v: # new seed
                     uName = None
                     if GC.VERBOSE:
                         print('[%s] Seed\tTime %s\tNode %s\tTotal Infected: %d\tTotal Uninfected: %d' % (datetime.now(),t,vName,NUM_INFECTED,len(num2node)-NUM_INFECTED), file=stderr)
-                else:
-                    uName = u.get_name()
-                    if GC.VERBOSE:
-                        print('[%s] Infection\tTime %s\tFrom Node %s (%s)\tTo Node %s (%s->%s)\tTotal Infected: %d\tTotal Uninfected: %d' % (datetime.now(),t,uName,GC.gemf_num_to_state[u.gemf_state],vName,GC.gemf_num_to_state[pre],GC.gemf_num_to_state[post],NUM_INFECTED,len(num2node)-NUM_INFECTED), file=stderr)
                 GC.transmission_file.append((uName,v.get_name(),float(t)))
             elif GC.VERBOSE:
                 print('[%s] Transition\tTime %s\tNode %s (%s->%s)' % (datetime.now(),t,vName,GC.gemf_num_to_state[pre],GC.gemf_num_to_state[post]), file=stderr)
