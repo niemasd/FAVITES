@@ -14,7 +14,7 @@ RUN echo "deb http://cran.rstudio.com/bin/linux/ubuntu xenial/" >> /etc/apt/sour
     git clone https://github.com/ropensci/git2r.git && \
     R CMD INSTALL --configure-args="--with-libssl-include=/usr/lib/" git2r && \
     rm -rf git2r /tmp/* && \
-    Rscript -e "install.packages(c('ape','data.table','devtools','distr','gamlss','phytools'), repos='https://cloud.r-project.org/')" && \
+    Rscript -e "install.packages(c('ape','data.table','devtools','distr','gamlss','phytools','reshape2','RColorBrewer','ggplot2'), repos='https://cloud.r-project.org/')" && \
     Rscript -e "library(devtools); install_github('niemasd/PANGEA.HIV.sim')"
 RUN Rscript -e "library(devtools); install_github('niemasd/PANGEA.HIV.sim')"
 
