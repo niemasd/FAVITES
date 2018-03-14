@@ -6,7 +6,7 @@ Niema Moshiri 2016
 '''
 from Sequencing import Sequencing
 import FAVITES_GlobalContext as GC
-from subprocess import call
+from subprocess import call,STDOUT
 from tempfile import NamedTemporaryFile
 from os.path import expanduser
 from os import getcwd,makedirs,chdir,listdir,rename
@@ -42,7 +42,7 @@ class Sequencing_ART454SingleEnd(Sequencing):
             command.append('%s_%f' % (cn_label,t))
             command.append(str(GC.art_454_fold_coverage))
             try:
-                call(command, stdout=open('%s_%f.log' % (cn_label,t), 'w'))
+                call(command, stdout=open('%s_%f.log' % (cn_label,t), 'w'), stderr=STDOUT)
             except FileNotFoundError:
                 chdir(GC.START_DIR)
                 assert False, "art_454 executable was not found: %s" % GC.art_454_path
