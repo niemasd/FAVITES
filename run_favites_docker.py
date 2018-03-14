@@ -6,9 +6,18 @@ from sys import platform,stderr
 from subprocess import call,check_output,CalledProcessError,STDOUT
 from tempfile import NamedTemporaryFile
 from warnings import warn
+from urllib.error import URLError
 from urllib.request import urlopen
 DOCKER_IMAGE = "niemasd/favites"
-DOCKER_LATEST_TAG = sorted([t for t in urlopen("https://hub.docker.com/r/%s/tags/"%DOCKER_IMAGE).read().decode('utf-8').split('"tags":')[1].split(':')[-1][1:-2].replace('"','').split(',') if '.' in t])[-1]
+try:
+    DOCKER_LATEST_TAG = sorted([t for t in urlopen("https://hub.docker.com/r/%s/tags/"%DOCKER_IMAGE).read().decode('utf-8').split('"tags":')[1].split(':')[-1][1:-2].replace('"','').split(',') if '.' in t])[-1]
+except URLError as e:
+    raise RuntimeError("Failed to use Python 3 urllib to connect to FAVITES Docker repository webpage\n%s"%e.output)
+
+# if Mac OS X, use portable TMPDIR
+if platform == 'darwin':
+    from os import environ
+    environ['TMPDIR'] = '/tmp/docker_tmp'
 
 # parse user args
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
