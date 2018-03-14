@@ -27,8 +27,8 @@ class Logging_FileSTDERR(Logging):
 
     def write(message=''):
         Logging_File.write(message=message)
-        Logging_STDERR.write(message='')
+        Logging_STDERR.write(message=message)
 
     def writeln(message=''):
         Logging_File.writeln(message=message)
-        Logging_STDERR.writeln(message='')
+        Logging_STDERR.writeln(message=message)
