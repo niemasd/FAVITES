@@ -319,14 +319,15 @@ class Driver_Default(Driver):
         if GC.VERBOSE:
             print('[%s] Subsampling contact network nodes' % datetime.now(), file=stderr)
         GC.subsampled_nodes = MF.modules['NodeAvailability'].subsample_transmission_network()
-        f = gopen('error_prone_files/sequence_data_subsampled_errorfree.fasta.gz','wb',9)
-        for node in GC.subsampled_nodes:
-            cn_label = node.get_name()
-            for t in GC.final_sequences[cn_label]:
-                for l,s in GC.final_sequences[cn_label][t]:
-                    f.write((">%s\n%s\n" % (l,s)).encode())
-        f.close()
-        LOG.writeln(" done")
+        if len(GC.subsampled_nodes) != 0:
+            f = gopen('error_prone_files/sequence_data_subsampled_errorfree.fasta.gz','wb',9)
+            for node in GC.subsampled_nodes:
+                cn_label = node.get_name()
+                for t in GC.final_sequences[cn_label]:
+                    for l,s in GC.final_sequences[cn_label][t]:
+                        f.write((">%s\n%s\n" % (l,s)).encode())
+            f.close()
+            LOG.writeln(" done")
 
         # introduce sequencing error
         LOG.write("Simulating sequencing error...")
