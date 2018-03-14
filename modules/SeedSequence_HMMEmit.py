@@ -14,7 +14,7 @@ from SeedSequence import SeedSequence
 import FAVITES_GlobalContext as GC
 from subprocess import check_output
 from random import choice
-from os.path import expanduser
+from os.path import abspath,expanduser
 
 class SeedSequence_HMMEmit(SeedSequence):
     '''
@@ -25,7 +25,7 @@ class SeedSequence_HMMEmit(SeedSequence):
         return GC.CITATION_HMMER
 
     def init():
-        GC.hmmemit_hmmfile = expanduser(GC.hmmemit_hmmfile.strip())
+        GC.hmmemit_hmmfile = abspath(expanduser(GC.hmmemit_hmmfile.strip()))
         GC.hmmemit_path = expanduser(GC.hmmemit_path.strip())
         GC.hmmemit_options = [i.strip() for i in GC.hmmemit_options.strip().split()]
 
