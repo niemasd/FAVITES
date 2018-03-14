@@ -6,6 +6,7 @@ Niema Moshiri 2016
 '''
 from Sequencing import Sequencing
 import FAVITES_GlobalContext as GC
+from gzip import open as gopen
 from subprocess import call
 from tempfile import NamedTemporaryFile
 from os.path import expanduser,isfile
@@ -49,19 +50,19 @@ class Sequencing_ARTillumina(Sequencing):
             f.close()
             if isfile('%s_%f.fq' % (cn_label,t)):
                 if not hasattr(GC,"sequencing_file"):
-                    GC.sequencing_file = open('%s/error_prone_files/sequence_data_subsampled_errorprone.fastq'%GC.out_dir, 'w')
+                    GC.sequencing_file = gopen('%s/error_prone_files/sequence_data_subsampled_errorprone.fastq.gz'%GC.out_dir, 'wb', 9)
                 for l in open('%s_%f.fq' % (cn_label,t)):
                     GC.sequencing_file.write(l)
             elif isfile('%s_%f1.fq' % (cn_label,t)):
                 if not hasattr(GC,"sequencing_file"):
-                    GC.sequencing_file = open('%s/error_prone_files/sequence_data_subsampled_errorprone_read1.fastq'%GC.out_dir, 'w')
-                    GC.sequencing_file2 = open('%s/error_prone_files/sequence_data_subsampled_errorprone_read2.fastq'%GC.out_dir, 'w')
+                    GC.sequencing_file = gopen('%s/error_prone_files/sequence_data_subsampled_errorprone_read1.fastq.gz'%GC.out_dir, 'wb', 9)
+                    GC.sequencing_file2 = gopen('%s/error_prone_files/sequence_data_subsampled_errorprone_read2.fastq.gz'%GC.out_dir, 'wb', 9)
                 rename('%s_%f1.fq' % (cn_label,t), '%s_%f_read1.fq' % (cn_label,t))
                 for l in open('%s_%f_read1.fq' % (cn_label,t)):
-                    GC.sequencing_file.write(l)
+                    GC.sequencing_file.write(l.encode())
                 rename('%s_%f2.fq' % (cn_label,t), '%s_%f_read2.fq' % (cn_label,t))
                 for l in open('%s_%f_read2.fq' % (cn_label,t)):
-                    GC.sequencing_file2.write(l)
+                    GC.sequencing_file2.write(l.encode())
             else:
                 assert False, "Error occurred with art_illumina"
         chdir(orig_dir)
