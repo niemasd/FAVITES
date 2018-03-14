@@ -14,7 +14,7 @@ from SeedSequence_Virus import SeedSequence_Virus
 from SequenceEvolution_GTRGammaSeqGen import SequenceEvolution_GTRGammaSeqGen
 import FAVITES_GlobalContext as GC
 import modules.FAVITES_ModuleFactory as MF
-from subprocess import check_output,STDOUT
+from subprocess import CalledProcessError,check_output,STDOUT
 from os.path import expanduser
 from os import chdir,makedirs
 import random as rng
@@ -56,7 +56,7 @@ class SeedSequence_CommunityVirusPureCoalescentGTRGamma(SeedSequence):
                     for n in t.leaf_node_iter():
                         n.taxon = dendropy.datamodel.taxonmodel.Taxon(str(leaf_num))
                         leaf_num += 1
-                community_trees.append(t)
+                    community_trees.append(t)
             assert len(community_trees) != 0, "No community seed trees produced"
             if len(community_trees) == 1:
                 treestr = community_trees[0].as_string(schema='newick')
