@@ -320,14 +320,23 @@ class Driver_Default(Driver):
             print('[%s] Subsampling contact network nodes' % datetime.now(), file=stderr)
         GC.subsampled_nodes = MF.modules['NodeAvailability'].subsample_transmission_network()
         if len(GC.subsampled_nodes) != 0:
-            f = gopen('error_prone_files/sequence_data_subsampled_errorfree.fasta.gz','wb',9)
+            tmp = []; rmv = []
             for node in GC.subsampled_nodes:
                 cn_label = node.get_name()
-                for t in GC.final_sequences[cn_label]:
-                    for l,s in GC.final_sequences[cn_label][t]:
-                        f.write((">%s\n%s\n" % (l,s)).encode())
-            f.write(b'\n'); f.close()
-            LOG.writeln(" done")
+                if cn_label in GC.final_sequences:
+                    for t in GC.final_sequences[cn_label]:
+                        for l,s in GC.final_sequences[cn_label][t]:
+                            tmp.append((">%s\n%s\n" % (l,s)).encode())
+                else:
+                    rmv.append(node)
+            for n in rmv:
+                GC.subsampled_nodes.remove(n)
+            if len(tmp) != 0:
+                f = gopen('error_prone_files/sequence_data_subsampled_errorfree.fasta.gz','wb',9)
+                for e in tmp:
+                    f.write(e)
+                f.write(b'\n'); f.close()
+        LOG.writeln(" done")
 
         # introduce sequencing error
         LOG.write("Simulating sequencing error...")
