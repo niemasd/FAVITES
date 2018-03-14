@@ -5,7 +5,7 @@
     "num_cn_nodes":                  10,
 
     "Driver":                        "Default",
-    "out_dir":                       "out_SeedSelection_Random",
+    "out_dir":                       "out_SeedSelection_EdgeWeighted",
 
     "EndCriteria":                   "Transmissions",
     "end_transmissions":             5,

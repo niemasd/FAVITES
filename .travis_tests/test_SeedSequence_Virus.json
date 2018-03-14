@@ -5,7 +5,7 @@
     "num_cn_nodes":                  10,
 
     "Driver":                        "Default",
-    "out_dir":                       "out_SeedSequence_Random",
+    "out_dir":                       "out_SeedSequence_Virus",
 
     "EndCriteria":                   "Transmissions",
     "end_transmissions":             5,

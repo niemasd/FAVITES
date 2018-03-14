@@ -5,7 +5,7 @@
     "num_cn_nodes":                  10,
 
     "Driver":                        "Default",
-    "out_dir":                       "out_SequenceEvolution_NoMutation",
+    "out_dir":                       "out_SequenceEvolution_Pyvolve",
 
     "EndCriteria":                   "Transmissions",
     "end_transmissions":             5,
