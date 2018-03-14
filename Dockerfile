@@ -19,11 +19,12 @@ RUN echo "deb http://cran.rstudio.com/bin/linux/ubuntu xenial/" >> /etc/apt/sour
 RUN Rscript -e "library(devtools); install_github('niemasd/PANGEA.HIV.sim')"
 
 # Set up Python 3 and modules
-RUN apt-get install -y python3 python3-pip python3-scipy && \
+RUN apt-get install -y python3 python3-pip && \
     pip3 install --upgrade pip && \
     pip3 install dendropy && \
     pip3 install networkx && \
     pip3 install numpy && \
+    pip3 install scipy && \
     pip3 install pyvolve
 
 # Set up ART (MountRainier-2016-06-05)
