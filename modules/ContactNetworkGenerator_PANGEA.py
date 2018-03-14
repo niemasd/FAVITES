@@ -103,6 +103,10 @@ class ContactNetworkGenerator_PANGEA(ContactNetworkGenerator):
         trees = [item for item in z.namelist() if item.endswith('.newick')]
         for tree in trees:
             f = gopen("error_free_files/phylogenetic_trees/%s.gz" % tree,'wb',9)
-            f.write(z.read(tree).encode()); f.write(b'\n')
-            f.close()
+            to_write = z.read(tree)
+            if isinstance(to_write, bytes):
+                f.write(to_write)
+            else:
+                f.write(to_write.encode())
+            f.write(b'\n'); f.close()
         return []
