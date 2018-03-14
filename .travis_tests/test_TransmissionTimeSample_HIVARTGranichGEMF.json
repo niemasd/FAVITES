@@ -1,0 +1,85 @@
+{
+    "ContactNetwork":                "NetworkX",
+
+    "ContactNetworkGenerator":       "Complete",
+    "num_cn_nodes":                  10,
+
+    "Driver":                        "Default",
+    "out_dir":                       "out_TransmissionTimeSample_HIVARTGranichGEMF",
+
+    "EndCriteria":                   "GEMF",
+    "end_transmissions":             5,
+
+    "Logging":                       "STDOUT",
+
+    "NodeAvailability":              "Perfect",
+
+    "NodeEvolution":                 "VirusTreeSimulator",
+    "java_path":                     "java",
+    "vts_growthRate":                2.851904,
+    "vts_model":                     "logistic",
+    "vts_n0":                        1,
+    "vts_t50":                       -2,
+
+    "NumBranchSample":               "Single",
+
+    "NumTimeSample":                 "Once",
+
+    "SeedSelection":                 "Random",
+    "num_seeds":                     2,
+
+    "SeedSequence":                  "Random",
+    "seed_sequence_length":          10,
+
+    "SequenceEvolution":             "NoMutation",
+
+    "Sequencing":                    "Perfect",
+
+    "SourceSample":                  "Random",
+
+    "TimeSample":                    "End",
+
+    "TransmissionNodeSample":        "GEMF",
+    "end_time":                      3,
+    "gemf_path":                     "GEMF",
+
+    "TransmissionTimeSample":        "HIVARTGranichGEMF",
+    "hiv_a1_to_a2":                  1,
+    "hiv_a1_to_d":                   1,
+    "hiv_a1_to_i1":                  1,
+    "hiv_a2_to_a3":                  1,
+    "hiv_a2_to_d":                   1,
+    "hiv_a2_to_i2":                  1,
+    "hiv_a3_to_a4":                  1,
+    "hiv_a3_to_d":                   1,
+    "hiv_a3_to_i3":                  1,
+    "hiv_a4_to_d":                   1,
+    "hiv_a4_to_i4":                  1,
+    "hiv_i1_to_a1":                  1,
+    "hiv_i1_to_d":                   1,
+    "hiv_i1_to_i2":                  1,
+    "hiv_i2_to_a2":                  1,
+    "hiv_i2_to_d":                   1,
+    "hiv_i2_to_i3":                  1,
+    "hiv_i3_to_a3":                  1,
+    "hiv_i3_to_d":                   1,
+    "hiv_i3_to_i4":                  1,
+    "hiv_i4_to_a4":                  1,
+    "hiv_i4_to_d":                   1,
+    "hiv_ns_to_d":                   1,
+    "hiv_ns_to_s":                   1,
+    "hiv_s_to_d":                    1,
+    "hiv_s_to_i1_by_a1":             1,
+    "hiv_s_to_i1_by_a2":             1,
+    "hiv_s_to_i1_by_a3":             1,
+    "hiv_s_to_i1_by_a4":             1,
+    "hiv_s_to_i1_by_i1":             1,
+    "hiv_s_to_i1_by_i2":             1,
+    "hiv_s_to_i1_by_i3":             1,
+    "hiv_s_to_i1_by_i4":             1,
+    "hiv_s_to_i1_seed":              1,
+
+    "TreeNode":                      "Simple",
+
+    "TreeUnit":                      "Same",
+}

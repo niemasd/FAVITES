@@ -1,0 +1,84 @@
+{
+    "ContactNetwork":                "NetworkX",
+
+    "ContactNetworkGenerator":       "File",
+    "contact_network_file":          "cn_file.txt",
+    "dummy": exec("f=open('cn_file.txt','w'); f.write('NODE\\t0\\tMALE\\nNODE\\t1\\tFEMALE\\nNODE\\t2\\tMALE\\nEDGE\\t0\\t1\\t.\\tu\\nEDGE\\t0\\t2\\t.\\tu\\nEDGE\\t1\\t2\\t.\\tu\\n'); f.close()"),
+
+    "Driver":                        "Default",
+    "out_dir":                       "out_TransmissionTimeSample_GonorrheaHethcoteYorkeGEMF",
+
+    "EndCriteria":                   "GEMF",
+    "end_transmissions":             5,
+
+    "Logging":                       "STDOUT",
+
+    "NodeAvailability":              "Perfect",
+
+    "NodeEvolution":                 "VirusTreeSimulator",
+    "java_path":                     "java",
+    "vts_growthRate":                2.851904,
+    "vts_model":                     "logistic",
+    "vts_n0":                        1,
+    "vts_t50":                       -2,
+
+    "NumBranchSample":               "Single",
+
+    "NumTimeSample":                 "Once",
+
+    "SeedSelection":                 "Random",
+    "num_seeds":                     2,
+
+    "SeedSequence":                  "Random",
+    "seed_sequence_length":          10,
+
+    "SequenceEvolution":             "NoMutation",
+
+    "Sequencing":                    "Perfect",
+
+    "SourceSample":                  "Random",
+
+    "TimeSample":                    "End",
+
+    "TransmissionNodeSample":        "GEMF",
+    "end_time":                      3,
+    "gemf_path":                     "GEMF",
+
+    "TransmissionTimeSample":        "GonorrheaHethcoteYorkeGEMF",
+    "gon_fa_to_fs":                  1,
+    "gon_fia_to_fa":                 0,
+    "gon_fia_to_fs":                 0,
+    "gon_fis_to_fa":                 0,
+    "gon_fis_to_fs":                 0,
+    "gon_fs_to_fa":                  0,
+    "gon_fs_to_fia_by_fia":          1,
+    "gon_fs_to_fia_by_fis":          1,
+    "gon_fs_to_fia_by_mia":          1,
+    "gon_fs_to_fia_by_mis":          1,
+    "gon_fs_to_fia_seed":            1,
+    "gon_fs_to_fis_by_fia":          1,
+    "gon_fs_to_fis_by_fis":          1,
+    "gon_fs_to_fis_by_mia":          1,
+    "gon_fs_to_fis_by_mis":          1,
+    "gon_fs_to_fis_seed":            1,
+    "gon_ma_to_ms":                  0,
+    "gon_mia_to_ma":                 0,
+    "gon_mia_to_ms":                 0,
+    "gon_mis_to_ma":                 0,
+    "gon_mis_to_ms":                 0,
+    "gon_ms_to_ma":                  0,
+    "gon_ms_to_mia_by_fia":          1,
+    "gon_ms_to_mia_by_fis":          1,
+    "gon_ms_to_mia_by_mia":          1,
+    "gon_ms_to_mia_by_mis":          1,
+    "gon_ms_to_mia_seed":            1,
+    "gon_ms_to_mis_by_fia":          1,
+    "gon_ms_to_mis_by_fis":          1,
+    "gon_ms_to_mis_by_mia":          1,
+    "gon_ms_to_mis_by_mis":          1,
+    "gon_ms_to_mis_seed":            1,
+
+    "TreeNode":                      "Simple",
+
+    "TreeUnit":                      "Same",
+}
