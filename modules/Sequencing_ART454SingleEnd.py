@@ -6,6 +6,7 @@ Niema Moshiri 2016
 '''
 from Sequencing import Sequencing
 import FAVITES_GlobalContext as GC
+from gzip import open as gopen
 from subprocess import call,STDOUT
 from tempfile import NamedTemporaryFile
 from os.path import expanduser
@@ -22,7 +23,7 @@ class Sequencing_ART454SingleEnd(Sequencing):
 
     def introduce_sequencing_error(node):
         if not hasattr(GC,"sequencing_file"):
-            GC.sequencing_file = open('%s/error_prone_files/sequence_data_subsampled_errorprone_read1.fastq'%GC.out_dir, 'w')
+            GC.sequencing_file = gopen('%s/error_prone_files/sequence_data_subsampled_errorprone_read1.fastq.gz'%GC.out_dir, 'wb', 9)
         orig_dir = getcwd()
         chdir(GC.out_dir)
         makedirs("ART_output", exist_ok=True)
@@ -48,7 +49,7 @@ class Sequencing_ART454SingleEnd(Sequencing):
                 assert False, "art_454 executable was not found: %s" % GC.art_454_path
             f.close()
             for l in open('%s_%f.fq' % (cn_label,t)):
-                GC.sequencing_file.write(l)
+                GC.sequencing_file.write(l.encode())
         chdir(orig_dir)
 
     def finalize():
