@@ -38,6 +38,8 @@
     "SourceSample":                  "Random",
 
     "TimeSample":                    "Gamma",
+    "ts_gamma_scale":                1,
+    "ts_gamma_shape":                1,
 
     "TransmissionNodeSample":        "RandomSingleInfection",
 
