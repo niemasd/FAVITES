@@ -31,7 +31,7 @@ class SequenceEvolution_SeqGen(SequenceEvolution):
         assert '-p' not in GC.seqgen_args, "Do not use the Seq-Gen -p argument"
         assert '-s' not in GC.seqgen_args, "Do not use the Seq-Gen -s argument"
         assert '-m' in GC.seqgen_args, "Must specify a Seq-Gen model using the -m argument"
-        mode = GC.seqgen_args.split('-m ')[1].split(' ')[0]
+        mode = GC.seqgen_args.split('-m')[1].strip().split(' ')[0]
         assert mode in SEQGEN_MODES.split(', '), "Invalid Seq-Gen model (%s). Options: %s" % (mode,SEQGEN_MODES)
         GC.check_seqgen_executable()
         try:
