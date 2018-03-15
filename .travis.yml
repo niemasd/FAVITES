@@ -24,4 +24,4 @@ install:
 
 # run tests
 script:
-  - for c in .travis_tests/*.json; do ./run_favites_docker.py -c $c || echo "Test Failed $c"; done
+  - for c in .travis_tests/*.json; do ./run_favites_docker.py -c $c > /dev/null 2>&1 || echo "Test Failed $c"; done
