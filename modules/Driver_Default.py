@@ -360,7 +360,7 @@ class Driver_Default(Driver):
                 fp = join(dirpath, f)
                 GC.FAVITES_OUTPUT_SIZE += getsize(fp)
         LOG.writeln("Output Size (bytes): %d" % GC.FAVITES_OUTPUT_SIZE)
-        LOG.writeln("Execution Time (seconds): %d" % time())
+        LOG.writeln("Execution Time (seconds): %d" % (time()-GC.FAVITES_START_TIME))
         if GC.VERBOSE:
             print('[%s] Outputting list of citations' % datetime.now(), file=stderr)
         LOG.writeln("\n\n============================   Citations   ============================")
