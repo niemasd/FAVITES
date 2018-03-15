@@ -13,20 +13,6 @@ This directory contains a series of tools that can be used to help users with va
         * `OUT`: Output contact network file (FAVITES format) (default: standard output)
         * `DELIM`: Column delimiter of input binary adjacency matrix (default: empty string)
 
-* **[cut_clusters.py](cut_clusters.py):** Given a true phylogenetic tree and a distance, cut the tree based on a given distance *d* and output the resulting clusters
-    * This is intended to be used to create "true" clusters from a true tree
-    * Cutting Modes:
-        * **Root Mode (`-m r`):** Cut the tree at *d* distance below the root
-        * **Lowest Leaf Mode" (`-m ll`):** Cut the tree at *d* distance above the lowest leaf
-        * **Length Mode (`-m l`):** Cut all branches longer than *d*
-    * Usage: `cut_clusters.py [-h] -t TREE [-s SCHEMA] -m MODE -d DISTANCE [-o OUTPUT]`
-        * `TREE`: Input tree
-        * `SCHEMA`: Input tree schema (default: Newick)
-        * `MODE`: Cutting mode (see "Cutting Modes" above)
-        * `DISTANCE`: User-specified distance *d* ("Cutting Modes" above)
-        * `NW_DISTANCE`: Path to `nw_distance` executable (if not in `PATH`)
-        * `OUTPUT`: Output file (default: standard output)
-
 * **[degree_stats.py](degree_stats.py):** Given a contact or transmission network, compute various statistics of the node degree distribution
     * Usage: `degree_stats.py [-h] -i INPUT`
         * `INPUT`: Input contact or transmission network file (FAVITES format)
@@ -66,6 +52,12 @@ This directory contains a series of tools that can be used to help users with va
             * `MI`: Mutual Information
             * `NMI`: Normalized Mutual Information
             * `VM`: V-Measure
+
+* **[tn_FAVITES2GEXF.py](tn_FAVITES2GEXF.py):** Convert a FAVITES contact network and transmission network to the GEXF format
+    * Usage: `tn_FAVITES2GEXF.py [-h] -c CONTACT_NETWORK -t TRANSMISSION_NETWORK [-o OUTPUT]`
+        * `CONTACT_NETWORK`: FAVITES-format contact network
+        * `TRANSMISSION_NETWORK`: FAVITES-format transmission network
+        * `OUTPUT` Output file (default: standard output)
 
 * **[tn93_to_clusters.py](tn93_to_clusters.py):** Convert tn93 output to the Cluster Picker clustering format
     * Usage: `tn93_to_clusters.py [-h] -i INPUT [-t THRESHOLD] [-o OUTPUT]`
