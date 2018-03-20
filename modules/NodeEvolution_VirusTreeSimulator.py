@@ -15,7 +15,7 @@ import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
 from os import chdir,getcwd,makedirs
 from os.path import expanduser
-from subprocess import call,check_output
+from subprocess import Popen
 from glob import glob
 
 VTS_OUTPUT_DIR = "VirusTreeSimulator_output"
@@ -43,6 +43,8 @@ class NodeEvolution_VirusTreeSimulator(NodeEvolution):
             from os import chdir
             chdir(GC.START_DIR)
             assert False, "Error loading DendroPy. Install with: pip3 install dendropy"
+        GC.vts_max_attempts = int(GC.vts_max_attempts)
+        assert GC.vts_max_attempts > 0, "vts_max_attempts must be a positive integer"
 
     def evolve_to_current_time(node, finalize=False):
         # if it's not the end yet, just dummy
@@ -82,7 +84,13 @@ class NodeEvolution_VirusTreeSimulator(NodeEvolution):
                     command += ['-seed',str(GC.random_number_seed)]
                     GC.random_number_seed += 1
                 command += [VTS_TRANSMISSIONS,VTS_SAMPLES,VTS_OUTPUT_PREFIX]
-                call(command, stdout=open("log.txt",'w'))
+                process = Popen(command, stdout=open("log.txt",'w'))
+                while process.returncode is None:
+                    process.poll()
+                    if "Failed to coalesce lineages: %d"%GC.vts_max_attempts in open("log.txt").read():
+                        process.kill()
+                        raise RuntimeError("VirusTreeSimulator failed to coalesce after %d attempts. Perhaps the parameters are too unrealistic?"%GC.vts_max_attempts)
+                process.wait(); process.communicate()
             except FileNotFoundError:
                 chdir(GC.START_DIR)
                 assert False, "Java executable was not found: %s" % GC.java_path

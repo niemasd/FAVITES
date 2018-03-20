@@ -23,6 +23,7 @@
     "vts_model":                     "logistic",
     "vts_n0":                        1,
     "vts_t50":                       -2,
+    "vts_max_attempts":              100,
 
     "NumBranchSample":               "Single",
 
