@@ -12,7 +12,7 @@ parser.add_argument('-t', '--time', required=True, type=float, help="End Time")
 parser.add_argument('-o', '--output', required=False, default='stdout', help="Output File")
 args = parser.parse_args()
 assert args.time > 0, "End time must be positive"
-if args.output == 'stdin':
+if args.output == 'stdout':
     from sys import stdout; args.output = stdout
 else:
     args.output = open(args.output,'w')
@@ -53,10 +53,10 @@ for v in infection_windows:
 for line in args.clustering:
     l = line.strip()
     if l.startswith('Sequence'):
-        print(l); continue
+        args.output.write("%s\n"%l); continue
     try:
         n,c = l.split(); n = n.split('|')[1]
     except:
         raise RuntimeError("Invalid clustering file")
     if n not in to_remove:
-        print(l)
+        args.output.write("%s\n"%l)
