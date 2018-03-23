@@ -15,7 +15,7 @@ except ImportError:
     import queue as Q
 
 # useful constants
-FAVITES_VERSION = "1.1.1"
+FAVITES_VERSION = "1.1.2"
 C_INT_MAX = 2147483647
 CITATION_ART = 'Huang, W., Li, L., Myers, J.R., and Marth, G.T. (2012). "ART: a next-generation sequencing read simulator". Bioinformatics 28(4):593-594.'
 CITATION_DENDROPY = 'Sukumaran, J. and Holder, M.T. (2010). "DendroPy: A Python library for phylogenetic computing". Bioinformatics 26:1569-1571.'
