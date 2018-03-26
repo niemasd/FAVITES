@@ -6,6 +6,7 @@ Store global variables/functions to be accessible by all FAVITES modules.
 '''
 import modules.FAVITES_ModuleFactory as MF
 from glob import glob
+from gzip import open as gopen
 from random import uniform,sample
 from subprocess import check_output,STDOUT
 from itertools import product
@@ -15,7 +16,7 @@ except ImportError:
     import queue as Q
 
 # useful constants
-FAVITES_VERSION = "1.1.2"
+FAVITES_VERSION = "1.1.3"
 C_INT_MAX = 2147483647
 CITATION_ART = 'Huang, W., Li, L., Myers, J.R., and Marth, G.T. (2012). "ART: a next-generation sequencing read simulator". Bioinformatics 28(4):593-594.'
 CITATION_DENDROPY = 'Sukumaran, J. and Holder, M.T. (2010). "DendroPy: A Python library for phylogenetic computing". Bioinformatics 26:1569-1571.'
@@ -487,14 +488,14 @@ def merge_trees_seqgen():
     seed_leaf_to_tree = {}
     seed_leaf_to_tree_time = {}
     its = 0
-    for treefile in glob('error_free_files/phylogenetic_trees/*.tre'):
+    for treefile in glob('error_free_files/phylogenetic_trees/*.tre.gz'):
         if '.time.' in treefile:
             continue
         its += 1
         treenum = int(treefile.split('/')[-1].split('_')[1].split('.')[0])
         seed_leaf = seq_to_seed_leaf[final_tree_to_root_seq[treenum]].pop()
-        seed_leaf_to_tree[seed_leaf] = dendropy.Tree.get(path=treefile,schema='newick')
-        seed_leaf_to_tree_time[seed_leaf] = dendropy.Tree.get(path=treefile.replace('.tre','.time.tre'),schema='newick')
+        seed_leaf_to_tree[seed_leaf] = dendropy.Tree.get(data=gopen(treefile).read().decode().strip(),schema='newick')
+        seed_leaf_to_tree_time[seed_leaf] = dendropy.Tree.get(data=gopen(treefile.replace('.tre','.time.tre')).read().decode().strip(),schema='newick')
     to_prune = Queue()
     for leaf in seed_leaves:
         if leaf in seed_leaf_to_tree: # if this seed's cluster was sampled (so tree exists)

@@ -278,18 +278,18 @@ class Driver_Default(Driver):
             print('[%s] Wrote phylogenetic trees (expected number of mutations)' % datetime.now(), file=stderr)
 
         # merge cluster trees with seed tree (if applicable)
-        LOG.write("Merging true cluster phylogenetic trees with true seed tree (if applicable)...")
+        LOG.write("Merging true phylogenetic trees with true seed tree (if applicable)...")
         GC.merged_trees,GC.merged_trees_time = MF.modules['SeedSequence'].merge_trees()
         for i in range(len(GC.merged_trees)):
             f = gopen('error_free_files/phylogenetic_trees/merged_tree_%d.tre.gz' % i,'wb',9)
-            f.write(GC.merged_trees[i].encode()); f.write(b'\n')
+            f.write(GC.merged_trees[i].strip().encode()); f.write(b'\n')
             f.close()
             f = gopen('error_free_files/phylogenetic_trees/merged_tree_%d.time.tre.gz' % i,'wb',9)
-            f.write(GC.merged_trees_time[i].encode()); f.write(b'\n')
+            f.write(GC.merged_trees_time[i].strip().encode()); f.write(b'\n')
             f.close()
         LOG.writeln(" done")
         if GC.VERBOSE:
-            print('[%s] Merged cluster trees with seed tree (if applicable)' % datetime.now(), file=stderr)
+            print('[%s] Merged trees with seed tree (if applicable)' % datetime.now(), file=stderr)
 
         # finalize sequence data
         LOG.write("Finalizing sequence simulations...")
