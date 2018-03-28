@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 '''
 Given a clustering (in the Cluster Picker format) from the simulation end time,
-a FAVITES-format transmission network, and an end time, remove individuals who
-were not infected at the given time and output the resulting clusters.
+a FAVITES-format transmission network, and a time, remove individuals who were
+not infected at the given time and output the resulting clusters.
 '''
 import argparse
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)

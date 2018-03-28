@@ -7,6 +7,13 @@ This directory contains a series of tools that can be used to help users with va
             * The output format (FASTA/FASTQ/Newick) matches the input format and is detected automatically
             * If you wish to convert a FASTQ file to FASTA, refer to [fastq2fasta.py](https://github.com/niemasd/tools/blob/master/fastq2fasta.py) in my [tools repository](https://github.com/niemasd/tools)
 
+* **[cluster_previous_time.py](cluster_previous_time.py):** Given a clustering from the simulation end time, a FAVITES-format transmission network, and a time, remove individuals who were not infected at the given time and output the resulting clusters.
+    * Usage: `cluster_previous_time.py [-h] -c CLUSTERING -tn TRANSMISSIONS -t TIME [-o OUTPUT]`
+        * `CLUSTERING`: Input clustering file (Cluster Picker format)
+        * `TRANSMISSIONS`: Input transmission network (FAVITES format)
+        * `TIME`: Time to remove all individuals infected after
+        * `OUTPUT`: Output file (default: standard output)
+
 * **[cn_adjacency_matrix_to_favites.py](cn_adjacency_matrix_to_favites.py):** Convert a given contact network from a binary adjacency matrix to the FAVITES format
     * Usage: `cn_adjacency_matrix_to_favites.py [-h] -i INPUT [-o OUTPUT] [-d DELIM]`
         * `INPUT`: Input contact network file (binary adjacency matrix)
