@@ -5,12 +5,15 @@ Convert a FAVITES contact network and transmission network to the GEXF format.
 from time import strftime
 
 # convert a FAVITES transmission network to the GEXF format
-def tn_favites2gexf(cn,tn):
+def favites2gexf(cn,tn):
     # parse transmission network
     trans = []
     infections_to = dict()
     for line in tn:
-        l = line.strip()
+        if isinstance(line,bytes):
+            l = line.decode().strip()
+        else:
+            l = line.strip()
         if len(l) == 0 or l[0] == '#':
             continue
         try:
@@ -27,7 +30,10 @@ def tn_favites2gexf(cn,tn):
     edges = dict()
     nodes = set()
     for line in cn:
-        l = line.strip()
+        if isinstance(line,bytes):
+            l = line.decode().strip()
+        else:
+            l = line.strip()
         if len(l) == 0 or l[0] == '#':
             continue
         assert l.startswith('NODE\t') or l.startswith('EDGE\t'), "Contact network is not in the FAVITES format"
@@ -110,15 +116,24 @@ def tn_favites2gexf(cn,tn):
     out += '</gexf>\n'
     return out
 
+from gzip import open as gopen
 from sys import stdout
 import argparse
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-parser.add_argument('-c', '--contact_network', required=True, type=argparse.FileType('r'), help="FAVITES contact network")
-parser.add_argument('-t', '--transmission_network', required=True, type=argparse.FileType('r'), help="FAVITES transmission network")
+parser.add_argument('-c', '--contact_network', required=True, type=str, help="FAVITES contact network")
+parser.add_argument('-t', '--transmission_network', required=True, type=str, help="FAVITES transmission network")
 parser.add_argument('-o', '--output', required=False, default='stdout', type=str, help="Output File")
 args,unknown = parser.parse_known_args()
 if args.output == 'stdout':
     args.output = stdout
 else:
     args.output = open(args.output,'w')
-args.output.write(tn_favites2gexf(args.contact_network,args.transmission_network))
+if args.contact_network.lower().endswith('.gz'):
+    args.contact_network = gopen(args.contact_network)
+else:
+    args.contact_network = open(args.contact_network)
+if args.transmission_network.lower().endswith('.gz'):
+    args.transmission_network = gopen(args.transmission_network)
+else:
+    args.transmission_network = open(args.transmission_network)
+args.output.write(favites2gexf(args.contact_network,args.transmission_network))

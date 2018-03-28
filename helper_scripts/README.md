@@ -24,6 +24,12 @@ This directory contains a series of tools that can be used to help users with va
     * Usage: `degree_stats.py [-h] -i INPUT`
         * `INPUT`: Input contact or transmission network file (FAVITES format)
 
+* **[FAVITES2GEXF.py](FAVITES2GEXF.py):** Convert a FAVITES contact network and transmission network to the GEXF format
+    * Usage: `FAVITES2GEXF.py [-h] -c CONTACT_NETWORK -t TRANSMISSION_NETWORK [-o OUTPUT]`
+        * `CONTACT_NETWORK`: FAVITES-format contact network
+        * `TRANSMISSION_NETWORK`: FAVITES-format transmission network
+        * `OUTPUT` Output file (default: standard output)
+
 * **[PANGEA_transmissions_to_FAVITES.py](PANGEA_transmissions_to_FAVITES.py):** Convert a PANGEA transmission network into the FAVITES edge-list format
     * Usage: `PANGEA_transmissions_to_FAVITES.py [-h] -i INPUT [-o OUTPUT]`
         * `INPUT`: Input PANGEA transmission network (.csv)
@@ -59,12 +65,6 @@ This directory contains a series of tools that can be used to help users with va
             * `MI`: Mutual Information
             * `NMI`: Normalized Mutual Information
             * `VM`: V-Measure
-
-* **[tn_FAVITES2GEXF.py](tn_FAVITES2GEXF.py):** Convert a FAVITES contact network and transmission network to the GEXF format
-    * Usage: `tn_FAVITES2GEXF.py [-h] -c CONTACT_NETWORK -t TRANSMISSION_NETWORK [-o OUTPUT]`
-        * `CONTACT_NETWORK`: FAVITES-format contact network
-        * `TRANSMISSION_NETWORK`: FAVITES-format transmission network
-        * `OUTPUT` Output file (default: standard output)
 
 * **[tn93_to_clusters.py](tn93_to_clusters.py):** Convert tn93 output to the Cluster Picker clustering format
     * Usage: `tn93_to_clusters.py [-h] -i INPUT [-t THRESHOLD] [-o OUTPUT]`
