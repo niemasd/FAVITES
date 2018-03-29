@@ -15,7 +15,7 @@ import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
 from os import chdir,getcwd,makedirs
 from os.path import expanduser
-from subprocess import Popen
+from subprocess import Popen,STDOUT
 from glob import glob
 
 VTS_OUTPUT_DIR = "VirusTreeSimulator_output"
@@ -78,13 +78,14 @@ class NodeEvolution_VirusTreeSimulator(NodeEvolution):
 
             # run VirusTreeSimulator
             jar_file = '%s/dependencies/VirusTreeSimulator.jar' % GC.FAVITES_DIR
+            log_file = open("log.txt",'w')
             try:
                 command = [GC.java_path,'-jar',jar_file,'-demoModel',GC.vts_model,'-N0',str(GC.vts_n0),'-growthRate',str(GC.vts_growthRate),'-t50',str(GC.vts_t50)]
                 if GC.random_number_seed is not None:
                     command += ['-seed',str(GC.random_number_seed)]
                     GC.random_number_seed += 1
                 command += [VTS_TRANSMISSIONS,VTS_SAMPLES,VTS_OUTPUT_PREFIX]
-                process = Popen(command, stdout=open("log.txt",'w'))
+                process = Popen(command, stdout=log_file, stderr=STDOUT)
                 while process.returncode is None:
                     process.poll()
                     if "Failed to coalesce lineages: %d"%GC.vts_max_attempts in open("log.txt").read():
@@ -94,7 +95,11 @@ class NodeEvolution_VirusTreeSimulator(NodeEvolution):
             except FileNotFoundError:
                 chdir(GC.START_DIR)
                 assert False, "Java executable was not found: %s" % GC.java_path
-            if "Usage: virusTreeBuilder" in open("log.txt").read():
+            log_file.close()
+            log_content = open("log.txt").read()
+            if "Unsupported major.minor version" in log_content:
+                raise RuntimeError("VirusTreeSimulator.jar failed to run, likely because of an out-dated Java version. See %s/log.txt for error information"%VTS_OUTPUT_DIR)
+            elif "Usage: virusTreeBuilder" in log_content:
                 raise RuntimeError("VirusTreeSimulator.jar failed to run. See %s/log.txt for error information."%VTS_OUTPUT_DIR)
 
             # parse VirusTreeSimulator output
