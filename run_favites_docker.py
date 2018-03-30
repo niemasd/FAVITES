@@ -9,10 +9,25 @@ from warnings import warn
 from urllib.error import URLError
 from urllib.request import urlopen
 DOCKER_IMAGE = "niemasd/favites"
-try:
-    DOCKER_LATEST_TAG = sorted([t for t in urlopen("https://hub.docker.com/r/%s/tags/"%DOCKER_IMAGE).read().decode('utf-8').split('"tags":')[1].split(':')[-1][1:-2].replace('"','').split(',') if '.' in t])[-1]
-except URLError as e:
-    raise RuntimeError("Failed to use Python 3 urllib to connect to FAVITES Docker repository webpage\n%s"%e.output)
+MAIN_VERSION_SYMBOLS = {'0','1','2','3','4','5','6','7','8','9','.'}
+
+# return True if the given tag (string) is a main version (e.g. '1.1.1') or False if not (e.g. '1.1.1a')
+def is_main_version(tag):
+    for c in tag:
+        if c not in MAIN_VERSION_SYMBOLS:
+            return False
+    return True
+
+# get the latest FAVITES Docker image main version
+def get_latest_version():
+    try:
+        DOCKER_TAGS = [t for t in urlopen("https://hub.docker.com/r/%s/tags/"%DOCKER_IMAGE).read().decode('utf-8').split('"tags":')[1].split(':')[-1][1:-2].replace('"','').split(',') if '.' in t]
+        DOCKER_TAGS = [tag for tag in DOCKER_TAGS if is_main_version(tag)] # remove non-main-version
+        DOCKER_TAGS = [tuple(int(i) for i in tag.split('.')) for tag in DOCKER_TAGS] # convert to tuple of ints
+        DOCKER_TAGS.sort() # sort in ascending order
+        return '.'.join(str(i) for i in DOCKER_TAGS[-1])
+    except Exception as e:
+        raise RuntimeError("Failed to use Python 3 urllib to connect to FAVITES Docker repository webpage\n%s"%e.output)
 
 # if Mac OS X, use portable TMPDIR
 if platform == 'darwin':
@@ -62,17 +77,11 @@ if args.update is None:
     except CalledProcessError as e:
         raise RuntimeError("docker images command failed\n%s"%e.output)
     if version is None:
-        tag = DOCKER_LATEST_TAG; version = '%s:%s'%(DOCKER_IMAGE,tag)
-        print("Pulling Docker image (%s)..." % tag, end=' ', file=stderr); stderr.flush()
-        try:
-            o = check_output(['docker','pull',version], stderr=STDOUT)
-            print("done", file=stderr); stderr.flush()
-        except CalledProcessError as e:
-            raise RuntimeError("docker pull command failed\n%s"%e.output)
-else:
+        args.update = []
+if args.update is not None:
     assert len(args.update) < 2, "More than one Docker image version specified. Must either specify just -u or -u <VERSION>"
     if len(args.update) == 0:
-        tag = DOCKER_LATEST_TAG
+        tag = get_latest_version()
     else:
         tag = args.update[0]
     version = '%s:%s'%(DOCKER_IMAGE,tag)
@@ -80,12 +89,11 @@ else:
     try:
         o = check_output(['docker','pull',version], stderr=STDOUT)
         print("done", file=stderr); stderr.flush()
-    except CalledProcessError as e:
+    except Exception as e:
         if "manifest for %s not found"%version in e.output.decode():
             raise ValueError("Invalid FAVITES version specified: %s"%tag)
         else:
             raise RuntimeError("docker pull command failed\n%s"%e.output)
-    # try to remove old images
     try:
         print("Removing old Docker images...", end=' ', file=stderr); stderr.flush()
         o = check_output(['docker','images']).decode().splitlines()
