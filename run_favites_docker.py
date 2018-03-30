@@ -62,6 +62,10 @@ if args.random_number_seed is not None:
     CONFIG_DICT["random_number_seed"] = args.random_number_seed
 if "random_number_seed" not in CONFIG_DICT:
     CONFIG_DICT["random_number_seed"] = ""
+CN_FILE = None
+if 'contact_network_file' in CONFIG_DICT:
+    CN_FILE = CONFIG_DICT['contact_network_file']
+    CONFIG_DICT['contact_network_file'] = '/%s' % CN_FILE.split('/')[-1]
 TMP_CONFIG = NamedTemporaryFile('w')
 TMP_CONFIG.write(str(CONFIG_DICT))
 TMP_CONFIG.flush()
@@ -132,7 +136,9 @@ except:
 # call Docker image for user
 COMMAND =  ['docker','run',]                            # Docker command
 COMMAND += ['-v',TMP_CONFIG.name+':/USER_CONFIG.JSON']  # mount config file
-COMMAND += ['-v',OUTPUT_DIR+':/OUTPUT_DIR']             # mount output directory
+COMMAND += ['-v',abspath(OUTPUT_DIR)+':/OUTPUT_DIR']             # mount output directory
+if CN_FILE is not None:                                 # mount contact network file (if need be)
+    COMMAND += ['-v',abspath(CN_FILE)+':'+CONFIG_DICT['contact_network_file']]
 if not platform.startswith('win'):                      # if not Windows,
     from os import geteuid,getegid
     COMMAND += ['-u',str(geteuid())+':'+str(getegid())] # make output files owned by user instead of root
