@@ -27,7 +27,7 @@ def get_latest_version():
         DOCKER_TAGS.sort() # sort in ascending order
         return '.'.join(str(i) for i in DOCKER_TAGS[-1])
     except Exception as e:
-        raise RuntimeError("Failed to use Python 3 urllib to connect to FAVITES Docker repository webpage\n%s"%e.output)
+        raise RuntimeError("Failed to use Python 3 urllib to connect to FAVITES Docker repository webpage\n%s"%e.reason)
 
 # if Mac OS X, use portable TMPDIR
 if platform == 'darwin':
@@ -85,26 +85,35 @@ if args.update is not None:
     else:
         tag = args.update[0]
     version = '%s:%s'%(DOCKER_IMAGE,tag)
-    print("Pulling Docker image (%s)..." % tag, end=' ', file=stderr); stderr.flush()
     try:
-        o = check_output(['docker','pull',version], stderr=STDOUT)
-        print("done", file=stderr); stderr.flush()
-    except Exception as e:
-        if "manifest for %s not found"%version in e.output.decode():
-            raise ValueError("Invalid FAVITES version specified: %s"%tag)
-        else:
-            raise RuntimeError("docker pull command failed\n%s"%e.output)
-    try:
-        print("Removing old Docker images...", end=' ', file=stderr); stderr.flush()
+        need_to_pull = True
         o = check_output(['docker','images']).decode().splitlines()
         for l in o:
-            if l.startswith(DOCKER_IMAGE):
-                p = l.split()
-                if tag != p[1]:
-                    check_output(['docker','image','rm','--force',p[2]])
-        print("done", file=stderr)
-    except:
-        print("Failed to remove old Docker images", file=stderr); stderr.flush()
+            if l.startswith(DOCKER_IMAGE) and l.split()[1] == version.split(':')[1]:
+                need_to_pull = False
+    except CalledProcessError as e:
+        raise RuntimeError("docker images command failed\n%s"%e.output)
+    if need_to_pull:
+        print("Pulling Docker image (%s)..." % tag, end=' ', file=stderr); stderr.flush()
+        try:
+            o = check_output(['docker','pull',version], stderr=STDOUT)
+            print("done", file=stderr); stderr.flush()
+        except Exception as e:
+            if "manifest for %s not found"%version in e.output.decode():
+                raise ValueError("Invalid FAVITES version specified: %s"%tag)
+            else:
+                raise RuntimeError("docker pull command failed\n%s"%e.output)
+        try:
+            print("Removing old Docker images...", end=' ', file=stderr); stderr.flush()
+            o = check_output(['docker','images']).decode().splitlines()
+            for l in o:
+                if l.startswith(DOCKER_IMAGE):
+                    p = l.split()
+                    if tag != p[1]:
+                        check_output(['docker','image','rm','--force',p[2]])
+            print("done", file=stderr)
+        except:
+            print("Failed to remove old Docker images", file=stderr); stderr.flush()
 
 # create output directory
 try:
