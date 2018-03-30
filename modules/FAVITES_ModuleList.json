@@ -251,7 +251,7 @@
         },
 
         "TransmissionFile": {
-            "req": ["transmission_network_file", "seed_file"]
+            "req": ["transmission_network_file"]
         }
     },
 
