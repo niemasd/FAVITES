@@ -4,10 +4,11 @@ Given a clustering (in the Cluster Picker format) from the simulation end time,
 a FAVITES-format transmission network, and a time, remove individuals who were
 not infected at the given time and output the resulting clusters.
 '''
+from gzip import open as gopen
 import argparse
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-parser.add_argument('-c', '--clustering', required=True, type=argparse.FileType('r'), help="Clustering (Cluster Picker format)")
-parser.add_argument('-tn', '--transmissions', required=True, type=argparse.FileType('r'), help="Transmission Network (FAVITES format)")
+parser.add_argument('-c', '--clustering', required=True, type=str, help="Clustering (Cluster Picker format)")
+parser.add_argument('-tn', '--transmissions', required=True, type=str, help="Transmission Network (FAVITES format)")
 parser.add_argument('-t', '--time', required=True, type=float, help="End Time")
 parser.add_argument('-o', '--output', required=False, default='stdout', help="Output File")
 args = parser.parse_args()
@@ -16,10 +17,22 @@ if args.output == 'stdout':
     from sys import stdout; args.output = stdout
 else:
     args.output = open(args.output,'w')
+if args.clustering.lower().endswith('.gz'):
+    args.clustering = gopen(args.clustering)
+else:
+    args.clustering = open(args.clustering)
+if args.transmissions.endswith('.gz'):
+    args.transmissions = gopen(args.transmissions)
+else:
+    args.transmissions = open(args.transmissions)
 
 # load FAVITES transmission network
 infection_windows = {}
-for l in args.transmissions:
+for line in args.transmissions:
+    if isinstance(line,bytes):
+        l = line.decode().strip()
+    else:
+        l = line.strip()
     try:
         u,v,t = l.split(); t = float(t)
     except:
@@ -51,7 +64,10 @@ for v in infection_windows:
 
 # output filtered clusters
 for line in args.clustering:
-    l = line.strip()
+    if isinstance(line,bytes):
+        l = line.decode().strip()
+    else:
+        l = line.strip()
     if l.startswith('Sequence'):
         args.output.write("%s\n"%l); continue
     try:
