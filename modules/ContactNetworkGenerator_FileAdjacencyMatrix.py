@@ -22,10 +22,9 @@ class ContactNetworkGenerator_FileAdjacencyMatrix(ContactNetworkGenerator):
 
     def get_edge_list():
         if GC.contact_network_file.lower().endswith('.gz'):
-            infile = gopen(GC.contact_network_file)
+            lines = [i.decode().strip() for i in gopen(GC.contact_network_file) if len(i.strip()) > 0 and i.strip()[0] != '#']
         else:
-            infile = open(GC.contact_network_file)
-        lines = [i.strip() for i in infile if len(i.strip()) > 0 and i.strip()[0] != '#']
+            lines = [i.strip() for i in open(GC.contact_network_file) if len(i.strip()) > 0 and i.strip()[0] != '#']
         edges = set()
         out = ["NODE\t%d\t." % i for i in range(len(lines))]
         for i in range(len(lines)):
