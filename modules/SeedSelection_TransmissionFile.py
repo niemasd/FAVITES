@@ -20,7 +20,11 @@ class SeedSelection_TransmissionFile(SeedSelection):
         assert "EndCriteria_TransmissionFile" in str(MF.modules['EndCriteria']), "Must use EndCriteria_TransmissionFile module"
         assert "TransmissionNodeSample_TransmissionFile" in str(MF.modules['TransmissionNodeSample']), "Must use TransmissionNodeSample_TransmissionFile module"
         assert "TransmissionTimeSample_TransmissionFile" in str(MF.modules['TransmissionTimeSample']), "Must use TransmissionTimeSample_TransmissionFile module"
-        GC.transmission_file = [i.strip().split() for i in open(expanduser(GC.transmission_network_file)) if len(i.strip()) > 0 and i[0] != '#']
+        if GC.transmission_network_file.lower().endswith('.gz'):
+            from gzip import open as gopen
+            GC.transmission_file = [i.decode().strip().split() for i in gopen(expanduser(GC.transmission_network_file)) if len(i.strip()) > 0 and i[0] != '#']
+        else:
+            GC.transmission_file = [i.strip().split() for i in open(expanduser(GC.transmission_network_file)) if len(i.strip()) > 0 and i[0] != '#']
         for i in range(len(GC.transmission_file)):
             GC.transmission_file[i][2] = float(GC.transmission_file[i][2])
         GC.transmission_num = 0
