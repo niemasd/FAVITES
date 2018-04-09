@@ -20,10 +20,9 @@ class ContactNetworkGenerator_File(ContactNetworkGenerator):
     def get_edge_list():
         if GC.contact_network_file.lower().endswith('.gz'):
             from gzip import open as gopen
-            infile = gopen(GC.contact_network_file)
+            lines = [i.decode().strip() for i in gopen(GC.contact_network_file) if len(i.strip()) > 0 and i.strip()[0] != '#']
         else:
-            infile = open(GC.contact_network_file)
-        lines = [i.strip() for i in infile if len(i.strip()) > 0 and i.strip()[0] != '#']
+            lines = [i.strip() for i in open(GC.contact_network_file) if len(i.strip()) > 0 and i.strip()[0] != '#']
         for line in lines:
             parts = [e.strip() for e in line.split()]
             assert parts[0] in {'NODE','EDGE'}, "Invalid contact network format. First column must be NODE or EDGE"
