@@ -33,7 +33,7 @@ class SequenceEvolution_File(SequenceEvolution):
         assert "TimeSample_None" in str(MF.modules['TimeSample']), "Must use TimeSample_None module"
         assert "TransmissionNodeSample_TransmissionFile" in str(MF.modules['TransmissionNodeSample']), "Must use TransmissionNodeSample_TransmissionFile module"
         assert "TransmissionTimeSample_TransmissionFile" in str(MF.modules['TransmissionTimeSample']), "Must use TransmissionTimeSample_TransmissionFile module"
-        assert "TreeUnit_Time" in str(MF.modules['TreeUnit']), "Must use TreeUnit_Time module"
+        assert "TreeUnit_Same" in str(MF.modules['TreeUnit']), "Must use TreeUnit_Same module"
         GC.errorfree_sequence_file = abspath(expanduser(GC.errorfree_sequence_file.strip()))
 
     def evolve_to_current_time(node):
