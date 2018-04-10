@@ -1,0 +1,48 @@
+{
+    "ContactNetwork":                "NetworkX",
+
+    "ContactNetworkGenerator":       "File",
+    "contact_network_file":          "cn_file.txt",
+    "dummy": exec("f=open('cn_file.txt','w'); f.write('NODE\\t0\\t.\\nNODE\\t1\\t.\\nNODE\\t2\\t.\\nEDGE\\t0\\t1\\t.\\tu\\nEDGE\\t0\\t2\\t.\\tu\\nEDGE\\t1\\t2\\t.\\tu\\n'); f.close()"),
+
+    "Driver":                        "Default",
+    "out_dir":                       "out_SequenceEvolution_File",
+
+    "EndCriteria":                   "TransmissionFile",
+
+    "Logging":                       "STDOUT",
+
+    "NodeAvailability":              "None",
+
+    "NodeEvolution":                 "File",
+    "tree_file":                     "tree_file.txt",
+    "dummy": exec("f=open('tree_file.txt','w'); f.write('(N4|0|1.0:0.6473276106856574,N5|1|1.0:0.6473276106856574):1.0;\\n'); f.close()"),
+
+    "NumBranchSample":               "All",
+
+    "NumTimeSample":                 "None",
+
+    "SeedSelection":                 "TransmissionFile",
+    "transmission_network_file":     "tn_file.txt",
+    "dummy": exec("f=open('tn_file.txt','w'); f.write('None\\t0\\t0\\n0\\t1\\t1\\n1\\t2\\t2\\n'); f.close()"),
+
+    "SeedSequence":                  "NoSeqs",
+
+    "SequenceEvolution":             "File",
+    "errorfree_sequence_file":       "error_free_seqs.fasta",
+    "dummy": exec("f=open('error_free_seqs.fasta','w'); f.write('>N3|1|1.0\\nTAGATATACA\\n>N2|0|1.0\\nTAGATATACA\\n'); f.close()"),
+
+    "Sequencing":                    "Perfect",
+
+    "SourceSample":                  "Random",
+
+    "TimeSample":                    "None",
+
+    "TransmissionNodeSample":        "TransmissionFile",
+
+    "TransmissionTimeSample":        "TransmissionFile",
+
+    "TreeNode":                      "Simple",
+
+    "TreeUnit":                      "Same",
+}

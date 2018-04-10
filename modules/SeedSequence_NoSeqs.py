@@ -13,8 +13,9 @@ class SeedSequence_NoSeqs(SeedSequence):
         return GC.CITATION_FAVITES
 
     def init():
-        assert "SequenceEvolution_NoSeqs" in str(MF.modules['SequenceEvolution']), "Must use SequenceEvolution_NoSeqs module"
-        assert "Sequencing_NoSeqs" in str(MF.modules['Sequencing']), "Must use Sequencing_NoSeqs module"
+        if "SequenceEvolution_File" not in str(MF.modules['SequenceEvolution']):
+            assert "SequenceEvolution_NoSeqs" in str(MF.modules['SequenceEvolution']), "Must use SequenceEvolution_NoSeqs module"
+            assert "Sequencing_NoSeqs" in str(MF.modules['Sequencing']), "Must use Sequencing_NoSeqs module"
 
     def generate():
         return ""
