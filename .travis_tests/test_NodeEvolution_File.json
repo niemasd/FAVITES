@@ -12,7 +12,7 @@
 
     "Logging":                       "STDOUT",
 
-    "NodeAvailability":              "None",
+    "NodeAvailability":              "Perfect",
 
     "NodeEvolution":                 "File",
     "tree_file":                     "tree_file.txt",
