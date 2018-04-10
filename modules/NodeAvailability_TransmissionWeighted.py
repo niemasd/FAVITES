@@ -18,7 +18,7 @@ class NodeAvailability_TransmissionWeighted(NodeAvailability):
         assert GC.node_sample_fraction >= 0 and GC.node_sample_fraction <= 1, "node_sample_fraction must be between 0 and 1"
 
     def subsample_transmission_network():
-        nodes = set(GC.cn_sample_times.keys())
+        nodes = {GC.contact_network.get_node(n) for n in GC.final_sequences}
         die = {}
         for u,v,t in GC.contact_network.get_transmissions():
             if u not in die:
