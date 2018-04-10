@@ -12,15 +12,15 @@
 
     "Logging":                       "STDOUT",
 
-    "NodeAvailability":              "Perfect",
+    "NodeAvailability":              "None",
 
     "NodeEvolution":                 "File",
     "tree_file":                     "tree_file.txt",
     "dummy": exec("f=open('tree_file.txt','w'); f.write('(N4|0|1.0:0.6473276106856574,N5|1|1.0:0.6473276106856574):1.0;\\n'); f.close()"),
 
-    "NumBranchSample":               "Single",
+    "NumBranchSample":               "All",
 
-    "NumTimeSample":                 "Once",
+    "NumTimeSample":                 "None",
 
     "SeedSelection":                 "TransmissionFile",
     "transmission_network_file":     "tn_file.txt",
@@ -35,7 +35,7 @@
 
     "SourceSample":                  "Random",
 
-    "TimeSample":                    "End",
+    "TimeSample":                    "None",
 
     "TransmissionNodeSample":        "TransmissionFile",
 
