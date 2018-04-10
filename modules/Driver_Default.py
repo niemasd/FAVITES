@@ -305,7 +305,7 @@ class Driver_Default(Driver):
             for t in GC.final_sequences[cn_label]:
                 for l,s in GC.final_sequences[cn_label][t]:
                     f.write((">%s\n%s\n" % (l,s)).encode())
-        f.write(b'\n'); f.close()
+        f.close()
         LOG.writeln("True sequence data were written to: %s/error_free_files" % environ['out_dir_print'])
         LOG.writeln()
         if GC.VERBOSE:
