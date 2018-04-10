@@ -172,6 +172,10 @@
             "req": ["dualbirth_path", "rate_A", "rate_B"]
         },
 
+        "File": {
+            "req": ["tree_file"]
+        },
+
         "None": {
             "req": []
         },
