@@ -1,0 +1,47 @@
+{
+    "ContactNetwork":                "NetworkX",
+
+    "ContactNetworkGenerator":       "File",
+    "contact_network_file":          "cn_file.txt",
+    "dummy": exec("f=open('cn_file.txt','w'); f.write('NODE\\t0\\t.\\nNODE\\t1\\t.\\nNODE\\t2\\t.\\nEDGE\\t0\\t1\\t.\\tu\\nEDGE\\t0\\t2\\t.\\tu\\nEDGE\\t1\\t2\\t.\\tu\\n'); f.close()"),
+
+    "Driver":                        "Default",
+    "out_dir":                       "out_ContactNetworkGenerator_File",
+
+    "EndCriteria":                   "TransmissionFile",
+
+    "Logging":                       "STDOUT",
+
+    "NodeAvailability":              "Perfect",
+
+    "NodeEvolution":                 "File",
+    "tree_file":                     "tree_file.txt",
+    "dummy": exec("f=open('tn_file.txt','w'); f.write('(N4|0|1.0:0.6473276106856574,N5|1|1.0:0.6473276106856574):1.0;'); f.close()"),
+
+    "NumBranchSample":               "Single",
+
+    "NumTimeSample":                 "Once",
+
+    "SeedSelection":                 "TransmissionFile",
+    "transmission_network_file":     "tn_file.txt",
+    "dummy": exec("f=open('tn_file.txt','w'); f.write('None\\t0\\t0\\n0\\t1\\t1\\n1\\t2\\t2\\n'); f.close()"),
+
+    "SeedSequence":                  "Random",
+    "seed_sequence_length":          10,
+
+    "SequenceEvolution":             "NoMutation",
+
+    "Sequencing":                    "Perfect",
+
+    "SourceSample":                  "Random",
+
+    "TimeSample":                    "End",
+
+    "TransmissionNodeSample":        "TransmissionFile",
+
+    "TransmissionTimeSample":        "TransmissionFile",
+
+    "TreeNode":                      "Simple",
+
+    "TreeUnit":                      "Same",
+}
