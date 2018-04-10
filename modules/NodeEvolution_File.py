@@ -16,7 +16,7 @@ the contact network, and 2.0 is the time at which individual 7 was sampled.
 from NodeEvolution import NodeEvolution
 import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
-from os.path import expanduser
+from os.path import abspath,expanduser
 
 class NodeEvolution_File(NodeEvolution):
     def cite():
@@ -32,7 +32,7 @@ class NodeEvolution_File(NodeEvolution):
         assert "TimeSample_None" in str(MF.modules['TimeSample']), "Must use TimeSample_None module"
         assert "TransmissionNodeSample_TransmissionFile" in str(MF.modules['TransmissionNodeSample']), "Must use TransmissionNodeSample_TransmissionFile module"
         assert "TransmissionTimeSample_TransmissionFile" in str(MF.modules['TransmissionTimeSample']), "Must use TransmissionTimeSample_TransmissionFile module"
-        GC.tree_file = expanduser(GC.tree_file.strip())
+        GC.tree_file = abspath(expanduser(GC.tree_file.strip()))
         if GC.tree_file.lower().endswith('.gz'):
             from gzip import open as gopen
             GC.tree_file = gopen(GC.tree_file)
