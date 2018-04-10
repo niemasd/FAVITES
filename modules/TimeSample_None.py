@@ -13,8 +13,9 @@ class TimeSample_None(TimeSample):
         return GC.CITATION_FAVITES
 
     def init():
-        assert "NodeAvailability_None" in str(MF.modules['NodeAvailability']), "Must use NodeAvailability_None module"
-        assert "NumTimeSample_None" in str(MF.modules['NumTimeSample']), "Must use NumTimeSample_None module"
+        if "NodeEvolution_File" not in str(MF.modules['NodeEvolution']):
+            assert "NodeAvailability_None" in str(MF.modules['NodeAvailability']), "Must use NodeAvailability_None module"
+            assert "NumTimeSample_None" in str(MF.modules['NumTimeSample']), "Must use NumTimeSample_None module"
 
     def sample_times(node, num_times):
         return []
