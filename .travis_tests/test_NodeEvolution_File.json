@@ -16,7 +16,7 @@
 
     "NodeEvolution":                 "File",
     "tree_file":                     "tree_file.txt",
-    "dummy": exec("f=open('tn_file.txt','w'); f.write('(N4|0|1.0:0.6473276106856574,N5|1|1.0:0.6473276106856574):1.0;'); f.close()"),
+    "dummy": exec("f=open('tree_file.txt','w'); f.write('(N4|0|1.0:0.6473276106856574,N5|1|1.0:0.6473276106856574):1.0;'); f.close()"),
 
     "NumBranchSample":               "Single",
 
