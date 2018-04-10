@@ -70,6 +70,10 @@ TN_FILE = None
 if 'transmission_network_file' in CONFIG_DICT:
     TN_FILE = abspath(CONFIG_DICT['transmission_network_file'])
     CONFIG_DICT['transmission_network_file'] = '/%s' % TN_FILE.split('/')[-1]
+TREE_FILE = None
+if 'tree_file' in CONFIG_DICT:
+    TREE_FILE = abspath(CONFIG_DICT['tree_file'])
+    CONFIG_DICT['tree_file'] = '/%s' % TREE_FILE.split('/')[-1]
 TMP_CONFIG = NamedTemporaryFile('w')
 TMP_CONFIG.write(str(CONFIG_DICT))
 TMP_CONFIG.flush()
