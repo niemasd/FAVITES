@@ -23,6 +23,10 @@ class NodeEvolution_File(NodeEvolution):
         return GC.CITATION_FAVITES
 
     def init():
+        assert "ContactNetworkGenerator_File" in str(MF.modules['ContactNetworkGenerator']), "Must use ContactNetworkGenerator_File module"
+        assert "SeedSelection_TransmissionFile" in str(MF.modules['SeedSelection']), "Must use SeedSelection_TransmissionFile module"
+        assert "TransmissionNodeSample_TransmissionFile" in str(MF.modules['TransmissionNodeSample']), "Must use TransmissionNodeSample_TransmissionFile module"
+        assert "TransmissionTimeSample_TransmissionFile" in str(MF.modules['TransmissionTimeSample']), "Must use TransmissionTimeSample_TransmissionFile module"
         GC.tree_file = expanduser(GC.tree_file.strip())
         if GC.tree_file.lower().endswith('.gz'):
             from gzip import open as gopen
