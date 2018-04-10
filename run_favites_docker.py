@@ -55,7 +55,7 @@ if args.out_dir is not None:
         warn("Output directory specified in command line (%s) and config file (%s). Command line will take precedence" % (args.out_dir, CONFIG_DICT['out_dir']))
     CONFIG_DICT['out_dir'] = args.out_dir
 assert 'out_dir' in CONFIG_DICT, "Parameter 'out_dir' is not in the configuration file!"
-OUTPUT_DIR = abspath(CONFIG_DICT['out_dir'])
+OUTPUT_DIR = abspath(expanduser(CONFIG_DICT['out_dir']))
 if args.random_number_seed is not None:
     if "random_number_seed" in CONFIG_DICT:
         warn("Random number seed specified in command line (%d) and config file (%s). Command line will take precedence" % (args.random_number_seed, CONFIG_DICT['random_number_seed']))
@@ -64,16 +64,20 @@ if "random_number_seed" not in CONFIG_DICT:
     CONFIG_DICT["random_number_seed"] = ""
 CN_FILE = None
 if 'contact_network_file' in CONFIG_DICT:
-    CN_FILE = abspath(CONFIG_DICT['contact_network_file'])
+    CN_FILE = abspath(expanduser(CONFIG_DICT['contact_network_file']))
     CONFIG_DICT['contact_network_file'] = '/%s' % CN_FILE.split('/')[-1]
 TN_FILE = None
 if 'transmission_network_file' in CONFIG_DICT:
-    TN_FILE = abspath(CONFIG_DICT['transmission_network_file'])
+    TN_FILE = abspath(expanduser(CONFIG_DICT['transmission_network_file']))
     CONFIG_DICT['transmission_network_file'] = '/%s' % TN_FILE.split('/')[-1]
 TREE_FILE = None
 if 'tree_file' in CONFIG_DICT:
-    TREE_FILE = abspath(CONFIG_DICT['tree_file'])
+    TREE_FILE = abspath(expanduser(CONFIG_DICT['tree_file']))
     CONFIG_DICT['tree_file'] = '/%s' % TREE_FILE.split('/')[-1]
+ERRORFREE_SEQ_FILE = None
+if 'errorfree_sequence_file' in CONFIG_DICT:
+    ERRORFREE_SEQ_FILE = abspath(expanduser(CONFIG_DICT['errorfree_sequence_file']))
+    CONFIG_DICT['errorfree_sequence_file'] = '/%s' % ERRORFREE_SEQ_FILE.split('/')[-1]
 TMP_CONFIG = NamedTemporaryFile('w')
 TMP_CONFIG.write(str(CONFIG_DICT))
 TMP_CONFIG.flush()
@@ -152,6 +156,8 @@ if TN_FILE is not None:                                 # mount transmission net
     COMMAND += ['-v',TN_FILE+':'+CONFIG_DICT['transmission_network_file']]
 if TREE_FILE is not None:
     COMMAND += ['-v',TREE_FILE+':'+CONFIG_DICT['tree_file']]
+if ERRORFREE_SEQ_FILE is not None:
+    COMMAND += ['-v',ERRORFREE_SEQ_FILE+':'+CONFIG_DICT['errorfree_sequence_file']]
 if not platform.startswith('win'):                      # if not Windows,
     from os import geteuid,getegid
     COMMAND += ['-u',str(geteuid())+':'+str(getegid())] # make output files owned by user instead of root
