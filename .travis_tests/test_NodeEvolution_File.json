@@ -6,7 +6,7 @@
     "dummy": exec("f=open('cn_file.txt','w'); f.write('NODE\\t0\\t.\\nNODE\\t1\\t.\\nNODE\\t2\\t.\\nEDGE\\t0\\t1\\t.\\tu\\nEDGE\\t0\\t2\\t.\\tu\\nEDGE\\t1\\t2\\t.\\tu\\n'); f.close()"),
 
     "Driver":                        "Default",
-    "out_dir":                       "out_ContactNetworkGenerator_File",
+    "out_dir":                       "out_NodeEvolution_File",
 
     "EndCriteria":                   "TransmissionFile",
 
