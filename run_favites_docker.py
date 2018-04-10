@@ -99,10 +99,11 @@ if args.update is not None:
     version = '%s:%s'%(DOCKER_IMAGE,tag)
     try:
         need_to_pull = True
-        o = check_output(['docker','images']).decode().splitlines()
-        for l in o:
-            if l.startswith(DOCKER_IMAGE) and l.split()[1] == version.split(':')[1]:
-                need_to_pull = False
+        if tag != 'latest':
+            o = check_output(['docker','images']).decode().splitlines()
+            for l in o:
+                if l.startswith(DOCKER_IMAGE) and l.split()[1] == version.split(':')[1]:
+                    need_to_pull = False; break
     except CalledProcessError as e:
         raise RuntimeError("docker images command failed\n%s"%e.output)
     if need_to_pull:
@@ -149,6 +150,8 @@ if CN_FILE is not None:                                 # mount contact network 
     COMMAND += ['-v',CN_FILE+':'+CONFIG_DICT['contact_network_file']]
 if TN_FILE is not None:                                 # mount transmission network file (if need be)
     COMMAND += ['-v',TN_FILE+':'+CONFIG_DICT['transmission_network_file']]
+if TREE_FILE is not None:
+    COMMAND += ['-v',TREE_FILE+':'+CONFIG_DICT['tree_file']]
 if not platform.startswith('win'):                      # if not Windows,
     from os import geteuid,getegid
     COMMAND += ['-u',str(geteuid())+':'+str(getegid())] # make output files owned by user instead of root
