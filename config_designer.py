@@ -9,10 +9,10 @@ from webbrowser import open_new
 import tkinter as tk
 ML_URL = "https://raw.githubusercontent.com/niemasd/FAVITES/master/modules/FAVITES_ModuleList.json"
 HEADER = "FAVITES Configuration File Designer"
-MODULES = ['ContactNetwork','ContactNetworkGenerator','SeedSelection','SeedSequence','EndCriteria','TransmissionTimeSample','TransmissionNodeSample','NodeEvolution','SequenceEvolution','SourceSample','NumTimeSample','TimeSample','NumBranchSample','TreeUnit','NodeAvailability','Sequencing']
-PARAMS = []
+MODULES = ['Driver','Logging','TreeNode','ContactNetwork','ContactNetworkGenerator','SeedSelection','SeedSequence','EndCriteria','TransmissionTimeSample','TransmissionNodeSample','NodeEvolution','SequenceEvolution','SourceSample','NumTimeSample','TimeSample','NumBranchSample','TreeUnit','NodeAvailability','Sequencing']
 ML = eval(urlopen(ML_URL).read().decode())
 WIDTH = max(len(e) for m in ML for e in ML[m])
+PARAMS = []
 
 # initialize GUI and title
 root = tk.Tk()
