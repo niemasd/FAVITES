@@ -67,7 +67,7 @@ def check_config():
             tk.Label(popupframe, text=h, font=tkfont.Font(family="Helvetica", weight="bold")).grid(row=1,column=j)
         for i,p in enumerate(PARAMS):
             tk.Label(popupframe, text=p).grid(row=i+2, column=0)
-            tk.Label(popupframe, text=','.join(sorted(param_to_modules[p]))).grid(row=i+2, column=1)
+            tk.Label(popupframe, text=', '.join(sorted(param_to_modules[p]))).grid(row=i+2, column=1)
             choice[p] = tk.Entry(popupframe)
             choice[p].grid(row=i+2, column=2)
         tk.Button(popup, text="Save", command=save_file).pack()
