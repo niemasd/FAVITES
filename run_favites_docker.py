@@ -1,4 +1,7 @@
 #! /usr/bin/env python3
+'''
+FAVITES: FrAmework for VIral Transmission and Evolution Simulation
+'''
 import argparse
 from os import makedirs
 from os.path import abspath,expanduser,isdir,isfile
