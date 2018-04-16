@@ -72,6 +72,8 @@ def check_config():
             error = "ERROR: No selection made for %s"%m; break
         for p in ML[m][imp]['req']:
             if p not in param_to_modules:
+                if p == 'random_number_seed': # TODO remove this once random number seed is working properly
+                    continue
                 param_to_modules[p] = []
                 PARAMS.append(p)
             param_to_modules[p].append('%s_%s'%(m,imp))
