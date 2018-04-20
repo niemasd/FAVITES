@@ -1,3 +1,5 @@
+<!--- Please refer to the "Common Issues" section of the FAVITES Wiki before submitting an Issue -->
+
 <!--- Provide a general summary of the issue in the Title above -->
 
 ## FAVITES Version
