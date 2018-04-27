@@ -20,7 +20,6 @@ RUN Rscript -e "library(devtools); install_github('niemasd/PANGEA.HIV.sim')"
 
 # Set up Python 3 and modules
 RUN apt-get install -y python3 python3-pip && \
-    pip3 install --upgrade pip && \
     pip3 install dendropy && \
     pip3 install networkx && \
     pip3 install numpy && \
