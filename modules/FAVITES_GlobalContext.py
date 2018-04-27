@@ -541,7 +541,7 @@ def pure_kingman_tree(num_leaves, pop_size):
 # Seq-Gen executable check
 def check_seqgen_executable():
     try:
-        s = check_output([seqgen_path],stderr=STDOUT).decode()
+        s = check_output([seqgen_path,'-h'],stderr=STDOUT).decode()
     except Exception as e:
         s = str(e)
     assert "Usage: seq-gen" in s, "seqgen executable was not found: %s" % seqgen_path
