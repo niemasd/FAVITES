@@ -543,5 +543,5 @@ def check_seqgen_executable():
     try:
         s = check_output([seqgen_path],stderr=STDOUT).decode()
     except Exception as e:
-        s = str(e.output)
-    assert "Usage: seq-gen" in s, "seqgen executable was not found: %s" % GC.seqgen_path
+        s = str(e)
+    assert "Usage: seq-gen" in s, "seqgen executable was not found: %s" % seqgen_path
