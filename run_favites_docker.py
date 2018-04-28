@@ -150,21 +150,22 @@ except:
                 exit(-1)
 
 # call Docker image for user
-COMMAND =  ['docker','run',]                            # Docker command
+COMMAND =  ['docker','run',]                                          # Docker command
 COMMAND += ['-v',TMP_CONFIG.name+':/FAVITES_MOUNT/USER_CONFIG.JSON']  # mount config file
+COMMAND += ['-v',TMP_CONFIG.name+':/USER_CONFIG.JSON']                # compatibility for older Docker images
 COMMAND += ['-v',OUTPUT_DIR+':/FAVITES_MOUNT/OUTPUT_DIR']             # mount output directory
-if CN_FILE is not None:                                 # mount contact network file (if need be)
+if CN_FILE is not None:                                               # mount contact network file (if need be)
     COMMAND += ['-v',CN_FILE+':'+CONFIG_DICT['contact_network_file']]
-if TN_FILE is not None:                                 # mount transmission network file (if need be)
+if TN_FILE is not None:                                               # mount transmission network file (if need be)
     COMMAND += ['-v',TN_FILE+':'+CONFIG_DICT['transmission_network_file']]
 if TREE_FILE is not None:
     COMMAND += ['-v',TREE_FILE+':'+CONFIG_DICT['tree_file']]
 if ERRORFREE_SEQ_FILE is not None:
     COMMAND += ['-v',ERRORFREE_SEQ_FILE+':'+CONFIG_DICT['errorfree_sequence_file']]
-if not platform.startswith('win'):                      # if not Windows,
+if not platform.startswith('win'):                                    # if not Windows,
     from os import geteuid,getegid
-    COMMAND += ['-u',str(geteuid())+':'+str(getegid())] # make output files owned by user instead of root
-COMMAND += [version]                                    # Docker image
+    COMMAND += ['-u',str(geteuid())+':'+str(getegid())]               # make output files owned by user instead of root
+COMMAND += [version]                                                  # Docker image
 try:
     call(COMMAND)
 except:
