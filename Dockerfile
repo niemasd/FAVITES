@@ -4,7 +4,7 @@ MAINTAINER Niema Moshiri <niemamoshiri@gmail.com>
 
 # Set up environment
 RUN apt-get update && apt-get -y upgrade && \
-    apt-get install -y autoconf curl default-jre git gsl-bin libcurl4-openssl-dev libgsl0-dev libssl-dev wget
+    apt-get install -y autoconf curl default-jre git gnupg gsl-bin libcurl4-openssl-dev libgsl0-dev libssl-dev wget
 
 # Set up R and packages
 RUN echo "deb http://cran.rstudio.com/bin/linux/ubuntu xenial/" >> /etc/apt/sources.list && \
