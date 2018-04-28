@@ -20,11 +20,11 @@ def parseArgs():
 
     # if running in Docker image, hardcode config and output directory
     if 'FAVITES_DOCKER' in environ:
-        ORIG_CONFIG = open('/USER_CONFIG.JSON').read()
+        ORIG_CONFIG = open('/FAVITES_MOUNT/USER_CONFIG.JSON').read()
         config = eval(ORIG_CONFIG)
         assert 'out_dir' in config, "Parameter 'out_dir' is not in the configuration file!"
         environ['out_dir_print'] = config['out_dir']
-        config['out_dir'] = '/OUTPUT_DIR'
+        config['out_dir'] = '/FAVITES_MOUNT/OUTPUT_DIR'
         if 'verbose' not in config: # Add "verbose":True to config for verbosity
             config['verbose'] = False
 

@@ -68,19 +68,19 @@ if "random_number_seed" not in CONFIG_DICT:
 CN_FILE = None
 if 'contact_network_file' in CONFIG_DICT:
     CN_FILE = abspath(expanduser(CONFIG_DICT['contact_network_file']))
-    CONFIG_DICT['contact_network_file'] = '/%s' % CN_FILE.split('/')[-1]
+    CONFIG_DICT['contact_network_file'] = '/FAVITES_MOUNT/%s' % CN_FILE.split('/')[-1]
 TN_FILE = None
 if 'transmission_network_file' in CONFIG_DICT:
     TN_FILE = abspath(expanduser(CONFIG_DICT['transmission_network_file']))
-    CONFIG_DICT['transmission_network_file'] = '/%s' % TN_FILE.split('/')[-1]
+    CONFIG_DICT['transmission_network_file'] = '/FAVITES_MOUNT/%s' % TN_FILE.split('/')[-1]
 TREE_FILE = None
 if 'tree_file' in CONFIG_DICT:
     TREE_FILE = abspath(expanduser(CONFIG_DICT['tree_file']))
-    CONFIG_DICT['tree_file'] = '/%s' % TREE_FILE.split('/')[-1]
+    CONFIG_DICT['tree_file'] = '/FAVITES_MOUNT/%s' % TREE_FILE.split('/')[-1]
 ERRORFREE_SEQ_FILE = None
 if 'errorfree_sequence_file' in CONFIG_DICT:
     ERRORFREE_SEQ_FILE = abspath(expanduser(CONFIG_DICT['errorfree_sequence_file']))
-    CONFIG_DICT['errorfree_sequence_file'] = '/%s' % ERRORFREE_SEQ_FILE.split('/')[-1]
+    CONFIG_DICT['errorfree_sequence_file'] = '/FAVITES_MOUNT/%s' % ERRORFREE_SEQ_FILE.split('/')[-1]
 TMP_CONFIG = NamedTemporaryFile('w')
 TMP_CONFIG.write(str(CONFIG_DICT))
 TMP_CONFIG.flush()
@@ -151,8 +151,8 @@ except:
 
 # call Docker image for user
 COMMAND =  ['docker','run',]                            # Docker command
-COMMAND += ['-v',TMP_CONFIG.name+':/USER_CONFIG.JSON']  # mount config file
-COMMAND += ['-v',OUTPUT_DIR+':/OUTPUT_DIR']             # mount output directory
+COMMAND += ['-v',TMP_CONFIG.name+':/FAVITES_MOUNT/USER_CONFIG.JSON']  # mount config file
+COMMAND += ['-v',OUTPUT_DIR+':/FAVITES_MOUNT/OUTPUT_DIR']             # mount output directory
 if CN_FILE is not None:                                 # mount contact network file (if need be)
     COMMAND += ['-v',CN_FILE+':'+CONFIG_DICT['contact_network_file']]
 if TN_FILE is not None:                                 # mount transmission network file (if need be)

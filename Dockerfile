@@ -62,6 +62,7 @@ RUN curl http://cegg.unige.ch/pub/newick-utils-1.6-Linux-x86_64-disabled-extra.t
 RUN git clone https://github.com/niemasd/FAVITES.git
 ENV PATH="/FAVITES:${PATH}"
 ENV FAVITES_DOCKER=TRUE
+RUN mkdir -p /FAVITES_MOUNT
 
 # Clean up
 RUN find /usr/lib/python3.*/ -name 'tests' -exec rm -r '{}' + && \
