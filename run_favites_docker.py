@@ -142,7 +142,7 @@ except:
     if isdir(OUTPUT_DIR):
         response = 'x'
         while len(response) == 0 or response[0] not in {'y','n'}:
-            response = input("ERROR: Output directory exists. Overwrite? All contents will be deleted. (y/n)").strip().lower()
+            response = input("ERROR: Output directory exists. Overwrite? All contents will be deleted. (y/n) ").strip().lower()
             if response[0] == 'y':
                 from shutil import rmtree
                 rmtree(OUTPUT_DIR); makedirs(OUTPUT_DIR)
@@ -152,8 +152,9 @@ except:
 # call Docker image for user
 COMMAND =  ['docker','run',]                                          # Docker command
 COMMAND += ['-v',TMP_CONFIG.name+':/FAVITES_MOUNT/USER_CONFIG.JSON']  # mount config file
-COMMAND += ['-v',TMP_CONFIG.name+':/USER_CONFIG.JSON']                # compatibility for older Docker images
 COMMAND += ['-v',OUTPUT_DIR+':/FAVITES_MOUNT/OUTPUT_DIR']             # mount output directory
+COMMAND += ['-v',TMP_CONFIG.name+':/USER_CONFIG.JSON']                # compatibility for older Docker images
+COMMAND += ['-v',OUTPUT_DIR+':/OUTPUT_DIR']
 if CN_FILE is not None:                                               # mount contact network file (if need be)
     COMMAND += ['-v',CN_FILE+':'+CONFIG_DICT['contact_network_file']]
 if TN_FILE is not None:                                               # mount transmission network file (if need be)
