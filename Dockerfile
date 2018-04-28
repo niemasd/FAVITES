@@ -7,10 +7,7 @@ RUN apt-get update && apt-get -y upgrade && \
     apt-get install -y autoconf curl default-jre git gnupg gsl-bin libcurl4-openssl-dev libgsl0-dev libssl-dev wget
 
 # Set up R and packages
-RUN echo "deb http://cran.rstudio.com/bin/linux/ubuntu xenial/" >> /etc/apt/sources.list && \
-    gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9 && \
-    gpg -a --export E084DAB9 | apt-key add - && \
-    apt-get update && apt-get install -y r-base r-base-dev && \
+RUN apt-get install -y r-base r-base-dev && \
     git clone https://github.com/ropensci/git2r.git && \
     R CMD INSTALL --configure-args="--with-libssl-include=/usr/lib/" git2r && \
     rm -rf git2r /tmp/* && \
