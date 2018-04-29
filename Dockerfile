@@ -1,5 +1,5 @@
 # FAVITES minimal docker image using Ubuntu base
-FROM ubuntu:latest
+FROM ubuntu:16.04
 MAINTAINER Niema Moshiri <niemamoshiri@gmail.com>
 
 # Set up environment
