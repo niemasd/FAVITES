@@ -7,6 +7,11 @@ RUN apt-get update && apt-get -y upgrade && \
     apt-get install -y autoconf curl default-jre git gsl-bin libcurl4-openssl-dev libgsl0-dev libssl-dev wget
 
 # Set up R and packages
+ENV DEBIAN_FRONTEND=noninteractive
+ENV DEBCONF_NONINTERACTIVE_SEEN=true
+RUN echo "tzdata tzdata/Areas select America" >> preseed.txt && \
+    echo "tzdata tzdata/Zones/America select Los_Angeles" >> preseed.txt && \
+    debconf-set-selections preseed.txt
 RUN apt-get install -y r-base r-base-dev && \
     git clone https://github.com/ropensci/git2r.git && \
     R CMD INSTALL --configure-args="--with-libssl-include=/usr/lib/" git2r && \
