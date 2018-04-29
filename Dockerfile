@@ -41,8 +41,9 @@ RUN git clone https://github.com/niemasd/GEMF.git && \
     cd GEMF && make && mv GEMF /usr/local/bin && cd .. && rm -rf GEMF
 
 # Set up Grinder
-RUN wget -qO- https://tenet.dl.sourceforge.net/project/biogrinder/biogrinder/Grinder-0.5.4/Grinder-0.5.4.tar.gz | tar -xz && \
-    cd Grinder* && perl Makefile.PL && make && make install && cd .. && rm -rf Grinder*
+RUN apt-get install -y libmodule-install-perl && \
+    wget -qO- https://tenet.dl.sourceforge.net/project/biogrinder/biogrinder/Grinder-0.5.4/Grinder-0.5.4.tar.gz | tar -xz && \
+    cd Grinder* && echo -e "y\n" | perl Makefile.PL && echo -e "yes\n" | make && make install && cd .. && rm -rf Grinder*
 
 # Set up HMMER
 RUN curl http://eddylab.org/software/hmmer3/3.1b2/hmmer-3.1b2-linux-intel-x86_64.tar.gz | tar xz && \
