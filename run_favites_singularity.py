@@ -25,13 +25,13 @@ def is_main_version(tag):
 # get the latest FAVITES Docker image main version
 def get_latest_version():
     try:
-        DOCKER_TAGS = [t for t in urlopen("https://hub.docker.com/r/%s/tags/"%DOCKER_IMAGE).read().decode('utf-8').split('"tags":')[1].split(':')[-1][1:-2].replace('"','').split(',') if '.' in t]
+        DOCKER_TAGS = [t for t in urlopen("https://hub.docker.com/r/niemasd/favites/tags/").read().decode('utf-8').split('"tags":')[1].split(':')[-1][1:-2].replace('"','').split(',') if '.' in t]
         DOCKER_TAGS = [tag for tag in DOCKER_TAGS if is_main_version(tag)] # remove non-main-version
         DOCKER_TAGS = [tuple(int(i) for i in tag.split('.')) for tag in DOCKER_TAGS] # convert to tuple of ints
         DOCKER_TAGS.sort() # sort in ascending order
         return '.'.join(str(i) for i in DOCKER_TAGS[-1])
     except Exception as e:
-        raise RuntimeError("Failed to use Python 3 urllib to connect to FAVITES Docker repository webpage\n%s"%e.reason)
+        raise RuntimeError("Failed to use Python 3 urllib to connect to FAVITES Docker repository webpage\n%s"%str(e))
 
 # parse user args
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
