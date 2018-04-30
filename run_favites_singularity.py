@@ -13,6 +13,7 @@ from urllib.error import URLError
 from urllib.request import urlopen
 DOCKER_IMAGE = "docker://niemasd/favites"
 MAIN_VERSION_SYMBOLS = {'0','1','2','3','4','5','6','7','8','9','.'}
+INCOMPATIBLE = {'1.0.0','1.0.1','1.0.2','1.0.3','1.1.0','1.1.1','1.1.2','1.1.3','1.1.4','1.1.5','1.1.6'}
 
 # return True if the given tag (string) is a main version (e.g. '1.1.1') or False if not (e.g. '1.1.1a')
 def is_main_version(tag):
@@ -93,6 +94,7 @@ if args.update is not None:
         tag = get_latest_version()
     else:
         tag = args.update[0]
+        assert tag not in INCOMPATIBLE, "Using incompatible version (%s). Singularity is only supported in FAVITES 1.1.7 onward"%tag
     version = '%s:%s'%(DOCKER_IMAGE,tag)
 
 # create output directory
