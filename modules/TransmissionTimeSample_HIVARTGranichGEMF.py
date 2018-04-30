@@ -38,9 +38,10 @@ from TransmissionTimeSample_TransmissionFile import TransmissionTimeSample_Trans
 import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
 from datetime import datetime
-from subprocess import call
 from os.path import expanduser
 from os import chdir,getcwd,makedirs
+from random import shuffle
+from subprocess import call
 from sys import stderr
 
 class TransmissionTimeSample_HIVARTGranichGEMF(TransmissionTimeSample):
@@ -59,6 +60,13 @@ class TransmissionTimeSample_HIVARTGranichGEMF(TransmissionTimeSample):
         GC.gemf_ready = False
         GC.gemf_state_to_num = {'NS':0, 'S':1, 'I1':2, 'I2':3, 'I3':4, 'I4':5, 'A1':6, 'A2':7, 'A3':8, 'A4':9, 'D':10}
         GC.gemf_num_to_state = {GC.gemf_state_to_num[state]:state for state in GC.gemf_state_to_num}
+        freq_sum = 0
+        for s in GC.gemf_state_to_num.keys():
+            p = "hiv_freq_%s"%s.lower(); f = float(getattr(GC,p))
+            assert f >= 0, "%s must be at least 0" % p
+            setattr(GC,p,f)
+            freq_sum += f
+        assert abs(freq_sum-1) < 0.000001, "Sum of hiv_freq_* parameters must equal 1"
 
     def prep_GEMF():
         # write GEMF parameter file
@@ -116,16 +124,31 @@ class TransmissionTimeSample_HIVARTGranichGEMF(TransmissionTimeSample):
         f.close()
 
         # write GEMF status file (NS = 0, S = 1, I1 = 2, I2 = 3, I3 = 4, I4 = 5, A1 = 6, A2 = 7, A3 = 8, A4 = 9, D = 10)
+        leftover = len(num2node)
+        start_states = {'seed':[], 'other':[]}
+        for s in infectious:
+            n = int(len(num2node)*getattr(GC,"hiv_freq_%s"%s.lower()))
+            start_states['seed'] += [GC.gemf_state_to_num[s]]*n
+            leftover -= n
+        assert len(start_states['seed']) == len(GC.seed_nodes), "At time 0, A1+A2+A3+A4+I1+I2+I3+I4 = %d, but there are %d seed nodes. Fix hiv_freq_* parameters accordingly" % (len(start_states['seed']),len(GC.seed_nodes))
+        for s in ['NS','S']:
+            n = int(len(num2node)*getattr(GC,"hiv_freq_%s"%s.lower()))
+            start_states['other'] += [GC.gemf_state_to_num[s]]*n
+            leftover -= n
+        start_states['other'] += [GC.gemf_state_to_num['D']]*leftover
+        shuffle(start_states['seed']); shuffle(start_states['other'])
         f = open(GC.gemf_out_dir + "/status.txt",'w')
         seeds = {seed for seed in GC.seed_nodes} # seed nodes are assumed to be in I1 and non-seeds to be in NS
         for num in sorted(num2node.keys()):
             node = num2node[num]
             if node in seeds:
-                f.write(str(GC.gemf_state_to_num['I1']) + "\n") # HIV-ART-specific
-                node.gemf_state = GC.gemf_state_to_num['I1']
+                s = start_states['seed'].pop()
+                f.write("%d\n"%s)
+                node.gemf_state = s
             else:
-                f.write(str(GC.gemf_state_to_num['NS']) + "\n") # HIV-ART-specific
-                node.gemf_state = GC.gemf_state_to_num['NS']
+                s = start_states['other'].pop()
+                f.write("%d\n"%s)
+                node.gemf_state = s
         f.close()
 
         # run GEMF
