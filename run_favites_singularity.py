@@ -6,7 +6,7 @@ import argparse
 from os import makedirs,symlink
 from os.path import abspath,expanduser,isdir,isfile
 from sys import platform,stderr
-from subprocess import call,check_output,run,CalledProcessError,STDOUT
+from subprocess import call,check_output,CalledProcessError,STDOUT
 from tempfile import NamedTemporaryFile,TemporaryDirectory
 from warnings import warn
 from urllib.error import URLError
