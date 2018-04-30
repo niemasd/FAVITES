@@ -3,11 +3,11 @@
 FAVITES: FrAmework for VIral Transmission and Evolution Simulation
 '''
 import argparse
-from os import makedirs
+from os import makedirs,symlink
 from os.path import abspath,expanduser,isdir,isfile
 from sys import platform,stderr
-from subprocess import call,check_output,CalledProcessError,STDOUT
-from tempfile import NamedTemporaryFile
+from subprocess import call,check_output,run,CalledProcessError,STDOUT
+from tempfile import NamedTemporaryFile,TemporaryDirectory
 from warnings import warn
 from urllib.error import URLError
 from urllib.request import urlopen
@@ -42,6 +42,7 @@ parser.add_argument('-u', '--update', required=True, nargs='*', help="Update Doc
 args = parser.parse_args()
 
 # check user args
+TMPDIR = TemporaryDirectory()
 CONFIG = abspath(expanduser(args.config))
 assert isfile(CONFIG), "ERROR: Cannot open configuration file: %s" % CONFIG
 try:
@@ -63,22 +64,27 @@ if "random_number_seed" not in CONFIG_DICT:
 CN_FILE = None
 if 'contact_network_file' in CONFIG_DICT:
     CN_FILE = abspath(expanduser(CONFIG_DICT['contact_network_file']))
-    CONFIG_DICT['contact_network_file'] = '/%s' % CN_FILE.split('/')[-1]
+    CONFIG_DICT['contact_network_file'] = '/FAVITES_MOUNT/%s' % CN_FILE.split('/')[-1]
+    symlink(CN_FILE, '%s/%s' % (TMPDIR.name, CN_FILE.split('/')[-1]))
 TN_FILE = None
 if 'transmission_network_file' in CONFIG_DICT:
     TN_FILE = abspath(expanduser(CONFIG_DICT['transmission_network_file']))
-    CONFIG_DICT['transmission_network_file'] = '/%s' % TN_FILE.split('/')[-1]
+    CONFIG_DICT['transmission_network_file'] = '/FAVITES_MOUNT/%s' % TN_FILE.split('/')[-1]
+    symlink(TN_FILE, '%s/%s' % (TMPDIR.name, TN_FILE.split('/')[-1]))
 TREE_FILE = None
 if 'tree_file' in CONFIG_DICT:
     TREE_FILE = abspath(expanduser(CONFIG_DICT['tree_file']))
-    CONFIG_DICT['tree_file'] = '/%s' % TREE_FILE.split('/')[-1]
+    CONFIG_DICT['tree_file'] = '/FAVITES_MOUNT/%s' % TREE_FILE.split('/')[-1]
+    symlink(TREE_FILE, '%s/%s' % (TMPDIR.name, TREE_FILE.split('/')[-1]))
 ERRORFREE_SEQ_FILE = None
 if 'errorfree_sequence_file' in CONFIG_DICT:
     ERRORFREE_SEQ_FILE = abspath(expanduser(CONFIG_DICT['errorfree_sequence_file']))
-    CONFIG_DICT['errorfree_sequence_file'] = '/%s' % ERRORFREE_SEQ_FILE.split('/')[-1]
+    CONFIG_DICT['errorfree_sequence_file'] = '/FAVITES_MOUNT/%s' % ERRORFREE_SEQ_FILE.split('/')[-1]
+    symlink(ERRORFREE_SEQ_FILE, '%s/%s' % (TMPDIR.name, ERRORFREE_SEQ_FILE.split('/')[-1]))
 TMP_CONFIG = NamedTemporaryFile('w')
 TMP_CONFIG.write(str(CONFIG_DICT))
 TMP_CONFIG.flush()
+symlink(TMP_CONFIG.name, '%s/USER_CONFIG.JSON' % TMPDIR.name)
 
 # pull the newest versioned Docker image (if applicable)
 if args.update is not None:
@@ -96,31 +102,17 @@ except:
     if isdir(OUTPUT_DIR):
         response = 'x'
         while len(response) == 0 or response[0] not in {'y','n'}:
-            response = input("ERROR: Output directory exists. Overwrite? All contents will be deleted. (y/n)").strip().lower()
+            response = input("ERROR: Output directory exists. Overwrite? All contents will be deleted. (y/n) ").strip().lower()
             if response[0] == 'y':
                 from shutil import rmtree
                 rmtree(OUTPUT_DIR); makedirs(OUTPUT_DIR)
             else:
                 exit(-1)
+symlink(OUTPUT_DIR, '%s/OUTPUT_DIR' % TMPDIR.name)
 
-# call Docker image for user
-COMMAND =  ['singularity','run',]                       # Singularity command
-COMMAND += ['-B',TMP_CONFIG.name+':/USER_CONFIG.JSON']  # mount config file
-COMMAND += ['-B',OUTPUT_DIR+':/OUTPUT_DIR']             # mount output directory
-if CN_FILE is not None:                                 # mount contact network file (if need be)
-    COMMAND += ['-B',CN_FILE+':'+CONFIG_DICT['contact_network_file']]
-if TN_FILE is not None:                                 # mount transmission network file (if need be)
-    COMMAND += ['-B',TN_FILE+':'+CONFIG_DICT['transmission_network_file']]
-if TREE_FILE is not None:
-    COMMAND += ['-B',TREE_FILE+':'+CONFIG_DICT['tree_file']]
-if ERRORFREE_SEQ_FILE is not None:
-    COMMAND += ['-B',ERRORFREE_SEQ_FILE+':'+CONFIG_DICT['errorfree_sequence_file']]
-#if not platform.startswith('win'):                      # if not Windows,
-#    from os import geteuid,getegid
-#    COMMAND += ['-u',str(geteuid())+':'+str(getegid())] # make output files owned by user instead of root
-COMMAND += [version]                                    # Docker image
-try:
-    call(COMMAND)
-except:
-    exit(-1)
+# set up Docker command and run
+COMMAND =  ['singularity','run',]                  # Singularity command
+COMMAND += ['-B',TMPDIR.name+':/FAVITES_MOUNT:rw'] # mount output directory
+COMMAND += [version]                               # Docker image
+call(COMMAND)
 TMP_CONFIG.close()
