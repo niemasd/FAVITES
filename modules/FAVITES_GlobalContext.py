@@ -16,22 +16,22 @@ except ImportError:
     import queue as Q
 
 # useful constants
-FAVITES_VERSION = "1.1.7"
+FAVITES_VERSION = "1.1.8"
 C_INT_MAX = 2147483647
-CITATION_ART = 'Huang, W., Li, L., Myers, J.R., and Marth, G.T. (2012). "ART: a next-generation sequencing read simulator". Bioinformatics 28(4):593-594.'
-CITATION_DENDROPY = 'Sukumaran, J. and Holder, M.T. (2010). "DendroPy: A Python library for phylogenetic computing". Bioinformatics 26:1569-1571.'
-CITATION_DUALBIRTH = 'Moshiri, N. and Mirarab, S. (2017). "A Two-State Model of Tree Evolution and its Applications to Alu Retrotransposition". Systematic Biology 0(0):1-15.'
-CITATION_DWGSIM = 'Homer, N. (2011). "DWGSIM" (https://github.com/nh13/DWGSIM).'
-CITATION_FAVITES = 'Moshiri, N. and Mirarab, S. PAPER INFORMATION TBD.'
-CITATION_GEMF = 'Sahneh, F.D., Vajdi, A., Shakeri, H., Fan, F., and Scoglio, C. (2016). "GEMFsim: A Stochastic Simulator for the Generalized Epidemic Modeling Framework". arXiv preprint arXiv:1528946.'
-CITATION_GRINDER = 'Angly, F.E., Willner, D., Rohwer, F., Hugenholtz, P., and Tyson, G.W. (2012). "Grinder: a versatile amplicon and shotgun sequence simulator". Nucleic Acids Res. 40(12):e94.'
-CITATION_HMMER = 'Eddy, S.R. and Wheeler, T.J. (2015). "HMMER Version 3.1b2" (http://hmmer.org/).'
-CITATION_NETWORKX = 'Hagberg, A.A., Schult, D.A., and Swart, P.J. (2008). "Exploring network structure, dynamics, and function using NetworkX". Proceedings of the 7th Python in Science Conference (SciPy2008):11-15.'
-CITATION_NUMPY = 'van der Walt, S., Colber, S.C., and Varoquaux, G. (2011). "The NumPy Array: A Structure for Efficient Numerical Computation". Computing in Science & Engineering 13:22-30.'
-CITATION_PANGEA = 'Ratmann, O., Hodcroft, E.B., Pickles, M., Cori, A., Hall, M., Lycett, S., Colijn, C., Dearlove, B., Didelot, X., Frost, S., Hossain, A.S.M.M., Joy, J.B., Kendall, M., Kuhnert, D., Leventhal, G.E., Liang, R., Plazzotta, G., Poon, A.F.Y, Rasmussen, D.A., Stadler, T., Volz, E., Weis, C., Brown, A.J.L., and Fraser, C. (2016). "Phylogenetic Tools for Generalized HIV-1 Epidemics: Findings from the PANGEA-HIV Methods Comparison". Mol. Biol. Evol. 34(1):185-203.'
-CITATION_PHYLOMMAND = 'Ryberg, M. (2016). "Phylommand - a command line software package for phylogenetics [version 1; referees: 2 approved with reservations]". F1000Research 2016, 5:2903 (doi: 10.12688/f1000research.10446.1).'
-CITATION_PYVOLVE = 'Spielman, S.J. and Wilke, C.O. (2015). "Pyvolve: A Flexible Python Module for Simulating Sequences along Phylogenies". PLoS One 10(9):e0139047.'
-CITATION_SEQGEN = 'Rambaut, A. and Grassly, N. C. (1997). "Seq-Gen: An application for the Monte Carlo simulation of DNA sequence evolution along phylogenetic trees". Comput. Appl. Biosci. 13: 235-238.'
+CITATION_ART = 'Huang W., Li L., Myers J.R., Marth G.T. (2012). "ART: a next-generation sequencing read simulator". Bioinformatics. 28(4), 593-594.'
+CITATION_DENDROPY = 'Sukumaran J., Holder M.T. (2010). "DendroPy: A Python library for phylogenetic computing". Bioinformatics. 26, 1569-1571.'
+CITATION_DUALBIRTH = 'Moshiri N., Mirarab S. (2017). "A Two-State Model of Tree Evolution and its Applications to Alu Retrotransposition". Systematic Biology. 67(3), 1-15.'
+CITATION_DWGSIM = 'Homer N. (2011). "DWGSIM" (https://github.com/nh13/DWGSIM).'
+CITATION_FAVITES = 'Moshiri N., Ragonnet-Cronin M., Wertheim J.O., Mirarab S. (2018). "FAVITES: simultaneous simulation of transmission networks, phylogenetic trees, and sequences". bioRxiv:297267.'
+CITATION_GEMF = 'Sahneh F.D., Vajdi A., Shakeri H., Fan F., Scoglio C. (2016). "GEMFsim: A Stochastic Simulator for the Generalized Epidemic Modeling Framework". arXiv preprint arXiv:1528946.'
+CITATION_GRINDER = 'Angly F.E., Willner D., Rohwer F., Hugenholtz P., Tyson G.W. (2012). "Grinder: a versatile amplicon and shotgun sequence simulator". Nucleic Acids Res. 40(12), e94.'
+CITATION_HMMER = 'Eddy S.R., Wheeler T.J. (2015). "HMMER Version 3.1b2" (http://hmmer.org/).'
+CITATION_NETWORKX = 'Hagberg A.A., Schult D.A., Swart P.J. (2008). "Exploring network structure, dynamics, and function using NetworkX". Proceedings of the 7th Python in Science Conference (SciPy2008), 11-15.'
+CITATION_NUMPY = 'van der Walt S., Colber S.C., Varoquaux G. (2011). "The NumPy Array: A Structure for Efficient Numerical Computation". Computing in Science & Engineering 13, 22-30.'
+CITATION_PANGEA = 'Ratmann O., Hodcroft E.B., Pickles M., Cori A., Hall M., Lycett S., Colijn C., Dearlove B., Didelot X., Frost S., Hossain A.S.M.M., Joy J.B., Kendall M., Kuhnert D., Leventhal G.E., Liang R., Plazzotta G., Poon A.F.Y, Rasmussen D.A., Stadler T., Volz E., Weis C., Brown A.J.L., Fraser C. (2016). "Phylogenetic Tools for Generalized HIV-1 Epidemics: Findings from the PANGEA-HIV Methods Comparison". Mol. Biol. Evol. 34(1), 185-203.'
+CITATION_PHYLOMMAND = 'Ryberg M. (2016). "Phylommand - a command line software package for phylogenetics [version 1; referees: 2 approved with reservations]". F1000Research 2016, 5:2903 (doi: 10.12688/f1000research.10446.1).'
+CITATION_PYVOLVE = 'Spielman S.J., Wilke C.O. (2015). "Pyvolve: A Flexible Python Module for Simulating Sequences along Phylogenies". PLoS One. 10(9), e0139047.'
+CITATION_SEQGEN = 'Rambaut A., Grassly N. C. (1997). "Seq-Gen: An application for the Monte Carlo simulation of DNA sequence evolution along phylogenetic trees". Comput. Appl. Biosci. 13, 235-238.'
 COMMUNITY_GENERATORS = ['ContactNetworkGenerator_Communities','ContactNetworkGenerator_Barbell','ContactNetworkGenerator_Caveman','ContactNetworkGenerator_CavemanConnected','ContactNetworkGenerator_CavemanRelaxed','ContactNetworkGenerator_RandomPartitionGraph']
 
 def init(reqs):
