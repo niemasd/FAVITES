@@ -23,7 +23,7 @@ else:
     args.transmissions = open(args.transmissions)
 
 # load FAVITES transmission network
-trans = []; nodes = set(); inf_at_t = set(); avg = 0.
+trans = []; nodes = set()
 for line in args.transmissions:
     if isinstance(line,bytes):
         l = line.decode().strip()
@@ -38,12 +38,6 @@ for line in args.transmissions:
     if v not in nodes:
         nodes.add(v)
     trans.append((u,v,t))
-    if t < args.from_time:
-        inf_at_t.add(u); inf_at_t.add(v)
-    elif t <= args.to_time:
-        avg += t
-avg /= len(inf_at_t)
-print("Global Average Number Infected: %f"%avg)
 
 # load user's individuals
 user_individuals = set()
@@ -61,4 +55,4 @@ for u,v,t in trans:
     if t >= args.from_time and t <= args.to_time and u in user_individuals:
         avg += 1
 avg /= len(user_individuals)
-print("User Average Number Infected: %f"%avg)
+print(avg)
