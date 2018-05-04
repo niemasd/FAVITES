@@ -334,7 +334,7 @@ class Driver_Default(Driver):
                 f = gopen('error_prone_files/sequence_data_subsampled_errorfree.fasta.gz','wb',9)
                 for e in tmp:
                     f.write(e)
-                f.write(b'\n'); f.close()
+                f.close()
         LOG.writeln(" done")
 
         # introduce sequencing error
