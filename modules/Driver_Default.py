@@ -202,8 +202,7 @@ class Driver_Default(Driver):
         # write transmission network as edge list
         LOG.write("Writing true transmission network to file...")
         f = gopen('error_free_files/transmission_network.txt.gz','wb',9)
-        for e in GC.transmissions:
-            f.write(("%s\t%s\t%f\n" % e).encode())
+        f.write(('\n'.join("%s\t%s\t%f"%e for e in GC.transmissions)).encode())
         f.write(b'\n'); f.close()
         LOG.writeln(" done")
         LOG.writeln("True transmission network was written to: %s/error_free_files/transmission_network.txt" % environ['out_dir_print'])
