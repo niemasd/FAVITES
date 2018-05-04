@@ -79,7 +79,7 @@ class Driver_Default(Driver):
                         print('[%s] Output directory exists: %s' % (datetime.now(), environ['out_dir_print']), file=stderr)
                     response = 'x'
                     while len(response) == 0 or response[0] not in {'y','n'}:
-                        response = input("ERROR: Output directory exists. Overwrite? All contents will be deleted. (y/n)").strip().lower()
+                        response = input("ERROR: Output directory exists. Overwrite? All contents will be deleted. (y/n) ").strip().lower()
                     if response[0] == 'y':
                         from shutil import rmtree
                         rmtree(GC.out_dir); makedirs(GC.out_dir)
@@ -250,7 +250,7 @@ class Driver_Default(Driver):
         LOG.write("Writing true phylogenetic trees (time) to files...")
         for i,e in enumerate(GC.pruned_newick_trees_time):
             f = gopen('error_free_files/phylogenetic_trees/tree_%d.time.tre.gz' % i,'wb',9)
-            f.write(e[1].encode()); f.write(b'\n')
+            f.write(e[1].strip().encode()); f.write(b'\n')
             f.close()
         LOG.writeln(" done")
         LOG.writeln("True phylogenetic trees (time) were written to: %s/error_free_files/phylogenetic_trees/" % environ['out_dir_print'])
@@ -269,7 +269,7 @@ class Driver_Default(Driver):
         GC.final_tree_to_root_seq = []
         for i,e in enumerate(GC.pruned_newick_trees):
             f = gopen('error_free_files/phylogenetic_trees/tree_%d.tre.gz' % i,'wb',9)
-            f.write(e[1].encode()); f.write(b'\n')
+            f.write(e[1].strip().encode()); f.write(b'\n')
             f.close()
             GC.final_tree_to_root_seq.append(e[0].get_seq())
         LOG.writeln(" done")
