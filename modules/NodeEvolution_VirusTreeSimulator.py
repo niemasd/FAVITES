@@ -13,6 +13,7 @@ VirusTreeSimulator written by Matthew Hall (whgu0705@nexus.ox.ac.uk)
 from NodeEvolution import NodeEvolution
 import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
+from gzip import open as gopen
 from os import chdir,getcwd,makedirs
 from os.path import expanduser
 from subprocess import Popen,STDOUT
@@ -115,24 +116,28 @@ class NodeEvolution_VirusTreeSimulator(NodeEvolution):
                 f.close()
                 old2new = {old:new for old,new in translate}
                 tree = parts[1].split('] = [&R] ')[1].splitlines()[0].strip()
-                # add root edge length
-                if '(' in tree and cn_node in GC.first_time_transmitting:
-                    tree = "%s:%f;" % (tree[:-1], GC.first_time_transmitting[cn_node] - cn_node.get_first_infection_time())
-                else:
-                    tree = "(%s):%f;" % (tree[:-1], GC.time - cn_node.get_first_infection_time())
                 # add 0 length to branches with missing lengths
                 tree = dendropy.Tree.get(data=tree, schema='newick')
                 for e in tree.postorder_edge_iter():
                     if e.length is None:
                         e.length = 0
                 # translate labels back to FAVITES nodes
+                tmpleaf = None
                 for n in tree.leaf_node_iter():
                     n.taxon = dendropy.datamodel.taxonmodel.Taxon(old2new[str(n.taxon).replace("'","")])
+                    if tmpleaf is None:
+                        tmpleaf = n
+                # add root edge length
+                root_length = float(str(tmpleaf.taxon).replace("'","").split('|')[-1])
+                while tmpleaf != None:
+                    root_length -= tmpleaf.edge.length
+                    tmpleaf = tmpleaf.parent_node
+                tree.seed_node.edge.length += root_length
                 # write to disk
                 tree = tree.as_string(schema='newick')
-                tree_file = '%s.tre' % filename.split('.')[0]
-                f = open(tree_file,'w')
-                f.write(tree)
+                tree_file = '%s.tre.gz' % filename.split('.')[0]
+                f = gopen(tree_file,'wb',9)
+                f.write(tree.encode())
                 f.close()
                 virus = GC.seed_to_first_virus[cn_node]
                 GC.sampled_trees.add((virus.get_root(),tree))
