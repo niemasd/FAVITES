@@ -113,7 +113,7 @@ except:
 symlink(OUTPUT_DIR, '%s/OUTPUT_DIR' % TMPDIR.name)
 
 # set up Docker command and run
-COMMAND =  ['singularity','run',]                  # Singularity command
+COMMAND =  ['singularity','run','-e']              # Singularity command
 COMMAND += ['-B',TMPDIR.name+':/FAVITES_MOUNT:rw'] # mount output directory
 COMMAND += [version]                               # Docker image
 call(COMMAND)
