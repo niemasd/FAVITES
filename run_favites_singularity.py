@@ -3,10 +3,13 @@
 FAVITES: FrAmework for VIral Transmission and Evolution Simulation
 '''
 import argparse
-from os import makedirs,symlink
+import os
+from glob import glob
+from os import chdir,getcwd,makedirs,symlink
 from os.path import abspath,expanduser,isdir,isfile
-from sys import platform,stderr
-from subprocess import call,check_output,CalledProcessError,STDOUT
+from shutil import move
+from subprocess import call,check_output,CalledProcessError,DEVNULL,STDOUT
+from sys import platform,stderr,stdout
 from tempfile import NamedTemporaryFile,TemporaryDirectory
 from warnings import warn
 from urllib.error import URLError
@@ -112,9 +115,23 @@ except:
                 exit(-1)
 symlink(OUTPUT_DIR, '%s/OUTPUT_DIR' % TMPDIR.name)
 
+# first pull Docker image as Singularity image
+pulled_image = expanduser('~/.favites/singularity-favites-%s.img'%tag)
+if not isfile(pulled_image):
+    with TemporaryDirectory() as pull_dir:
+        orig_dir = getcwd()
+        chdir(pull_dir)
+        print("Pulling Docker image...", end=' '); stdout.flush()
+        check_output(['singularity','pull',version], stderr=DEVNULL)
+        makedirs(expanduser('~/.favites'), exist_ok=True)
+        for f in glob('*.img'):
+            move(f,pulled_image); break
+        chdir(orig_dir)
+        print("done"); stdout.flush()
+
 # set up Docker command and run
 COMMAND =  ['singularity','run','-e']              # Singularity command
 COMMAND += ['-B',TMPDIR.name+':/FAVITES_MOUNT:rw'] # mount output directory
-COMMAND += [version]                               # Docker image
+COMMAND += [pulled_image]                          # Docker image
 call(COMMAND)
 TMP_CONFIG.close()
