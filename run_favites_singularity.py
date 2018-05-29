@@ -125,7 +125,7 @@ if not isfile(pulled_image):
     with TemporaryDirectory() as pull_dir:
         orig_dir = getcwd()
         chdir(pull_dir)
-        print("Pulling Docker image...", end=' '); stdout.flush()
+        print("Pulling Docker image (%s)..." % tag, end=' '); stdout.flush()
         check_output(['singularity','pull',version], stderr=DEVNULL)
         makedirs(expanduser('~/.favites'), exist_ok=True)
         for f in glob('*.img'):
