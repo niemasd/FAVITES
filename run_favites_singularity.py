@@ -126,7 +126,11 @@ if not isfile(pulled_image):
     orig_dir = getcwd()
     chdir(FAVITES_DIR)
     print("Pulling Docker image (%s)..." % tag, end=' '); stdout.flush()
-    check_output(['singularity','pull','--name',pulled_image,version], stderr=DEVNULL)
+    try:
+        COMMAND = ['singularity','pull','--name',pulled_image,version]
+        check_output(COMMAND, stderr=DEVNULL)
+    except:
+        raise RuntimeError("singularity pull command failed: %s" % ' '.join(COMMAND))
     chdir(orig_dir)
     print("done"); stdout.flush()
 
@@ -134,7 +138,10 @@ if not isfile(pulled_image):
 COMMAND =  ['singularity','run','-e']              # Singularity command
 COMMAND += ['-B',OUTPUT_DIR+':/FAVITES_MOUNT:rw']  # mount output directory
 COMMAND += [pulled_image]                          # Docker image
-call(COMMAND)
+try:
+    call(COMMAND)
+except:
+    raise RuntimeError("singularity run command failed: %s" % ' '.join(COMMAND))
 
 # clean up temporary files
 for f in DELETE_AFTER:
