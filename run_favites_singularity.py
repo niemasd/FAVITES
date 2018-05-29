@@ -120,7 +120,7 @@ if args.update is not None:
     version = '%s:%s'%(DOCKER_IMAGE,tag)
 
 # first pull Docker image as Singularity image
-pulled_image = '%s/singularity-favites-%s.img' % (FAVITES_DIR,tag))
+pulled_image = '%s/singularity-favites-%s.img' % (FAVITES_DIR,tag)
 if not isfile(pulled_image):
     makedirs(FAVITES_DIR, exist_ok=True)
     orig_dir = getcwd()
