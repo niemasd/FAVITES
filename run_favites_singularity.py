@@ -10,13 +10,13 @@ from os.path import abspath,expanduser,isdir,isfile
 from shutil import copyfile,move,rmtree
 from subprocess import call,check_output,CalledProcessError,DEVNULL,STDOUT
 from sys import platform,stderr,stdout
-from tempfile import TemporaryDirectory
 from warnings import warn
 from urllib.error import URLError
 from urllib.request import urlopen
 DOCKER_IMAGE = "docker://niemasd/favites"
 MAIN_VERSION_SYMBOLS = {'0','1','2','3','4','5','6','7','8','9','.'}
 INCOMPATIBLE = {'1.0.0','1.0.1','1.0.2','1.0.3','1.1.0','1.1.1','1.1.2','1.1.3','1.1.4','1.1.5','1.1.6'}
+FAVITES_DIR = expanduser('~/.favites')
 
 # return True if the given tag (string) is a main version (e.g. '1.1.1') or False if not (e.g. '1.1.1a')
 def is_main_version(tag):
@@ -120,18 +120,15 @@ if args.update is not None:
     version = '%s:%s'%(DOCKER_IMAGE,tag)
 
 # first pull Docker image as Singularity image
-pulled_image = expanduser('~/.favites/singularity-favites-%s.img'%tag)
+pulled_image = '%s/singularity-favites-%s.img' % (FAVITES_DIR,tag))
 if not isfile(pulled_image):
-    with TemporaryDirectory() as pull_dir:
-        orig_dir = getcwd()
-        chdir(pull_dir)
-        print("Pulling Docker image (%s)..." % tag, end=' '); stdout.flush()
-        check_output(['singularity','pull',version], stderr=DEVNULL)
-        makedirs(expanduser('~/.favites'), exist_ok=True)
-        for f in glob('*.img'):
-            move(f,pulled_image); break
-        chdir(orig_dir)
-        print("done"); stdout.flush()
+    makedirs(FAVITES_DIR, exist_ok=True)
+    orig_dir = getcwd()
+    chdir(FAVITES_DIR)
+    print("Pulling Docker image (%s)..." % tag, end=' '); stdout.flush()
+    check_output(['singularity','pull','--name',pulled_image,version], stderr=DEVNULL)
+    chdir(orig_dir)
+    print("done"); stdout.flush()
 
 # set up Docker command and run
 COMMAND =  ['singularity','run','-e']              # Singularity command
