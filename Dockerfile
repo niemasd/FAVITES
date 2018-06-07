@@ -1,24 +1,10 @@
 # FAVITES minimal docker image using Ubuntu base
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 MAINTAINER Niema Moshiri <niemamoshiri@gmail.com>
 
 # Set up environment
 RUN apt-get update && apt-get -y upgrade && \
     apt-get install -y autoconf curl default-jre git gsl-bin libcurl4-openssl-dev libgsl0-dev libssl-dev wget
-
-# Set up R and packages
-ENV DEBIAN_FRONTEND=noninteractive
-ENV DEBCONF_NONINTERACTIVE_SEEN=true
-RUN echo "tzdata tzdata/Areas select America" >> preseed.txt && \
-    echo "tzdata tzdata/Zones/America select Los_Angeles" >> preseed.txt && \
-    debconf-set-selections preseed.txt
-RUN apt-get install -y r-base r-base-dev && \
-    git clone https://github.com/ropensci/git2r.git && \
-    R CMD INSTALL --configure-args="--with-libssl-include=/usr/lib/" git2r && \
-    rm -rf git2r /tmp/* && \
-    Rscript -e "install.packages(c('ape','data.table','devtools','distr','gamlss','phytools','reshape2','RColorBrewer','ggplot2'), repos='https://cloud.r-project.org/')" && \
-    Rscript -e "library(devtools); install_github('niemasd/PANGEA.HIV.sim')"
-RUN Rscript -e "library(devtools); install_github('niemasd/PANGEA.HIV.sim')"
 
 # Set up Python 3 and modules
 RUN apt-get install -y python3 python3-pip && \
@@ -64,7 +50,6 @@ RUN curl http://cegg.unige.ch/pub/newick-utils-1.6-Linux-x86_64-disabled-extra.t
 # Set up msms
 RUN wget http://www.mabs.at/ewing/msms/msms3.2rc-b163.zip && unzip msms3.2rc-b163.zip && \
     mv msms/lib/* /usr/local/lib && mv msms/bin/* /usr/local/bin && chmod a+x /usr/local/bin/msms && rm -rf msms*
-
 
 # Set up FAVITES
 RUN git clone https://github.com/niemasd/FAVITES.git
