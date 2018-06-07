@@ -4,11 +4,10 @@ MAINTAINER Niema Moshiri <niemamoshiri@gmail.com>
 
 # Set up environment
 RUN apt-get update && apt-get -y upgrade && \
-    apt-get install -y autoconf curl default-jre git gsl-bin libcurl4-openssl-dev libgsl0-dev libssl-dev wget
+    apt-get install -y autoconf curl default-jre git gsl-bin libcurl4-openssl-dev libgsl0-dev libmodule-install-perl libncurses5-dev libncursesw5-dev libssl-dev python python-pip python3 python3-pip unzip wget zlib1g-dev
 
 # Set up Python 3 and modules
-RUN apt-get install -y python3 python3-pip && \
-    pip3 install dendropy && \
+RUN pip3 install dendropy && \
     pip3 install treeswift && \
     pip3 install networkx && \
     pip3 install numpy && \
@@ -28,8 +27,7 @@ RUN git clone https://github.com/niemasd/GEMF.git && \
     cd GEMF && make && mv GEMF /usr/local/bin && cd .. && rm -rf GEMF
 
 # Set up Grinder
-RUN apt-get install -y libmodule-install-perl && \
-    wget -qO- https://tenet.dl.sourceforge.net/project/biogrinder/biogrinder/Grinder-0.5.4/Grinder-0.5.4.tar.gz | tar -xz && \
+RUN wget --no-check-certificate -qO- https://tenet.dl.sourceforge.net/project/biogrinder/biogrinder/Grinder-0.5.4/Grinder-0.5.4.tar.gz | tar -xz && \
     cd Grinder* && echo -e "y\n" | perl Makefile.PL && echo -e "yes\n" | make && make install && cd .. && rm -rf Grinder*
 
 # Set up HMMER
