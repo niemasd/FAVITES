@@ -61,6 +61,11 @@ RUN git clone https://github.com/niemasd/Dual-Birth-Simulator.git && \
 RUN curl http://cegg.unige.ch/pub/newick-utils-1.6-Linux-x86_64-disabled-extra.tar.gz | tar xz && \
     mv newick-utils*/src/nw_* /usr/local/bin && rm -rf newick-utils*
 
+# Set up msms
+RUN wget http://www.mabs.at/ewing/msms/msms3.2rc-b163.zip && unzip msms3.2rc-b163.zip && \
+    mv msms/lib/* /usr/local/lib && mv msms/bin/* /usr/local/bin && chmod a+x /usr/local/bin/msms && rm -rf msms*
+
+
 # Set up FAVITES
 RUN git clone https://github.com/niemasd/FAVITES.git
 ENV PATH="/FAVITES:${PATH}"
