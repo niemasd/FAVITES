@@ -9,6 +9,7 @@ RUN apt-get update && apt-get -y upgrade && \
 # Set up Python 3 and modules
 RUN apt-get install -y python3 python3-pip && \
     pip3 install dendropy && \
+    pip3 install treeswift && \
     pip3 install networkx && \
     pip3 install numpy && \
     pip3 install scipy && \
