@@ -27,8 +27,12 @@ RUN git clone https://github.com/niemasd/GEMF.git && \
     cd GEMF && make && mv GEMF /usr/local/bin && cd .. && rm -rf GEMF
 
 # Set up Grinder
-RUN wget --no-check-certificate -qO- https://tenet.dl.sourceforge.net/project/biogrinder/biogrinder/Grinder-0.5.4/Grinder-0.5.4.tar.gz | tar -xz && \
-    cd Grinder* && echo -e "y\n" | perl Makefile.PL && echo -e "yes\n" | make && make install && cd .. && rm -rf Grinder*
+RUN wget --no-check-certificate -qO- https://tenet.dl.sourceforge.net/project/biogrinder/biogrinder/Grinder-0.5.4/Grinder-0.5.4.tar.gz | tar -xz
+RUN cd Grinder*
+RUN echo -e "y\n" | perl Makefile.PL
+RUN echo -e "yes\n" | make
+RUN make install
+RUN cd .. && rm -rf Grinder*
 
 # Set up HMMER
 RUN curl http://eddylab.org/software/hmmer3/3.1b2/hmmer-3.1b2-linux-intel-x86_64.tar.gz | tar xz && \
