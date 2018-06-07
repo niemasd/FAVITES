@@ -260,6 +260,10 @@
     },
 
     "SeedSequence": {
+        "CommunityVirusMigrationCoalescentGTRGamma": {
+            "req": ["hmmemit_path", "msms_path", "seqgen_path", "viral_sequence_type", "community_seed_populations", "community_seed_migration_rates", "community_seed_scaled_mutation_rate", "seqgen_a_to_c", "seqgen_a_to_g", "seqgen_a_to_t", "seqgen_c_to_g", "seqgen_c_to_t", "seqgen_g_to_t", "seqgen_freq_a", "seqgen_freq_c", "seqgen_freq_g", "seqgen_freq_t", "seqgen_gamma_shape", "seqgen_num_gamma_rate_categories"]
+        },
+
         "CommunityVirusPureCoalescentGTRGamma": {
             "req": ["hmmemit_path", "seqgen_path", "viral_sequence_type", "community_root_population", "community_seed_populations", "seqgen_a_to_c", "seqgen_a_to_g", "seqgen_a_to_t", "seqgen_c_to_g", "seqgen_c_to_t", "seqgen_g_to_t", "seqgen_freq_a", "seqgen_freq_c", "seqgen_freq_g", "seqgen_freq_t", "seqgen_gamma_shape", "seqgen_num_gamma_rate_categories"]
         },

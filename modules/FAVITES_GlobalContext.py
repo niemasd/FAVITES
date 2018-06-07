@@ -26,12 +26,14 @@ CITATION_FAVITES = 'Moshiri N., Ragonnet-Cronin M., Wertheim J.O., Mirarab S. (2
 CITATION_GEMF = 'Sahneh F.D., Vajdi A., Shakeri H., Fan F., Scoglio C. (2016). "GEMFsim: A Stochastic Simulator for the Generalized Epidemic Modeling Framework". arXiv preprint arXiv:1528946.'
 CITATION_GRINDER = 'Angly F.E., Willner D., Rohwer F., Hugenholtz P., Tyson G.W. (2012). "Grinder: a versatile amplicon and shotgun sequence simulator". Nucleic Acids Res. 40(12), e94.'
 CITATION_HMMER = 'Eddy S.R., Wheeler T.J. (2015). "HMMER Version 3.1b2" (http://hmmer.org/).'
+CITATION_MSMS = 'Ewing G., Hermisson J. (2010). "MSMS: a coalescent simulation program including recombination, demographic structure and selection at a single locus". Bioinformatics. 26(16), 2064-2065.'
 CITATION_NETWORKX = 'Hagberg A.A., Schult D.A., Swart P.J. (2008). "Exploring network structure, dynamics, and function using NetworkX". Proceedings of the 7th Python in Science Conference (SciPy2008), 11-15.'
 CITATION_NUMPY = 'van der Walt S., Colber S.C., Varoquaux G. (2011). "The NumPy Array: A Structure for Efficient Numerical Computation". Computing in Science & Engineering 13, 22-30.'
 CITATION_PANGEA = 'Ratmann O., Hodcroft E.B., Pickles M., Cori A., Hall M., Lycett S., Colijn C., Dearlove B., Didelot X., Frost S., Hossain A.S.M.M., Joy J.B., Kendall M., Kuhnert D., Leventhal G.E., Liang R., Plazzotta G., Poon A.F.Y, Rasmussen D.A., Stadler T., Volz E., Weis C., Brown A.J.L., Fraser C. (2016). "Phylogenetic Tools for Generalized HIV-1 Epidemics: Findings from the PANGEA-HIV Methods Comparison". Mol. Biol. Evol. 34(1), 185-203.'
 CITATION_PHYLOMMAND = 'Ryberg M. (2016). "Phylommand - a command line software package for phylogenetics [version 1; referees: 2 approved with reservations]". F1000Research 2016, 5:2903 (doi: 10.12688/f1000research.10446.1).'
 CITATION_PYVOLVE = 'Spielman S.J., Wilke C.O. (2015). "Pyvolve: A Flexible Python Module for Simulating Sequences along Phylogenies". PLoS One. 10(9), e0139047.'
 CITATION_SEQGEN = 'Rambaut A., Grassly N. C. (1997). "Seq-Gen: An application for the Monte Carlo simulation of DNA sequence evolution along phylogenetic trees". Comput. Appl. Biosci. 13, 235-238.'
+CITATION_TREESWIFT = 'Moshiri N. (2018). "TreeSwift: a massively scalable Python package for trees". bioRxiv:325522.'
 COMMUNITY_GENERATORS = ['ContactNetworkGenerator_Communities','ContactNetworkGenerator_Barbell','ContactNetworkGenerator_Caveman','ContactNetworkGenerator_CavemanConnected','ContactNetworkGenerator_CavemanRelaxed','ContactNetworkGenerator_RandomPartitionGraph']
 
 def init(reqs):
