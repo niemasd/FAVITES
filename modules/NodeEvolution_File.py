@@ -20,7 +20,7 @@ from os.path import abspath,expanduser
 
 class NodeEvolution_File(NodeEvolution):
     def cite():
-        return GC.CITATION_FAVITES
+        return [GC.CITATION_FAVITES, GC.CITATION_TREESWIFT]
 
     def init():
         assert "ContactNetworkGenerator_File" in str(MF.modules['ContactNetworkGenerator']), "Must use ContactNetworkGenerator_File module"
@@ -38,11 +38,12 @@ class NodeEvolution_File(NodeEvolution):
         else:
             GC.tree_file = open(GC.tree_file)
         try:
-            global dendropy
-            import dendropy
+            global read_tree_newick
+            from treeswift import read_tree_newick
         except:
             from os import chdir
             chdir(GC.START_DIR)
+            assert False, "Error loading TreeSwift. Install with: pip3 install treeswift"
 
     def evolve_to_current_time(node, finalize=False):
         # if it's not the end yet, just dummy
@@ -62,8 +63,8 @@ class NodeEvolution_File(NodeEvolution):
             trees = {tree for tree in trees if len(tree) != 0}
             GC.sampled_trees = set()
             for tree in trees:
-                t = dendropy.Tree.get(data=tree, schema='newick')
-                seeds = {inf_to_seed[str(leaf.taxon).replace("'","").split('|')[1]] for leaf in t.leaf_node_iter()}
+                t = read_tree_newick(tree)
+                seeds = {inf_to_seed[str(leaf).split('|')[1]] for leaf in t.traverse_leaves()}
                 assert len(seeds) == 1, "More than 1 seed in tree: %s" % tree
                 seed = seeds.pop()
                 GC.sampled_trees.add((seed_to_root_virus[seed],tree))

@@ -26,7 +26,7 @@ VTS_OUTPUT_PREFIX = ""
 
 class NodeEvolution_VirusTreeSimulator(NodeEvolution):
     def cite():
-        return GC.CITATION_PANGEA
+        return [GC.CITATION_PANGEA, GC.CITATION_TREESWIFT]
 
     def init():
         GC.java_path = expanduser(GC.java_path.strip())
@@ -38,12 +38,12 @@ class NodeEvolution_VirusTreeSimulator(NodeEvolution):
         assert GC.vts_growthRate >= 0, "vts_growthRate cannot be negative"
         GC.vts_t50 = float(GC.vts_t50)
         try:
-            global dendropy
-            import dendropy
+            global read_tree_newick
+            from treeswift import read_tree_newick
         except:
             from os import chdir
             chdir(GC.START_DIR)
-            assert False, "Error loading DendroPy. Install with: pip3 install dendropy"
+            assert False, "Error loading TreeSwift. Install with: pip3 install treeswift"
         GC.vts_max_attempts = int(GC.vts_max_attempts)
         assert GC.vts_max_attempts > 0, "vts_max_attempts must be a positive integer"
 
@@ -117,24 +117,24 @@ class NodeEvolution_VirusTreeSimulator(NodeEvolution):
                 old2new = {old:new for old,new in translate}
                 tree = parts[1].split('] = [&R] ')[1].splitlines()[0].strip()
                 # add 0 length to branches with missing lengths
-                tree = dendropy.Tree.get(data=tree, schema='newick')
-                for e in tree.postorder_edge_iter():
-                    if e.length is None:
-                        e.length = 0
+                tree = read_tree_newick(tree)
+                for n in tree.traverse_preorder():
+                    if n.edge_length is None:
+                        n.edge_length = 0
                 # translate labels back to FAVITES nodes
                 tmpleaf = None
-                for n in tree.leaf_node_iter():
-                    n.taxon = dendropy.datamodel.taxonmodel.Taxon(old2new[str(n.taxon).replace("'","")])
+                for n in tree.traverse_leaves():
+                    n.label = old2new[str(n).replace("'","")]
                     if tmpleaf is None:
                         tmpleaf = n
                 # add root edge length
-                root_length = float(str(tmpleaf.taxon).replace("'","").split('|')[-1])
+                root_length = float(str(tmpleaf).split('|')[-1])
                 while tmpleaf != None:
-                    root_length -= tmpleaf.edge.length
-                    tmpleaf = tmpleaf.parent_node
-                tree.seed_node.edge.length += root_length
+                    root_length -= tmpleaf.edge_length
+                    tmpleaf = tmpleaf.parent
+                tree.root.edge_length += root_length
                 # write to disk
-                tree = tree.as_string(schema='newick')
+                tree = str(tree)
                 tree_file = '%s.tre.gz' % filename.split('.')[0]
                 f = gopen(tree_file,'wb',9)
                 f.write(tree.encode())

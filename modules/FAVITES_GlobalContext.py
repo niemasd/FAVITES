@@ -295,9 +295,13 @@ def treenode_add_child(parent_treenode, child_dpnode, cn_node):
         return
     newnode = MF.modules['TreeNode'](time=parent_treenode.get_time()+child_dpnode.edge_length, contact_network_node=cn_node)
     parent_treenode.add_child(newnode)
-    for c in child_dpnode.child_node_iter():
+    try:
+        children = child_dpnode.children # TreeSwift
+    except AttributeError:
+        children = child_dpnode.child_nodes() # DendroPy
+    for c in children:
         treenode_add_child(newnode,c,cn_node)
-    if child_dpnode.num_child_nodes() == 0:
+    if len(children) == 0:
         newnode.set_time(time)
         cn_node.add_virus(newnode)
 
@@ -335,10 +339,7 @@ def prune_sampled_trees():
             curr = stack.pop()
             for t in all_cn_sample_times:
                 if curr.get_time() >= t:
-                    try:
-                        curr_parent = curr.get_parent()
-                    except AttributeError: # DendroPy update
-                        curr_parent = curr.parent_node
+                    curr_parent = curr.get_parent()
                     if curr_parent is None or curr_parent.get_time() < t:
                         present_at_time[t].add(curr)
             for c in curr.get_children():
@@ -360,10 +361,7 @@ def prune_sampled_trees():
             curr = leaf
             while curr != None:
                 curr.has_sampled_descendant = True
-                try:
-                    curr = curr.get_parent()
-                except AttributeError: # DendroPy update
-                    curr = curr.parent_node
+                curr = curr.get_parent()
         if not hasattr(root_viruses[index],"has_sampled_descendant"):
             continue
         stack = [root_viruses[index]]
@@ -375,10 +373,7 @@ def prune_sampled_trees():
                 while (len(children) != 0 and len(curr_times) > 0) or (len(children) == 0 and len(curr_times) > 1):
                     t = curr_times.pop()
                     newnode = TreeNode(time=t, seq=curr.get_seq(), contact_network_node=curr.get_contact_network_node())
-                    try:
-                        curr_parent = curr.get_parent()
-                    except AttributeError: # DendroPy update
-                        curr_parent = curr.parent_node
+                    curr_parent = curr.get_parent()
                     newnode.set_parent(curr_parent)
                     if curr_parent is not None:
                         curr_parent.remove_child(curr)
@@ -405,10 +400,7 @@ def prune_sampled_trees():
             if len(children) == 0:
                 continue
             elif len(children) == 1:
-                try:
-                    curr_parent = curr.get_parent()
-                except AttributeError: # DendroPy update
-                    curr_parent = curr.parent_node
+                curr_parent = curr.get_parent()
                 if curr_parent is not None:
                     curr_parent.remove_child(curr)
                     curr_parent.add_child(children[0])
@@ -471,15 +463,21 @@ def pangea_module_check():
 # merge seed/cluster trees generated using SeqGen seed sequence modules
 def merge_trees_seqgen():
     from queue import Queue
-    import dendropy
-    seed_tree = dendropy.Tree.get(data=open('seed_sequences/seed.txt').read().strip().splitlines()[-1].strip(), schema='newick')
+    try:
+        global read_tree_newick
+        from treeswift import read_tree_newick
+    except:
+        from os import chdir
+        chdir(GC.START_DIR)
+        assert False, "Error loading TreeSwift. Install with: pip3 install treeswift"
+    seed_tree = read_tree_newick(open('seed_sequences/seed.txt').read().strip().splitlines()[-1].strip())
     seed_leaves = {}
-    for leaf in seed_tree.leaf_node_iter():
-        seed_leaves[leaf.taxon.label] = leaf
-    seed_tree_time = dendropy.Tree.get(path='seed_sequences/time_tree.tre', schema='newick')
+    for leaf in seed_tree.traverse_leaves():
+        seed_leaves[str(leaf)] = leaf
+    seed_tree_time = read_tree_newick('seed_sequences/time_tree.tre')
     seed_leaves_time = {}
-    for leaf in seed_tree_time.leaf_node_iter():
-        seed_leaves_time[leaf.taxon.label] = leaf
+    for leaf in seed_tree_time.traverse_leaves():
+        seed_leaves_time[str(leaf)] = leaf
     seq_to_seed_leaf = {}
     for line in open('seed_sequences/seqgen.out').read().strip().splitlines()[1:]:
         leaf,seq = line.strip().split()
@@ -496,34 +494,31 @@ def merge_trees_seqgen():
         its += 1
         treenum = int(treefile.split('/')[-1].split('_')[1].split('.')[0])
         seed_leaf = seq_to_seed_leaf[final_tree_to_root_seq[treenum]].pop()
-        seed_leaf_to_tree[seed_leaf] = dendropy.Tree.get(data=gopen(treefile).read().decode().strip(),schema='newick')
-        seed_leaf_to_tree_time[seed_leaf] = dendropy.Tree.get(data=gopen(treefile.replace('.tre','.time.tre')).read().decode().strip(),schema='newick')
+        seed_leaf_to_tree[seed_leaf] = read_tree_newick(treefile)
+        seed_leaf_to_tree_time[seed_leaf] = read_tree_newick(treefile.replace('.tre','.time.tre'))
     to_prune = Queue()
     for leaf in seed_leaves:
         if leaf in seed_leaf_to_tree: # if this seed's cluster was sampled (so tree exists)
-            seed_leaves[leaf].add_child(seed_leaf_to_tree[leaf].seed_node)
-            seed_leaves_time[leaf].add_child(seed_leaf_to_tree_time[leaf].seed_node)
+            seed_leaves[leaf].add_child(seed_leaf_to_tree[leaf].root)
+            seed_leaves_time[leaf].add_child(seed_leaf_to_tree_time[leaf].root)
         else: # if not, delete this seed leaf
             to_prune.put(seed_leaves[leaf])
             to_prune.put(seed_leaves_time[leaf])
     merged_tree_exists = True
     while not to_prune.empty():
         leaf = to_prune.get()
-        try:
-            parent = leaf.get_parent()
-        except AttributeError: # DendroPy update
-            parent = leaf.parent_node
+        parent = leaf.parent
         if parent is not None:
             parent.remove_child(leaf)
-            if parent.num_child_nodes() == 0:
-                if parent.edge.rootedge:
+            if len(parent.children) == 0:
+                if parent.is_root():
                     merged_tree_exists = False; break
                 else:
                     to_prune.put(parent)
     if merged_tree_exists:
         seed_tree.suppress_unifurcations()
         seed_tree_time.suppress_unifurcations()
-        return ['%s;' % str(seed_tree)],['%s;' % str(seed_tree_time)]
+        return [str(seed_tree)],[str(seed_tree_time)]
     else:
         return [],[]
 

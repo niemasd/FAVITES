@@ -18,7 +18,7 @@ SEQGEN_MODES = "HKY, F84, GTR, JTT, WAG, PAM, BLOSUM, MTREV, CPREV45, MTART, LG,
 
 class SequenceEvolution_SeqGen(SequenceEvolution):
     def cite():
-        return [GC.CITATION_DENDROPY, GC.CITATION_SEQGEN]
+        return [GC.CITATION_TREESWIFT, GC.CITATION_SEQGEN]
 
     def init():
         GC.seqgen_path = expanduser(GC.seqgen_path.strip())
@@ -35,12 +35,12 @@ class SequenceEvolution_SeqGen(SequenceEvolution):
         assert mode in SEQGEN_MODES.split(', '), "Invalid Seq-Gen model (%s). Options: %s" % (mode,SEQGEN_MODES)
         GC.check_seqgen_executable()
         try:
-            global Tree
-            from dendropy import Tree
+            global read_tree_newick
+            from treeswift import read_tree_newick
         except:
             from os import chdir
             chdir(GC.START_DIR)
-            assert False, "Error loading DendroPy. Install with: pip3 install dendropy"
+            assert False, "Error loading TreeSwift. Install with: pip3 install treeswift"
 
     def evolve_to_current_time(node):
         pass
@@ -58,9 +58,9 @@ class SequenceEvolution_SeqGen(SequenceEvolution):
             if ',' not in treestr: # if one-node tree, add DUMMY 0-length leaf
                 treestr = "(DUMMY:0,%s);" % treestr.replace('(','').replace(')','')[:-1]
             else: # otherwise, resolve polytomies and unifurcations
-                tmp = Tree.get(data=treestr, schema='newick')
+                tmp = read_tree_newick(treestr)
                 tmp.suppress_unifurcations(); tmp.resolve_polytomies()
-                treestr = tmp.as_string(schema="newick").replace("'",'')
+                treestr = str(tmp)#.replace("'",'')
 
             # run Seq-Gen
             label = root.get_label()

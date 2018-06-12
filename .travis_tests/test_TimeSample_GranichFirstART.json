@@ -2,7 +2,7 @@
     "ContactNetwork":                "NetworkX",
 
     "ContactNetworkGenerator":       "Complete",
-    "num_cn_nodes":                  10,
+    "num_cn_nodes":                  100,
 
     "Driver":                        "Default",
     "out_dir":                       "out_TimeSample_GranichFirstART",
@@ -27,7 +27,7 @@
     "NumTimeSample":                 "Once",
 
     "SeedSelection":                 "Random",
-    "num_seeds":                     2,
+    "num_seeds":                     36,
 
     "SeedSequence":                  "Random",
     "seed_sequence_length":          10,
@@ -45,6 +45,17 @@
     "gemf_path":                     "GEMF",
 
     "TransmissionTimeSample":        "HIVARTGranichGEMF",
+    "hiv_freq_ns":                   0.20,
+    "hiv_freq_s":                    0.34,
+    "hiv_freq_i1":                   0.01,
+    "hiv_freq_i2":                   0.02,
+    "hiv_freq_i3":                   0.03,
+    "hiv_freq_i4":                   0.04,
+    "hiv_freq_a1":                   0.05,
+    "hiv_freq_a2":                   0.06,
+    "hiv_freq_a3":                   0.07,
+    "hiv_freq_a4":                   0.08,
+    "hiv_freq_d":                    0.10,
     "hiv_a1_to_a2":                  1,
     "hiv_a1_to_d":                   1,
     "hiv_a1_to_i1":                  1,
