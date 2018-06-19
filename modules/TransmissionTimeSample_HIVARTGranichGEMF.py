@@ -62,11 +62,15 @@ class TransmissionTimeSample_HIVARTGranichGEMF(TransmissionTimeSample):
         GC.gemf_num_to_state = {GC.gemf_state_to_num[state]:state for state in GC.gemf_state_to_num}
         freq_sum = 0
         for s in GC.gemf_state_to_num.keys():
-            p = "hiv_freq_%s"%s.lower(); f = float(getattr(GC,p))
+            p = "hiv_freq_%s"%s.lower(); f = getattr(GC,p)
+            if f > 1:
+                f = int(f)
+            else:
+                f = float(f)
             assert f >= 0, "%s must be at least 0" % p
             setattr(GC,p,f)
             freq_sum += f
-        assert abs(freq_sum-1) < 0.000001, "Sum of hiv_freq_* parameters must equal 1"
+        assert freq_sum > 1 or abs(freq_sum-1) < 0.000001, "Sum of hiv_freq_* parameters must equal 1"
 
     def prep_GEMF():
         # write GEMF parameter file
@@ -127,12 +131,20 @@ class TransmissionTimeSample_HIVARTGranichGEMF(TransmissionTimeSample):
         leftover = len(num2node)
         start_states = {'seed':[], 'other':[]}
         for s in infectious:
-            n = int(len(num2node)*getattr(GC,"hiv_freq_%s"%s.lower()))
+            k = "hiv_freq_%s"%s.lower()
+            if isinstance(getattr(GC,k), float):
+                n = int(len(num2node)*getattr(GC,k))
+            else:
+                n = getattr(GC,k)
             start_states['seed'] += [GC.gemf_state_to_num[s]]*n
             leftover -= n
         assert len(start_states['seed']) == len(GC.seed_nodes), "At time 0, A1+A2+A3+A4+I1+I2+I3+I4 = %d, but there are %d seed nodes. Fix hiv_freq_* parameters accordingly" % (len(start_states['seed']),len(GC.seed_nodes))
         for s in ['NS','S']:
-            n = int(len(num2node)*getattr(GC,"hiv_freq_%s"%s.lower()))
+            k = "hiv_freq_%s"%s.lower()
+            if isinstance(getattr(GC,k), float):
+                n = int(len(num2node)*getattr(GC,k))
+            else:
+                n = getattr(GC,k)
             start_states['other'] += [GC.gemf_state_to_num[s]]*n
             leftover -= n
         start_states['other'] += [GC.gemf_state_to_num['D']]*leftover
