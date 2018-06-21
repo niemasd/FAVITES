@@ -5,7 +5,9 @@
         },
 
         "PANGEA": {
-            "req": ["Rscript_path", "pangea_yr.start", "pangea_yr.end", "pangea_seed", "pangea_s.INC.recent", "pangea_s.INC.recent.len", "pangea_s.PREV.min", "pangea_s.PREV.max", "pangea_s.PREV.base", "pangea_s.INTERVENTION.start", "pangea_s.INTERVENTION.mul", "pangea_s.ARCHIVAL.n", "pangea_s.MODEL", "pangea_s.PREV.max.n", "pangea_s.INTERVENTION.prop", "pangea_epi.model", "pangea_epi.acute", "pangea_epi.intervention", "pangea_epi.dt", "pangea_epi.import", "pangea_root.edge.fixed", "pangea_v.N0tau", "pangea_v.r", "pangea_v.T50", "pangea_wher.mu", "pangea_wher.sigma", "pangea_bwerm.mu", "pangea_bwerm.sigma", "pangea_er.gamma", "pangea_er.gtr", "pangea_sp.prop.of.sexactive", "pangea_report.prop.recent", "pangea_dbg.GTRparam", "pangea_dbg.rER", "pangea_index.starttime.mode", "pangea_startseq.mode", "pangea_seqtime.mode"]
+            "req": ["Rscript_path", "pangea_yr.start", "pangea_yr.end", "pangea_seed", "pangea_s.INC.recent", "pangea_s.INC.recent.len", "pangea_s.PREV.min", "pangea_s.PREV.max", "pangea_s.PREV.base", "pangea_s.INTERVENTION.start", "pangea_s.INTERVENTION.mul", "pangea_s.ARCHIVAL.n", "pangea_s.MODEL", "pangea_s.PREV.max.n", "pangea_s.INTERVENTION.prop", "pangea_epi.model", "pangea_epi.acute", "pangea_epi.intervention", "pangea_epi.dt", "pangea_epi.import", "pangea_root.edge.fixed", "pangea_v.N0tau", "pangea_v.r", "pangea_v.T50", "pangea_wher.mu", "pangea_wher.sigma", "pangea_bwerm.mu", "pangea_bwerm.sigma", "pangea_er.gamma", "pangea_er.gtr", "pangea_sp.prop.of.sexactive", "pangea_report.prop.recent", "pangea_dbg.GTRparam", "pangea_dbg.rER", "pangea_index.starttime.mode", "pangea_startseq.mode", "pangea_seqtime.mode"],
+
+            "dep": ["ContactNetwork_PANGEA", "ContactNetworkGenerator_PANGEA", "EndCriteria_Instant", "NodeEvolution_PANGEA", "NodeSample_PANGEA", "NumBranchSample_All", "NumTimeSample_PANGEA", "SeedSelection_PANGEA", "SeedSequence_PANGEA", "SequenceEvolution_PANGEA", "SourceSample_PANGEA", "TimeSample_PANGEA", "TransmissionNodeSample_PANGEA", "TransmissionTimeSample_PANGEA", "TreeUnit_Same"]
         }
     },
 
@@ -15,7 +17,7 @@
         },
 
         "PANGEA": {
-            "req": []
+            "req": [],
         }
     },
 
@@ -61,7 +63,9 @@
         },
 
         "PANGEA": {
-            "req": ["Rscript_path", "pangea_yr.start", "pangea_yr.end", "pangea_seed", "pangea_s.INC.recent", "pangea_s.INC.recent.len", "pangea_s.PREV.min", "pangea_s.PREV.max", "pangea_s.PREV.base", "pangea_s.INTERVENTION.start", "pangea_s.INTERVENTION.mul", "pangea_s.ARCHIVAL.n", "pangea_s.MODEL", "pangea_s.PREV.max.n", "pangea_s.INTERVENTION.prop", "pangea_epi.model", "pangea_epi.acute", "pangea_epi.intervention", "pangea_epi.dt", "pangea_epi.import", "pangea_root.edge.fixed", "pangea_v.N0tau", "pangea_v.r", "pangea_v.T50", "pangea_wher.mu", "pangea_wher.sigma", "pangea_bwerm.mu", "pangea_bwerm.sigma", "pangea_er.gamma", "pangea_er.gtr", "pangea_sp.prop.of.sexactive", "pangea_report.prop.recent", "pangea_dbg.GTRparam", "pangea_dbg.rER", "pangea_index.starttime.mode", "pangea_startseq.mode", "pangea_seqtime.mode"]
+            "req": ["Rscript_path", "pangea_yr.start", "pangea_yr.end", "pangea_seed", "pangea_s.INC.recent", "pangea_s.INC.recent.len", "pangea_s.PREV.min", "pangea_s.PREV.max", "pangea_s.PREV.base", "pangea_s.INTERVENTION.start", "pangea_s.INTERVENTION.mul", "pangea_s.ARCHIVAL.n", "pangea_s.MODEL", "pangea_s.PREV.max.n", "pangea_s.INTERVENTION.prop", "pangea_epi.model", "pangea_epi.acute", "pangea_epi.intervention", "pangea_epi.dt", "pangea_epi.import", "pangea_root.edge.fixed", "pangea_v.N0tau", "pangea_v.r", "pangea_v.T50", "pangea_wher.mu", "pangea_wher.sigma", "pangea_bwerm.mu", "pangea_bwerm.sigma", "pangea_er.gamma", "pangea_er.gtr", "pangea_sp.prop.of.sexactive", "pangea_report.prop.recent", "pangea_dbg.GTRparam", "pangea_dbg.rER", "pangea_index.starttime.mode", "pangea_startseq.mode", "pangea_seqtime.mode"],
+
+            "dep": ["ContactNetwork_PANGEA", "ContactNetworkGenerator_PANGEA", "EndCriteria_Instant", "NodeEvolution_PANGEA", "NodeSample_PANGEA", "NumBranchSample_All", "NumTimeSample_PANGEA", "SeedSelection_PANGEA", "SeedSequence_PANGEA", "SequenceEvolution_PANGEA", "SourceSample_PANGEA", "TimeSample_PANGEA", "TransmissionNodeSample_PANGEA", "TransmissionTimeSample_PANGEA", "TreeUnit_Same"]
         },
 
         "RandomPartitionGraph": {
@@ -95,11 +99,15 @@
         },
 
         "GEMF": {
-            "req": ["gemf_path"]
+            "req": ["gemf_path"],
+
+            "dep": ["TransmissionNodeSample_GEMF", "TransmissionTimeSample_GonorrheaHethcoteYorkeGEMF", "TransmissionTimeSample_HIVARTGranichGEMF", "TransmissionTimeSample_HIVPopARTGEMF", "TransmissionTimeSample_SAISGEMF", "TransmissionTimeSample_SEIRGEMF", "TransmissionTimeSample_SIGEMF", "TransmissionTimeSample_SIRGEMF", "TransmissionTimeSample_SISGEMF", "TransmissionTimeSample_SVITRGEMF"]
         },
 
         "Instant": {
-            "req": []
+            "req": [],
+
+            "dep": ["NodeEvolution_None", "NodeSample_Perfect", "SequenceEvolution_NoMutation", "Sequencing_Perfect", "TransmissionTime_Instant"]
         },
 
         "Time": {
@@ -107,7 +115,9 @@
         },
 
         "TransmissionFile": {
-            "req": ["transmission_network_file"]
+            "req": ["transmission_network_file"],
+
+            "dep": ["SeedSelection_TransmissionFile", "TransmissionNodeSample_TransmissionFile", "TransmissionTimeSample_TransmissionFile"]
         },
 
         "Transmissions": {
@@ -147,11 +157,15 @@
         },
 
         "None": {
-            "req": []
+            "req": [],
+
+            "dep": ["NumTimeSample_None", "TimeSample_None"]
         },
 
         "PANGEA": {
-            "req": ["Rscript_path", "pangea_yr.start", "pangea_yr.end", "pangea_seed", "pangea_s.INC.recent", "pangea_s.INC.recent.len", "pangea_s.PREV.min", "pangea_s.PREV.max", "pangea_s.PREV.base", "pangea_s.INTERVENTION.start", "pangea_s.INTERVENTION.mul", "pangea_s.ARCHIVAL.n", "pangea_s.MODEL", "pangea_s.PREV.max.n", "pangea_s.INTERVENTION.prop", "pangea_epi.model", "pangea_epi.acute", "pangea_epi.intervention", "pangea_epi.dt", "pangea_epi.import", "pangea_root.edge.fixed", "pangea_v.N0tau", "pangea_v.r", "pangea_v.T50", "pangea_wher.mu", "pangea_wher.sigma", "pangea_bwerm.mu", "pangea_bwerm.sigma", "pangea_er.gamma", "pangea_er.gtr", "pangea_sp.prop.of.sexactive", "pangea_report.prop.recent", "pangea_dbg.GTRparam", "pangea_dbg.rER", "pangea_index.starttime.mode", "pangea_startseq.mode", "pangea_seqtime.mode"]
+            "req": ["Rscript_path", "pangea_yr.start", "pangea_yr.end", "pangea_seed", "pangea_s.INC.recent", "pangea_s.INC.recent.len", "pangea_s.PREV.min", "pangea_s.PREV.max", "pangea_s.PREV.base", "pangea_s.INTERVENTION.start", "pangea_s.INTERVENTION.mul", "pangea_s.ARCHIVAL.n", "pangea_s.MODEL", "pangea_s.PREV.max.n", "pangea_s.INTERVENTION.prop", "pangea_epi.model", "pangea_epi.acute", "pangea_epi.intervention", "pangea_epi.dt", "pangea_epi.import", "pangea_root.edge.fixed", "pangea_v.N0tau", "pangea_v.r", "pangea_v.T50", "pangea_wher.mu", "pangea_wher.sigma", "pangea_bwerm.mu", "pangea_bwerm.sigma", "pangea_er.gamma", "pangea_er.gtr", "pangea_sp.prop.of.sexactive", "pangea_report.prop.recent", "pangea_dbg.GTRparam", "pangea_dbg.rER", "pangea_index.starttime.mode", "pangea_startseq.mode", "pangea_seqtime.mode"],
+
+            "dep": ["ContactNetwork_PANGEA", "ContactNetworkGenerator_PANGEA", "EndCriteria_Instant", "NodeEvolution_PANGEA", "NodeSample_PANGEA", "NumBranchSample_All", "NumTimeSample_PANGEA", "SeedSelection_PANGEA", "SeedSequence_PANGEA", "SequenceEvolution_PANGEA", "SourceSample_PANGEA", "TimeSample_PANGEA", "TransmissionNodeSample_PANGEA", "TransmissionTimeSample_PANGEA", "TreeUnit_Same"]
         },
 
         "Perfect": {
@@ -181,7 +195,9 @@
         },
 
         "PANGEA": {
-            "req": ["Rscript_path", "pangea_yr.start", "pangea_yr.end", "pangea_seed", "pangea_s.INC.recent", "pangea_s.INC.recent.len", "pangea_s.PREV.min", "pangea_s.PREV.max", "pangea_s.PREV.base", "pangea_s.INTERVENTION.start", "pangea_s.INTERVENTION.mul", "pangea_s.ARCHIVAL.n", "pangea_s.MODEL", "pangea_s.PREV.max.n", "pangea_s.INTERVENTION.prop", "pangea_epi.model", "pangea_epi.acute", "pangea_epi.intervention", "pangea_epi.dt", "pangea_epi.import", "pangea_root.edge.fixed", "pangea_v.N0tau", "pangea_v.r", "pangea_v.T50", "pangea_wher.mu", "pangea_wher.sigma", "pangea_bwerm.mu", "pangea_bwerm.sigma", "pangea_er.gamma", "pangea_er.gtr", "pangea_sp.prop.of.sexactive", "pangea_report.prop.recent", "pangea_dbg.GTRparam", "pangea_dbg.rER", "pangea_index.starttime.mode", "pangea_startseq.mode", "pangea_seqtime.mode"]
+            "req": ["Rscript_path", "pangea_yr.start", "pangea_yr.end", "pangea_seed", "pangea_s.INC.recent", "pangea_s.INC.recent.len", "pangea_s.PREV.min", "pangea_s.PREV.max", "pangea_s.PREV.base", "pangea_s.INTERVENTION.start", "pangea_s.INTERVENTION.mul", "pangea_s.ARCHIVAL.n", "pangea_s.MODEL", "pangea_s.PREV.max.n", "pangea_s.INTERVENTION.prop", "pangea_epi.model", "pangea_epi.acute", "pangea_epi.intervention", "pangea_epi.dt", "pangea_epi.import", "pangea_root.edge.fixed", "pangea_v.N0tau", "pangea_v.r", "pangea_v.T50", "pangea_wher.mu", "pangea_wher.sigma", "pangea_bwerm.mu", "pangea_bwerm.sigma", "pangea_er.gamma", "pangea_er.gtr", "pangea_sp.prop.of.sexactive", "pangea_report.prop.recent", "pangea_dbg.GTRparam", "pangea_dbg.rER", "pangea_index.starttime.mode", "pangea_startseq.mode", "pangea_seqtime.mode"],
+
+            "dep": ["ContactNetwork_PANGEA", "ContactNetworkGenerator_PANGEA", "EndCriteria_Instant", "NodeEvolution_PANGEA", "NodeSample_PANGEA", "NumBranchSample_All", "NumTimeSample_PANGEA", "SeedSelection_PANGEA", "SeedSequence_PANGEA", "SequenceEvolution_PANGEA", "SourceSample_PANGEA", "TimeSample_PANGEA", "TransmissionNodeSample_PANGEA", "TransmissionTimeSample_PANGEA", "TreeUnit_Same"]
         },
 
         "VirusTreeSimulator": {
@@ -213,7 +229,9 @@
         },
 
         "None": {
-            "req": []
+            "req": [],
+
+            "dep": ["NodeAvailability_None", "TimeSample_None"]
         },
 
         "Once": {
@@ -221,7 +239,9 @@
         },
 
         "PANGEA": {
-            "req": ["Rscript_path", "pangea_yr.start", "pangea_yr.end", "pangea_seed", "pangea_s.INC.recent", "pangea_s.INC.recent.len", "pangea_s.PREV.min", "pangea_s.PREV.max", "pangea_s.PREV.base", "pangea_s.INTERVENTION.start", "pangea_s.INTERVENTION.mul", "pangea_s.ARCHIVAL.n", "pangea_s.MODEL", "pangea_s.PREV.max.n", "pangea_s.INTERVENTION.prop", "pangea_epi.model", "pangea_epi.acute", "pangea_epi.intervention", "pangea_epi.dt", "pangea_epi.import", "pangea_root.edge.fixed", "pangea_v.N0tau", "pangea_v.r", "pangea_v.T50", "pangea_wher.mu", "pangea_wher.sigma", "pangea_bwerm.mu", "pangea_bwerm.sigma", "pangea_er.gamma", "pangea_er.gtr", "pangea_sp.prop.of.sexactive", "pangea_report.prop.recent", "pangea_dbg.GTRparam", "pangea_dbg.rER", "pangea_index.starttime.mode", "pangea_startseq.mode", "pangea_seqtime.mode"]
+            "req": ["Rscript_path", "pangea_yr.start", "pangea_yr.end", "pangea_seed", "pangea_s.INC.recent", "pangea_s.INC.recent.len", "pangea_s.PREV.min", "pangea_s.PREV.max", "pangea_s.PREV.base", "pangea_s.INTERVENTION.start", "pangea_s.INTERVENTION.mul", "pangea_s.ARCHIVAL.n", "pangea_s.MODEL", "pangea_s.PREV.max.n", "pangea_s.INTERVENTION.prop", "pangea_epi.model", "pangea_epi.acute", "pangea_epi.intervention", "pangea_epi.dt", "pangea_epi.import", "pangea_root.edge.fixed", "pangea_v.N0tau", "pangea_v.r", "pangea_v.T50", "pangea_wher.mu", "pangea_wher.sigma", "pangea_bwerm.mu", "pangea_bwerm.sigma", "pangea_er.gamma", "pangea_er.gtr", "pangea_sp.prop.of.sexactive", "pangea_report.prop.recent", "pangea_dbg.GTRparam", "pangea_dbg.rER", "pangea_index.starttime.mode", "pangea_startseq.mode", "pangea_seqtime.mode"],
+
+            "dep": ["ContactNetwork_PANGEA", "ContactNetworkGenerator_PANGEA", "EndCriteria_Instant", "NodeEvolution_PANGEA", "NodeSample_PANGEA", "NumBranchSample_All", "NumTimeSample_PANGEA", "SeedSelection_PANGEA", "SeedSequence_PANGEA", "SequenceEvolution_PANGEA", "SourceSample_PANGEA", "TimeSample_PANGEA", "TransmissionNodeSample_PANGEA", "TransmissionTimeSample_PANGEA", "TreeUnit_Same"]
         },
 
         "Poisson": {
@@ -247,7 +267,9 @@
         },
 
         "PANGEA": {
-            "req": ["Rscript_path", "pangea_yr.start", "pangea_yr.end", "pangea_seed", "pangea_s.INC.recent", "pangea_s.INC.recent.len", "pangea_s.PREV.min", "pangea_s.PREV.max", "pangea_s.PREV.base", "pangea_s.INTERVENTION.start", "pangea_s.INTERVENTION.mul", "pangea_s.ARCHIVAL.n", "pangea_s.MODEL", "pangea_s.PREV.max.n", "pangea_s.INTERVENTION.prop", "pangea_epi.model", "pangea_epi.acute", "pangea_epi.intervention", "pangea_epi.dt", "pangea_epi.import", "pangea_root.edge.fixed", "pangea_v.N0tau", "pangea_v.r", "pangea_v.T50", "pangea_wher.mu", "pangea_wher.sigma", "pangea_bwerm.mu", "pangea_bwerm.sigma", "pangea_er.gamma", "pangea_er.gtr", "pangea_sp.prop.of.sexactive", "pangea_report.prop.recent", "pangea_dbg.GTRparam", "pangea_dbg.rER", "pangea_index.starttime.mode", "pangea_startseq.mode", "pangea_seqtime.mode"]
+            "req": ["Rscript_path", "pangea_yr.start", "pangea_yr.end", "pangea_seed", "pangea_s.INC.recent", "pangea_s.INC.recent.len", "pangea_s.PREV.min", "pangea_s.PREV.max", "pangea_s.PREV.base", "pangea_s.INTERVENTION.start", "pangea_s.INTERVENTION.mul", "pangea_s.ARCHIVAL.n", "pangea_s.MODEL", "pangea_s.PREV.max.n", "pangea_s.INTERVENTION.prop", "pangea_epi.model", "pangea_epi.acute", "pangea_epi.intervention", "pangea_epi.dt", "pangea_epi.import", "pangea_root.edge.fixed", "pangea_v.N0tau", "pangea_v.r", "pangea_v.T50", "pangea_wher.mu", "pangea_wher.sigma", "pangea_bwerm.mu", "pangea_bwerm.sigma", "pangea_er.gamma", "pangea_er.gtr", "pangea_sp.prop.of.sexactive", "pangea_report.prop.recent", "pangea_dbg.GTRparam", "pangea_dbg.rER", "pangea_index.starttime.mode", "pangea_startseq.mode", "pangea_seqtime.mode"],
+
+            "dep": ["ContactNetwork_PANGEA", "ContactNetworkGenerator_PANGEA", "EndCriteria_Instant", "NodeEvolution_PANGEA", "NodeSample_PANGEA", "NumBranchSample_All", "NumTimeSample_PANGEA", "SeedSelection_PANGEA", "SeedSequence_PANGEA", "SequenceEvolution_PANGEA", "SourceSample_PANGEA", "TimeSample_PANGEA", "TransmissionNodeSample_PANGEA", "TransmissionTimeSample_PANGEA", "TreeUnit_Same"]
         },
 
         "Random": {
@@ -255,7 +277,9 @@
         },
 
         "TransmissionFile": {
-            "req": ["transmission_network_file"]
+            "req": ["transmission_network_file"],
+
+            "dep": ["EndCriteria_TransmissionFile", "TransmissionNodeSample_TransmissionFile", "TransmissionTimeSample_TransmissionFile"]
         }
     },
 
@@ -281,7 +305,9 @@
         },
 
         "PANGEA": {
-            "req": ["Rscript_path", "pangea_yr.start", "pangea_yr.end", "pangea_seed", "pangea_s.INC.recent", "pangea_s.INC.recent.len", "pangea_s.PREV.min", "pangea_s.PREV.max", "pangea_s.PREV.base", "pangea_s.INTERVENTION.start", "pangea_s.INTERVENTION.mul", "pangea_s.ARCHIVAL.n", "pangea_s.MODEL", "pangea_s.PREV.max.n", "pangea_s.INTERVENTION.prop", "pangea_epi.model", "pangea_epi.acute", "pangea_epi.intervention", "pangea_epi.dt", "pangea_epi.import", "pangea_root.edge.fixed", "pangea_v.N0tau", "pangea_v.r", "pangea_v.T50", "pangea_wher.mu", "pangea_wher.sigma", "pangea_bwerm.mu", "pangea_bwerm.sigma", "pangea_er.gamma", "pangea_er.gtr", "pangea_sp.prop.of.sexactive", "pangea_report.prop.recent", "pangea_dbg.GTRparam", "pangea_dbg.rER", "pangea_index.starttime.mode", "pangea_startseq.mode", "pangea_seqtime.mode"]
+            "req": ["Rscript_path", "pangea_yr.start", "pangea_yr.end", "pangea_seed", "pangea_s.INC.recent", "pangea_s.INC.recent.len", "pangea_s.PREV.min", "pangea_s.PREV.max", "pangea_s.PREV.base", "pangea_s.INTERVENTION.start", "pangea_s.INTERVENTION.mul", "pangea_s.ARCHIVAL.n", "pangea_s.MODEL", "pangea_s.PREV.max.n", "pangea_s.INTERVENTION.prop", "pangea_epi.model", "pangea_epi.acute", "pangea_epi.intervention", "pangea_epi.dt", "pangea_epi.import", "pangea_root.edge.fixed", "pangea_v.N0tau", "pangea_v.r", "pangea_v.T50", "pangea_wher.mu", "pangea_wher.sigma", "pangea_bwerm.mu", "pangea_bwerm.sigma", "pangea_er.gamma", "pangea_er.gtr", "pangea_sp.prop.of.sexactive", "pangea_report.prop.recent", "pangea_dbg.GTRparam", "pangea_dbg.rER", "pangea_index.starttime.mode", "pangea_startseq.mode", "pangea_seqtime.mode"],
+
+            "dep": ["ContactNetwork_PANGEA", "ContactNetworkGenerator_PANGEA", "EndCriteria_Instant", "NodeEvolution_PANGEA", "NodeSample_PANGEA", "NumBranchSample_All", "NumTimeSample_PANGEA", "SeedSelection_PANGEA", "SeedSequence_PANGEA", "SequenceEvolution_PANGEA", "SourceSample_PANGEA", "TimeSample_PANGEA", "TransmissionNodeSample_PANGEA", "TransmissionTimeSample_PANGEA", "TreeUnit_Same"]
         },
 
         "Random": {
@@ -363,7 +389,9 @@
         },
 
         "PANGEA": {
-            "req": ["Rscript_path", "pangea_yr.start", "pangea_yr.end", "pangea_seed", "pangea_s.INC.recent", "pangea_s.INC.recent.len", "pangea_s.PREV.min", "pangea_s.PREV.max", "pangea_s.PREV.base", "pangea_s.INTERVENTION.start", "pangea_s.INTERVENTION.mul", "pangea_s.ARCHIVAL.n", "pangea_s.MODEL", "pangea_s.PREV.max.n", "pangea_s.INTERVENTION.prop", "pangea_epi.model", "pangea_epi.acute", "pangea_epi.intervention", "pangea_epi.dt", "pangea_epi.import", "pangea_root.edge.fixed", "pangea_v.N0tau", "pangea_v.r", "pangea_v.T50", "pangea_wher.mu", "pangea_wher.sigma", "pangea_bwerm.mu", "pangea_bwerm.sigma", "pangea_er.gamma", "pangea_er.gtr", "pangea_sp.prop.of.sexactive", "pangea_report.prop.recent", "pangea_dbg.GTRparam", "pangea_dbg.rER", "pangea_index.starttime.mode", "pangea_startseq.mode", "pangea_seqtime.mode"]
+            "req": ["Rscript_path", "pangea_yr.start", "pangea_yr.end", "pangea_seed", "pangea_s.INC.recent", "pangea_s.INC.recent.len", "pangea_s.PREV.min", "pangea_s.PREV.max", "pangea_s.PREV.base", "pangea_s.INTERVENTION.start", "pangea_s.INTERVENTION.mul", "pangea_s.ARCHIVAL.n", "pangea_s.MODEL", "pangea_s.PREV.max.n", "pangea_s.INTERVENTION.prop", "pangea_epi.model", "pangea_epi.acute", "pangea_epi.intervention", "pangea_epi.dt", "pangea_epi.import", "pangea_root.edge.fixed", "pangea_v.N0tau", "pangea_v.r", "pangea_v.T50", "pangea_wher.mu", "pangea_wher.sigma", "pangea_bwerm.mu", "pangea_bwerm.sigma", "pangea_er.gamma", "pangea_er.gtr", "pangea_sp.prop.of.sexactive", "pangea_report.prop.recent", "pangea_dbg.GTRparam", "pangea_dbg.rER", "pangea_index.starttime.mode", "pangea_startseq.mode", "pangea_seqtime.mode"],
+
+            "dep": ["ContactNetwork_PANGEA", "ContactNetworkGenerator_PANGEA", "EndCriteria_Instant", "NodeEvolution_PANGEA", "NodeSample_PANGEA", "NumBranchSample_All", "NumTimeSample_PANGEA", "SeedSelection_PANGEA", "SeedSequence_PANGEA", "SequenceEvolution_PANGEA", "SourceSample_PANGEA", "TimeSample_PANGEA", "TransmissionNodeSample_PANGEA", "TransmissionTimeSample_PANGEA", "TreeUnit_Same"]
         },
 
         "Pyvolve": {
@@ -426,7 +454,9 @@
 
     "SourceSample": {
         "PANGEA": {
-            "req": ["Rscript_path", "pangea_yr.start", "pangea_yr.end", "pangea_seed", "pangea_s.INC.recent", "pangea_s.INC.recent.len", "pangea_s.PREV.min", "pangea_s.PREV.max", "pangea_s.PREV.base", "pangea_s.INTERVENTION.start", "pangea_s.INTERVENTION.mul", "pangea_s.ARCHIVAL.n", "pangea_s.MODEL", "pangea_s.PREV.max.n", "pangea_s.INTERVENTION.prop", "pangea_epi.model", "pangea_epi.acute", "pangea_epi.intervention", "pangea_epi.dt", "pangea_epi.import", "pangea_root.edge.fixed", "pangea_v.N0tau", "pangea_v.r", "pangea_v.T50", "pangea_wher.mu", "pangea_wher.sigma", "pangea_bwerm.mu", "pangea_bwerm.sigma", "pangea_er.gamma", "pangea_er.gtr", "pangea_sp.prop.of.sexactive", "pangea_report.prop.recent", "pangea_dbg.GTRparam", "pangea_dbg.rER", "pangea_index.starttime.mode", "pangea_startseq.mode", "pangea_seqtime.mode"]
+            "req": ["Rscript_path", "pangea_yr.start", "pangea_yr.end", "pangea_seed", "pangea_s.INC.recent", "pangea_s.INC.recent.len", "pangea_s.PREV.min", "pangea_s.PREV.max", "pangea_s.PREV.base", "pangea_s.INTERVENTION.start", "pangea_s.INTERVENTION.mul", "pangea_s.ARCHIVAL.n", "pangea_s.MODEL", "pangea_s.PREV.max.n", "pangea_s.INTERVENTION.prop", "pangea_epi.model", "pangea_epi.acute", "pangea_epi.intervention", "pangea_epi.dt", "pangea_epi.import", "pangea_root.edge.fixed", "pangea_v.N0tau", "pangea_v.r", "pangea_v.T50", "pangea_wher.mu", "pangea_wher.sigma", "pangea_bwerm.mu", "pangea_bwerm.sigma", "pangea_er.gamma", "pangea_er.gtr", "pangea_sp.prop.of.sexactive", "pangea_report.prop.recent", "pangea_dbg.GTRparam", "pangea_dbg.rER", "pangea_index.starttime.mode", "pangea_startseq.mode", "pangea_seqtime.mode"],
+
+            "dep": ["ContactNetwork_PANGEA", "ContactNetworkGenerator_PANGEA", "EndCriteria_Instant", "NodeEvolution_PANGEA", "NodeSample_PANGEA", "NumBranchSample_All", "NumTimeSample_PANGEA", "SeedSelection_PANGEA", "SeedSequence_PANGEA", "SequenceEvolution_PANGEA", "SourceSample_PANGEA", "TimeSample_PANGEA", "TransmissionNodeSample_PANGEA", "TransmissionTimeSample_PANGEA", "TreeUnit_Same"]
         },
 
         "Random": {
@@ -436,7 +466,9 @@
 
     "TimeSample": {
         "End": {
-            "req": []
+            "req": [],
+
+            "dep": ["NumTimeSample_Once"]
         },
 
         "Gamma": {
@@ -444,15 +476,21 @@
         },
 
         "GranichFirstART": {
-            "req": []
+            "req": [],
+
+            "dep": ["NumTimeSample_Once", "TransmissionTimeSample_HIVARTGranichGEMF"]
         },
 
         "None": {
-            "req": []
+            "req": [],
+
+            "dep": ["NodeAvailability_None", "NumTimeSample_None"]
         },
 
         "PANGEA": {
-            "req": ["Rscript_path", "pangea_yr.start", "pangea_yr.end", "pangea_seed", "pangea_s.INC.recent", "pangea_s.INC.recent.len", "pangea_s.PREV.min", "pangea_s.PREV.max", "pangea_s.PREV.base", "pangea_s.INTERVENTION.start", "pangea_s.INTERVENTION.mul", "pangea_s.ARCHIVAL.n", "pangea_s.MODEL", "pangea_s.PREV.max.n", "pangea_s.INTERVENTION.prop", "pangea_epi.model", "pangea_epi.acute", "pangea_epi.intervention", "pangea_epi.dt", "pangea_epi.import", "pangea_root.edge.fixed", "pangea_v.N0tau", "pangea_v.r", "pangea_v.T50", "pangea_wher.mu", "pangea_wher.sigma", "pangea_bwerm.mu", "pangea_bwerm.sigma", "pangea_er.gamma", "pangea_er.gtr", "pangea_sp.prop.of.sexactive", "pangea_report.prop.recent", "pangea_dbg.GTRparam", "pangea_dbg.rER", "pangea_index.starttime.mode", "pangea_startseq.mode", "pangea_seqtime.mode"]
+            "req": ["Rscript_path", "pangea_yr.start", "pangea_yr.end", "pangea_seed", "pangea_s.INC.recent", "pangea_s.INC.recent.len", "pangea_s.PREV.min", "pangea_s.PREV.max", "pangea_s.PREV.base", "pangea_s.INTERVENTION.start", "pangea_s.INTERVENTION.mul", "pangea_s.ARCHIVAL.n", "pangea_s.MODEL", "pangea_s.PREV.max.n", "pangea_s.INTERVENTION.prop", "pangea_epi.model", "pangea_epi.acute", "pangea_epi.intervention", "pangea_epi.dt", "pangea_epi.import", "pangea_root.edge.fixed", "pangea_v.N0tau", "pangea_v.r", "pangea_v.T50", "pangea_wher.mu", "pangea_wher.sigma", "pangea_bwerm.mu", "pangea_bwerm.sigma", "pangea_er.gamma", "pangea_er.gtr", "pangea_sp.prop.of.sexactive", "pangea_report.prop.recent", "pangea_dbg.GTRparam", "pangea_dbg.rER", "pangea_index.starttime.mode", "pangea_startseq.mode", "pangea_seqtime.mode"],
+
+            "dep": ["ContactNetwork_PANGEA", "ContactNetworkGenerator_PANGEA", "EndCriteria_Instant", "NodeEvolution_PANGEA", "NodeSample_PANGEA", "NumBranchSample_All", "NumTimeSample_PANGEA", "SeedSelection_PANGEA", "SeedSequence_PANGEA", "SequenceEvolution_PANGEA", "SourceSample_PANGEA", "TimeSample_PANGEA", "TransmissionNodeSample_PANGEA", "TransmissionTimeSample_PANGEA", "TreeUnit_Same"]
         },
 
         "TruncatedNormal": {
@@ -466,7 +504,9 @@
 
     "TransmissionNodeSample": {
         "GEMF": {
-            "req": ["gemf_path"]
+            "req": ["gemf_path"],
+
+            "dep": ["EndCriteria_GEMF", "TransmissionTimeSample_GonorrheaHethcoteYorkeGEMF", "TransmissionTimeSample_HIVARTGranichGEMF", "TransmissionTimeSample_HIVPopARTGEMF", "TransmissionTimeSample_SAISGEMF", "TransmissionTimeSample_SEIRGEMF", "TransmissionTimeSample_SIGEMF", "TransmissionTimeSample_SIRGEMF", "TransmissionTimeSample_SISGEMF", "TransmissionTimeSample_SVITRGEMF"]
         },
 
         "RandomMultiInfection": {
@@ -478,15 +518,21 @@
         },
 
         "PANGEA": {
-            "req": ["Rscript_path", "pangea_yr.start", "pangea_yr.end", "pangea_seed", "pangea_s.INC.recent", "pangea_s.INC.recent.len", "pangea_s.PREV.min", "pangea_s.PREV.max", "pangea_s.PREV.base", "pangea_s.INTERVENTION.start", "pangea_s.INTERVENTION.mul", "pangea_s.ARCHIVAL.n", "pangea_s.MODEL", "pangea_s.PREV.max.n", "pangea_s.INTERVENTION.prop", "pangea_epi.model", "pangea_epi.acute", "pangea_epi.intervention", "pangea_epi.dt", "pangea_epi.import", "pangea_root.edge.fixed", "pangea_v.N0tau", "pangea_v.r", "pangea_v.T50", "pangea_wher.mu", "pangea_wher.sigma", "pangea_bwerm.mu", "pangea_bwerm.sigma", "pangea_er.gamma", "pangea_er.gtr", "pangea_sp.prop.of.sexactive", "pangea_report.prop.recent", "pangea_dbg.GTRparam", "pangea_dbg.rER", "pangea_index.starttime.mode", "pangea_startseq.mode", "pangea_seqtime.mode"]
+            "req": ["Rscript_path", "pangea_yr.start", "pangea_yr.end", "pangea_seed", "pangea_s.INC.recent", "pangea_s.INC.recent.len", "pangea_s.PREV.min", "pangea_s.PREV.max", "pangea_s.PREV.base", "pangea_s.INTERVENTION.start", "pangea_s.INTERVENTION.mul", "pangea_s.ARCHIVAL.n", "pangea_s.MODEL", "pangea_s.PREV.max.n", "pangea_s.INTERVENTION.prop", "pangea_epi.model", "pangea_epi.acute", "pangea_epi.intervention", "pangea_epi.dt", "pangea_epi.import", "pangea_root.edge.fixed", "pangea_v.N0tau", "pangea_v.r", "pangea_v.T50", "pangea_wher.mu", "pangea_wher.sigma", "pangea_bwerm.mu", "pangea_bwerm.sigma", "pangea_er.gamma", "pangea_er.gtr", "pangea_sp.prop.of.sexactive", "pangea_report.prop.recent", "pangea_dbg.GTRparam", "pangea_dbg.rER", "pangea_index.starttime.mode", "pangea_startseq.mode", "pangea_seqtime.mode"],
+
+            "dep": ["ContactNetwork_PANGEA", "ContactNetworkGenerator_PANGEA", "EndCriteria_Instant", "NodeEvolution_PANGEA", "NodeSample_PANGEA", "NumBranchSample_All", "NumTimeSample_PANGEA", "SeedSelection_PANGEA", "SeedSequence_PANGEA", "SequenceEvolution_PANGEA", "SourceSample_PANGEA", "TimeSample_PANGEA", "TransmissionNodeSample_PANGEA", "TransmissionTimeSample_PANGEA", "TreeUnit_Same"]
         },
 
         "SI": {
-            "req": ["infection_rate"]
+            "req": ["infection_rate"],
+
+            "dep": ["TransmissionTimeSample_SI"]
         },
 
         "TransmissionFile": {
-            "req": ["transmission_network_file"]
+            "req": ["transmission_network_file"],
+
+            "dep": ["EndCriteria_TransmissionFile", "SeedSelection_TransmissionFile", "TransmissionTimeSample_TransmissionFile"]
         }
     },
 
@@ -500,15 +546,21 @@
         },
 
         "GonorrheaHethcoteYorkeGEMF": {
-            "req": ["gemf_path", "end_time", "gon_ma_to_ms", "gon_ms_to_ma", "gon_ms_to_mis_seed", "gon_ms_to_mis_by_mis", "gon_ms_to_mis_by_mia", "gon_ms_to_mis_by_fis", "gon_ms_to_mis_by_fia", "gon_ms_to_mia_seed", "gon_ms_to_mia_by_mis", "gon_ms_to_mia_by_mia", "gon_ms_to_mia_by_fis", "gon_ms_to_mia_by_fia", "gon_mis_to_ma", "gon_mis_to_ms", "gon_mia_to_ma", "gon_mia_to_ms", "gon_fa_to_fs", "gon_fs_to_fa", "gon_fs_to_fis_seed", "gon_fs_to_fis_by_mis", "gon_fs_to_fis_by_mia", "gon_fs_to_fis_by_fis", "gon_fs_to_fis_by_fia", "gon_fs_to_fia_seed", "gon_fs_to_fia_by_mis", "gon_fs_to_fia_by_mia", "gon_fs_to_fia_by_fis", "gon_fs_to_fia_by_fia", "gon_fis_to_fa", "gon_fis_to_fs", "gon_fia_to_fa", "gon_fia_to_fs"]
+            "req": ["gemf_path", "end_time", "gon_ma_to_ms", "gon_ms_to_ma", "gon_ms_to_mis_seed", "gon_ms_to_mis_by_mis", "gon_ms_to_mis_by_mia", "gon_ms_to_mis_by_fis", "gon_ms_to_mis_by_fia", "gon_ms_to_mia_seed", "gon_ms_to_mia_by_mis", "gon_ms_to_mia_by_mia", "gon_ms_to_mia_by_fis", "gon_ms_to_mia_by_fia", "gon_mis_to_ma", "gon_mis_to_ms", "gon_mia_to_ma", "gon_mia_to_ms", "gon_fa_to_fs", "gon_fs_to_fa", "gon_fs_to_fis_seed", "gon_fs_to_fis_by_mis", "gon_fs_to_fis_by_mia", "gon_fs_to_fis_by_fis", "gon_fs_to_fis_by_fia", "gon_fs_to_fia_seed", "gon_fs_to_fia_by_mis", "gon_fs_to_fia_by_mia", "gon_fs_to_fia_by_fis", "gon_fs_to_fia_by_fia", "gon_fis_to_fa", "gon_fis_to_fs", "gon_fia_to_fa", "gon_fia_to_fs"],
+
+            "dep": ["EndCriteria_GEMF", "TransmissionNodeSample_GEMF"]
         },
 
         "HIVARTGranichGEMF": {
-            "req": ["gemf_path", "end_time", "hiv_freq_ns", "hiv_freq_s", "hiv_freq_i1", "hiv_freq_i2", "hiv_freq_i3", "hiv_freq_i4", "hiv_freq_a1", "hiv_freq_a2", "hiv_freq_a3", "hiv_freq_a4", "hiv_freq_d", "hiv_ns_to_s", "hiv_ns_to_d", "hiv_s_to_i1_seed", "hiv_s_to_i1_by_i1", "hiv_s_to_i1_by_i2", "hiv_s_to_i1_by_i3", "hiv_s_to_i1_by_i4", "hiv_s_to_i1_by_a1", "hiv_s_to_i1_by_a2", "hiv_s_to_i1_by_a3", "hiv_s_to_i1_by_a4","hiv_s_to_d", "hiv_i1_to_i2", "hiv_i1_to_a1", "hiv_i1_to_d", "hiv_i2_to_i3", "hiv_i2_to_a2", "hiv_i2_to_d", "hiv_i3_to_i4", "hiv_i3_to_a3", "hiv_i3_to_d", "hiv_i4_to_a4", "hiv_i4_to_d", "hiv_a1_to_i1", "hiv_a1_to_a2", "hiv_a1_to_d", "hiv_a2_to_i2", "hiv_a2_to_a3", "hiv_a2_to_d", "hiv_a3_to_i3", "hiv_a3_to_a4", "hiv_a3_to_d", "hiv_a4_to_i4", "hiv_a4_to_d"]
+            "req": ["gemf_path", "end_time", "hiv_freq_ns", "hiv_freq_s", "hiv_freq_i1", "hiv_freq_i2", "hiv_freq_i3", "hiv_freq_i4", "hiv_freq_a1", "hiv_freq_a2", "hiv_freq_a3", "hiv_freq_a4", "hiv_freq_d", "hiv_ns_to_s", "hiv_ns_to_d", "hiv_s_to_i1_seed", "hiv_s_to_i1_by_i1", "hiv_s_to_i1_by_i2", "hiv_s_to_i1_by_i3", "hiv_s_to_i1_by_i4", "hiv_s_to_i1_by_a1", "hiv_s_to_i1_by_a2", "hiv_s_to_i1_by_a3", "hiv_s_to_i1_by_a4","hiv_s_to_d", "hiv_i1_to_i2", "hiv_i1_to_a1", "hiv_i1_to_d", "hiv_i2_to_i3", "hiv_i2_to_a2", "hiv_i2_to_d", "hiv_i3_to_i4", "hiv_i3_to_a3", "hiv_i3_to_d", "hiv_i4_to_a4", "hiv_i4_to_d", "hiv_a1_to_i1", "hiv_a1_to_a2", "hiv_a1_to_d", "hiv_a2_to_i2", "hiv_a2_to_a3", "hiv_a2_to_d", "hiv_a3_to_i3", "hiv_a3_to_a4", "hiv_a3_to_d", "hiv_a4_to_i4", "hiv_a4_to_d"],
+
+            "dep": ["EndCriteria_GEMF", "TransmissionNodeSample_GEMF"]
         },
 
         "HIVPopARTGEMF": {
-            "req": ["gemf_path", "end_time", "hiv_msu_to_mspc", "hiv_msu_to_mia_by_miah", "hiv_msu_to_mia_by_mia", "hiv_msu_to_mia_by_mi1", "hiv_msu_to_mia_by_mi2", "hiv_msu_to_mia_by_mi3", "hiv_msu_to_mia_by_mi4", "hiv_msu_to_mia_by_mj1", "hiv_msu_to_mia_by_mj2", "hiv_msu_to_mia_by_mj3", "hiv_msu_to_mia_by_mj4", "hiv_msu_to_mia_by_mt1", "hiv_msu_to_mia_by_mt2", "hiv_msu_to_mia_by_mt3", "hiv_msu_to_mia_by_mt4", "hiv_msu_to_mia_by_ma1", "hiv_msu_to_mia_by_ma2", "hiv_msu_to_mia_by_ma3", "hiv_msu_to_mia_by_ma4", "hiv_msu_to_mia_by_fia", "hiv_msu_to_mia_by_fi1", "hiv_msu_to_mia_by_fi2", "hiv_msu_to_mia_by_fi3", "hiv_msu_to_mia_by_fi4", "hiv_msu_to_mia_by_fj1", "hiv_msu_to_mia_by_fj2", "hiv_msu_to_mia_by_fj3", "hiv_msu_to_mia_by_fj4", "hiv_msu_to_mia_by_ft1", "hiv_msu_to_mia_by_ft2", "hiv_msu_to_mia_by_ft3", "hiv_msu_to_mia_by_ft4", "hiv_msu_to_mia_by_fa1", "hiv_msu_to_mia_by_fa2", "hiv_msu_to_mia_by_fa3", "hiv_msu_to_mia_by_fa4", "hiv_msu_to_d", "hiv_mspc_to_msch", "hiv_mspc_to_mia_by_miah", "hiv_mspc_to_mia_by_mia", "hiv_mspc_to_mia_by_mi1", "hiv_mspc_to_mia_by_mi2", "hiv_mspc_to_mia_by_mi3", "hiv_mspc_to_mia_by_mi4", "hiv_mspc_to_mia_by_mj1", "hiv_mspc_to_mia_by_mj2", "hiv_mspc_to_mia_by_mj3", "hiv_mspc_to_mia_by_mj4", "hiv_mspc_to_mia_by_mt1", "hiv_mspc_to_mia_by_mt2", "hiv_mspc_to_mia_by_mt3", "hiv_mspc_to_mia_by_mt4", "hiv_mspc_to_mia_by_ma1", "hiv_mspc_to_mia_by_ma2", "hiv_mspc_to_mia_by_ma3", "hiv_mspc_to_mia_by_ma4", "hiv_mspc_to_mia_by_fia", "hiv_mspc_to_mia_by_fi1", "hiv_mspc_to_mia_by_fi2", "hiv_mspc_to_mia_by_fi3", "hiv_mspc_to_mia_by_fi4", "hiv_mspc_to_mia_by_fj1", "hiv_mspc_to_mia_by_fj2", "hiv_mspc_to_mia_by_fj3", "hiv_mspc_to_mia_by_fj4", "hiv_mspc_to_mia_by_ft1", "hiv_mspc_to_mia_by_ft2", "hiv_mspc_to_mia_by_ft3", "hiv_mspc_to_mia_by_ft4", "hiv_mspc_to_mia_by_fa1", "hiv_mspc_to_mia_by_fa2", "hiv_mspc_to_mia_by_fa3", "hiv_mspc_to_mia_by_fa4", "hiv_mspc_to_d", "hiv_msch_to_msc", "hiv_msch_to_miah_by_miah", "hiv_msch_to_miah_by_mia", "hiv_msch_to_miah_by_mi1", "hiv_msch_to_miah_by_mi2", "hiv_msch_to_miah_by_mi3", "hiv_msch_to_miah_by_mi4", "hiv_msch_to_miah_by_mj1", "hiv_msch_to_miah_by_mj2", "hiv_msch_to_miah_by_mj3", "hiv_msch_to_miah_by_mj4", "hiv_msch_to_miah_by_mt1", "hiv_msch_to_miah_by_mt2", "hiv_msch_to_miah_by_mt3", "hiv_msch_to_miah_by_mt4", "hiv_msch_to_miah_by_ma1", "hiv_msch_to_miah_by_ma2", "hiv_msch_to_miah_by_ma3", "hiv_msch_to_miah_by_ma4", "hiv_msch_to_miah_by_fia", "hiv_msch_to_miah_by_fi1", "hiv_msch_to_miah_by_fi2", "hiv_msch_to_miah_by_fi3", "hiv_msch_to_miah_by_fi4", "hiv_msch_to_miah_by_fj1", "hiv_msch_to_miah_by_fj2", "hiv_msch_to_miah_by_fj3", "hiv_msch_to_miah_by_fj4", "hiv_msch_to_miah_by_ft1", "hiv_msch_to_miah_by_ft2", "hiv_msch_to_miah_by_ft3", "hiv_msch_to_miah_by_ft4", "hiv_msch_to_miah_by_fa1", "hiv_msch_to_miah_by_fa2", "hiv_msch_to_miah_by_fa3", "hiv_msch_to_miah_by_fa4", "hiv_msch_to_d", "hiv_msc_to_mia_by_miah", "hiv_msc_to_mia_by_mia", "hiv_msc_to_mia_by_mi1", "hiv_msc_to_mia_by_mi2", "hiv_msc_to_mia_by_mi3", "hiv_msc_to_mia_by_mi4", "hiv_msc_to_mia_by_mj1", "hiv_msc_to_mia_by_mj2", "hiv_msc_to_mia_by_mj3", "hiv_msc_to_mia_by_mj4", "hiv_msc_to_mia_by_mt1", "hiv_msc_to_mia_by_mt2", "hiv_msc_to_mia_by_mt3", "hiv_msc_to_mia_by_mt4", "hiv_msc_to_mia_by_ma1", "hiv_msc_to_mia_by_ma2", "hiv_msc_to_mia_by_ma3", "hiv_msc_to_mia_by_ma4", "hiv_msc_to_mia_by_fia", "hiv_msc_to_mia_by_fi1", "hiv_msc_to_mia_by_fi2", "hiv_msc_to_mia_by_fi3", "hiv_msc_to_mia_by_fi4", "hiv_msc_to_mia_by_fj1", "hiv_msc_to_mia_by_fj2", "hiv_msc_to_mia_by_fj3", "hiv_msc_to_mia_by_fj4", "hiv_msc_to_mia_by_ft1", "hiv_msc_to_mia_by_ft2", "hiv_msc_to_mia_by_ft3", "hiv_msc_to_mia_by_ft4", "hiv_msc_to_mia_by_fa1", "hiv_msc_to_mia_by_fa2", "hiv_msc_to_mia_by_fa3", "hiv_msc_to_mia_by_fa4", "hiv_msc_to_d", "hiv_miah_to_mia", "hiv_miah_to_d", "hiv_mia_to_mi1", "hiv_mia_to_mi2", "hiv_mia_to_mi3", "hiv_mia_to_mi4", "hiv_mia_to_d", "hiv_mi1_to_mi2", "hiv_mi1_to_mj1", "hiv_mi1_to_d", "hiv_mi2_to_mi3", "hiv_mi2_to_mj2", "hiv_mi2_to_d", "hiv_mi3_to_mi4", "hiv_mi3_to_mj3", "hiv_mi3_to_d", "hiv_mi4_to_mj4", "hiv_mi4_to_d", "hiv_mj1_to_mj2", "hiv_mj1_to_mt1", "hiv_mj1_to_d", "hiv_mj2_to_mj3", "hiv_mj2_to_mt2", "hiv_mj2_to_d", "hiv_mj3_to_mj4", "hiv_mj3_to_mt3", "hiv_mj3_to_d", "hiv_mj4_to_mt4", "hiv_mj4_to_d", "hiv_mt1_to_mi1", "hiv_mt1_to_mt2", "hiv_mt1_to_ma1", "hiv_mt1_to_d", "hiv_mt2_to_mi2", "hiv_mt2_to_mt3", "hiv_mt2_to_ma2", "hiv_mt2_to_d", "hiv_mt3_to_mi3", "hiv_mt3_to_mt4", "hiv_mt3_to_ma3", "hiv_mt3_to_d", "hiv_mt4_to_mi4", "hiv_mt4_to_ma4", "hiv_mt4_to_d", "hiv_ma1_to_mi1", "hiv_ma1_to_ma2", "hiv_ma1_to_d", "hiv_ma2_to_mi2", "hiv_ma2_to_ma3", "hiv_ma2_to_d", "hiv_ma3_to_mi3", "hiv_ma3_to_ma4", "hiv_ma3_to_d", "hiv_ma4_to_mi4", "hiv_ma4_to_d", "hiv_fs_to_fia_by_miah", "hiv_fs_to_fia_by_mia", "hiv_fs_to_fia_by_mi1", "hiv_fs_to_fia_by_mi2", "hiv_fs_to_fia_by_mi3", "hiv_fs_to_fia_by_mi4", "hiv_fs_to_fia_by_mj1", "hiv_fs_to_fia_by_mj2", "hiv_fs_to_fia_by_mj3", "hiv_fs_to_fia_by_mj4", "hiv_fs_to_fia_by_mt1", "hiv_fs_to_fia_by_mt2", "hiv_fs_to_fia_by_mt3", "hiv_fs_to_fia_by_mt4", "hiv_fs_to_fia_by_ma1", "hiv_fs_to_fia_by_ma2", "hiv_fs_to_fia_by_ma3", "hiv_fs_to_fia_by_ma4", "hiv_fs_to_fia_by_fia", "hiv_fs_to_fia_by_fi1", "hiv_fs_to_fia_by_fi2", "hiv_fs_to_fia_by_fi3", "hiv_fs_to_fia_by_fi4", "hiv_fs_to_fia_by_fj1", "hiv_fs_to_fia_by_fj2", "hiv_fs_to_fia_by_fj3", "hiv_fs_to_fia_by_fj4", "hiv_fs_to_fia_by_ft1", "hiv_fs_to_fia_by_ft2", "hiv_fs_to_fia_by_ft3", "hiv_fs_to_fia_by_ft4", "hiv_fs_to_fia_by_fa1", "hiv_fs_to_fia_by_fa2", "hiv_fs_to_fia_by_fa3", "hiv_fs_to_fia_by_fa4", "hiv_fs_to_d", "hiv_fia_to_fi1", "hiv_fia_to_fi2", "hiv_fia_to_fi3", "hiv_fia_to_fi4", "hiv_fia_to_d", "hiv_fi1_to_fi2", "hiv_fi1_to_fj1", "hiv_fi1_to_d", "hiv_fi2_to_fi3", "hiv_fi2_to_fj2", "hiv_fi2_to_d", "hiv_fi3_to_fi4", "hiv_fi3_to_fj3", "hiv_fi3_to_d", "hiv_fi4_to_fj4", "hiv_fi4_to_d", "hiv_fj1_to_fj2", "hiv_fj1_to_ft1", "hiv_fj1_to_d", "hiv_fj2_to_fj3", "hiv_fj2_to_ft2", "hiv_fj2_to_d", "hiv_fj3_to_fj4", "hiv_fj3_to_ft3", "hiv_fj3_to_d", "hiv_fj4_to_ft4", "hiv_fj4_to_d", "hiv_ft1_to_fi1", "hiv_ft1_to_ft2", "hiv_ft1_to_fa1", "hiv_ft1_to_d", "hiv_ft2_to_fi2", "hiv_ft2_to_ft3", "hiv_ft2_to_fa2", "hiv_ft2_to_d", "hiv_ft3_to_fi3", "hiv_ft3_to_ft4", "hiv_ft3_to_fa3", "hiv_ft3_to_d", "hiv_ft4_to_fi4", "hiv_ft4_to_fa4", "hiv_ft4_to_d", "hiv_fa1_to_fi1", "hiv_fa1_to_fa2", "hiv_fa1_to_d", "hiv_fa2_to_fi2", "hiv_fa2_to_fa3", "hiv_fa2_to_d", "hiv_fa3_to_fi3", "hiv_fa3_to_fa4", "hiv_fa3_to_d", "hiv_fa4_to_fi4", "hiv_fa4_to_d"]
+            "req": ["gemf_path", "end_time", "hiv_msu_to_mspc", "hiv_msu_to_mia_by_miah", "hiv_msu_to_mia_by_mia", "hiv_msu_to_mia_by_mi1", "hiv_msu_to_mia_by_mi2", "hiv_msu_to_mia_by_mi3", "hiv_msu_to_mia_by_mi4", "hiv_msu_to_mia_by_mj1", "hiv_msu_to_mia_by_mj2", "hiv_msu_to_mia_by_mj3", "hiv_msu_to_mia_by_mj4", "hiv_msu_to_mia_by_mt1", "hiv_msu_to_mia_by_mt2", "hiv_msu_to_mia_by_mt3", "hiv_msu_to_mia_by_mt4", "hiv_msu_to_mia_by_ma1", "hiv_msu_to_mia_by_ma2", "hiv_msu_to_mia_by_ma3", "hiv_msu_to_mia_by_ma4", "hiv_msu_to_mia_by_fia", "hiv_msu_to_mia_by_fi1", "hiv_msu_to_mia_by_fi2", "hiv_msu_to_mia_by_fi3", "hiv_msu_to_mia_by_fi4", "hiv_msu_to_mia_by_fj1", "hiv_msu_to_mia_by_fj2", "hiv_msu_to_mia_by_fj3", "hiv_msu_to_mia_by_fj4", "hiv_msu_to_mia_by_ft1", "hiv_msu_to_mia_by_ft2", "hiv_msu_to_mia_by_ft3", "hiv_msu_to_mia_by_ft4", "hiv_msu_to_mia_by_fa1", "hiv_msu_to_mia_by_fa2", "hiv_msu_to_mia_by_fa3", "hiv_msu_to_mia_by_fa4", "hiv_msu_to_d", "hiv_mspc_to_msch", "hiv_mspc_to_mia_by_miah", "hiv_mspc_to_mia_by_mia", "hiv_mspc_to_mia_by_mi1", "hiv_mspc_to_mia_by_mi2", "hiv_mspc_to_mia_by_mi3", "hiv_mspc_to_mia_by_mi4", "hiv_mspc_to_mia_by_mj1", "hiv_mspc_to_mia_by_mj2", "hiv_mspc_to_mia_by_mj3", "hiv_mspc_to_mia_by_mj4", "hiv_mspc_to_mia_by_mt1", "hiv_mspc_to_mia_by_mt2", "hiv_mspc_to_mia_by_mt3", "hiv_mspc_to_mia_by_mt4", "hiv_mspc_to_mia_by_ma1", "hiv_mspc_to_mia_by_ma2", "hiv_mspc_to_mia_by_ma3", "hiv_mspc_to_mia_by_ma4", "hiv_mspc_to_mia_by_fia", "hiv_mspc_to_mia_by_fi1", "hiv_mspc_to_mia_by_fi2", "hiv_mspc_to_mia_by_fi3", "hiv_mspc_to_mia_by_fi4", "hiv_mspc_to_mia_by_fj1", "hiv_mspc_to_mia_by_fj2", "hiv_mspc_to_mia_by_fj3", "hiv_mspc_to_mia_by_fj4", "hiv_mspc_to_mia_by_ft1", "hiv_mspc_to_mia_by_ft2", "hiv_mspc_to_mia_by_ft3", "hiv_mspc_to_mia_by_ft4", "hiv_mspc_to_mia_by_fa1", "hiv_mspc_to_mia_by_fa2", "hiv_mspc_to_mia_by_fa3", "hiv_mspc_to_mia_by_fa4", "hiv_mspc_to_d", "hiv_msch_to_msc", "hiv_msch_to_miah_by_miah", "hiv_msch_to_miah_by_mia", "hiv_msch_to_miah_by_mi1", "hiv_msch_to_miah_by_mi2", "hiv_msch_to_miah_by_mi3", "hiv_msch_to_miah_by_mi4", "hiv_msch_to_miah_by_mj1", "hiv_msch_to_miah_by_mj2", "hiv_msch_to_miah_by_mj3", "hiv_msch_to_miah_by_mj4", "hiv_msch_to_miah_by_mt1", "hiv_msch_to_miah_by_mt2", "hiv_msch_to_miah_by_mt3", "hiv_msch_to_miah_by_mt4", "hiv_msch_to_miah_by_ma1", "hiv_msch_to_miah_by_ma2", "hiv_msch_to_miah_by_ma3", "hiv_msch_to_miah_by_ma4", "hiv_msch_to_miah_by_fia", "hiv_msch_to_miah_by_fi1", "hiv_msch_to_miah_by_fi2", "hiv_msch_to_miah_by_fi3", "hiv_msch_to_miah_by_fi4", "hiv_msch_to_miah_by_fj1", "hiv_msch_to_miah_by_fj2", "hiv_msch_to_miah_by_fj3", "hiv_msch_to_miah_by_fj4", "hiv_msch_to_miah_by_ft1", "hiv_msch_to_miah_by_ft2", "hiv_msch_to_miah_by_ft3", "hiv_msch_to_miah_by_ft4", "hiv_msch_to_miah_by_fa1", "hiv_msch_to_miah_by_fa2", "hiv_msch_to_miah_by_fa3", "hiv_msch_to_miah_by_fa4", "hiv_msch_to_d", "hiv_msc_to_mia_by_miah", "hiv_msc_to_mia_by_mia", "hiv_msc_to_mia_by_mi1", "hiv_msc_to_mia_by_mi2", "hiv_msc_to_mia_by_mi3", "hiv_msc_to_mia_by_mi4", "hiv_msc_to_mia_by_mj1", "hiv_msc_to_mia_by_mj2", "hiv_msc_to_mia_by_mj3", "hiv_msc_to_mia_by_mj4", "hiv_msc_to_mia_by_mt1", "hiv_msc_to_mia_by_mt2", "hiv_msc_to_mia_by_mt3", "hiv_msc_to_mia_by_mt4", "hiv_msc_to_mia_by_ma1", "hiv_msc_to_mia_by_ma2", "hiv_msc_to_mia_by_ma3", "hiv_msc_to_mia_by_ma4", "hiv_msc_to_mia_by_fia", "hiv_msc_to_mia_by_fi1", "hiv_msc_to_mia_by_fi2", "hiv_msc_to_mia_by_fi3", "hiv_msc_to_mia_by_fi4", "hiv_msc_to_mia_by_fj1", "hiv_msc_to_mia_by_fj2", "hiv_msc_to_mia_by_fj3", "hiv_msc_to_mia_by_fj4", "hiv_msc_to_mia_by_ft1", "hiv_msc_to_mia_by_ft2", "hiv_msc_to_mia_by_ft3", "hiv_msc_to_mia_by_ft4", "hiv_msc_to_mia_by_fa1", "hiv_msc_to_mia_by_fa2", "hiv_msc_to_mia_by_fa3", "hiv_msc_to_mia_by_fa4", "hiv_msc_to_d", "hiv_miah_to_mia", "hiv_miah_to_d", "hiv_mia_to_mi1", "hiv_mia_to_mi2", "hiv_mia_to_mi3", "hiv_mia_to_mi4", "hiv_mia_to_d", "hiv_mi1_to_mi2", "hiv_mi1_to_mj1", "hiv_mi1_to_d", "hiv_mi2_to_mi3", "hiv_mi2_to_mj2", "hiv_mi2_to_d", "hiv_mi3_to_mi4", "hiv_mi3_to_mj3", "hiv_mi3_to_d", "hiv_mi4_to_mj4", "hiv_mi4_to_d", "hiv_mj1_to_mj2", "hiv_mj1_to_mt1", "hiv_mj1_to_d", "hiv_mj2_to_mj3", "hiv_mj2_to_mt2", "hiv_mj2_to_d", "hiv_mj3_to_mj4", "hiv_mj3_to_mt3", "hiv_mj3_to_d", "hiv_mj4_to_mt4", "hiv_mj4_to_d", "hiv_mt1_to_mi1", "hiv_mt1_to_mt2", "hiv_mt1_to_ma1", "hiv_mt1_to_d", "hiv_mt2_to_mi2", "hiv_mt2_to_mt3", "hiv_mt2_to_ma2", "hiv_mt2_to_d", "hiv_mt3_to_mi3", "hiv_mt3_to_mt4", "hiv_mt3_to_ma3", "hiv_mt3_to_d", "hiv_mt4_to_mi4", "hiv_mt4_to_ma4", "hiv_mt4_to_d", "hiv_ma1_to_mi1", "hiv_ma1_to_ma2", "hiv_ma1_to_d", "hiv_ma2_to_mi2", "hiv_ma2_to_ma3", "hiv_ma2_to_d", "hiv_ma3_to_mi3", "hiv_ma3_to_ma4", "hiv_ma3_to_d", "hiv_ma4_to_mi4", "hiv_ma4_to_d", "hiv_fs_to_fia_by_miah", "hiv_fs_to_fia_by_mia", "hiv_fs_to_fia_by_mi1", "hiv_fs_to_fia_by_mi2", "hiv_fs_to_fia_by_mi3", "hiv_fs_to_fia_by_mi4", "hiv_fs_to_fia_by_mj1", "hiv_fs_to_fia_by_mj2", "hiv_fs_to_fia_by_mj3", "hiv_fs_to_fia_by_mj4", "hiv_fs_to_fia_by_mt1", "hiv_fs_to_fia_by_mt2", "hiv_fs_to_fia_by_mt3", "hiv_fs_to_fia_by_mt4", "hiv_fs_to_fia_by_ma1", "hiv_fs_to_fia_by_ma2", "hiv_fs_to_fia_by_ma3", "hiv_fs_to_fia_by_ma4", "hiv_fs_to_fia_by_fia", "hiv_fs_to_fia_by_fi1", "hiv_fs_to_fia_by_fi2", "hiv_fs_to_fia_by_fi3", "hiv_fs_to_fia_by_fi4", "hiv_fs_to_fia_by_fj1", "hiv_fs_to_fia_by_fj2", "hiv_fs_to_fia_by_fj3", "hiv_fs_to_fia_by_fj4", "hiv_fs_to_fia_by_ft1", "hiv_fs_to_fia_by_ft2", "hiv_fs_to_fia_by_ft3", "hiv_fs_to_fia_by_ft4", "hiv_fs_to_fia_by_fa1", "hiv_fs_to_fia_by_fa2", "hiv_fs_to_fia_by_fa3", "hiv_fs_to_fia_by_fa4", "hiv_fs_to_d", "hiv_fia_to_fi1", "hiv_fia_to_fi2", "hiv_fia_to_fi3", "hiv_fia_to_fi4", "hiv_fia_to_d", "hiv_fi1_to_fi2", "hiv_fi1_to_fj1", "hiv_fi1_to_d", "hiv_fi2_to_fi3", "hiv_fi2_to_fj2", "hiv_fi2_to_d", "hiv_fi3_to_fi4", "hiv_fi3_to_fj3", "hiv_fi3_to_d", "hiv_fi4_to_fj4", "hiv_fi4_to_d", "hiv_fj1_to_fj2", "hiv_fj1_to_ft1", "hiv_fj1_to_d", "hiv_fj2_to_fj3", "hiv_fj2_to_ft2", "hiv_fj2_to_d", "hiv_fj3_to_fj4", "hiv_fj3_to_ft3", "hiv_fj3_to_d", "hiv_fj4_to_ft4", "hiv_fj4_to_d", "hiv_ft1_to_fi1", "hiv_ft1_to_ft2", "hiv_ft1_to_fa1", "hiv_ft1_to_d", "hiv_ft2_to_fi2", "hiv_ft2_to_ft3", "hiv_ft2_to_fa2", "hiv_ft2_to_d", "hiv_ft3_to_fi3", "hiv_ft3_to_ft4", "hiv_ft3_to_fa3", "hiv_ft3_to_d", "hiv_ft4_to_fi4", "hiv_ft4_to_fa4", "hiv_ft4_to_d", "hiv_fa1_to_fi1", "hiv_fa1_to_fa2", "hiv_fa1_to_d", "hiv_fa2_to_fi2", "hiv_fa2_to_fa3", "hiv_fa2_to_d", "hiv_fa3_to_fi3", "hiv_fa3_to_fa4", "hiv_fa3_to_d", "hiv_fa4_to_fi4", "hiv_fa4_to_d"],
+
+            "dep": ["EndCriteria_GEMF", "TransmissionNodeSample_GEMF"]
         },
 
         "Instant": {
@@ -516,39 +568,57 @@
         },
 
         "PANGEA": {
-            "req": ["Rscript_path", "pangea_yr.start", "pangea_yr.end", "pangea_seed", "pangea_s.INC.recent", "pangea_s.INC.recent.len", "pangea_s.PREV.min", "pangea_s.PREV.max", "pangea_s.PREV.base", "pangea_s.INTERVENTION.start", "pangea_s.INTERVENTION.mul", "pangea_s.ARCHIVAL.n", "pangea_s.MODEL", "pangea_s.PREV.max.n", "pangea_s.INTERVENTION.prop", "pangea_epi.model", "pangea_epi.acute", "pangea_epi.intervention", "pangea_epi.dt", "pangea_epi.import", "pangea_root.edge.fixed", "pangea_v.N0tau", "pangea_v.r", "pangea_v.T50", "pangea_wher.mu", "pangea_wher.sigma", "pangea_bwerm.mu", "pangea_bwerm.sigma", "pangea_er.gamma", "pangea_er.gtr", "pangea_sp.prop.of.sexactive", "pangea_report.prop.recent", "pangea_dbg.GTRparam", "pangea_dbg.rER", "pangea_index.starttime.mode", "pangea_startseq.mode", "pangea_seqtime.mode"]
+            "req": ["Rscript_path", "pangea_yr.start", "pangea_yr.end", "pangea_seed", "pangea_s.INC.recent", "pangea_s.INC.recent.len", "pangea_s.PREV.min", "pangea_s.PREV.max", "pangea_s.PREV.base", "pangea_s.INTERVENTION.start", "pangea_s.INTERVENTION.mul", "pangea_s.ARCHIVAL.n", "pangea_s.MODEL", "pangea_s.PREV.max.n", "pangea_s.INTERVENTION.prop", "pangea_epi.model", "pangea_epi.acute", "pangea_epi.intervention", "pangea_epi.dt", "pangea_epi.import", "pangea_root.edge.fixed", "pangea_v.N0tau", "pangea_v.r", "pangea_v.T50", "pangea_wher.mu", "pangea_wher.sigma", "pangea_bwerm.mu", "pangea_bwerm.sigma", "pangea_er.gamma", "pangea_er.gtr", "pangea_sp.prop.of.sexactive", "pangea_report.prop.recent", "pangea_dbg.GTRparam", "pangea_dbg.rER", "pangea_index.starttime.mode", "pangea_startseq.mode", "pangea_seqtime.mode"],
+
+            "dep": ["ContactNetwork_PANGEA", "ContactNetworkGenerator_PANGEA", "EndCriteria_Instant", "NodeEvolution_PANGEA", "NodeSample_PANGEA", "NumBranchSample_All", "NumTimeSample_PANGEA", "SeedSelection_PANGEA", "SeedSequence_PANGEA", "SequenceEvolution_PANGEA", "SourceSample_PANGEA", "TimeSample_PANGEA", "TransmissionNodeSample_PANGEA", "TransmissionTimeSample_PANGEA", "TreeUnit_Same"]
         },
 
         "SAISGEMF": {
-            "req": ["gemf_path", "end_time", "sais_beta_seed", "sais_beta_by_i", "sais_beta_a_seed", "sais_beta_a_by_i", "sais_kappa", "sais_delta"]
+            "req": ["gemf_path", "end_time", "sais_beta_seed", "sais_beta_by_i", "sais_beta_a_seed", "sais_beta_a_by_i", "sais_kappa", "sais_delta"],
+
+            "dep": ["EndCriteria_GEMF", "TransmissionNodeSample_GEMF"]
         },
 
         "SEIRGEMF": {
-            "req": ["gemf_path", "end_time", "seir_beta_seed", "seir_beta_by_i", "seir_lambda", "seir_delta"]
+            "req": ["gemf_path", "end_time", "seir_beta_seed", "seir_beta_by_i", "seir_lambda", "seir_delta"],
+
+            "dep": ["EndCriteria_GEMF", "TransmissionNodeSample_GEMF"]
         },
 
         "SI": {
-            "req": ["infection_rate"]
+            "req": ["infection_rate"],
+
+            "dep": ["TransmissionNodeSample_SI"]
         },
 
         "SIGEMF": {
-            "req": ["gemf_path", "end_time", "si_beta_seed", "si_beta_by_i"]
+            "req": ["gemf_path", "end_time", "si_beta_seed", "si_beta_by_i"],
+
+            "dep": ["EndCriteria_GEMF", "TransmissionNodeSample_GEMF"]
         },
 
         "SIRGEMF": {
-            "req": ["gemf_path", "end_time", "sir_beta_seed", "sir_beta_by_i", "sir_delta"]
+            "req": ["gemf_path", "end_time", "sir_beta_seed", "sir_beta_by_i", "sir_delta"],
+
+            "dep": ["EndCriteria_GEMF", "TransmissionNodeSample_GEMF"]
         },
 
         "SISGEMF": {
-            "req": ["gemf_path", "end_time", "sis_beta_seed", "sis_beta_by_i", "sis_delta"]
+            "req": ["gemf_path", "end_time", "sis_beta_seed", "sis_beta_by_i", "sis_delta"],
+
+            "dep": ["EndCriteria_GEMF", "TransmissionNodeSample_GEMF"]
         },
 
         "SVITRGEMF": {
-            "req": ["gemf_path", "end_time", "svitr_beta_seed", "svitr_beta_by_i", "svitr_beta_by_t", "svitr_delta", "svitr_s_to_v", "svitr_i_to_t", "svitr_t_to_r"]
+            "req": ["gemf_path", "end_time", "svitr_beta_seed", "svitr_beta_by_i", "svitr_beta_by_t", "svitr_delta", "svitr_s_to_v", "svitr_i_to_t", "svitr_t_to_r"],
+
+            "dep": ["EndCriteria_GEMF", "TransmissionNodeSample_GEMF"]
         },
 
         "TransmissionFile": {
-            "req": ["transmission_network_file"]
+            "req": ["transmission_network_file"],
+
+            "dep": ["EndCriteria_TransmissionFile", "SeedSelection_TransmissionFile", "TransmissionNodeSample_TransmissionFile"]
         }
     },
 
