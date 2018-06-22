@@ -629,6 +629,10 @@
     },
 
     "TreeUnit": {
+        "AutocorrelatedLogNormal": {
+            "req": ["tree_rate_v", "tree_rate_R0"]
+        },
+
         "ChiSquared": {
             "req": ["tree_rate_df"]
         },
