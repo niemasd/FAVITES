@@ -629,6 +629,10 @@
     },
 
     "TreeUnit": {
+        "ChiSquared": {
+            "req": ["tree_rate_df"]
+        },
+
         "ConstantRate": {
             "req": ["tree_mutation_rate"]
         },
