@@ -637,6 +637,10 @@
             "req": ["tree_mutation_rate"]
         },
 
+        "CoxIngersollRoss": {
+            "req": ["tree_rate_a", "tree_rate_b", "tree_rate_sigma", "tree_rate_R0"]
+        },
+
         "Exponential": {
             "req": ["tree_rate_scale"]
         },
@@ -647,6 +651,10 @@
 
         "LogNormal": {
             "req": ["tree_rate_mean", "tree_rate_stdev"]
+        },
+
+        "NoncentralChiSquared": {
+            "req": ["tree_rate_df", "tree_rate_lambda"]
         },
 
         "Same": {
