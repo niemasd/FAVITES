@@ -629,6 +629,10 @@
     },
 
     "TreeUnit": {
+        "AutocorrelatedConstantIncrement": {
+            "req": ["tree_rate_p", "tree_rate_delta", "tree_rate_R0", "tree_rate_min", "tree_rate_max"]
+        },
+
         "AutocorrelatedExponential": {
             "req": ["tree_rate_R0"]
         },
