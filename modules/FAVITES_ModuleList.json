@@ -629,12 +629,16 @@
     },
 
     "TreeUnit": {
-        "AutocorrelatedLogNormal": {
+        "AutocorrelatedExponential": {
+            "req": ["tree_rate_R0"]
+        },
+
+        "AutocorrelatedGamma": {
             "req": ["tree_rate_v", "tree_rate_R0"]
         },
 
-        "AutocorrelatedExponential": {
-            "req": ["tree_rate_R0"]
+        "AutocorrelatedLogNormal": {
+            "req": ["tree_rate_v", "tree_rate_R0"]
         },
 
         "ChiSquared": {
