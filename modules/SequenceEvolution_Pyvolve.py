@@ -88,11 +88,14 @@ class SequenceEvolution_Pyvolve(SequenceEvolution):
         label_to_node = MF.modules['TreeNode'].label_to_node()
         for root,treestr in GC.pruned_newick_trees:
             # run Pyvolve
+            treestr = treestr.strip()
             label = root.get_label()
             rootseq = root.get_seq()
             if GC.VERBOSE:
                 print('[%s] Pyvolve evolving sequences on tree: %s' % (datetime.now(),treestr), file=stderr)
                 print('[%s] Pyvolve root sequence: %s' % (datetime.now(),rootseq), file=stderr)
+            if treestr != '(':
+                treestr = '(%s);' % treestr[:-1]
             try:
                 tree = pyvolve.read_tree(tree=treestr)
                 partition = pyvolve.Partition(models=GC.pyvolve_model, root_sequence=rootseq)
