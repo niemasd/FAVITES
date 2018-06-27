@@ -9,9 +9,9 @@ Scale the branches of a given Newick tree.
 
 # scale branches by a constant
 def scale_constant(t,c):
-    for e in t.preorder_edge_iter():
-        if e.length is not None:
-           e.length *= c
+    for e in t.traverse_preorder():
+        if e.edge_length is not None:
+           e.edge_length *= c
 
 # scale branches by sampling multiplier from exponential
 def scale_exponential(t,s):
@@ -19,9 +19,9 @@ def scale_exponential(t,s):
         from numpy.random import exponential
     except:
         assert False, "Error loading NumPy. Install with: pip3 install numpy"
-    for e in t.preorder_edge_iter():
-        if e.length is not None:
-            e.length *= exponential(scale=s)
+    for e in t.traverse_preorder():
+        if e.edge_length is not None:
+            e.edge_length *= exponential(scale=s)
 
 # scale branches by sampling multipler from gamma
 def scale_gamma(t,shape,scale):
@@ -29,9 +29,9 @@ def scale_gamma(t,shape,scale):
         from numpy.random import gamma
     except:
         assert False, "Error loading NumPy. Install with: pip3 install numpy"
-    for e in t.preorder_edge_iter():
-        if e.length is not None:
-            e.length *= gamma(shape=shape,scale=scale)
+    for e in t.traverse_preorder():
+        if e.edge_length is not None:
+            e.edge_length *= gamma(shape=shape,scale=scale)
 
 # scale branches by sampling multipler from log-normal
 def scale_lognormal(t,mu,sigma):
@@ -39,28 +39,38 @@ def scale_lognormal(t,mu,sigma):
         from numpy.random import lognormal
     except:
         assert False, "Error loading NumPy. Install with: pip3 install numpy"
-    for e in t.preorder_edge_iter():
-        if e.length is not None:
-            e.length *= lognormal(mean=mu,sigma=sigma)
+    for e in t.traverse_preorder():
+        if e.edge_length is not None:
+            e.edge_length *= lognormal(mean=mu,sigma=sigma)
 
 # main function
 MODES = ['(C)onstant', '(E)xponential', '(G)amma', '(L)og-(N)ormal']
 if __name__ == "__main__":
     # parse args
-    from sys import stdout; import argparse
+    from sys import stdin,stdout; from gzip import open as gopen; import argparse
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('-t', '--tree', required=True, type=argparse.FileType('r'), help="Tree File")
-    parser.add_argument('-o', '--output', required=False, type=argparse.FileType('w'), default=stdout, help="Output File")
+    parser.add_argument('-i', '--input', required=True, type=str, default='stdin', help="Input Tree File")
+    parser.add_argument('-o', '--output', required=False, type=str, default='stdout', help="Output File")
     parser.add_argument('-m', '--mode', required=True, type=str, help="Mode: %s" % ', '.join(MODES))
     parser.add_argument('parameters', metavar='p', type=float, nargs='*', help="Mode Parameters")
     args,unknown = parser.parse_known_args()
+    if args.input == 'stdin':
+        treestr = stdin.read()
+    elif args.input.lower().endswith('.gz'):
+        treestr = gopen(args.input).read().decode()
+    else:
+        treestr = open(args.input).read()
+    if args.output == 'stdout':
+        args.output = stdout
+    else:
+        args.output = open(args.output,'w')
 
     # load tree and compute distances
     try:
-        from dendropy import Tree
+        from treeswift import read_tree_newick
     except:
         assert False, "Error loading DendroPy. Install with: pip3 install dendropy"
-    t = Tree.get(file=args.tree, schema='newick')
+    t = read_tree_newick(treestr)
     m = args.mode.lower()
     if m == 'c':
         assert len(args.parameters) == 1, "Constant Mode Usage: scale_tree.py -t TREE [-o OUTPUT] -m c CONSTANT"
@@ -76,4 +86,4 @@ if __name__ == "__main__":
         scale_lognormal(t,args.parameters[0],args.parameters[1])
     else:
         assert False, "Invalid mode. Options: %s" % ', '.join(MODES)
-    args.output.write("%s;\n" % str(t))
+    args.output.write("%s\n" % str(t)); args.output.close()
