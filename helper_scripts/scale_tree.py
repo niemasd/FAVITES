@@ -69,7 +69,7 @@ if __name__ == "__main__":
     try:
         from treeswift import read_tree_newick
     except:
-        assert False, "Error loading DendroPy. Install with: pip3 install dendropy"
+        assert False, "Error loading TreeSwift. Install with: pip3 install treeswift"
     t = read_tree_newick(treestr)
     m = args.mode.lower()
     if m == 'c':
