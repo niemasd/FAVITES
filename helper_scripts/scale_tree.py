@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 '''
 Scale the branches of a given Newick tree.
-* Autocorrelated Exponential: Scale tree by multiplying each branch by a multiplier sampled from an exponential r.v. with rate equal to parent's multiplier: scale_tree.py [-t TREE] [-o OUTPUT] -m ae SCALE
+* Autocorrelated Exponential: Scale tree by multiplying each branch by a multiplier sampled from an exponential r.v. with rate equal to parent's multiplier: scale_tree.py [-t TREE] [-o OUTPUT] -m ae ROOT_RATE
 * Constant: Scale tree by multiplying all branches by a constant n: scale_tree.py [-t TREE] [-o OUTPUT] -m c CONSTANT
 * Exponential: Scale tree by multiplying each branch by a multiplier sampled from an exponential r.v.: scale_tree.py [-t TREE] [-o OUTPUT] -m e SCALE
 * Gamma: Scale tree by multiplying each branch by a multiplier sampled from a gamma r.v.: scale_tree.py [-t TREE] [-o OUTPUT] -m g SHAPE SCALE
@@ -88,7 +88,7 @@ if __name__ == "__main__":
     t = read_tree_newick(treestr)
     m = args.mode.lower()
     if m == 'ae':
-        assert len(args.parameters) == 1, "Autocorrelated Exponential Mode Usage: scale_tree.py [-t TREE] [-o OUTPUT] -m ae SCALE"
+        assert len(args.parameters) == 1, "Autocorrelated Exponential Mode Usage: scale_tree.py [-t TREE] [-o OUTPUT] -m ae ROOT_RATE"
         scale_autocorrelated_exponential(t,args.parameters[0])
     elif m == 'c':
         assert len(args.parameters) == 1, "Constant Mode Usage: scale_tree.py [-t TREE] [-o OUTPUT] -m c CONSTANT"
