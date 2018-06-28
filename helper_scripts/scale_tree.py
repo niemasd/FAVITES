@@ -18,7 +18,7 @@ def scale_autocorrelated_exponential(t,s):
         if e.is_root():
             e.rate = s
         else:
-            e.rate = exponential(scale = 1./e.parent.rate)
+            e.rate = exponential(scale = e.parent.rate)
         if e.edge_length is not None:
             e.edge_length *= e.rate
 

@@ -3,8 +3,8 @@
 Niema Moshiri 2017
 
 "TreeUnit" module, where each branch's length (in time units) is multiplied by
-a rate that is sampled from an exponential distribution whose mean is the rate
-of the parent branch.
+a rate that is sampled from an exponential distribution whose scale parameter is
+the mutation rate of the parent branch.
 '''
 from TreeUnit import TreeUnit
 import FAVITES_GlobalContext as GC
@@ -42,7 +42,7 @@ class TreeUnit_AutocorrelatedExponential(TreeUnit):
             if node.is_root():
                 node.rate = GC.tree_rate_R0
             else:
-                node.rate = exponential(scale=1./node.parent.rate)
+                node.rate = exponential(scale=node.parent.rate)
             if node.edge_length is not None:
                 node.edge_length *= node.rate
         return str(t)
