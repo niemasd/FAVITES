@@ -19,6 +19,7 @@ class SeedSelection_CommunityRandom(SeedSelection):
         assert isinstance(GC.num_seeds_each_community, list), "num_seeds_each_community must be a list of positive integers"
         for e in GC.num_seeds_each_community:
             assert isinstance(e, int) and e >= 0, "num_seeds_each_community must be a list of non-negative integers"
+        assert sum(GC.num_seeds_each_community) > 0, "Must have at least 1 seed"
 
     def select_seeds():
         assert len(GC.num_seeds_each_community) == len(GC.cn_communities), "The length of num_seeds_each_community does not match the number of communities"
