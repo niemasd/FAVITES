@@ -43,7 +43,7 @@ for line in args.transmissions:
 user_individuals = set()
 for line in args.individuals:
     if isinstance(line,bytes):
-        l = line.decode.strip()
+        l = line.decode().strip()
     else:
         l = line.strip()
     assert l in nodes, "Individual not in transmission network: %s"%l
