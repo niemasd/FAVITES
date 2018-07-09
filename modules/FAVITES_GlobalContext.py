@@ -16,7 +16,7 @@ except ImportError:
     import queue as Q
 
 # useful constants
-FAVITES_VERSION = "1.1.20"
+FAVITES_VERSION = "1.1.21"
 C_INT_MAX = 2147483647
 CITATION_ART = 'Huang W., Li L., Myers J.R., Marth G.T. (2012). "ART: a next-generation sequencing read simulator". Bioinformatics. 28(4), 593-594.'
 CITATION_DENDROPY = 'Sukumaran J., Holder M.T. (2010). "DendroPy: A Python library for phylogenetic computing". Bioinformatics. 26, 1569-1571.'
@@ -32,6 +32,7 @@ CITATION_NUMPY = 'van der Walt S., Colber S.C., Varoquaux G. (2011). "The NumPy 
 CITATION_PANGEA = 'Ratmann O., Hodcroft E.B., Pickles M., Cori A., Hall M., Lycett S., Colijn C., Dearlove B., Didelot X., Frost S., Hossain A.S.M.M., Joy J.B., Kendall M., Kuhnert D., Leventhal G.E., Liang R., Plazzotta G., Poon A.F.Y, Rasmussen D.A., Stadler T., Volz E., Weis C., Brown A.J.L., Fraser C. (2016). "Phylogenetic Tools for Generalized HIV-1 Epidemics: Findings from the PANGEA-HIV Methods Comparison". Mol. Biol. Evol. 34(1), 185-203.'
 CITATION_PHYLOMMAND = 'Ryberg M. (2016). "Phylommand - a command line software package for phylogenetics [version 1; referees: 2 approved with reservations]". F1000Research 2016, 5:2903 (doi: 10.12688/f1000research.10446.1).'
 CITATION_PYVOLVE = 'Spielman S.J., Wilke C.O. (2015). "Pyvolve: A Flexible Python Module for Simulating Sequences along Phylogenies". PLoS One. 10(9), e0139047.'
+CITATION_SCIPY = 'Jones E., Oliphant E., Peterson P., et al. (2001). "SciPy: Open Source Scientific Tools for Python" (http://scipy.org/).'
 CITATION_SEQGEN = 'Rambaut A., Grassly N. C. (1997). "Seq-Gen: An application for the Monte Carlo simulation of DNA sequence evolution along phylogenetic trees". Comput. Appl. Biosci. 13, 235-238.'
 CITATION_TREESWIFT = 'Moshiri N. (2018). "TreeSwift: a massively scalable Python package for trees". bioRxiv:325522.'
 COMMUNITY_GENERATORS = ['ContactNetworkGenerator_Communities','ContactNetworkGenerator_Barbell','ContactNetworkGenerator_Caveman','ContactNetworkGenerator_CavemanConnected','ContactNetworkGenerator_CavemanRelaxed','ContactNetworkGenerator_RandomPartitionGraph']

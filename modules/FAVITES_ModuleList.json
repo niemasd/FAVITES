@@ -497,6 +497,10 @@
             "req": ["ts_truncnorm_loc", "ts_truncnorm_scale"]
         },
 
+        "TruncatedExponential": {
+            "req": []
+        },
+
         "Uniform": {
             "req": []
         }
