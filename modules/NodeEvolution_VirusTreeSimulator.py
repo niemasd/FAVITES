@@ -65,6 +65,8 @@ class NodeEvolution_VirusTreeSimulator(NodeEvolution):
             for u,v,t in GC.transmissions:
                 if u is None:
                     u = 'NA'
+                elif u == v:
+                    continue
                 f.write("%s,%s,%f\n" % (v,u,t))
                 nodes.add(u)
                 nodes.add(v)
