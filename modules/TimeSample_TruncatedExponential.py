@@ -46,6 +46,8 @@ class TimeSample_TruncatedExponential(TimeSample):
                 last_time = t
         if last_time is not None and t > last_time:
             windows.append((last_time, GC.time))
+        if len(windows) == 0:
+            windows.append((first_time, GC.time))
         truncexpon_variates = (truncexpon.rvs(1,size=num_times))
         out = []
         for i in range(num_times):

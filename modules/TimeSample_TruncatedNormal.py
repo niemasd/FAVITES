@@ -55,6 +55,8 @@ class TimeSample_TruncatedNormal(TimeSample):
                 last_time = t
         if last_time is not None and t > last_time:
             windows.append((last_time, GC.time))
+        if len(windows) == 0:
+            windows.append((first_time, GC.time))
         loc = (GC.ts_truncnorm_loc-0.5)*GC.ts_truncnorm_scale
         scale = 1.
         a = (-0.5 + (0.5-GC.ts_truncnorm_loc))*GC.ts_truncnorm_scale

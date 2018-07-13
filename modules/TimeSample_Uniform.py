@@ -32,6 +32,8 @@ class TimeSample_Uniform(TimeSample):
                 last_time = t
         if last_time is not None and t > last_time:
             windows.append((last_time, GC.time))
+        if len(windows) == 0:
+            windows.append((first_time, GC.time))
         weighted_die = {}
         for start,end in windows:
             weighted_die[(start,end)] = end-start
