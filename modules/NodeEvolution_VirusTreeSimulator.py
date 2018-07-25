@@ -75,8 +75,9 @@ class NodeEvolution_VirusTreeSimulator(NodeEvolution):
             # run VirusTreeSimulator on each seed individually
             GC.sampled_trees = set()
             for seed in trans_per_seed:
+                #if len(trans_per_seed) ==
                 nodes = set()
-                vts_trans = NamedTemporaryFile(mode='w')
+                vts_trans = open("ID_%s_trans.txt"%str(seed),'w')
                 vts_trans.write("IDREC,IDTR,TIME_TR\n")
                 for u,v,t in trans_per_seed[seed]:
                     if u is None:
@@ -86,66 +87,71 @@ class NodeEvolution_VirusTreeSimulator(NodeEvolution):
                     vts_trans.write("%s,%s,%f\n" % (v,u,t))
                     nodes.add(u); nodes.add(v)
                 vts_trans.flush()
-                vts_samples = NamedTemporaryFile(mode='w')
+                vts_samples = open("ID_%s_samples.txt"%str(seed),'w')
                 vts_samples.write("IDPOP,TIME_SEQ,SEQ_COUNT\n")
+                valid = False
                 for n in nodes:
                     if n in GC.cn_sample_times:
                         for t in sorted(GC.cn_sample_times[n]):
                             vts_samples.write("%s,%f,%d\n" % (n,t,MF.modules["NumBranchSample"].sample_num_branches(n,t)))
+                            valid = True
                 vts_samples.flush()
-                command = [GC.java_path,'-jar',jar_file,'-demoModel',GC.vts_model,'-N0',str(GC.vts_n0),'-growthRate',str(GC.vts_growthRate),'-t50',str(GC.vts_t50)]
-                if GC.random_number_seed is not None:
-                    command += ['-seed',str(GC.random_number_seed)]
-                    GC.random_number_seed += 1
-                command += [vts_trans.name,vts_samples.name,VTS_OUTPUT_PREFIX]
-                log_file = open("log_%s.txt"%str(seed),'w')
-                try:
-                    process = Popen(command, stdout=log_file, stderr=STDOUT)
-                    while process.returncode is None:
-                        process.poll()
-                        if "Failed to coalesce lineages: %d"%GC.vts_max_attempts in open("log_%s.txt"%str(seed)).read():
-                            process.kill(); raise RuntimeError("VirusTreeSimulator failed to coalesce after %d attempts. Perhaps the parameters are too unrealistic?"%GC.vts_max_attempts)
-                    process.wait(); process.communicate()
-                except FileNotFoundError:
-                    chdir(GC.START_DIR)
-                    assert False, "Java executable was not found: %s" % GC.java_path
-                log_file.close()
-                log_content = open("log_%s.txt"%str(seed)).read()
-                if "Unsupported major.minor version" in log_content:
-                    raise RuntimeError("VirusTreeSimulator.jar failed to run, likely because of an out-dated Java version. See %s/log_%s.txt for error information"%(VTS_OUTPUT_DIR,str(seed)))
-                elif "Usage: virusTreeBuilder" in log_content:
-                    raise RuntimeError("VirusTreeSimulator.jar failed to run. See %s/log_%s.txt for error information."%(VTS_OUTPUT_DIR,str(seed)))
-                try:
-                    parts = open('ID_%s_simple.nex'%str(seed)).read().strip().split('Translate')[1].split('tree TREE1')
-                    translate = [l.strip()[:-1].replace("'",'').split() for l in parts[0].splitlines()][1:-1]
-                    translate = [(a, MF.modules['TreeNode']().get_label()+'|'+b.split('_')[1]+'|'+b.split('_')[-1]) for a,b in translate]
-                    old2new = {old:new for old,new in translate}
-                    tree = parts[1].split('] = [&R] ')[1].splitlines()[0].strip()
-                    # add 0 length to branches with missing lengths
-                    tree = read_tree_newick(tree)
-                    for n in tree.traverse_preorder():
-                        if n.edge_length is None:
-                            n.edge_length = 0
-                    # translate labels back to FAVITES nodes
-                    tmpleaf = None
-                    for n in tree.traverse_leaves():
-                        n.label = old2new[str(n).replace("'","")]
-                        if tmpleaf is None:
-                            tmpleaf = n
-                    # add root edge length
-                    root_length = float(str(tmpleaf).split('|')[-1])
-                    while tmpleaf != None:
-                        root_length -= tmpleaf.edge_length
-                        tmpleaf = tmpleaf.parent
-                    tree = str(tree)
-                    virus = GC.seed_to_first_virus[seed]
-                    GC.sampled_trees.add((virus.get_root(),tree))
-                except FileNotFoundError:
-                    chdir(GC.START_DIR)
-                    assert False, "Failed to create tree. See %s/log_%s.txt for error information."%(VTS_OUTPUT_DIR,str(seed))
-                remove('log_%s.txt'%str(seed))
-                remove('ID_%s_simple.nex'%str(seed))
-                remove('ID_%s_detailed.nex'%str(seed))
+                if valid: # don't do anything if "samples" file is empty
+                    command = [GC.java_path,'-jar',jar_file,'-demoModel',GC.vts_model,'-N0',str(GC.vts_n0),'-growthRate',str(GC.vts_growthRate),'-t50',str(GC.vts_t50)]
+                    if GC.random_number_seed is not None:
+                        command += ['-seed',str(GC.random_number_seed)]
+                        GC.random_number_seed += 1
+                    command += ["ID_%s_trans.txt"%str(seed),"ID_%s_samples.txt"%str(seed),VTS_OUTPUT_PREFIX]
+                    log_file = open("ID_%s_log.txt"%str(seed),'w')
+                    try:
+                        process = Popen(command, stdout=log_file, stderr=STDOUT)
+                        while process.returncode is None:
+                            process.poll()
+                            if "Failed to coalesce lineages: %d"%GC.vts_max_attempts in open("ID_%s_log.txt"%str(seed)).read():
+                                process.kill(); raise RuntimeError("VirusTreeSimulator failed to coalesce after %d attempts. Perhaps the parameters are too unrealistic?"%GC.vts_max_attempts)
+                        process.wait(); process.communicate()
+                    except FileNotFoundError:
+                        chdir(GC.START_DIR)
+                        assert False, "Java executable was not found: %s" % GC.java_path
+                    log_file.close()
+                    log_content = open("ID_%s_log.txt"%str(seed)).read()
+                    if "Unsupported major.minor version" in log_content:
+                        raise RuntimeError("VirusTreeSimulator.jar failed to run, likely because of an out-dated Java version. See %s/ID_%s_log.txt for error information"%(VTS_OUTPUT_DIR,str(seed)))
+                    elif "Usage: virusTreeBuilder" in log_content:
+                        raise RuntimeError("VirusTreeSimulator.jar failed to run. See %s/ID_%s_log.txt for error information."%(VTS_OUTPUT_DIR,str(seed)))
+                    try:
+                        parts = open('ID_%s_simple.nex'%str(seed)).read().strip().split('Translate')[1].split('tree TREE1')
+                        translate = [l.strip()[:-1].replace("'",'').split() for l in parts[0].splitlines()][1:-1]
+                        translate = [(a, MF.modules['TreeNode']().get_label()+'|'+b.split('_')[1]+'|'+b.split('_')[-1]) for a,b in translate]
+                        old2new = {old:new for old,new in translate}
+                        tree = parts[1].split('] = [&R] ')[1].splitlines()[0].strip()
+                        # add 0 length to branches with missing lengths
+                        tree = read_tree_newick(tree)
+                        for n in tree.traverse_preorder():
+                            if n.edge_length is None:
+                                n.edge_length = 0
+                        # translate labels back to FAVITES nodes
+                        tmpleaf = None
+                        for n in tree.traverse_leaves():
+                            n.label = old2new[str(n).replace("'","")]
+                            if tmpleaf is None:
+                                tmpleaf = n
+                        # add root edge length
+                        root_length = float(str(tmpleaf).split('|')[-1])
+                        while tmpleaf != None:
+                            root_length -= tmpleaf.edge_length
+                            tmpleaf = tmpleaf.parent
+                        tree = str(tree)
+                        virus = GC.seed_to_first_virus[seed]
+                        GC.sampled_trees.add((virus.get_root(),tree))
+                    except FileNotFoundError:
+                        chdir(GC.START_DIR)
+                        assert False, "Failed to create tree. See %s/ID_%s_log.txt for error information."%(VTS_OUTPUT_DIR,str(seed))
+                    remove("ID_%s_log.txt"%str(seed))
+                    remove("ID_%s_simple.nex"%str(seed))
+                    remove("ID_%s_detailed.nex"%str(seed))
+                remove("ID_%s_trans.txt"%str(seed))
+                remove("ID_%s_samples.txt"%str(seed))
             chdir(orig_dir)
             rmdir(VTS_OUTPUT_DIR)
             GC.PRUNE_TREES = False
