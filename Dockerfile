@@ -52,6 +52,15 @@ RUN curl http://cegg.unige.ch/pub/newick-utils-1.6-Linux-x86_64-disabled-extra.t
 RUN wget http://www.mabs.at/ewing/msms/msms3.2rc-b163.zip && unzip msms3.2rc-b163.zip && \
     mv msms/lib/* /usr/local/lib && mv msms/bin/* /usr/local/bin && chmod a+x /usr/local/bin/msms && rm -rf msms*
 
+# Set up PangeaSim contact + transmission network model
+RUN wget -O- "https://github.com/niemasd/POPART-IBM/blob/PangeaSim/PANGEA_SIM.tar.gz?raw=true" | tar -zx && \
+    mkdir /usr/local/bin/PangeaSim && \
+    cd PANGEA_SIM/SCENARIO_HIGHACUTE && make && mv popart-simul.exe /usr/local/bin/PangeaSim/popart-simul-highacute && mv PangeaParams /usr/local/bin/PangeaSim/PangeaParams_HighAcute && \
+    cd         ../SCENARIO_LOWACUTE  && make && mv popart-simul.exe /usr/local/bin/PangeaSim/popart-simul-lowacute  && mv PangeaParams /usr/local/bin/PangeaSim/PangeaParams_LowAcute  && \
+    echo -e '#!/usr/bin/env bash\n/usr/local/bin/PangeaSim/popart-simul-highacute /usr/local/bin/PangeaSim/PangeaParams_HighAcute' > /usr/local/bin/PangeaSim_HighAcute && \
+    echo -e '#!/usr/bin/env bash\n/usr/local/bin/PangeaSim/popart-simul-lowacute /usr/local/bin/PangeaSim/PangeaParams_LowAcute'   > /usr/local/bin/PangeaSim_LowAcute  && \
+    chmod a+x /usr/local/bin/PangeaSim_*Acute && cd ../.. && rm -rf PANGEA_SIM
+
 # Set up FAVITES
 RUN git clone https://github.com/niemasd/FAVITES.git
 ENV PATH="/FAVITES:${PATH}"
