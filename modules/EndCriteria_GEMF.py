@@ -6,6 +6,7 @@ Niema Moshiri 2016
 (Sahneh et al. 2016).
 '''
 from EndCriteria import EndCriteria
+from EndCriteria_TransmissionFile import EndCriteria_TransmissionFile
 import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
 from os import chdir,getcwd
@@ -32,10 +33,10 @@ class EndCriteria_GEMF(EndCriteria):
         GC.gemf_out_dir = ('%s/GEMF_output' % GC.out_dir).replace('//','/')
 
     def done():
-        return GC.transmission_num == len(GC.transmission_file)
+        return EndCriteria_TransmissionFile.done()
 
     def not_done():
-        return not EndCriteria_TransmissionFile.done()
+        return EndCriteria_TransmissionFile.not_done()
 
     def finalize_time():
         # write GEMF output README for user
