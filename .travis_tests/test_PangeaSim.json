@@ -1,0 +1,48 @@
+{
+    "ContactNetwork":                "NetworkX",
+
+    "ContactNetworkGenerator":       "PangeaSim",
+    "PangeaSim_Acute":               "PangeaSim_HighAcute",
+
+    "Driver":                        "Default",
+    "out_dir":                       "out_PangeaSim",
+
+    "EndCriteria":                   "PangeaSim",
+
+    "Logging":                       "STDOUT",
+
+    "NodeAvailability":              "Perfect",
+
+    "NodeEvolution":                 "VirusTreeSimulator",
+    "java_path":                     "java",
+    "vts_growthRate":                2.851904,
+    "vts_model":                     "logistic",
+    "vts_n0":                        1,
+    "vts_t50":                       -2,
+    "vts_max_attempts":              100,
+
+    "NumBranchSample":               "Single",
+
+    "NumTimeSample":                 "Once",
+
+    "SeedSelection":                 "PangeaSim",
+
+    "SeedSequence":                  "Random",
+    "seed_sequence_length":          10,
+
+    "SequenceEvolution":             "NoMutation",
+
+    "Sequencing":                    "Perfect",
+
+    "SourceSample":                  "Random",
+
+    "TimeSample":                    "End",
+
+    "TransmissionNodeSample":        "PangeaSim",
+
+    "TransmissionTimeSample":        "PangeaSim",
+
+    "TreeNode":                      "Simple",
+
+    "TreeUnit":                      "Same",
+}

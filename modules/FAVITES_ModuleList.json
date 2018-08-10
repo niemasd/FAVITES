@@ -68,6 +68,12 @@
             "dep": ["ContactNetwork_PANGEA", "ContactNetworkGenerator_PANGEA", "EndCriteria_Instant", "NodeEvolution_PANGEA", "NodeSample_PANGEA", "NumBranchSample_All", "NumTimeSample_PANGEA", "SeedSelection_PANGEA", "SeedSequence_PANGEA", "SequenceEvolution_PANGEA", "SourceSample_PANGEA", "TimeSample_PANGEA", "TransmissionNodeSample_PANGEA", "TransmissionTimeSample_PANGEA", "TreeUnit_Same"]
         },
 
+        "PangeaSim": {
+            "req": ["PangeaSim_Acute"],
+
+            "dep": ["EndCriteria_PangeaSim", "SeedSelection_PangeaSim", "TransmissionNodeSample_PangeaSim", "TransmissionTimeSample_PangeaSim"]
+        },
+
         "RandomPartitionGraph": {
             "req": ["rpg_sizes", "rpg_p_in", "rpg_p_out", "d_or_u"]
         },
@@ -108,6 +114,12 @@
             "req": [],
 
             "dep": ["NodeEvolution_None", "NodeSample_Perfect", "SequenceEvolution_NoMutation", "Sequencing_Perfect", "TransmissionTime_Instant"]
+        },
+
+        "PangeaSim": {
+            "req": [],
+
+            "dep": ["ContactNetworkGenerator_PangeaSim", "SeedSelection_PangeaSim", "TransmissionNodeSample_PangeaSim", "TransmissionTimeSample_PangeaSim"]
         },
 
         "Time": {
@@ -270,6 +282,12 @@
             "req": ["Rscript_path", "pangea_yr.start", "pangea_yr.end", "pangea_seed", "pangea_s.INC.recent", "pangea_s.INC.recent.len", "pangea_s.PREV.min", "pangea_s.PREV.max", "pangea_s.PREV.base", "pangea_s.INTERVENTION.start", "pangea_s.INTERVENTION.mul", "pangea_s.ARCHIVAL.n", "pangea_s.MODEL", "pangea_s.PREV.max.n", "pangea_s.INTERVENTION.prop", "pangea_epi.model", "pangea_epi.acute", "pangea_epi.intervention", "pangea_epi.dt", "pangea_epi.import", "pangea_root.edge.fixed", "pangea_v.N0tau", "pangea_v.r", "pangea_v.T50", "pangea_wher.mu", "pangea_wher.sigma", "pangea_bwerm.mu", "pangea_bwerm.sigma", "pangea_er.gamma", "pangea_er.gtr", "pangea_sp.prop.of.sexactive", "pangea_report.prop.recent", "pangea_dbg.GTRparam", "pangea_dbg.rER", "pangea_index.starttime.mode", "pangea_startseq.mode", "pangea_seqtime.mode"],
 
             "dep": ["ContactNetwork_PANGEA", "ContactNetworkGenerator_PANGEA", "EndCriteria_Instant", "NodeEvolution_PANGEA", "NodeSample_PANGEA", "NumBranchSample_All", "NumTimeSample_PANGEA", "SeedSelection_PANGEA", "SeedSequence_PANGEA", "SequenceEvolution_PANGEA", "SourceSample_PANGEA", "TimeSample_PANGEA", "TransmissionNodeSample_PANGEA", "TransmissionTimeSample_PANGEA", "TreeUnit_Same"]
+        },
+
+        "PangeaSim": {
+            "req": [],
+
+            "dep": ["ContactNetworkGenerator_PangeaSim", "EndCriteria_PangeaSim", "TransmissionNodeSample_PangeaSim", "TransmissionTimeSample_PangeaSim"]
         },
 
         "Random": {
@@ -527,6 +545,12 @@
             "dep": ["ContactNetwork_PANGEA", "ContactNetworkGenerator_PANGEA", "EndCriteria_Instant", "NodeEvolution_PANGEA", "NodeSample_PANGEA", "NumBranchSample_All", "NumTimeSample_PANGEA", "SeedSelection_PANGEA", "SeedSequence_PANGEA", "SequenceEvolution_PANGEA", "SourceSample_PANGEA", "TimeSample_PANGEA", "TransmissionNodeSample_PANGEA", "TransmissionTimeSample_PANGEA", "TreeUnit_Same"]
         },
 
+        "PangeaSim": {
+            "req": [],
+
+            "dep": ["ContactNetworkGenerator_PangeaSim", "EndCriteria_PangeaSim", "SeedSelection_PangeaSim", "TransmissionTimeSample_PangeaSim"]
+        },
+
         "SI": {
             "req": ["infection_rate"],
 
@@ -575,6 +599,12 @@
             "req": ["Rscript_path", "pangea_yr.start", "pangea_yr.end", "pangea_seed", "pangea_s.INC.recent", "pangea_s.INC.recent.len", "pangea_s.PREV.min", "pangea_s.PREV.max", "pangea_s.PREV.base", "pangea_s.INTERVENTION.start", "pangea_s.INTERVENTION.mul", "pangea_s.ARCHIVAL.n", "pangea_s.MODEL", "pangea_s.PREV.max.n", "pangea_s.INTERVENTION.prop", "pangea_epi.model", "pangea_epi.acute", "pangea_epi.intervention", "pangea_epi.dt", "pangea_epi.import", "pangea_root.edge.fixed", "pangea_v.N0tau", "pangea_v.r", "pangea_v.T50", "pangea_wher.mu", "pangea_wher.sigma", "pangea_bwerm.mu", "pangea_bwerm.sigma", "pangea_er.gamma", "pangea_er.gtr", "pangea_sp.prop.of.sexactive", "pangea_report.prop.recent", "pangea_dbg.GTRparam", "pangea_dbg.rER", "pangea_index.starttime.mode", "pangea_startseq.mode", "pangea_seqtime.mode"],
 
             "dep": ["ContactNetwork_PANGEA", "ContactNetworkGenerator_PANGEA", "EndCriteria_Instant", "NodeEvolution_PANGEA", "NodeSample_PANGEA", "NumBranchSample_All", "NumTimeSample_PANGEA", "SeedSelection_PANGEA", "SeedSequence_PANGEA", "SequenceEvolution_PANGEA", "SourceSample_PANGEA", "TimeSample_PANGEA", "TransmissionNodeSample_PANGEA", "TransmissionTimeSample_PANGEA", "TreeUnit_Same"]
+        },
+
+        "PangeaSim": {
+            "req": [],
+
+            "dep": ["ContactNetworkGenerator_PangeaSim", "EndCriteria_PangeaSim", "SeedSelection_PangeaSim", "TransmissionNodeSample_PangeaSim"]
         },
 
         "SAISGEMF": {
