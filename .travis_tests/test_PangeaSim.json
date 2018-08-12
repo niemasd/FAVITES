@@ -2,7 +2,7 @@
     "ContactNetwork":                "NetworkX",
 
     "ContactNetworkGenerator":       "PangeaSim",
-    "PangeaSim_Acute":               "PangeaSim_HighAcute",
+    "PangeaSim_Acute":               "PangeaSim_LowAcute",
 
     "Driver":                        "Default",
     "out_dir":                       "out_PangeaSim",
