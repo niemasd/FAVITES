@@ -61,6 +61,11 @@ RUN wget -O- "https://github.com/niemasd/POPART-IBM/blob/PangeaSim/PANGEA_SIM.ta
     echo -e '#!/usr/bin/env bash\n/usr/local/bin/PangeaSim/popart-simul-lowacute /usr/local/bin/PangeaSim/PangeaParams_LowAcute'   > /usr/local/bin/PangeaSim_LowAcute  && \
     chmod a+x /usr/local/bin/PangeaSim_*Acute && cd ../.. && rm -rf PANGEA_SIM
 
+# Set up SimPhy
+RUN wget -O- "https://github.com/adamallo/SimPhy/releases/download/v1.0.2/SimPhy_1.0.2.tar.gz" | tar -zx && \
+    mv SimPhy_1.0.2/bin/simphy_lnx64 /usr/local/bin/simphy && chmod a+x /usr/local/bin/simphy && \
+    rm -rf *SimPhy* .*SimPhy*
+
 # Set up FAVITES
 RUN git clone https://github.com/niemasd/FAVITES.git
 ENV PATH="/FAVITES:${PATH}"
