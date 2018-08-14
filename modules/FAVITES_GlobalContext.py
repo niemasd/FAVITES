@@ -16,7 +16,7 @@ except ImportError:
     import queue as Q
 
 # useful constants
-FAVITES_VERSION = "1.1.26"
+FAVITES_VERSION = "1.1.27"
 C_INT_MAX = 2147483647
 CITATION_ART = 'Huang W., Li L., Myers J.R., Marth G.T. (2012). "ART: a next-generation sequencing read simulator". Bioinformatics. 28(4), 593-594.'
 CITATION_DENDROPY = 'Sukumaran J., Holder M.T. (2010). "DendroPy: A Python library for phylogenetic computing". Bioinformatics. 26, 1569-1571.'
@@ -543,3 +543,9 @@ def check_seqgen_executable():
     except Exception as e:
         s = str(e)
     assert "Usage: seq-gen" in s, "seqgen executable was not found: %s" % seqgen_path
+
+# check if string would be safe for eval()
+def check_eval_str(s):
+    if "'" in s or '"' in s:
+        return False
+    return True
