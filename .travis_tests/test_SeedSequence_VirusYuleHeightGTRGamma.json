@@ -46,7 +46,6 @@
     "seqgen_num_gamma_rate_categories": 1,
     "seqgen_path":                   "seq-gen",
     "viral_sequence_type":           "HIV1-B-DNA-POL-LITTLE",
-    "yule_path":                     "yule",
 
     "SequenceEvolution":             "NoMutation",
 

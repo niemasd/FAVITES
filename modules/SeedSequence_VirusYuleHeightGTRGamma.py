@@ -15,7 +15,8 @@ import FAVITES_GlobalContext as GC
 import modules.FAVITES_ModuleFactory as MF
 from os.path import expanduser
 from os import chdir,makedirs
-from subprocess import check_output,CalledProcessError
+from subprocess import CalledProcessError,check_output
+from treesap import yule_tree
 from treeswift import read_tree_newick
 
 OUT_FOLDER = "seed_sequences"
@@ -26,7 +27,6 @@ class SeedSequence_VirusYuleHeightGTRGamma(SeedSequence):
     def init():
         SeedSequence_Virus.init()
         SequenceEvolution_GTRGammaSeqGen.init()
-        GC.yule_path = expanduser(GC.yule_path.strip())
         GC.seed_height = float(GC.seed_height)
         assert GC.seed_height > 0, "seed_height must be positive"
         GC.check_seqgen_executable()
@@ -34,11 +34,7 @@ class SeedSequence_VirusYuleHeightGTRGamma(SeedSequence):
     def generate():
         if not hasattr(GC, "seed_sequences"):
             rootseq = SeedSequence_Virus.generate()
-            command = [GC.yule_path,'1','-n',str(len(GC.seed_nodes))]
-            if GC.random_number_seed is not None:
-                command += ['-s',str(GC.random_number_seed)]
-                GC.random_number_seed += 1
-            tmp = read_tree_newick(check_output(command).decode())
+            tmp = yule_tree(1, end_num_leaves=len(GC.seed_nodes))
             for node in tmp.traverse_preorder(leaves=False):
                 node.label = None
             tmp.scale_edges(GC.seed_height/tmp.height())
