@@ -14,10 +14,11 @@ from NodeEvolution import NodeEvolution
 import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
 from gzip import open as gopen
-from os import chdir,getcwd,makedirs,remove,rmdir
+from os import chdir,getcwd,makedirs,remove
 from os.path import expanduser
 from subprocess import Popen,STDOUT
 from glob import glob
+from shutil import rmtree
 from tempfile import NamedTemporaryFile
 
 VTS_OUTPUT_DIR = "VirusTreeSimulator_output"
@@ -141,9 +142,9 @@ class NodeEvolution_VirusTreeSimulator(NodeEvolution):
                         while tmpleaf != None:
                             root_length -= tmpleaf.edge_length
                             tmpleaf = tmpleaf.parent
-                        tree = str(tree)
+                        tree.root.edge_length += root_length
                         virus = GC.seed_to_first_virus[seed]
-                        GC.sampled_trees.add((virus.get_root(),tree))
+                        GC.sampled_trees.add((virus.get_root(),tree.newick()))
                     except FileNotFoundError:
                         chdir(GC.START_DIR)
                         assert False, "Failed to create tree. See %s/ID_%s_log.txt for error information."%(VTS_OUTPUT_DIR,str(seed))
@@ -153,5 +154,5 @@ class NodeEvolution_VirusTreeSimulator(NodeEvolution):
                 remove("ID_%s_trans.txt"%str(seed))
                 remove("ID_%s_samples.txt"%str(seed))
             chdir(orig_dir)
-            rmdir(VTS_OUTPUT_DIR)
+            rmtree(VTS_OUTPUT_DIR, ignore_errors=True)
             GC.PRUNE_TREES = False
