@@ -245,17 +245,6 @@ class Driver_Default(Driver):
         GC.pruned_newick_trees_time = [e for e in GC.sampled_trees] # (rootvirus,treestr) tuples
         LOG.writeln(" done")
 
-        # write phylogenetic trees (time) as Newick files
-        LOG.write("Writing true phylogenetic trees (time) to files...")
-        for i,e in enumerate(GC.pruned_newick_trees_time):
-            f = gopen('error_free_files/phylogenetic_trees/tree_%d.time.tre.gz' % i,'wb',9)
-            f.write(e[1].strip().encode()); f.write(b'\n')
-            f.close()
-        LOG.writeln(" done")
-        LOG.writeln("True phylogenetic trees (time) were written to: %s/error_free_files/phylogenetic_trees/" % environ['out_dir_print'])
-        if GC.VERBOSE:
-            print('[%s] Wrote phylogenetic trees (time)' % datetime.now(), file=stderr)
-
         # convert trees from unit of time to unit of mutation rate
         LOG.write("Converting trees from time to mutation rate...")
         if GC.VERBOSE:
@@ -263,32 +252,34 @@ class Driver_Default(Driver):
         GC.pruned_newick_trees = [(e[0],MF.modules['TreeUnit'].time_to_mutation_rate(e[1])) for e in GC.pruned_newick_trees_time]
         LOG.writeln(" done")
 
-        # write phylogenetic trees (expected number of mutations) as Newick files
-        LOG.write("Writing true phylogenetic trees (expected number of mutations) to files...")
-        GC.final_tree_to_root_seq = []
-        for i,e in enumerate(GC.pruned_newick_trees):
-            f = gopen('error_free_files/phylogenetic_trees/tree_%d.tre.gz' % i,'wb',9)
-            f.write(e[1].strip().encode()); f.write(b'\n')
-            f.close()
-            GC.final_tree_to_root_seq.append(e[0].get_seq())
-        LOG.writeln(" done")
-        LOG.writeln("True phylogenetic trees (expected number of mutations) were written to: %s/error_free_files/phylogenetic_trees/" % environ['out_dir_print'])
-        if GC.VERBOSE:
-            print('[%s] Wrote phylogenetic trees (expected number of mutations)' % datetime.now(), file=stderr)
-
         # merge cluster trees with seed tree (if applicable)
         LOG.write("Merging true phylogenetic trees with true seed tree (if applicable)...")
+        GC.final_tree_to_root_seq = [e[0].get_seq() for i,e in enumerate(GC.pruned_newick_trees)]
         GC.merged_trees,GC.merged_trees_time = MF.modules['SeedSequence'].merge_trees()
-        for i in range(len(GC.merged_trees)):
-            f = gopen('error_free_files/phylogenetic_trees/merged_tree_%d.tre.gz' % i,'wb',9)
-            f.write(GC.merged_trees[i].strip().encode()); f.write(b'\n')
-            f.close()
-            f = gopen('error_free_files/phylogenetic_trees/merged_tree_%d.time.tre.gz' % i,'wb',9)
-            f.write(GC.merged_trees_time[i].strip().encode()); f.write(b'\n')
-            f.close()
         LOG.writeln(" done")
+
+        # write phylogenetic trees (expected number of mutations) as Newick files
+        LOG.write("Writing true phylogenetic tree(s) to file(s)...")
+        if len(GC.merged_trees) == 0:
+            for i in range(len(GC.pruned_newick_trees)):
+                f = gopen('error_free_files/phylogenetic_trees/tree_%d.tre.gz' % i,'wb',9)
+                f.write(GC.pruned_newick_trees[i][1].strip().encode()); f.write(b'\n')
+                f.close()
+                f = gopen('error_free_files/phylogenetic_trees/tree_%d.time.tre.gz' % i,'wb',9)
+                f.write(GC.pruned_newick_trees_time[i][1].strip().encode()); f.write(b'\n')
+                f.close()
+        else:
+            for i in range(len(GC.merged_trees)):
+                f = gopen('error_free_files/phylogenetic_trees/merged_tree_%d.tre.gz' % i,'wb',9)
+                f.write(GC.merged_trees[i].strip().encode()); f.write(b'\n')
+                f.close()
+                f = gopen('error_free_files/phylogenetic_trees/merged_tree_%d.time.tre.gz' % i,'wb',9)
+                f.write(GC.merged_trees_time[i].strip().encode()); f.write(b'\n')
+                f.close()
+        LOG.writeln(" done")
+        LOG.writeln("True phylogenetic trees were written to: %s/error_free_files/phylogenetic_trees" % environ['out_dir_print'])
         if GC.VERBOSE:
-            print('[%s] Merged trees with seed tree (if applicable)' % datetime.now(), file=stderr)
+            print('[%s] Wrote phylogenetic trees (expected number of mutations)' % datetime.now(), file=stderr)
 
         # finalize sequence data
         LOG.write("Finalizing sequence simulations...")
@@ -298,13 +289,14 @@ class Driver_Default(Driver):
         LOG.writeln(" done")
 
         # write error-free sequence data
-        LOG.writeln("Writing final sequence data to file...")
+        LOG.write("Writing final sequence data to file...")
         f = gopen('error_free_files/sequence_data.fasta.gz','wb',9)
         for cn_label in GC.final_sequences:
             for t in GC.final_sequences[cn_label]:
                 for l,s in GC.final_sequences[cn_label][t]:
                     f.write((">%s\n%s\n" % (l,s)).encode())
         f.close()
+        LOG.writeln(" done")
         LOG.writeln("True sequence data were written to: %s/error_free_files" % environ['out_dir_print'])
         LOG.writeln()
         if GC.VERBOSE:
