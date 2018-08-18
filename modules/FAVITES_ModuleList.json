@@ -769,6 +769,10 @@
 
         "Uniform": {
             "req": ["tree_rate_min", "tree_rate_max"]
+        },
+
+        "Weibull": {
+            "req": ["tree_rate_shape", "tree_rate_scale"]
         }
     }
 }
