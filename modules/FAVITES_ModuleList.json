@@ -751,6 +751,10 @@
             "req": ["tree_rate_shape"]
         },
 
+        "Rayleigh": {
+            "req": ["tree_rate_scale"]
+        },
+
         "Same": {
             "req": []
         }
