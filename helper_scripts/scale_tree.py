@@ -7,13 +7,14 @@ Scale the branches of a given Newick tree.
 * Gamma: Scale tree by multiplying each branch by a multiplier sampled from a gamma r.v.: scale_tree.py [-t TREE] [-o OUTPUT] -m g SHAPE SCALE
 * Log-Normal: Scale tree by multiplying each branch by a multiplier sampled from a log-normal r.v.: scale_tree.py [-t TREE] [-o OUTPUT] -m ln MU SIGMA
 '''
+NUMPY_IMPORT_ERROR = "Error importing NumPy. Install with: pip3 install numpy"
 
 # scale branches by autocorrelated exponential
 def scale_autocorrelated_exponential(t,s):
     try:
         from numpy.random import exponential
     except:
-        assert False, "Error loading NumPy. Install with: pip3 install numpy"
+        assert False, NUMPY_IMPORT_ERROR
     for e in t.traverse_preorder():
         if e.is_root():
             e.rate = s
@@ -33,7 +34,7 @@ def scale_exponential(t,s):
     try:
         from numpy.random import exponential
     except:
-        assert False, "Error loading NumPy. Install with: pip3 install numpy"
+        assert False, NUMPY_IMPORT_ERROR
     for e in t.traverse_preorder():
         if e.edge_length is not None:
             e.edge_length *= exponential(scale=s)
@@ -43,7 +44,7 @@ def scale_gamma(t,shape,scale):
     try:
         from numpy.random import gamma
     except:
-        assert False, "Error loading NumPy. Install with: pip3 install numpy"
+        assert False, NUMPY_IMPORT_ERROR
     for e in t.traverse_preorder():
         if e.edge_length is not None:
             e.edge_length *= gamma(shape=shape,scale=scale)
@@ -53,13 +54,23 @@ def scale_lognormal(t,mu,sigma):
     try:
         from numpy.random import lognormal
     except:
-        assert False, "Error loading NumPy. Install with: pip3 install numpy"
+        assert False, NUMPY_IMPORT_ERROR
     for e in t.traverse_preorder():
         if e.edge_length is not None:
             e.edge_length *= lognormal(mean=mu,sigma=sigma)
 
+# scale branches by sampling multiplier from normal
+def scale_normal(t,mu,sigma):
+    try:
+        from numpy.random import normal
+    except:
+        assert False, NUMPY_IMPORT_ERROR
+    for e in t.traverse_preorder():
+        if e.edge_length is not None:
+            e.edge_length *= normal(loc=mu,scale=sigma)
+
 # main function
-MODES = ['(C)onstant', '(E)xponential', '(G)amma', '(L)og-(N)ormal']
+MODES = ['(C)onstant', '(E)xponential', '(G)amma', '(L)og-(N)ormal', '(N)ormal']
 if __name__ == "__main__":
     # parse args
     from sys import stdin,stdout; from gzip import open as gopen; import argparse
@@ -102,6 +113,9 @@ if __name__ == "__main__":
     elif m == 'ln':
         assert len(args.parameters) == 2, "Log-Normal Mode Usage: scale_tree.py [-t TREE] [-o OUTPUT] -m ln MU SIGMA"
         scale_lognormal(t,args.parameters[0],args.parameters[1])
+    elif m == 'n':
+        assert len(args.parameters) == 2, "Normal Mode Usage: scale_tree.py [-t TREE] [-o OUTPUT] -m n MEAN STDEV"
+        scale_normal(t,args.parameters[0],args.parameters[1])
     else:
         assert False, "Invalid mode. Options: %s" % ', '.join(MODES)
     args.output.write("%s\n" % str(t)); args.output.close()
