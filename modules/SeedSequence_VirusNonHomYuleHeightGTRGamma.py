@@ -39,6 +39,7 @@ class SeedSequence_VirusNonHomYuleHeightGTRGamma(SeedSequence):
             tmp = nonhomogeneous_yule_tree(lambda t: eval(GC.seed_speciation_rate_func), end_num_leaves=len(GC.seed_nodes))
             for node in tmp.traverse_preorder(leaves=False):
                 node.label = None
+            tmp.root.edge_length = 0 # don't count root edge in height
             tmp.scale_edges(GC.seed_height/tmp.height())
             treestr = tmp.newick().replace('[&R] ','')
             makedirs(OUT_FOLDER, exist_ok=True)
