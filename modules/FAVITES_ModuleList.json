@@ -687,6 +687,10 @@
             "req": ["tree_rate_v", "tree_rate_R0"]
         },
 
+        "Beta": {
+            "req": ["tree_rate_a", "tree_rate_b"]
+        },
+
         "ChiSquared": {
             "req": ["tree_rate_df"]
         },
