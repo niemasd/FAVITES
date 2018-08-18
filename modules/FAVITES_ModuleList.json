@@ -743,6 +743,10 @@
             "req": ["tree_rate_mean", "tree_rate_stdev"]
         },
 
+        "Pareto": {
+            "req": ["tree_rate_shape"]
+        },
+
         "Same": {
             "req": []
         }
