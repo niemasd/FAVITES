@@ -723,6 +723,10 @@
             "req": ["tree_rate_loc", "tree_rate_scale"]
         },
 
+        "InverseGaussian": {
+            "req": ["tree_rate_mean", "tree_rate_shape"]
+        },
+
         "Logistic": {
             "req": ["tree_rate_loc", "tree_rate_scale"]
         },
