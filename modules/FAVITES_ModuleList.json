@@ -747,6 +747,10 @@
             "req": ["tree_rate_shape"]
         },
 
+        "Power": {
+            "req": ["tree_rate_shape"]
+        },
+
         "Same": {
             "req": []
         }
