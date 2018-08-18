@@ -28,9 +28,9 @@ class TreeUnit_Beta(TreeUnit):
             chdir(GC.START_DIR)
             assert False, "Error loading TreeSwift. Install with: pip3 install treeswift"
         GC.tree_rate_a = float(GC.tree_rate_a)
-        assert GC.tree_rate_a >= 0, "tree_rate_a must be non-negative"
+        assert GC.tree_rate_a > 0, "tree_rate_a must be positive"
         GC.tree_rate_b = float(GC.tree_rate_b)
-        assert GC.tree_rate_b >= 0, "tree_rate_b must be non-negative"
+        assert GC.tree_rate_b > 0, "tree_rate_b must be positive"
 
     def time_to_mutation_rate(tree):
         if not hasattr(GC,"NUMPY_SEEDED"):
