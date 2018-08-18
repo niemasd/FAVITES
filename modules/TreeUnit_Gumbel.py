@@ -3,19 +3,19 @@
 Niema Moshiri 2017
 
 "TreeUnit" module, where each branch's length (in time units) is multiplied by
-a rate that is sampled from a user-parameterized F-distribution.
+a rate that is sampled from a user-parameterized Gumbel distribution.
 '''
 from TreeUnit import TreeUnit
 import FAVITES_GlobalContext as GC
 
-class TreeUnit_F(TreeUnit):
+class TreeUnit_Gumbel(TreeUnit):
     def cite():
         return GC.CITATION_NUMPY
 
     def init():
         try:
-            global f_dist
-            from numpy.random import f as f_dist
+            global gumbel
+            from numpy.random import gumbel
         except:
             from os import chdir
             chdir(GC.START_DIR)
@@ -27,10 +27,10 @@ class TreeUnit_F(TreeUnit):
             from os import chdir
             chdir(GC.START_DIR)
             assert False, "Error loading TreeSwift. Install with: pip3 install treeswift"
-        GC.tree_rate_dfnum = int(GC.tree_rate_dfnum)
-        assert GC.tree_rate_dfnum > 0, "tree_rate_dfnum must be a positive integer"
-        GC.tree_rate_dfden = int(GC.tree_rate_dfden)
-        assert GC.tree_rate_dfden > 0, "tree_rate_dfden must be a positive integer"
+        GC.tree_rate_loc = float(GC.tree_rate_loc)
+        assert GC.tree_rate_loc > 0, "tree_rate_loc must be positive"
+        GC.tree_rate_scale = float(GC.tree_rate_scale)
+        assert GC.tree_rate_scale > 0, "tree_rate_scale must be positive"
 
     def time_to_mutation_rate(tree):
         if not hasattr(GC,"NUMPY_SEEDED"):
@@ -41,5 +41,5 @@ class TreeUnit_F(TreeUnit):
         t = read_tree_newick(tree)
         for node in t.traverse_preorder():
             if node.edge_length is not None:
-                node.edge_length *= f_dist(dfnum=GC.tree_rate_dfnum,dfden=GC.tree_rate_dfden)
+                node.edge_length *= gumbel(loc=GC.tree_rate_loc,scale=GC.tree_rate_scale)
         return str(t)
