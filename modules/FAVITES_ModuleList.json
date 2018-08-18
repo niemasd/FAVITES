@@ -711,6 +711,10 @@
             "req": ["tree_rate_scale"]
         },
 
+        "F": {
+            "req": ["tree_rate_dfnum", "tree_rate_dfden"]
+        },
+
         "Gamma": {
             "req": ["tree_rate_shape", "tree_rate_scale"]
         },
