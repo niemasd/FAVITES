@@ -17,7 +17,7 @@ RUN pip3 install dendropy && \
     pip3 install pyvolve
 
 # Set up ART (MountRainier-2016-06-05)
-RUN curl https://www.niehs.nih.gov/research/resources/assets/docs/artsrcmountrainier20160605linuxtgz.tgz | tar xz && \
+RUN wget -O- "https://github.com/niemasd/FAVITES/blob/master/dependencies/artsrcmountrainier2016.06.05linux.tgz?raw=true" | tar xz && \
     cd art_src_MountRainier_Linux && make && mv art_* /usr/local/bin && cd .. && rm -rf art_src_MountRainier_Linux
 
 # Set up DWGSIM
