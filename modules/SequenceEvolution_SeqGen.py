@@ -8,8 +8,10 @@ from SequenceEvolution import SequenceEvolution
 import FAVITES_GlobalContext as GC
 import modules.FAVITES_ModuleFactory as MF
 from datetime import datetime
+from io import StringIO
 from os.path import expanduser
-from os import chdir,getcwd,makedirs
+from os import chdir,getcwd,makedirs,remove
+from shutil import rmtree
 from subprocess import CalledProcessError,check_output,STDOUT
 from sys import stderr
 
@@ -54,7 +56,7 @@ class SequenceEvolution_SeqGen(SequenceEvolution):
         # perform sequence evolution
         assert len(GC.pruned_newick_trees) != 0, "No trees were generated"
         for root,treestr in GC.pruned_newick_trees:
-            treestr = treestr.strip()
+            treestr = treestr.strip().replace('[&R] ','')
             if ',' not in treestr: # if one-node tree, add DUMMY 0-length leaf
                 treestr = "(DUMMY:0,%s);" % treestr.replace('(','').replace(')','')[:-1]
             else: # otherwise, resolve polytomies and unifurcations
@@ -77,19 +79,19 @@ class SequenceEvolution_SeqGen(SequenceEvolution):
                 GC.random_number_seed += 1
             command += GC.seqgen_args.split()
             try:
-                seqgen_out = check_output(command, stdin=open(label+'.txt'), stderr=open('log_'+label+'.txt','w')).decode('ascii')
+                seqgen_out = check_output(command, stdin=open('%s.txt'%label), stderr=open('log_%s.txt'%label,'w')).decode('ascii')
             except CalledProcessError as e:
                 f = open('seqgen.err','w'); f.write(str(e)); f.close()
                 chdir(GC.START_DIR)
                 assert False, "Seq-Gen encountered an error while processing: %s" % label
             error = False
-            for line in open('log_'+label+'.txt'):
+            for line in open('log_%s.txt'%label):
                 if line.startswith("Error"): # have to manually check for errors (Seq-Gen exits with status 0)
                     error = True; break
             if error:
                 chdir(GC.START_DIR)
                 assert False, "Seq-Gen encountered an error while processing: %s" % label
-            f = open('seqgen_%s.out' % label,'w'); f.write(seqgen_out); f.close()
+            remove('log_%s.txt'%label); remove('%s.txt'%label)
 
             # store leaf sequences in GlobalContext
             if not hasattr(GC,'final_sequences'): # GC.final_sequences[cn_node][t] = set of (label,seq) tuples
@@ -106,3 +108,4 @@ class SequenceEvolution_SeqGen(SequenceEvolution):
                     GC.final_sequences[cn_label][sample_time] = []
                 GC.final_sequences[cn_label][sample_time].append((leaf,seq))
         chdir(orig_dir)
+        rmtree(SEQGEN_OUTPUT_DIR, ignore_errors=True)
