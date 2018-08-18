@@ -757,6 +757,10 @@
 
         "Same": {
             "req": []
+        },
+
+        "Triangular": {
+            "req": ["tree_rate_left", "tree_rate_mode", "tree_rate_right"]
         }
     }
 }
