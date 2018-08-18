@@ -703,6 +703,10 @@
             "req": ["tree_rate_a", "tree_rate_b", "tree_rate_sigma", "tree_rate_R0"]
         },
 
+        "Dirichlet": {
+            "req": ["tree_rate_alpha"]
+        },
+
         "Exponential": {
             "req": ["tree_rate_scale"]
         },
