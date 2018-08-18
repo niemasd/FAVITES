@@ -60,7 +60,7 @@ class SequenceEvolution_SeqGen(SequenceEvolution):
             else: # otherwise, resolve polytomies and unifurcations
                 tmp = read_tree_newick(treestr)
                 tmp.suppress_unifurcations(); tmp.resolve_polytomies()
-                treestr = str(tmp)#.replace("'",'')
+                treestr = tmp.newick().replace('[&R] ','')
 
             # run Seq-Gen
             label = root.get_label()

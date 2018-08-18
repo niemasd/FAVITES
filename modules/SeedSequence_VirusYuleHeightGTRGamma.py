@@ -38,7 +38,7 @@ class SeedSequence_VirusYuleHeightGTRGamma(SeedSequence):
             for node in tmp.traverse_preorder(leaves=False):
                 node.label = None
             tmp.scale_edges(GC.seed_height/tmp.height())
-            treestr = tmp.newick()
+            treestr = tmp.newick().replace('[&R] ','')
             makedirs(OUT_FOLDER, exist_ok=True)
             f = open(OUT_FOLDER + '/time_tree.tre','w')
             f.write(treestr)
