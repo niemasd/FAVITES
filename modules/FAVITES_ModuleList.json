@@ -715,6 +715,10 @@
             "req": ["tree_rate_df", "tree_rate_lambda"]
         },
 
+        "Normal": {
+            "req": ["tree_rate_mean", "tree_rate_stdev"]
+        },
+
         "Same": {
             "req": []
         }
