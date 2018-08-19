@@ -46,7 +46,7 @@ class SeedSequence_VirusNonHomYuleHeightGTRGamma(SeedSequence):
             f = open(OUT_FOLDER + '/time_tree.tre','w')
             f.write(treestr)
             f.close()
-            treestr = MF.modules['TreeUnit'].time_to_mutation_rate(treestr)
+            treestr = MF.modules['TreeUnit'].time_to_mutation_rate(treestr).replace('[&R] ','')
             seqgen_file = OUT_FOLDER + '/seed.txt'
             f = open(seqgen_file, 'w')
             f.write("1 %d\nROOT %s\n1\n%s" % (len(rootseq),rootseq,treestr))

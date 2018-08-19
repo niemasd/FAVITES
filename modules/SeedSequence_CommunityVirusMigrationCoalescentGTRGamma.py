@@ -21,7 +21,7 @@ from os import chdir,makedirs
 OUT_FOLDER = "seed_sequences"
 class SeedSequence_CommunityVirusMigrationCoalescentGTRGamma(SeedSequence):
     def cite():
-        return [GC.CITATION_HMMER, GC.CITATION_MSMS, GC.CITATION_TREESWIFT, GC.CITATION_SEQGEN]
+        return [GC.CITATION_HMMER, GC.CITATION_MSMS, GC.CITATION_SEQGEN]
 
     def init():
         GC.msms_path = expanduser(GC.msms_path.strip())
@@ -51,26 +51,6 @@ class SeedSequence_CommunityVirusMigrationCoalescentGTRGamma(SeedSequence):
         if not hasattr(GC, "seed_sequences"):
             assert len(GC.community_seed_populations) == len(GC.cn_communities), "The length of community_seed_populations does not match the number of communities"
             seed_nodes_str = {n.get_name() for n in GC.seed_nodes}
-            '''
-            leaf_num = 0
-            for i in range(len(GC.cn_communities)):
-                community_seeds = [n for n in GC.cn_communities[i] if n in seed_nodes_str]
-
-                if len(community_seeds) != 0:
-                    t = dendropy.Tree.get(data=GC.pure_kingman_tree(len(community_seeds), pop_size=GC.community_seed_populations[i]),schema='newick')
-                    for n in t.leaf_node_iter():
-                        n.taxon = dendropy.datamodel.taxonmodel.Taxon(str(leaf_num))
-                        leaf_num += 1
-                    community_trees.append(t)
-            assert len(community_trees) != 0, "No community seed trees produced"
-            if len(community_trees) == 1:
-                treestr = community_trees[0].as_string(schema='newick')
-            else:
-                t = dendropy.Tree.get(data=GC.pure_kingman_tree(len(community_trees), pop_size=GC.community_root_population),schema='newick')
-                for n in t.leaf_node_iter():
-                    n.add_child(community_trees.pop().seed_node)
-                t.suppress_unifurcations()
-                treestr = t.as_string(schema='newick')'''
             command = [GC.msms_path, str(len(GC.seed_nodes)), '1', '-T', '-t', str(GC.community_seed_scaled_mutation_rate), '-I', str(len(GC.cn_communities))]
             s = 0
             for c in GC.cn_communities:
