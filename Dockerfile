@@ -11,6 +11,7 @@ RUN echo "y\nexit\n" | cpan
 # Set up Python 3 and modules
 RUN pip3 install dendropy && \
     pip3 install treeswift && \
+    pip3 install treesap && \
     pip3 install networkx && \
     pip3 install numpy && \
     pip3 install scipy && \
