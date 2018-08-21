@@ -767,6 +767,10 @@
             "req": ["tree_rate_left", "tree_rate_mode", "tree_rate_right"]
         },
 
+        "TruncatedNormal": {
+            "req": ["tree_rate_loc", "tree_rate_scale", "tree_rate_min", "tree_rate_max"]
+        },
+
         "Uniform": {
             "req": ["tree_rate_min", "tree_rate_max"]
         },
