@@ -69,8 +69,18 @@ def scale_normal(t,mu,sigma):
         if e.edge_length is not None:
             e.edge_length *= normal(loc=mu,scale=sigma)
 
+# scale branches by sampling multiplier from truncated normal
+def scale_truncnorm(t,a,b,loc,scale):
+    try:
+        from scipy.stats import truncnorm
+    except:
+        assert False, SCIPY_IMPORT_ERROR
+    for e in t.traverse_preorder():
+        if e.edge_length is not None:
+            e.edge_length *= truncnorm.rvs(a,b,loc,scale,size=1)[0]
+
 # main function
-MODES = ['(C)onstant', '(E)xponential', '(G)amma', '(L)og-(N)ormal', '(N)ormal']
+MODES = ['(C)onstant', '(E)xponential', '(G)amma', '(L)og-(N)ormal', '(N)ormal', '(T)runcated (N)ormal']
 if __name__ == "__main__":
     # parse args
     from sys import stdin,stdout; from gzip import open as gopen; import argparse
@@ -116,6 +126,9 @@ if __name__ == "__main__":
     elif m == 'n':
         assert len(args.parameters) == 2, "Normal Mode Usage: scale_tree.py [-t TREE] [-o OUTPUT] -m n MEAN STDEV"
         scale_normal(t,args.parameters[0],args.parameters[1])
+    elif m == 'tn':
+        assert len(args.parameters) == 4, "Truncated Normal Mode Usage: scale_tree.py [-t] TREE [-o] OUTPUT -m tn MIN MAX LOC SCALE"
+        scale_truncnorm(t,args.parameters[0],args.parameters[1],args.parameters[2],args.parameters[3])
     else:
         assert False, "Invalid mode. Options: %s" % ', '.join(MODES)
     args.output.write("%s\n" % str(t)); args.output.close()
