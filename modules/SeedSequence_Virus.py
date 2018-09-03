@@ -20,6 +20,9 @@ URL = {
     # HIV-1 Subtype B (San Diego) (Little et al 2014)
     'HIV1-B-DNA-POL-LITTLE': 'https://raw.githubusercontent.com/niemasd/Virus-Data/master/HIV/profile_HMMs/DNA/HIV1_B_Little_pol_DNA.hmm',
 
+    # HIV-1 Subtype D (Uganda, 2005-2014) (Los Alamos)
+    'HIV1-D-DNA-POL-UGANDA': 'https://raw.githubusercontent.com/niemasd/Virus-Data/master/HIV/profile_HMMs/DNA/HIV1_D_Uganda_pol_DNA.hmm',
+
     # HIV-1 All Subtypes (Los Alamos)
     'HIV1-DNA-ENV':    'https://raw.githubusercontent.com/niemasd/Virus-Data/master/HIV/profile_HMMs/DNA/HIV1_FLT_2016_env_DNA.hmm',
     'HIV1-DNA-GAG':    'https://raw.githubusercontent.com/niemasd/Virus-Data/master/HIV/profile_HMMs/DNA/HIV1_FLT_2016_gag_DNA.hmm',
