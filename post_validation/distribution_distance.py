@@ -45,13 +45,13 @@ if __name__ == "__main__":
 
     # load datasets
     if args.dist1.lower().endswith('.gz'):
-        p_vec = [float(l.decode()) for l in gopen(args.dist1)]
+        p_vec = [float(l) for l in gopen(args.dist1).read().decode().strip().splitlines()]
     else:
-        p_vec = [float(l) for l in open(args.dist1)]
+        p_vec = [float(l) for l in open(args.dist1).read().strip().splitlines()]
     if args.dist2.lower().endswith('.gz'):
-        q_vec = [float(l.decode()) for l in gopen(args.dist2)]
+        q_vec = [float(l) for l in gopen(args.dist2).read().decode().strip().splitlines()]
     else:
-        q_vec = [float(l) for l in open(args.dist1)]
+        q_vec = [float(l) for l in open(args.dist2).read().strip().splitlines()]
 
     # compute distances
     if args.distance.lower() in NEED_NUM_POINTS:
