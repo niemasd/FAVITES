@@ -24,6 +24,18 @@ This directory contains a series of tools that can be used to post-validate the 
             * `ks`: Kolmogorov-Smirnov Distance (returns a (distanc, p-value) tuple)
         * `NUM_POINTS`: Number of Points when Discretizing PDF (used in jsd, jsm)
 
+* **[ltt.py](ltt.py):** Create an LTT plot from one or more Newick trees
+    * Usage: `ltt.py [-h] [-p PRESENT_DAY [PRESENT_DAY ...]] [-t TITLE] [-xl XLABEL] [-yl YLABEL] [-xmin XMIN] [-xmax XMAX] [-ymin YMIN] [-ymax YMAX] tree [tree ...]`
+        * `PRESENT_DAY`: Present day times (time of furthest distance from root) for each of the input trees
+        * `TITLE`: Figure title
+        * `XLABEL`: X-axis label
+        * `YLABEL`: Y-axis label
+        * `XMIN`: Minimum X value
+        * `XMAX`: Maximum X value
+        * `YMIN`: Minimum Y value
+        * `YMAX`: Maximum Y value
+        * `tree`: Tree(s) (Newick format)
+
 * **[sequence_score_profile_HMM.py](sequence_score_profile_HMM.py):** Score a given sequence dataset against a given profile HMM
     * Usage: `sequence_score_profile_HMM.py [-h] -H HMM -s SEQ [-q] [-a HMMSEARCH]`
         * `HMM`: Profile HMM (HMMER format)

@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 
 # parse user args
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-parser.add_argument('trees', metavar='N', type=str, nargs='+', help="Newick Trees")
+parser.add_argument('tree', type=str, nargs='+', help="Newick Trees")
 parser.add_argument('-p', '--present_day', required=False, type=float, default=None, nargs='+', help="Present Day (furthest time from root)")
 parser.add_argument('-t', '--title', required=False, type=str, default=None, help="Figure Title")
 parser.add_argument('-xl', '--xlabel', required=False, type=str, default=None, help="X-Axis Label")
