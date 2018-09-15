@@ -52,7 +52,6 @@ if args.ymin is not None:
     ymin = args.ymin
 if args.ymax is not None:
     ymax = args.ymax
-plt.xlim(xmin=xmin,xmax=xmax)
-plt.ylim(ymin=ymin,ymax=ymax)
-legend = plt.legend(handles=handles)#,bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0., frameon=True)
+plt.xlim(xmin=xmin,xmax=xmax); plt.ylim(ymin=ymin,ymax=ymax)
+legend = plt.legend(handles=handles)
 plt.show()
