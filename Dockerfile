@@ -1,12 +1,12 @@
 # FAVITES minimal docker image using Ubuntu base
-FROM ubuntu:18.04
+FROM ubuntu:16.04
 MAINTAINER Niema Moshiri <niemamoshiri@gmail.com>
 
 # Set up environment
 RUN apt-get update && apt-get -y upgrade && \
     apt-get install -y autoconf curl default-jre git gsl-bin libcurl4-openssl-dev libgsl0-dev libmodule-install-perl libncurses5-dev libncursesw5-dev libssl-dev python python-pip python3 python3-pip unzip wget zlib1g-dev
-RUN echo "'urllist' => [\n    q[http://mirror.bhoovd.com/CPAN/],\n    q[http://cpan.develooper.com/],\n    q[http://cpan.cs.utah.edu/]\n]," >> /etc/perl/CPAN/Config.pm
-RUN echo "y\nexit\n" | cpan
+RUN echo -e "'urllist' => [\n    q[http://mirror.bhoovd.com/CPAN/],\n    q[http://cpan.develooper.com/],\n    q[http://cpan.cs.utah.edu/]\n]," >> /etc/perl/CPAN/Config.pm
+RUN echo -e "y\nexit\n" | cpan
 
 # Set up Python 3 and modules
 RUN pip3 install dendropy && \
@@ -31,7 +31,7 @@ RUN git clone https://github.com/niemasd/GEMF.git && \
 
 # Set up Grinder
 RUN wget --no-check-certificate -qO- https://tenet.dl.sourceforge.net/project/biogrinder/biogrinder/Grinder-0.5.4/Grinder-0.5.4.tar.gz | tar -xz && \
-    cd Grinder* && echo "y\n" | perl "Makefile.PL" && echo "yes\n" | make && make install && cd .. && rm -rf Grinder*
+    cd Grinder* && echo -e "y\n" | perl "Makefile.PL" && echo -e "yes\n" | make && make install && cd .. && rm -rf Grinder*
 
 # Set up HMMER
 RUN curl http://eddylab.org/software/hmmer3/3.1b2/hmmer-3.1b2-linux-intel-x86_64.tar.gz | tar xz && \
