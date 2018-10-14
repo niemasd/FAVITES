@@ -86,6 +86,10 @@
             "dep": ["EndCriteria_PangeaSim", "SeedSelection_PangeaSim", "TransmissionNodeSample_PangeaSim", "TransmissionTimeSample_PangeaSim"]
         },
 
+        "PowerlawClusterGraph": {
+            "req": ["num_cn_nodes", "pcg_m", "pcg_p"]
+        },
+
         "RandomPartitionGraph": {
             "req": ["rpg_sizes", "rpg_p_in", "rpg_p_out", "d_or_u"]
         },
