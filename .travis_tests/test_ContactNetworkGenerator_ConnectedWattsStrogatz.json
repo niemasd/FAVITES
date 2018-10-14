@@ -1,10 +1,11 @@
 {
     "ContactNetwork":                "NetworkX",
 
-    "ContactNetworkGenerator":       "NewmanWattsStrogatz",
+    "ContactNetworkGenerator":       "ConnectedWattsStrogatz",
     "num_cn_nodes":                  10,
-    "nws_k":                         2,
-    "nws_prob":                      0.1,
+    "cws_k":                         2,
+    "cws_prob":                      0.1,
+    "cws_tries":                     100,
 
     "Driver":                        "Default",
     "out_dir":                       "out_ContactNetworkGenerator_NewmanWattsStrogatz",

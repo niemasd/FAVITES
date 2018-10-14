@@ -50,6 +50,10 @@
             "req": ["num_cn_nodes"]
         },
 
+        "ConnectedWattsStrogatz": {
+            "req": ["num_cn_nodes", "cws_k", "cws_prob", "cws_tries"]
+        },
+
         "DegreeDistribution": {
             "req": ["cn_degree_distribution", "cn_tries"]
         },
