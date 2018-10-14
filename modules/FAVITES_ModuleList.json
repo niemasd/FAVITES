@@ -50,6 +50,10 @@
             "req": ["num_cn_nodes"]
         },
 
+        "DegreeDistribution": {
+            "req": ["cn_degree_distribution", "cn_tries"]
+        },
+
         "ErdosRenyi": {
             "req": ["num_cn_nodes", "er_prob", "d_or_u"]
         },
