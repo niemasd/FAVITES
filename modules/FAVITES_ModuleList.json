@@ -26,6 +26,10 @@
             "req": ["num_cn_nodes", "num_edges_from_new"]
         },
 
+        "BarabasiAlbertExtended": {
+            "req": ["num_cn_nodes", "num_edges_from_new", "bae_p", "bae_q"]
+        },
+
         "Barbell": {
             "req": ["barbell_m1", "barbell_m2"]
         },
