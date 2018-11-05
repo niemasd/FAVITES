@@ -2,9 +2,11 @@
 '''
 Niema Moshiri 2016
 
-"ContactNetworkGenerator" module, where a ContactNetworkGenerator is specified
-for each community, and each possible cross-community edge occurs with
-probability p.
+"ContactNetworkGenerator" module, where the contact network is sampled using
+the Stochastic Block Barabasi-Albert model: a BA graph is sampled for each
+community independently with different values of m parameter between 1 and
+cng_m, and random edges are placed between nodes of different communities with
+probability cng_p.
 '''
 from ContactNetworkGenerator import ContactNetworkGenerator
 import FAVITES_GlobalContext as GC
