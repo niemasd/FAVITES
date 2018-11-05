@@ -98,6 +98,10 @@
             "req": ["num_cn_nodes", "cn_degree"]
         },
 
+        "StochasticBlockBA": {
+            "req": ["cng_m", "cng_p", "cng_N"]
+        },
+
         "WattsStrogatz": {
             "req": ["num_cn_nodes", "ws_k", "ws_prob"]
         },
