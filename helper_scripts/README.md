@@ -30,6 +30,14 @@ This directory contains a series of tools that can be used to help users with va
         * `TRANSMISSION_NETWORK`: FAVITES-format transmission network
         * `OUTPUT` Output file (default: standard output)
 
+* **[label_internal_nodes.py](label_internal_nodes.py):** Label the internal nodes of a simulated tree with the corresponding infected individual
+    * Usage: `label_internal_nodes.py [-h] -tn TRANSMISSION_NETWORK -tt TREE_TIME [-tm TREE_MUTATION] -ot OUTPUT_TIME [-om OUTPUT_MUTATION]`
+        * `TRANSMISSION_NETWORK`: FAVITES-format transmission network
+        * `TREE_TIME`: Simulated tree in unit of time
+        * `TREE_MUTATION`: Simulated tree in unit of expected number of per-site mutations
+        * `OUTPUT_TIME`: Output labeled tree in unit of time
+        * `OUTPUT_MUTATION`: Output labeled tree in unit of expected number of per-site mutations
+
 * **[PANGEA_transmissions_to_FAVITES.py](PANGEA_transmissions_to_FAVITES.py):** Convert a PANGEA transmission network into the FAVITES edge-list format
     * Usage: `PANGEA_transmissions_to_FAVITES.py [-h] -i INPUT [-o OUTPUT]`
         * `INPUT`: Input PANGEA transmission network (.csv)
