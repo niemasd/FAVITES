@@ -16,7 +16,7 @@ except ImportError:
     import queue as Q
 
 # useful constants
-FAVITES_VERSION = "1.1.33"
+FAVITES_VERSION = "1.1.34"
 C_INT_MAX = 2147483647
 CITATION_ART = 'Huang W., Li L., Myers J.R., Marth G.T. (2012). "ART: a next-generation sequencing read simulator". Bioinformatics. 28(4), 593-594.'
 CITATION_DENDROPY = 'Sukumaran J., Holder M.T. (2010). "DendroPy: A Python library for phylogenetic computing". Bioinformatics. 26, 1569-1571.'
@@ -35,7 +35,7 @@ CITATION_PYVOLVE = 'Spielman S.J., Wilke C.O. (2015). "Pyvolve: A Flexible Pytho
 CITATION_SCIPY = 'Jones E., Oliphant E., Peterson P., et al. (2001). "SciPy: Open Source Scientific Tools for Python" (http://scipy.org/).'
 CITATION_SEQGEN = 'Rambaut A., Grassly N. C. (1997). "Seq-Gen: An application for the Monte Carlo simulation of DNA sequence evolution along phylogenetic trees". Comput. Appl. Biosci. 13, 235-238.'
 CITATION_TREESWIFT = 'Moshiri N. (2018). "TreeSwift: a massively scalable Python package for trees". bioRxiv:325522.'
-COMMUNITY_GENERATORS = ['ContactNetworkGenerator_Communities','ContactNetworkGenerator_Barbell','ContactNetworkGenerator_Caveman','ContactNetworkGenerator_CavemanConnected','ContactNetworkGenerator_CavemanRelaxed','ContactNetworkGenerator_RandomPartitionGraph']
+COMMUNITY_GENERATORS = ['ContactNetworkGenerator_Communities','ContactNetworkGenerator_Barbell','ContactNetworkGenerator_Caveman','ContactNetworkGenerator_CavemanConnected','ContactNetworkGenerator_CavemanRelaxed','ContactNetworkGenerator_RandomPartitionGraph','ContactNetworkGenerator_StochasticBlockBA']
 
 def init(reqs):
     '''
