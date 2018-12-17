@@ -6,13 +6,15 @@ user-selected individuals between from_time and to_time).
 from gzip import open as gopen
 import argparse
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-parser.add_argument('-i', '--individuals', required=True, type=str, help="Individuals (one per line)")
+parser.add_argument('-i', '--individuals', required=False, type=str, default='stdin', help="Individuals (one per line)")
 parser.add_argument('-tn', '--transmissions', required=True, type=str, help="Transmission Network (FAVITES format)")
 parser.add_argument('-t', '--from_time', required=True, type=float, help="From Time")
 parser.add_argument('-tt', '--to_time', required=False, type=float, default=float('inf'), help="To Time")
 
 args = parser.parse_args()
 assert args.to_time > args.from_time, "To Time must be larger than From Time"
+if args.individuals == 'stdin':
+    from sys import stdin; args.individuals = stdin.read().strip().splitlines()
 if args.individuals.endswith('.gz'):
     args.individuals = gopen(args.individuals).read().strip().decode().splitlines()
 else:
