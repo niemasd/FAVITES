@@ -15,7 +15,7 @@ args = parser.parse_args()
 assert args.to_time > args.from_time, "To Time must be larger than From Time"
 if args.individuals == 'stdin':
     from sys import stdin; args.individuals = stdin.read().strip().splitlines()
-if args.individuals.endswith('.gz'):
+elif args.individuals.endswith('.gz'):
     args.individuals = gopen(args.individuals).read().strip().decode().splitlines()
 else:
     args.individuals = open(args.individuals).read().strip().splitlines()
