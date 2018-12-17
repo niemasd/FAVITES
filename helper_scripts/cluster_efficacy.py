@@ -18,9 +18,9 @@ if args.individuals.endswith('.gz'):
 else:
     args.individuals = open(args.individuals)
 if args.transmissions.endswith('.gz'):
-    args.transmissions = gopen(args.transmissions)
+    args.transmissions = gopen(args.transmissions).read().strip().decode().splitlines()
 else:
-    args.transmissions = open(args.transmissions)
+    args.transmissions = open(args.transmissions).read().strip().splitlines()
 
 # load FAVITES transmission network
 trans = []; nodes = set()
