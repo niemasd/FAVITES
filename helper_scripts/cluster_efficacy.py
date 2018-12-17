@@ -14,9 +14,9 @@ parser.add_argument('-tt', '--to_time', required=False, type=float, default=floa
 args = parser.parse_args()
 assert args.to_time > args.from_time, "To Time must be larger than From Time"
 if args.individuals.endswith('.gz'):
-    args.individuals = gopen(args.individuals)
+    args.individuals = gopen(args.individuals).read().strip().decode().splitlines()
 else:
-    args.individuals = open(args.individuals)
+    args.individuals = open(args.individuals).read().strip().splitlines()
 if args.transmissions.endswith('.gz'):
     args.transmissions = gopen(args.transmissions).read().strip().decode().splitlines()
 else:
