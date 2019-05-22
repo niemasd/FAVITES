@@ -28,7 +28,11 @@ def is_main_version(tag):
 # get the latest FAVITES Docker image main version
 def get_latest_version():
     try:
-        DOCKER_TAGS = [t for t in urlopen("https://hub.docker.com/r/niemasd/favites/tags/").read().decode('utf-8').split('"tags":')[1].split(':')[-1][1:-2].replace('"','').split(',') if '.' in t]
+        DOCKER_TAGS = list(); curr_url = "https://hub.docker.com/v2/repositories/niemasd/favites/tags/?page=1"
+        while curr_url is not None:
+            tmp = eval(urlopen(curr_url).read().decode('utf-8').replace(': null',': None').replace(': true',': True'))
+            DOCKER_TAGS += [e['name'] for e in tmp['results']]
+            curr_url = tmp['next']
         DOCKER_TAGS = [tag for tag in DOCKER_TAGS if is_main_version(tag)] # remove non-main-version
         DOCKER_TAGS = [tuple(int(i) for i in tag.split('.')) for tag in DOCKER_TAGS] # convert to tuple of ints
         DOCKER_TAGS.sort() # sort in ascending order
