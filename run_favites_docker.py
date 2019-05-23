@@ -86,7 +86,7 @@ if 'errorfree_sequence_file' in CONFIG_DICT:
     ERRORFREE_SEQ_FILE = abspath(expanduser(CONFIG_DICT['errorfree_sequence_file']))
     CONFIG_DICT['errorfree_sequence_file'] = '/FAVITES_MOUNT/%s' % ERRORFREE_SEQ_FILE.split('/')[-1]
 TMP_CONFIG = NamedTemporaryFile('w')
-TMP_CONFIG.write(str(CONFIG_DICT))
+TMP_CONFIG.write(str(CONFIG_DICT).replace(": inf",": float('inf')"))
 TMP_CONFIG.flush()
 
 # pull the newest versioned Docker image (if applicable)

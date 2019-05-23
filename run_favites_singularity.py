@@ -110,7 +110,7 @@ if 'errorfree_sequence_file' in CONFIG_DICT:
     copyfile(ERRORFREE_SEQ_FILE, DELETE_AFTER[-1])
 DELETE_AFTER.append('%s/USER_CONFIG.JSON' % OUTPUT_DIR)
 TMP_CONFIG = open(DELETE_AFTER[-1],'w')
-TMP_CONFIG.write(str(CONFIG_DICT))
+TMP_CONFIG.write(str(CONFIG_DICT).replace(": inf",": float('inf')"))
 TMP_CONFIG.close()
 
 # pull the newest versioned Docker image (if applicable)
