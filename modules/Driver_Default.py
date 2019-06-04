@@ -162,7 +162,7 @@ class Driver_Default(Driver):
                 break
             assert t >= GC.time, "Transmission cannot go back in time!"
             u,v = MF.modules['TransmissionNodeSample'].sample_nodes(t)
-            if (u is None and v is None) or MF.modules['EndCriteria'].done():
+            if u is None and v is None:
                 break
             GC.time = t
             if u == v: # u = v implies uninfection (recovery or death)
