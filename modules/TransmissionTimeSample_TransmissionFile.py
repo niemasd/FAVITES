@@ -21,4 +21,7 @@ class TransmissionTimeSample_TransmissionFile(TransmissionTimeSample):
         # SeedSelection_TransmissionFile sets everything up
 
     def sample_time():
-        return GC.transmission_file[GC.transmission_num][2]
+        try:
+            return GC.transmission_file[GC.transmission_num][2]
+        except IndexError:
+            return None
