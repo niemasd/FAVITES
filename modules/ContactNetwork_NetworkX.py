@@ -76,12 +76,12 @@ class ContactNetwork_NetworkX(ContactNetwork):
                 self.num_to_name.append(name)
                 self.contact_network.add_node(num)
                 if parts[2] == '.':
-                    self.contact_network.node[num]['attribute'] = set()
+                    self.contact_network.nodes[num]['attribute'] = set()
                 else:
-                    self.contact_network.node[num]['attribute'] = set([e.strip().upper() for e in parts[2].split(',')])
-                self.contact_network.node[num]['infections_from'] = []
-                self.contact_network.node[num]['infections_to'] = []
-                self.contact_network.node[num]['infection_trees'] = []
+                    self.contact_network.nodes[num]['attribute'] = set([e.strip().upper() for e in parts[2].split(',')])
+                self.contact_network.nodes[num]['infections_from'] = []
+                self.contact_network.nodes[num]['infections_to'] = []
+                self.contact_network.nodes[num]['infection_trees'] = []
 
             # add edge to contact network
             elif parts[0] == 'EDGE':

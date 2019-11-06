@@ -26,7 +26,7 @@ class SeedSelection_TransmissionFile(SeedSelection):
         else:
             GC.transmission_file = [i.strip().split() for i in open(expanduser(GC.transmission_network_file)) if len(i.strip()) > 0 and i[0] != '#']
         for i in range(len(GC.transmission_file)):
-            GC.transmission_file[i][2] = float(GC.transmission_file[i][2])
+            GC.transmission_file[i][2] = float(GC.transmission_file[i][2]) # cast times to float
         GC.transmission_num = 0
 
     def select_seeds():
