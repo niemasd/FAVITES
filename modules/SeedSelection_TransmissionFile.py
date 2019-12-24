@@ -27,10 +27,12 @@ class SeedSelection_TransmissionFile(SeedSelection):
             GC.transmission_file = [i.strip().split() for i in open(expanduser(GC.transmission_network_file)) if len(i.strip()) > 0 and i[0] != '#']
         for i in range(len(GC.transmission_file)):
             GC.transmission_file[i][2] = float(GC.transmission_file[i][2]) # cast times to float
+            if GC.transmission_file[i][0] == 'None': # fix late seeds
+                GC.transmission_file[i][0] = None
         GC.transmission_num = 0
 
     def select_seeds():
         seeds = []
-        while GC.transmission_file[GC.transmission_num][0] == "None":
+        while GC.transmission_file[GC.transmission_num][0] == None:
             seeds.append(GC.contact_network.get_node(GC.transmission_file[GC.transmission_num][1])); GC.transmission_num += 1
         return seeds
