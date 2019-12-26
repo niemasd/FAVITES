@@ -17,6 +17,7 @@ EPIMODEL_OUTPUT_CONTACTS = 'output_contact_network.tsv'
 EPIMODEL_OUTPUT_TRANSMISSIONS = 'output_transmission_network.tsv'
 EPIMODEL_LOG_STDOUT = 'EpiModel_stdout.log'
 EPIMODEL_LOG_STDERR = 'EpiModel_stderr.log'
+EPIMODEL_R_SESSION_FILE = 'output_session.RData'
 
 class ContactNetworkGenerator_EpiModel(ContactNetworkGenerator):
     def cite():
@@ -28,6 +29,11 @@ class ContactNetworkGenerator_EpiModel(ContactNetworkGenerator):
         assert "TransmissionNodeSample_EpiModel" in str(MF.modules['TransmissionNodeSample']), "Must use TransmissionNodeSample_EpiModel module"
         assert "TransmissionTimeSample_EpiModel" in str(MF.modules['TransmissionTimeSample']), "Must use TransmissionTimeSample_EpiModel module"
         assert isinstance(GC.Rscript_path, str), "Rscript_path must be a str"
+        if isinstance(GC.epimodel_save_session, str):
+            assert GC.epimodel_save_session.lower() in {'true','false'}, "GC.epimodel_save_session must be True or False"
+            GC.epimodel_save_session = bool(GC.epimodel_save_session.capitalize())
+        else:
+            assert isinstance(GC.epimodel_save_session, bool), "GC.epimodel_save_session must be True or False"
         assert isinstance(GC.epimodel_type, str), "epimodel_type must be a str"
         GC.epimodel_type = GC.epimodel_type.strip()
         assert GC.epimodel_type in EPIDEMIC_TYPES, "Invalid epimodel_type: %s (valid options: %s)" % (GC.epimodel_type, ', '.join(sorted(EPIDEMIC_TYPES)))
@@ -101,6 +107,8 @@ class ContactNetworkGenerator_EpiModel(ContactNetworkGenerator):
         f.write("), file = '%s', quote = FALSE, sep = '\\t', col.names = NA)\n" % EPIMODEL_OUTPUT_INDIVIDUALS)
         f.write("write.table(as.data.frame(dyn.net), file = '%s', quote = FALSE, sep = '\\t', col.names = NA)\n" % EPIMODEL_OUTPUT_CONTACTS)
         f.write("write.table(as.data.frame(EpiModel::get_transmat(epi.sim, sim = 1)), file = '%s', quote = FALSE, sep = '\\t', col.names = NA)\n" % EPIMODEL_OUTPUT_TRANSMISSIONS)
+        if GC.epimodel_save_session:
+            f.write("save.image('%s')" % EPIMODEL_R_SESSION_FILE)
         f.close()
 
         # run EpiModel and parse output

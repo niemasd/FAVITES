@@ -8,6 +8,7 @@
     "epimodel_attributes":           [("community",5)],
     "epimodel_formation_line":       'formation <- ~edges + nodematch("community")',
     "epimodel_nsteps":               100,
+    "epimodel_save_session":         True,
     "epimodel_target_stats_line":    'target.stats <- c(100, 50)',
     "epimodel_type":                 "SIR",
     "num_cn_nodes":                  100,
