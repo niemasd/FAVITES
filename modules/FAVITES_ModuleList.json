@@ -17,7 +17,7 @@
         },
 
         "PANGEA": {
-            "req": [],
+            "req": []
         }
     },
 
@@ -56,6 +56,12 @@
 
         "DegreeDistribution": {
             "req": ["cn_degree_distribution", "cn_tries"]
+        },
+
+        "EpiModel": {
+            "req": ["epimodel_type", "num_cn_nodes", "epimodel_attributes", "epimodel_nsteps", "num_init_infected", "num_init_recovered", "recovery_rate", "transmission_probability", "act_rate", "epimodel_formation_line", "epimodel_target_stats_line"],
+
+            "dep": ["ContactNetworkGenerator_EpiModel", "EndCriteria_EpiModel", "TransmissionNodeSample_EpiModel", "TransmissionTimeSample_EpiModel"]
         },
 
         "ErdosRenyi": {
@@ -108,7 +114,7 @@
 
         "WattsStrogatzConnected": {
             "req": ["num_cn_nodes", "wsc_k", "wsc_prob", "wsc_tries"]
-        },
+        }
     },
 
     "ContactNetworkNode": {
@@ -128,6 +134,12 @@
     },
 
     "EndCriteria": {
+        "EpiModel": {
+            "req": ["epimodel_type", "num_cn_nodes", "epimodel_attributes", "epimodel_nsteps", "num_init_infected", "num_init_recovered", "recovery_rate", "transmission_probability", "act_rate", "epimodel_formation_line", "epimodel_target_stats_line"],
+
+            "dep": ["ContactNetworkGenerator_EpiModel", "EndCriteria_EpiModel", "TransmissionNodeSample_EpiModel", "TransmissionTimeSample_EpiModel"]
+        },
+
         "FirstTimeTransmissions": {
             "req": ["end_time", "end_transmissions"]
         },
@@ -561,6 +573,12 @@
     },
 
     "TransmissionNodeSample": {
+        "EpiModel": {
+            "req": ["epimodel_type", "num_cn_nodes", "epimodel_attributes", "epimodel_nsteps", "num_init_infected", "num_init_recovered", "recovery_rate", "transmission_probability", "act_rate", "epimodel_formation_line", "epimodel_target_stats_line"],
+
+            "dep": ["ContactNetworkGenerator_EpiModel", "EndCriteria_EpiModel", "TransmissionNodeSample_EpiModel", "TransmissionTimeSample_EpiModel"]
+        },
+
         "GEMF": {
             "req": ["gemf_path"],
 
@@ -601,6 +619,12 @@
     },
 
     "TransmissionTimeSample": {
+        "EpiModel": {
+            "req": ["epimodel_type", "num_cn_nodes", "epimodel_attributes", "epimodel_nsteps", "num_init_infected", "num_init_recovered", "recovery_rate", "transmission_probability", "act_rate", "epimodel_formation_line", "epimodel_target_stats_line"],
+
+            "dep": ["ContactNetworkGenerator_EpiModel", "EndCriteria_EpiModel", "TransmissionNodeSample_EpiModel", "TransmissionTimeSample_EpiModel"]
+        },
+
         "Exponential": {
             "req": ["time_sample_rate"]
         },

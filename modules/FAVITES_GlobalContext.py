@@ -16,12 +16,13 @@ except ImportError:
     import queue as Q
 
 # useful constants
-FAVITES_VERSION = "1.1.36"
+FAVITES_VERSION = "1.1.37"
 C_INT_MAX = 2147483647
 CITATION_ART = 'Huang W., Li L., Myers J.R., Marth G.T. (2012). "ART: a next-generation sequencing read simulator". Bioinformatics. 28(4), 593-594.'
 CITATION_DENDROPY = 'Sukumaran J., Holder M.T. (2010). "DendroPy: A Python library for phylogenetic computing". Bioinformatics. 26, 1569-1571.'
 CITATION_DUALBIRTH = 'Moshiri N., Mirarab S. (2017). "A Two-State Model of Tree Evolution and its Applications to Alu Retrotransposition". Systematic Biology. 67(3), 1-15.'
 CITATION_DWGSIM = 'Homer N. (2011). "DWGSIM" (https://github.com/nh13/DWGSIM).'
+CITATION_EPIMODEL = 'Jenness S.M., Goodreau S.M., Morris M. (2018). "EpiModel: An R Package for Mathematical Modeling of Infectious Disease over Networks". Journal of Statistical Software. 84(8), 1-47.'
 CITATION_FAVITES = 'Moshiri N., Ragonnet-Cronin M., Wertheim J.O., Mirarab S. (2018). "FAVITES: simultaneous simulation of transmission networks, phylogenetic trees, and sequences". Bioinformatics. bty921.'
 CITATION_GEMF = 'Sahneh F.D., Vajdi A., Shakeri H., Fan F., Scoglio C. (2016). "GEMFsim: A Stochastic Simulator for the Generalized Epidemic Modeling Framework". arXiv preprint arXiv:1528946.'
 CITATION_GRINDER = 'Angly F.E., Willner D., Rohwer F., Hugenholtz P., Tyson G.W. (2012). "Grinder: a versatile amplicon and shotgun sequence simulator". Nucleic Acids Res. 40(12), e94.'

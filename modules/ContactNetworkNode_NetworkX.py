@@ -105,7 +105,7 @@ class ContactNetworkNode_NetworkX(ContactNetworkNode):
         return len(self.get_infections())
 
     def infect(self, time, virus):
-        assert isinstance(time, float)
+        assert isinstance(time, float), "Encountered non-float time: %s" % str(time)
         assert isinstance(virus, MF.module_abstract_classes['TreeNode'])
         assert time == virus.get_time(), "Virus time and transmission time do not match!"
         if GC.first_times[self.num] is None:

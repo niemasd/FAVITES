@@ -1,0 +1,60 @@
+{
+    "ContactNetwork":                "NetworkX",
+
+    "ContactNetworkGenerator":       "EpiModel",
+    "Rscript_path":                  "Rscript",
+    "act_rate":                      5,
+    "average_edge_duration":         25,
+    "epimodel_attributes":           [("community",5)],
+    "epimodel_formation_line":       'formation <- ~edges + nodematch("community")',
+    "epimodel_nsteps":               100,
+    "epimodel_target_stats_line":    'target.stats <- c(100, 50)',
+    "epimodel_type":                 "SIR",
+    "num_cn_nodes":                  100,
+    "num_init_infected":             1,
+    "num_init_recovered":            1,
+    "recovery_rate":                 0.02,
+    "transmission_probability":      0.1,
+
+    "Driver":                        "Default",
+    "out_dir":                       "out_TransmissionTimeSample_SIGEMF",
+
+    "EndCriteria":                   "EpiModel",
+
+    "Logging":                       "STDOUT",
+
+    "NodeAvailability":              "Perfect",
+
+    "NodeEvolution":                 "VirusTreeSimulator",
+    "java_path":                     "java",
+    "vts_growthRate":                2.851904,
+    "vts_model":                     "logistic",
+    "vts_n0":                        1,
+    "vts_t50":                       -2,
+    "vts_max_attempts":              100,
+
+    "NumBranchSample":               "Single",
+
+    "NumTimeSample":                 "Once",
+
+    "SeedSelection":                 "EpiModel",
+
+    "SeedSequence":                  "Random",
+    "seed_sequence_length":          10,
+
+    "SequenceEvolution":             "NoMutation",
+
+    "Sequencing":                    "Perfect",
+
+    "SourceSample":                  "Random",
+
+    "TimeSample":                    "End",
+
+    "TransmissionNodeSample":        "EpiModel",
+
+    "TransmissionTimeSample":        "EpiModel",
+
+    "TreeNode":                      "Simple",
+
+    "TreeUnit":                      "Same",
+}

@@ -2,8 +2,7 @@
 '''
 Niema Moshiri 2016
 
-"EndCriteria" module, where the transmission network is simulated by GEMF
-(Sahneh et al. 2016).
+"EndCriteria" module, where the transmission network is simulated by EpiModel
 '''
 from EndCriteria import EndCriteria
 from EndCriteria_TransmissionFile import EndCriteria_TransmissionFile
@@ -11,24 +10,12 @@ import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
 from os import chdir,getcwd
 
-gemf_general_help = "This file contains general helpful information about the GEMF output."
-gemf_output_txt_help = '''=== output.txt ===
-This is the main file of interest. It contains the GEMF simulation output. The columns of the output file are as follows (in the exact order):
-* Time of event
-* Total rate
-* Node that was infected
-* Previous state of the node
-* New state of node
-* Number of nodes in each state (one column per state)
-* Comma-delimited lists of inducer nodes from each state (one state per list)'''
-gemf_state_translate_help = "=== State Number Translations ==="
-
 class EndCriteria_GEMF(EndCriteria):
     def cite():
         return GC.CITATION_GEMF
 
     def init():
-        assert "GEMF" in str(MF.modules['TransmissionNodeSample']), "Must use a GEMF TransmissionNodeSample module"
+        assert "EpiModel" in str(MF.modules['TransmissionNodeSample']), "Must use a GEMF TransmissionNodeSample module"
         assert "GEMF" in str(MF.modules['TransmissionTimeSample']), "Must use a GEMF TransmissionTimeSample module"
         GC.gemf_out_dir = ('%s/GEMF_output' % GC.out_dir).replace('//','/')
 
