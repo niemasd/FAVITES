@@ -59,9 +59,9 @@
         },
 
         "EpiModel": {
-            "req": ["epimodel_type", "num_cn_nodes", "epimodel_attributes", "epimodel_nsteps", "num_init_infected", "num_init_recovered", "recovery_rate", "transmission_probability", "act_rate", "epimodel_formation_line", "epimodel_target_stats_line"],
+            "req": ["Rscript_path", "epimodel_save_session", "epimodel_type", "num_cn_nodes", "epimodel_attributes", "epimodel_nsteps", "num_init_infected", "num_init_recovered", "recovery_rate", "transmission_probability", "act_rate", "average_edge_duration", "epimodel_formation_line", "epimodel_target_stats_line"],
 
-            "dep": ["ContactNetworkGenerator_EpiModel", "EndCriteria_EpiModel", "TransmissionNodeSample_EpiModel", "TransmissionTimeSample_EpiModel"]
+            "dep": ["ContactNetworkGenerator_EpiModel", "EndCriteria_EpiModel", "SeedSelection_EpiModel", "TransmissionNodeSample_EpiModel", "TransmissionTimeSample_EpiModel"]
         },
 
         "ErdosRenyi": {
@@ -135,9 +135,9 @@
 
     "EndCriteria": {
         "EpiModel": {
-            "req": ["epimodel_type", "num_cn_nodes", "epimodel_attributes", "epimodel_nsteps", "num_init_infected", "num_init_recovered", "recovery_rate", "transmission_probability", "act_rate", "epimodel_formation_line", "epimodel_target_stats_line"],
+            "req": ["Rscript_path", "epimodel_save_session", "epimodel_type", "num_cn_nodes", "epimodel_attributes", "epimodel_nsteps", "num_init_infected", "num_init_recovered", "recovery_rate", "transmission_probability", "act_rate", "average_edge_duration", "epimodel_formation_line", "epimodel_target_stats_line"],
 
-            "dep": ["ContactNetworkGenerator_EpiModel", "EndCriteria_EpiModel", "TransmissionNodeSample_EpiModel", "TransmissionTimeSample_EpiModel"]
+            "dep": ["ContactNetworkGenerator_EpiModel", "EndCriteria_EpiModel", "SeedSelection_EpiModel", "TransmissionNodeSample_EpiModel", "TransmissionTimeSample_EpiModel"]
         },
 
         "FirstTimeTransmissions": {
@@ -316,6 +316,12 @@
 
         "EdgeWeighted": {
             "req": ["num_seeds"]
+        },
+		
+		"EpiModel": {
+            "req": ["Rscript_path", "epimodel_save_session", "epimodel_type", "num_cn_nodes", "epimodel_attributes", "epimodel_nsteps", "num_init_infected", "num_init_recovered", "recovery_rate", "transmission_probability", "act_rate", "average_edge_duration", "epimodel_formation_line", "epimodel_target_stats_line"],
+
+            "dep": ["ContactNetworkGenerator_EpiModel", "EndCriteria_EpiModel", "SeedSelection_EpiModel", "TransmissionNodeSample_EpiModel", "TransmissionTimeSample_EpiModel"]
         },
 
         "PANGEA": {
@@ -574,9 +580,9 @@
 
     "TransmissionNodeSample": {
         "EpiModel": {
-            "req": ["epimodel_type", "num_cn_nodes", "epimodel_attributes", "epimodel_nsteps", "num_init_infected", "num_init_recovered", "recovery_rate", "transmission_probability", "act_rate", "epimodel_formation_line", "epimodel_target_stats_line"],
+            "req": ["Rscript_path", "epimodel_save_session", "epimodel_type", "num_cn_nodes", "epimodel_attributes", "epimodel_nsteps", "num_init_infected", "num_init_recovered", "recovery_rate", "transmission_probability", "act_rate", "average_edge_duration", "epimodel_formation_line", "epimodel_target_stats_line"],
 
-            "dep": ["ContactNetworkGenerator_EpiModel", "EndCriteria_EpiModel", "TransmissionNodeSample_EpiModel", "TransmissionTimeSample_EpiModel"]
+            "dep": ["ContactNetworkGenerator_EpiModel", "EndCriteria_EpiModel", "SeedSelection_EpiModel", "TransmissionNodeSample_EpiModel", "TransmissionTimeSample_EpiModel"]
         },
 
         "GEMF": {
@@ -620,9 +626,9 @@
 
     "TransmissionTimeSample": {
         "EpiModel": {
-            "req": ["epimodel_type", "num_cn_nodes", "epimodel_attributes", "epimodel_nsteps", "num_init_infected", "num_init_recovered", "recovery_rate", "transmission_probability", "act_rate", "epimodel_formation_line", "epimodel_target_stats_line"],
+            "req": ["Rscript_path", "epimodel_save_session", "epimodel_type", "num_cn_nodes", "epimodel_attributes", "epimodel_nsteps", "num_init_infected", "num_init_recovered", "recovery_rate", "transmission_probability", "act_rate", "average_edge_duration", "epimodel_formation_line", "epimodel_target_stats_line"],
 
-            "dep": ["ContactNetworkGenerator_EpiModel", "EndCriteria_EpiModel", "TransmissionNodeSample_EpiModel", "TransmissionTimeSample_EpiModel"]
+            "dep": ["ContactNetworkGenerator_EpiModel", "EndCriteria_EpiModel", "SeedSelection_EpiModel", "TransmissionNodeSample_EpiModel", "TransmissionTimeSample_EpiModel"]
         },
 
         "Exponential": {
