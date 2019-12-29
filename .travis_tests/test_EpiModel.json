@@ -18,7 +18,7 @@
     "transmission_probability":      0.1,
 
     "Driver":                        "Default",
-    "out_dir":                       "out_TransmissionTimeSample_SIGEMF",
+    "out_dir":                       "out_EpiModel",
 
     "EndCriteria":                   "EpiModel",
 
