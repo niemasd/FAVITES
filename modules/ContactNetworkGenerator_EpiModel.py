@@ -8,6 +8,7 @@ from ContactNetworkGenerator import ContactNetworkGenerator
 import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
 from gzip import open as gopen
+from os.path import expanduser
 from os import chdir,getcwd,makedirs
 from subprocess import call
 EPIDEMIC_TYPES = {'SI', 'SIS', 'SIR'}
