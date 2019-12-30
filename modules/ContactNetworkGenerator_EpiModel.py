@@ -7,6 +7,7 @@ Niema Moshiri 2019
 from ContactNetworkGenerator import ContactNetworkGenerator
 import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
+from gzip import open as gopen
 from os import chdir,getcwd,makedirs
 from subprocess import call
 EPIDEMIC_TYPES = {'SI', 'SIS', 'SIR'}
@@ -145,4 +146,7 @@ class ContactNetworkGenerator_EpiModel(ContactNetworkGenerator):
 
         # clean up and return contact network edge list
         chdir(orig_dir)
+        f = gopen(expanduser("%s/contact_network.txt.gz" % GC.out_dir),'wb',9)
+        f.write('\n'.join(lines).encode()); f.write(b'\n')
+        f.close()
         return lines
