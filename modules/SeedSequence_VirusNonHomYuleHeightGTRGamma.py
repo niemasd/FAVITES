@@ -35,6 +35,7 @@ class SeedSequence_VirusNonHomYuleHeightGTRGamma(SeedSequence):
 
     def generate():
         if not hasattr(GC, "seed_sequences"):
+            assert len(GC.seed_nodes) > 1, "Must have at least 2 seed nodes"
             rootseq = SeedSequence_Virus.generate()
             tmp = nonhomogeneous_yule_tree(lambda t: eval(GC.seed_speciation_rate_func), end_num_leaves=len(GC.seed_nodes))
             for node in tmp.traverse_preorder(leaves=False):
