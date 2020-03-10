@@ -86,7 +86,7 @@ class SequenceEvolution_SeqGen(SequenceEvolution):
                 assert False, "Seq-Gen encountered an error while processing: %s" % label
             error = False
             for line in open('log_%s.txt'%label):
-                if line.startswith("Error"): # have to manually check for errors (Seq-Gen exits with status 0)
+                if line.startswith("Error") or 'Bad state in ancestoral sequence' in line: # have to manually check for errors (Seq-Gen exits with status 0)
                     error = True; break
             if error:
                 chdir(GC.START_DIR)

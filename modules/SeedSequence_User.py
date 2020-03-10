@@ -21,6 +21,8 @@ class SeedSequence_User(SeedSequence):
         assert GC.num_seeds >= 1, "Must have at least 1 seed node"
         assert isinstance(GC.seed_seqs, list), "seed_seqs must be a list of strings"
         assert len(GC.seed_seqs) == GC.num_seeds, "seed_seqs must have exactly num_seeds sequences!"
+        for s in GC.seed_seqs:
+            assert '-' not in s, "Seed sequences cannot have gaps"
         GC.seed_seqs_num = 0
 
     def generate():
