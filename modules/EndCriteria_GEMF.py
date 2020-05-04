@@ -15,7 +15,7 @@ class EndCriteria_GEMF(EndCriteria):
         return GC.CITATION_GEMF
 
     def init():
-        assert "EpiModel" in str(MF.modules['TransmissionNodeSample']), "Must use a GEMF TransmissionNodeSample module"
+        assert "GEMF" in str(MF.modules['TransmissionNodeSample']), "Must use a GEMF TransmissionNodeSample module"
         assert "GEMF" in str(MF.modules['TransmissionTimeSample']), "Must use a GEMF TransmissionTimeSample module"
         GC.gemf_out_dir = ('%s/GEMF_output' % GC.out_dir).replace('//','/')
 
