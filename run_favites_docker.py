@@ -3,6 +3,7 @@
 FAVITES: FrAmework for VIral Transmission and Evolution Simulation
 '''
 import argparse
+from json import load
 from os import makedirs
 from os.path import abspath,expanduser,isdir,isfile
 from sys import platform,stderr
@@ -26,7 +27,7 @@ def get_latest_version():
     try:
         DOCKER_TAGS = list(); curr_url = "https://hub.docker.com/v2/repositories/%s/tags/?page=1" % DOCKER_IMAGE
         while curr_url is not None:
-            tmp = eval(urlopen(curr_url).read().decode('utf-8').replace(': null',': None').replace(': true',': True'))
+            tmp = load(urlopen(curr_url))
             DOCKER_TAGS += [e['name'] for e in tmp['results']]
             curr_url = tmp['next']
         DOCKER_TAGS = [tag for tag in DOCKER_TAGS if is_main_version(tag)] # remove non-main-version
