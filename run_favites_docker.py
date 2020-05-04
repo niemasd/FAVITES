@@ -85,6 +85,10 @@ ERRORFREE_SEQ_FILE = None
 if 'errorfree_sequence_file' in CONFIG_DICT:
     ERRORFREE_SEQ_FILE = abspath(expanduser(CONFIG_DICT['errorfree_sequence_file']))
     CONFIG_DICT['errorfree_sequence_file'] = '/FAVITES_MOUNT/%s' % ERRORFREE_SEQ_FILE.split('/')[-1]
+HMMBUILD_MSA_FILE = None
+if 'hmmbuild_msafile' in CONFIG_DICT:
+    HMMBUILD_MSA_FILE = abspath(expanduser(CONFIG_DICT['hmmbuild_msafile']))
+    CONFIG_DICT['hmmbuild_msafile'] = '/FAVITES_MOUNT/%s' % HMMBUILD_MSA_FILE.split('/')[-1]
 TMP_CONFIG = NamedTemporaryFile('w')
 TMP_CONFIG.write(str(CONFIG_DICT).replace(": inf",": float('inf')"))
 TMP_CONFIG.flush()
@@ -167,6 +171,8 @@ if TREE_FILE is not None:
     COMMAND += ['-v',TREE_FILE+':'+CONFIG_DICT['tree_file']]
 if ERRORFREE_SEQ_FILE is not None:
     COMMAND += ['-v',ERRORFREE_SEQ_FILE+':'+CONFIG_DICT['errorfree_sequence_file']]
+if HMMBUILD_MSA_FILE is not None:
+    COMMAND += ['-v',HMMBUILD_MSA_FILE+':'+CONFIG_DICT['hmmbuild_msafile']]
 if not platform.startswith('win'):                                    # if not Windows,
     from os import geteuid,getegid
     COMMAND += ['-u',str(geteuid())+':'+str(getegid())]               # make output files owned by user instead of root
