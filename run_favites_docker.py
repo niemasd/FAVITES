@@ -3,7 +3,7 @@
 FAVITES: FrAmework for VIral Transmission and Evolution Simulation
 '''
 import argparse
-from json import load
+from json import loads
 from os import makedirs
 from os.path import abspath,expanduser,isdir,isfile
 from sys import platform,stderr
@@ -27,7 +27,7 @@ def get_latest_version():
     try:
         DOCKER_TAGS = list(); curr_url = "https://hub.docker.com/v2/repositories/%s/tags/?page=1" % DOCKER_IMAGE
         while curr_url is not None:
-            tmp = load(urlopen(curr_url))
+            tmp = loads(urlopen(curr_url).read().decode('utf-8'))
             DOCKER_TAGS += [e['name'] for e in tmp['results']]
             curr_url = tmp['next']
         DOCKER_TAGS = [tag for tag in DOCKER_TAGS if is_main_version(tag)] # remove non-main-version
@@ -35,7 +35,7 @@ def get_latest_version():
         DOCKER_TAGS.sort() # sort in ascending order
         return '.'.join(str(i) for i in DOCKER_TAGS[-1])
     except Exception as e:
-        raise RuntimeError("Failed to use Python 3 urllib to connect to FAVITES Docker repository webpage\n%s"%e.reason)
+        raise RuntimeError("Failed to use Python 3 urllib to connect to FAVITES Docker repository webpage\n%s" % str(e))
 
 # if Mac OS X, use portable TMPDIR
 if platform == 'darwin':
@@ -179,6 +179,8 @@ if not platform.startswith('win'):                                    # if not W
     COMMAND += ['-u',str(geteuid())+':'+str(getegid())]               # make output files owned by user instead of root
 COMMAND += [version]                                                  # Docker image
 try:
+    if args.verbose:
+        print("\n\nRunning FAVITES Docker command:\n%s\n\n" % ' '.join(COMMAND))
     call(COMMAND)
 except:
     exit(-1)
