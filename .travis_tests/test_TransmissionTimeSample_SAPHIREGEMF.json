@@ -1,0 +1,70 @@
+{
+    "ContactNetwork":                "NetworkX",
+
+    "ContactNetworkGenerator":       "Complete",
+    "num_cn_nodes":                  100,
+
+    "Driver":                        "Default",
+    "out_dir":                       "out_TransmissionTimeSample_SAPHIREGEMF",
+
+    "EndCriteria":                   "GEMF",
+    "end_transmissions":             5,
+
+    "Logging":                       "STDOUT",
+
+    "NodeAvailability":              "Perfect",
+
+    "NodeEvolution":                 "VirusTreeSimulator",
+    "java_path":                     "java",
+    "vts_growthRate":                2.851904,
+    "vts_model":                     "logistic",
+    "vts_n0":                        1,
+    "vts_t50":                       -2,
+    "vts_max_attempts":              100,
+
+    "NumBranchSample":               "Single",
+
+    "NumTimeSample":                 "Once",
+
+    "SeedSelection":                 "Random",
+    "num_seeds":                     2,
+
+    "SeedSequence":                  "Random",
+    "seed_sequence_length":          10,
+
+    "SequenceEvolution":             "NoMutation",
+
+    "Sequencing":                    "Perfect",
+
+    "SourceSample":                  "Random",
+
+    "TimeSample":                    "End",
+
+    "TransmissionNodeSample":        "GEMF",
+    "end_time":                      3,
+    "gemf_path":                     "GEMF",
+
+    "TransmissionTimeSample":        "SAPHIREGEMF",
+    "saphire_freq_s":                99,
+    "saphire_freq_e":                0,
+    "saphire_freq_p":                2,
+    "saphire_freq_i":                0,
+    "saphire_freq_a":                0,
+    "saphire_freq_h":                0,
+    "saphire_freq_r":                0,
+    "saphire_s_to_e_seed":           1,
+    "saphire_e_to_p":                2,
+    "saphire_p_to_i":                3,
+    "saphire_p_to_a":                4,
+    "saphire_i_to_h":                5,
+    "saphire_i_to_r":                6,
+    "saphire_a_to_r":                7,
+    "saphire_h_to_r":                8,
+    "saphire_s_to_e_by_p":           11,
+    "saphire_s_to_e_by_i":           12,
+    "saphire_s_to_e_by_a":           13,
+
+    "TreeNode":                      "Simple",
+
+    "TreeUnit":                      "Same",
+}

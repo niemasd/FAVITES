@@ -685,6 +685,12 @@
             "dep": ["EndCriteria_GEMF", "TransmissionNodeSample_GEMF"]
         },
 
+        "SAPHIREGEMF": {
+            "req": ["gemf_path", "end_time", "saphire_freq_s", "saphire_freq_e", "saphire_freq_p", "saphire_freq_i", "saphire_freq_a", "saphire_freq_h", "saphire_freq_r", "saphire_s_to_e_seed", "saphire_e_to_p", "saphire_p_to_i", "saphire_p_to_a", "saphire_i_to_h", "saphire_i_to_r", "saphire_a_to_r", "saphire_h_to_r", "saphire_s_to_e_by_p", "saphire_s_to_e_by_i", "saphire_s_to_e_by_a"],
+
+            "dep": ["EndCriteria_GEMF", "TransmissionNodeSample_GEMF"]
+        },
+
         "SEIRGEMF": {
             "req": ["gemf_path", "end_time", "seir_beta_seed", "seir_beta_by_i", "seir_lambda", "seir_delta"],
 
