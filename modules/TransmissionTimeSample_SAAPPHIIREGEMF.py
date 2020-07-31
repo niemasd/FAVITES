@@ -3,8 +3,8 @@
 Niema Moshiri 2020
 
 "TransmissionTimeSample" module, where the transmission network is simulated by
-GEMF (Sahneh et al. 2016) under the SAAPPHIIRE model, whih is an extension of
-the SAPHIRE model (Hao et al., 2020) containing the following ten states:
+GEMF (Sahneh et al. 2016) under the SAAPPHIIRE model, which is an extension of
+the SAPHIRE model (Hao et al., 2020) containing the following 10 states:
 Susceptible (S), Exposed (E), Presymptomatic 1 (P1), Presymptomatic 2 (P2),
 Ascertained Infectious 1 (I1), Ascertained Infectious 2 (I2), Unascertained
 Infectious 1 (A1), Unascertained Infectious 2 (A2), Hospitalized (H), and
@@ -19,7 +19,7 @@ After some time, early ascertained or unascertained transition to late
 ascertained or unascertained (I1 -> I2 and A1 -> A2). Early and late ascertained
 individuals can become hospitalized (I1 -> H and I2 -> H), and late ascertained
 and unascertained individuals as well as hospitalized individuals can recover
-(I2 -> R,  A2 -> R, and H -> R).
+(I2 -> R, A2 -> R, and H -> R).
 '''
 from TransmissionTimeSample import TransmissionTimeSample
 from TransmissionTimeSample_TransmissionFile import TransmissionTimeSample_TransmissionFile
