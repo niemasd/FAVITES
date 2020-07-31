@@ -8,7 +8,6 @@ Individuals who never begin ART are never sampled.
 from TimeSample import TimeSample
 import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
-from random import uniform
 
 class TimeSample_GranichFirstART(TimeSample):
     def cite():
