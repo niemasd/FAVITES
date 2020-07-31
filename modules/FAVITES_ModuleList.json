@@ -565,6 +565,12 @@
             "dep": ["ContactNetwork_PANGEA", "ContactNetworkGenerator_PANGEA", "EndCriteria_Instant", "NodeEvolution_PANGEA", "NodeSample_PANGEA", "NumBranchSample_All", "NumTimeSample_PANGEA", "SeedSelection_PANGEA", "SeedSequence_PANGEA", "SequenceEvolution_PANGEA", "SourceSample_PANGEA", "TimeSample_PANGEA", "TransmissionNodeSample_PANGEA", "TransmissionTimeSample_PANGEA", "TreeUnit_Same"]
         },
 
+        "SAAPPHIIREFirstAscertain": {
+            "req": [],
+
+            "dep": ["NumTimeSample_Once", "TransmissionTimeSample_SAAPPHIIREGEMF", "TransmissionTimeSample_SAPHIREGEMF"]
+        },
+
         "TruncatedNormal": {
             "req": ["ts_truncnorm_loc", "ts_truncnorm_scale"]
         },
