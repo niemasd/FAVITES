@@ -8,14 +8,8 @@ GEMF (Sahneh et al. 2016) under the SIR model, but where individuals can be
 '''
 from TransmissionTimeSample import TransmissionTimeSample
 from TransmissionTimeSample_SVITRGEMF import TransmissionTimeSample_SVITRGEMF
-from TransmissionTimeSample_TransmissionFile import TransmissionTimeSample_TransmissionFile
 import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
-from datetime import datetime
-from subprocess import call
-from os.path import expanduser
-from os import chdir,getcwd,makedirs
-from sys import stderr
 
 class TransmissionTimeSample_SIRGEMF(TransmissionTimeSample):
     def cite():
