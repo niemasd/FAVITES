@@ -69,7 +69,7 @@ class NodeEvolution_VirusTreeSimulator(NodeEvolution):
                     assert e[1] not in trans_per_seed, "Individual was a seed multiple times: %s" % e[1]
                     trans_per_seed[e[1]] = [e]
                     node_to_seed[e[1]] = e[1]
-                else:
+                elif e[0] != e[1]: # skip recovery
                     trans_per_seed[node_to_seed[e[0]]].append(e)
                     node_to_seed[e[1]] = node_to_seed[e[0]]
 
