@@ -4,7 +4,7 @@ MAINTAINER Niema Moshiri <niemamoshiri@gmail.com>
 
 # Set up environment
 RUN apt-get update && apt-get -y upgrade && \
-    apt-get install -y autoconf curl default-jre git gsl-bin libcurl4-openssl-dev libgsl0-dev libmodule-install-perl libncurses5-dev libncursesw5-dev libssl-dev python python-pip python3 python3-pip unzip wget zlib1g-dev
+    apt-get install -y autoconf curl default-jre git gsl-bin libcurl4-openssl-dev libgsl0-dev libmodule-install-perl libncurses5-dev libncursesw5-dev libssl-dev python3 python3-pip unzip wget zlib1g-dev
 RUN echo -e "'urllist' => [\n    q[http://mirror.bhoovd.com/CPAN/],\n    q[http://cpan.develooper.com/],\n    q[http://cpan.cs.utah.edu/]\n]," >> /etc/perl/CPAN/Config.pm
 RUN echo -e "y\nexit\n" | cpan
 
