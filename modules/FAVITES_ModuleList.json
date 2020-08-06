@@ -252,6 +252,10 @@
             "dep": ["ContactNetwork_PANGEA", "ContactNetworkGenerator_PANGEA", "EndCriteria_Instant", "NodeEvolution_PANGEA", "NodeSample_PANGEA", "NumBranchSample_All", "NumTimeSample_PANGEA", "SeedSelection_PANGEA", "SeedSequence_PANGEA", "SequenceEvolution_PANGEA", "SourceSample_PANGEA", "TimeSample_PANGEA", "TransmissionNodeSample_PANGEA", "TransmissionTimeSample_PANGEA", "TreeUnit_Same"]
         },
 
+        "TransmissionTree": {
+            "req": []
+        },
+
         "VirusTreeSimulator": {
             "req": ["java_path", "vts_model", "vts_n0", "vts_growthRate", "vts_t50", "vts_max_attempts"]
         },
@@ -551,6 +555,12 @@
             "req": [],
 
             "dep": ["NumTimeSample_Once", "TransmissionTimeSample_HIVARTGranichGEMF"]
+        },
+
+        "Infection": {
+            "req": [],
+
+            "dep": ["NumTimeSample_Once"]
         },
 
         "None": {
