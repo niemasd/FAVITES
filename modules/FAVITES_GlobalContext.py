@@ -35,7 +35,7 @@ CITATION_PHYLOMMAND = 'Ryberg M. (2016). "Phylommand - a command line software p
 CITATION_PYVOLVE = 'Spielman S.J., Wilke C.O. (2015). "Pyvolve: A Flexible Python Module for Simulating Sequences along Phylogenies". PLoS One. 10(9), e0139047.'
 CITATION_SCIPY = 'Jones E., Oliphant E., Peterson P., et al. (2001). "SciPy: Open Source Scientific Tools for Python" (http://scipy.org/).'
 CITATION_SEQGEN = 'Rambaut A., Grassly N. C. (1997). "Seq-Gen: An application for the Monte Carlo simulation of DNA sequence evolution along phylogenetic trees". Comput. Appl. Biosci. 13, 235-238.'
-CITATION_TREESWIFT = 'Moshiri N. (2018). "TreeSwift: a massively scalable Python package for trees". bioRxiv:325522.'
+CITATION_TREESWIFT = 'Moshiri N. (2020). "TreeSwift: a massively scalable Python package for trees". SoftwareX. 11:100436.'
 COMMUNITY_GENERATORS = ['ContactNetworkGenerator_Communities','ContactNetworkGenerator_Barbell','ContactNetworkGenerator_Caveman','ContactNetworkGenerator_CavemanConnected','ContactNetworkGenerator_CavemanRelaxed','ContactNetworkGenerator_RandomPartitionGraph','ContactNetworkGenerator_StochasticBlockBA']
 
 def init(reqs):
