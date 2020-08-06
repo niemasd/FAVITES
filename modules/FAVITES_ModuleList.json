@@ -571,12 +571,6 @@
             "dep": ["NumTimeSample_Once", "TransmissionTimeSample_SAAPPHIIREGEMF", "TransmissionTimeSample_SAPHIREGEMF"]
         },
 
-        "SAAPPHIIREFirstExposed": {
-            "req": [],
-
-            "dep": ["NumTimeSample_Once", "TransmissionTimeSample_SAAPPHIIREGEMF", "TransmissionTimeSample_SAPHIREGEMF"]
-        },
-
         "TruncatedNormal": {
             "req": ["ts_truncnorm_loc", "ts_truncnorm_scale"]
         },
