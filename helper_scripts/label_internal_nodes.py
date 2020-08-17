@@ -61,7 +61,7 @@ if __name__ == "__main__":
             u,v,t = l.strip().split('\t')
         if u == 'None':
             seeds.add(v); inf[v] = float('-inf')
-        else:
+        elif v not in inf:
             inf[v] = float(t)
 
     # label internal nodes
