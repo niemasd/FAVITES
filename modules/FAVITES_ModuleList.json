@@ -696,7 +696,7 @@
         },
 
         "SAAPPHIIREGEMF": {
-            "req": ["gemf_path", "end_time", "saapphiire_freq_s", "saapphiire_freq_e", "saapphiire_freq_p1", "saapphiire_freq_p2", "saapphiire_freq_i1", "saapphiire_freq_i2", "saapphiire_freq_a1", "saapphiire_freq_a2", "saapphiire_freq_h", "saapphiire_freq_r", "saapphiire_s_to_e_seed", "saapphiire_e_to_p1", "saapphiire_p1_to_p2", "saapphiire_p2_to_i1", "saapphiire_p2_to_a1", "saapphiire_i1_to_i2", "saapphiire_i1_to_h", "saapphiire_i2_to_h", "saapphiire_i2_to_r", "saapphiire_a1_to_a2", "saapphiire_a2_to_r", "saapphiire_h_to_r", "saapphiire_s_to_e_by_p1", "saapphiire_s_to_e_by_p2", "saapphiire_s_to_e_by_i1", "saapphiire_s_to_e_by_i2", "saapphiire_s_to_e_by_a1", "saapphiire_s_to_e_by_a2"], # TODO FINISH THESE
+            "req": ["gemf_path", "end_time", "saapphiire_freq_s", "saapphiire_freq_e", "saapphiire_freq_p1", "saapphiire_freq_p2", "saapphiire_freq_i1", "saapphiire_freq_i2", "saapphiire_freq_a1", "saapphiire_freq_a2", "saapphiire_freq_h", "saapphiire_freq_r", "saapphiire_s_to_e_seed", "saapphiire_e_to_p1", "saapphiire_p1_to_p2", "saapphiire_p2_to_i1", "saapphiire_p2_to_a1", "saapphiire_i1_to_i2", "saapphiire_i1_to_h", "saapphiire_i2_to_h", "saapphiire_i2_to_r", "saapphiire_a1_to_a2", "saapphiire_a2_to_r", "saapphiire_h_to_r", "saapphiire_s_to_e_by_e", "saapphiire_s_to_e_by_p1", "saapphiire_s_to_e_by_p2", "saapphiire_s_to_e_by_i1", "saapphiire_s_to_e_by_i2", "saapphiire_s_to_e_by_a1", "saapphiire_s_to_e_by_a2"], # TODO FINISH THESE
 
             "dep": ["EndCriteria_GEMF", "TransmissionNodeSample_GEMF"]
         },

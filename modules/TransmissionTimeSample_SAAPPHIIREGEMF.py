@@ -78,6 +78,7 @@ class TransmissionTimeSample_SAAPPHIIREGEMF(TransmissionTimeSample):
         f.write("0\t0\t0\t0\t0\t0\t0\t0\t0\t" + str(GC.saapphiire_h_to_r) + "\n")                                     # H  can go to R
         f.write("0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n")                                                                     # R  can't go anywhere
         f.write("\n[EDGED_TRAN_MATRIX]\n")
+        f.write("0\t" + str(GC.saapphiire_s_to_e_by_e)  + "\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n\n")
         f.write("0\t" + str(GC.saapphiire_s_to_e_by_p1) + "\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n\n")
         f.write("0\t" + str(GC.saapphiire_s_to_e_by_p2) + "\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n\n")
         f.write("0\t" + str(GC.saapphiire_s_to_e_by_i1) + "\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n\n")
@@ -85,7 +86,7 @@ class TransmissionTimeSample_SAAPPHIIREGEMF(TransmissionTimeSample):
         f.write("0\t" + str(GC.saapphiire_s_to_e_by_a1) + "\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n\n")
         f.write("0\t" + str(GC.saapphiire_s_to_e_by_a2) + "\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n0\t0\t0\t0\t0\t0\t0\t0\t0\t0\n\n")
         f.write("[STATUS_BEGIN]\n0\n\n")
-        infectious = ['P1','P2','I1','I2','A1','A2']
+        infectious = ['E', 'P1','P2','I1','I2','A1','A2']
         f.write("[INDUCER_LIST]\n" + ' '.join([str(GC.gemf_state_to_num[i]) for i in infectious]) + "\n\n")
         f.write("[SIM_ROUNDS]\n1\n\n")
         f.write("[INTERVAL_NUM]\n1\n\n")
@@ -134,7 +135,7 @@ class TransmissionTimeSample_SAAPPHIIREGEMF(TransmissionTimeSample):
                 n = getattr(GC,k)
             start_states['seed'] += [GC.gemf_state_to_num[s]]*n
             leftover -= n
-        assert len(start_states['seed']) == len(GC.seed_nodes), "At time 0, P1+P2+I1+I2+A1+A2 = %d, but there are %d seed nodes. Fix saapphiire_freq_* parameters accordingly" % (len(start_states['seed']),len(GC.seed_nodes))
+        assert len(start_states['seed']) == len(GC.seed_nodes), "At time 0, E+P1+P2+I1+I2+A1+A2 = %d, but there are %d seed nodes. Fix saapphiire_freq_* parameters accordingly" % (len(start_states['seed']),len(GC.seed_nodes))
         for s in ['S']:
             k = "saapphiire_freq_%s"%s.lower()
             if isinstance(getattr(GC,k), float):
