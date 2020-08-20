@@ -49,6 +49,7 @@ class TransmissionTimeSample_SAPHIREGEMF(TransmissionTimeSample):
         GC.saapphiire_a1_to_a2 = GC.C_INT_MAX
         GC.saapphiire_a2_to_r = GC.saphire_a_to_r
         GC.saapphiire_h_to_r = GC.saphire_h_to_r
+        GC.saapphiire_s_to_e_by_e  = GC.saphire_s_to_e_by_e
         GC.saapphiire_s_to_e_by_p1 = 0
         GC.saapphiire_s_to_e_by_p2 = GC.saphire_s_to_e_by_p
         GC.saapphiire_s_to_e_by_i1 = 0
