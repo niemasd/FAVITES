@@ -34,8 +34,8 @@ class NodeEvolution_VirusTreeSimulator(NodeEvolution):
         GC.java_path = expanduser(GC.java_path.strip())
         GC.vts_model = GC.vts_model.strip().lower()
         assert GC.vts_model in {"constant", "exponential", "logistic"}, 'vts_model must be either "constant", "exponential", or "logistic"'
-        GC.vts_n0 = int(GC.vts_n0)
-        assert GC.vts_n0 >= 1, "vts_n0 must be a positive integer"
+        GC.vts_n0 = float(GC.vts_n0)
+        assert GC.vts_n0 > 0, "vts_n0 must be positive"
         GC.vts_growthRate = float(GC.vts_growthRate)
         assert GC.vts_growthRate >= 0, "vts_growthRate cannot be negative"
         GC.vts_t50 = float(GC.vts_t50)
