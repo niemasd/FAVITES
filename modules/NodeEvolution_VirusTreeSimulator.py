@@ -76,7 +76,6 @@ class NodeEvolution_VirusTreeSimulator(NodeEvolution):
             # run VirusTreeSimulator on each seed individually
             GC.sampled_trees = set()
             for seed in trans_per_seed:
-                #if len(trans_per_seed) ==
                 nodes = set()
                 vts_trans = open("ID_%s_trans.txt"%str(seed),'w')
                 vts_trans.write("IDREC,IDTR,TIME_TR\n")
