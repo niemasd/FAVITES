@@ -280,6 +280,12 @@
     },
 
     "NumTimeSample": {
+        "File": {
+            "req": ["sample_time_file"],
+
+            "dep": ["TimeSample_File"]
+        },
+
         "Fixed": {
             "req": ["num_sample_times_per_individual"]
         },
@@ -545,6 +551,12 @@
             "req": [],
 
             "dep": ["NumTimeSample_Once"]
+        },
+
+        "File": {
+            "req": ["sample_time_file"],
+
+            "dep": ["NumTimeSample_File"]
         },
 
         "Gamma": {

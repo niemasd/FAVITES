@@ -7,6 +7,7 @@ Niema Moshiri 2020
 from NumTimeSample import NumTimeSample
 import modules.FAVITES_ModuleFactory as MF
 import FAVITES_GlobalContext as GC
+from os.path import expanduser
 
 class NumTimeSample_File(NumTimeSample):
     def cite():
