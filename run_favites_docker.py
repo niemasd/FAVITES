@@ -78,6 +78,10 @@ TN_FILE = None
 if 'transmission_network_file' in CONFIG_DICT:
     TN_FILE = abspath(expanduser(CONFIG_DICT['transmission_network_file']))
     CONFIG_DICT['transmission_network_file'] = '/FAVITES_MOUNT/%s' % TN_FILE.split('/')[-1]
+SAMPLE_TIME_FILE = None
+if 'sample_time_file' in CONFIG_DICT:
+    SAMPLE_TIME_FILE = abspath(expanduser(CONFIG_DICT['sample_time_file']))
+    CONFIG_DICT['sample_time_file'] = '/FAVITES_MOUNT/%s' % SAMPLE_TIME_FILE.split('/')[-1]
 TREE_FILE = None
 if 'tree_file' in CONFIG_DICT:
     TREE_FILE = abspath(expanduser(CONFIG_DICT['tree_file']))
@@ -168,6 +172,8 @@ if CN_FILE is not None:                                               # mount co
     COMMAND += ['-v',CN_FILE+':'+CONFIG_DICT['contact_network_file']]
 if TN_FILE is not None:                                               # mount transmission network file (if need be)
     COMMAND += ['-v',TN_FILE+':'+CONFIG_DICT['transmission_network_file']]
+if SAMPLE_TIME_FILE is not None:
+    COMMAND += ['-v',SAMPLE_TIME_FILE+':'+CONFIG_DICT['sample_time_file']]
 if TREE_FILE is not None:
     COMMAND += ['-v',TREE_FILE+':'+CONFIG_DICT['tree_file']]
 if ERRORFREE_SEQ_FILE is not None:
