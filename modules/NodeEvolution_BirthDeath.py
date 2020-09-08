@@ -23,6 +23,8 @@ class NodeEvolution_BirthDeath(NodeEvolution):
             assert False, "Error loading DendroPy. Install with: pip3 install dendropy"
 
     def evolve_to_current_time(node, finalize=False):
+        if node is None:
+            return
         viruses = [virus for virus in node.viruses()]
         for virus in viruses:
             time = GC.time-virus.get_time()

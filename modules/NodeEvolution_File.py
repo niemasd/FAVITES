@@ -48,6 +48,8 @@ class NodeEvolution_File(NodeEvolution):
     def evolve_to_current_time(node, finalize=False):
         # if it's not the end yet, just dummy
         if not finalize:
+            if node is None:
+                return
             for virus in node.viruses():
                 virus.set_time(GC.time)
         # otherwise, store trees

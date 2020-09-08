@@ -18,5 +18,7 @@ class NodeEvolution_None(NodeEvolution):
         assert "SequenceEvolution_NoMutation" in str(MF.modules['SequenceEvolution']) or "SequenceEvolution_NoSeqs" in str(MF.modules['SequenceEvolution']), "Must use SequenceEvolution_NoMutation or SequenceEvolution_NoSeqs module"
 
     def evolve_to_current_time(node, finalize=False):
+        if node is None:
+            return
         for virus in node.viruses():
             virus.set_time(GC.time)

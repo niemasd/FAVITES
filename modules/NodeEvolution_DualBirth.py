@@ -27,6 +27,8 @@ class NodeEvolution_DualBirth(NodeEvolution):
             assert False, "Error loading TreeSwift. Install with: pip3 install treeswift"
 
     def evolve_to_current_time(node, finalize=False):
+        if node is None:
+            return
         viruses = [virus for virus in node.viruses()]
         for virus in viruses:
             time = GC.time-virus.get_time()

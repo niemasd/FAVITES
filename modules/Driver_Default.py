@@ -231,6 +231,7 @@ class Driver_Default(Driver):
         # evolve to end time
         LOG.write("Evolving trees and sequences to end time...")
         nodes = [node for node in GC.contact_network.get_infected_nodes()]
+        MF.modules['NodeEvolution'].evolve_to_current_time(None, finalize=True)
         for node in nodes:
             MF.modules['NodeEvolution'].evolve_to_current_time(node, finalize=True)
             MF.modules['SequenceEvolution'].evolve_to_current_time(node)
