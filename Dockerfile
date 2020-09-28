@@ -5,7 +5,7 @@ MAINTAINER Niema Moshiri <niemamoshiri@gmail.com>
 # Set up environment
 RUN apt-get update && apt-get -y upgrade && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y autoconf curl default-jre git gsl-bin libcurl4-openssl-dev libgsl0-dev libmodule-install-perl libncurses5-dev libncursesw5-dev libssl-dev python3 python3-pip unzip wget zlib1g-dev
-RUN mkdir -p /etc/perl/CPAN && echo -e "'urllist' => [\n    q[http://mirror.bhoovd.com/CPAN/],\n    q[http://cpan.develooper.com/],\n    q[http://cpan.cs.utah.edu/]\n]," >> /etc/perl/CPAN/Config.pm
+RUN mkdir -p /etc/perl/CPAN && echo -e "'urllist' => [\n    q[http://mirror.bhoovd.com/CPAN/],\n    q[http://cpan.develooper.com/],\n    q[http://cpan.cs.utah.edu/]\n]," >> /etc/perl/CPAN/Config.pm && cpan App::cpanminus && cpanm Bio::Perl
 RUN echo -e "y\nexit\n" | cpan
 
 # Set up Python 3 and modules
