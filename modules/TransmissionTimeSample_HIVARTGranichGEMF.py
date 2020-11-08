@@ -95,7 +95,7 @@ class TransmissionTimeSample_HIVARTGranichGEMF(TransmissionTimeSample):
         f.write("[INTERVAL_NUM]\n1\n\n")
         f.write("[MAX_TIME]\n" + str(GC.end_time) + "\n\n")
         f.write("[MAX_EVENTS]\n" + str(GC.C_INT_MAX) + "\n\n")
-        f.write("[DIRECTED]\n1\n\n")
+        f.write("[DIRECTED]\n" + str(int(GC.contact_network.is_directed())) + "\n\n")
         f.write("[SHOW_INDUCER]\n1\n\n")
         f.write("[DATA_FILE]\n" + '\n'.join(["network.txt"]*len(infectious)) + "\n\n")
         f.write("[STATUS_FILE]\nstatus.txt\n\n")
