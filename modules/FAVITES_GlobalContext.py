@@ -19,6 +19,7 @@ except ImportError:
 FAVITES_VERSION = "1.2.9"
 C_INT_MAX = 2147483647
 CITATION_ART = 'Huang W., Li L., Myers J.R., Marth G.T. (2012). "ART: a next-generation sequencing read simulator". Bioinformatics. 28(4), 593-594.'
+CITATION_CCMNET = 'Goyal R., Blitzstein J., De Gruttola V. (2014). "Sampling networks from their posterior predictive distribution". Network Science. 2(1), 107-131.'
 CITATION_DENDROPY = 'Sukumaran J., Holder M.T. (2010). "DendroPy: A Python library for phylogenetic computing". Bioinformatics. 26, 1569-1571.'
 CITATION_DUALBIRTH = 'Moshiri N., Mirarab S. (2017). "A Two-State Model of Tree Evolution and its Applications to Alu Retrotransposition". Systematic Biology. 67(3), 1-15.'
 CITATION_DWGSIM = 'Homer N. (2011). "DWGSIM" (https://github.com/nh13/DWGSIM).'

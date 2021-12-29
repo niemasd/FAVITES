@@ -46,6 +46,10 @@
             "req": ["cave_num_cliques", "cave_clique_size", "cave_prob"]
         },
 
+        "CCMnetPy": {
+            "req": ["num_cn_nodes", "cn_network_stats", "cn_prob_dists", "cn_prob_dist_params", "cn_covariate_pattern", "cn_mcmc_burnin"]
+        },
+
         "Communities": {
             "req": ["cn_generators", "cn_p_across"]
         },
