@@ -10,7 +10,7 @@
     "cn_mcmc_burnin":                1000,
 
     "Driver":                        "Default",
-    "out_dir":                       "out_ContactNetworkGenerator_BarabasiAlbert",
+    "out_dir":                       "test_ContactNetworkGenerator_CCMnetPy",
 
     "EndCriteria":                   "Transmissions",
     "end_transmissions":             5,
