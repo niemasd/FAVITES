@@ -73,26 +73,32 @@ if "random_number_seed" not in CONFIG_DICT:
 CN_FILE = None
 if 'contact_network_file' in CONFIG_DICT:
     CN_FILE = abspath(expanduser(CONFIG_DICT['contact_network_file']))
+    assert isfile(CN_FILE), "File not found: %s" % CONFIG_DICT['contact_network_file']
     CONFIG_DICT['contact_network_file'] = '/FAVITES_MOUNT/%s' % CN_FILE.split('/')[-1]
 TN_FILE = None
 if 'transmission_network_file' in CONFIG_DICT:
     TN_FILE = abspath(expanduser(CONFIG_DICT['transmission_network_file']))
+    assert isfile(TN_FILE), "File not found: %s" % CONFIG_DICT['transmission_network_file']
     CONFIG_DICT['transmission_network_file'] = '/FAVITES_MOUNT/%s' % TN_FILE.split('/')[-1]
 SAMPLE_TIME_FILE = None
 if 'sample_time_file' in CONFIG_DICT:
     SAMPLE_TIME_FILE = abspath(expanduser(CONFIG_DICT['sample_time_file']))
+    assert isfile(SAMPLE_TIME_FILE), "File not found: %s" % CONFIG_DICT['sample_time_file']
     CONFIG_DICT['sample_time_file'] = '/FAVITES_MOUNT/%s' % SAMPLE_TIME_FILE.split('/')[-1]
 TREE_FILE = None
 if 'tree_file' in CONFIG_DICT:
     TREE_FILE = abspath(expanduser(CONFIG_DICT['tree_file']))
+    assert isfile(TREE_FILE), "File not found: %s" % CONFIG_DICT['tree_file']
     CONFIG_DICT['tree_file'] = '/FAVITES_MOUNT/%s' % TREE_FILE.split('/')[-1]
 ERRORFREE_SEQ_FILE = None
 if 'errorfree_sequence_file' in CONFIG_DICT:
     ERRORFREE_SEQ_FILE = abspath(expanduser(CONFIG_DICT['errorfree_sequence_file']))
+    assert isfile(ERRORFREE_SEQ_FILE), "File not found: %s" % CONFIG_DICT['errorfree_sequence_file']
     CONFIG_DICT['errorfree_sequence_file'] = '/FAVITES_MOUNT/%s' % ERRORFREE_SEQ_FILE.split('/')[-1]
 HMMBUILD_MSA_FILE = None
 if 'hmmbuild_msafile' in CONFIG_DICT:
     HMMBUILD_MSA_FILE = abspath(expanduser(CONFIG_DICT['hmmbuild_msafile']))
+    assert isfile(HMMBUILD_MSA_FILE), "File not found: %s" % CONFIG_DICT['hmmbuild_msafile']
     CONFIG_DICT['hmmbuild_msafile'] = '/FAVITES_MOUNT/%s' % HMMBUILD_MSA_FILE.split('/')[-1]
 TMP_CONFIG = NamedTemporaryFile('w')
 TMP_CONFIG.write(str(CONFIG_DICT).replace(": inf",": float('inf')"))
