@@ -651,27 +651,32 @@ class ContactNetworkGenerator_CCMnetPy(ContactNetworkGenerator):
             assert GC.cn_mcmc_burnin > 0, "cn_mcmc_burnin must be a positive integer"
 
     def get_edge_list():
-        cn = CCMnet_constr_py(
-            GC.cn_network_stats,       # Network_stats
-            GC.cn_prob_dists,          # Prob_Distr
-            GC.cn_prob_dist_params[0], # Prob_Distr_Params (currently only supports 1 network stat; in the future, remove [0])
-            1,                         # samplesize
-            GC.cn_mcmc_burnin,         # burnin
-            1,                         # interval
-            True,                      # statsonly
-            None,                      # G
-            None,                      # P
-            GC.num_cn_nodes,           # population
-            GC.cn_covariate_pattern,   # covPattern
-            False,                     # bayesian_inference
-            None,                      # Ia
-            None,                      # Il
-            None,                      # R
-            None,                      # epi_params
-            False,                     # print_calculations
-            0,                         # use_G
-            'favites',                 # outfile
-        )
+        if hasattr(GC, "cn_params_dict"):
+            cn = CCMnet_constr_py(**GC.cn_params_dict)
+        elif hasattr(GC, "cn_config_file"):
+            cn = CCMnet_constr_py(config_file=GC.cn_config_file)
+        else:
+            cn = CCMnet_constr_py(
+                GC.cn_network_stats,       # Network_stats
+                GC.cn_prob_dists,          # Prob_Distr
+                GC.cn_prob_dist_params[0], # Prob_Distr_Params (currently only supports 1 network stat; in the future, remove [0])
+                1,                         # samplesize
+                GC.cn_mcmc_burnin,         # burnin
+                1,                         # interval
+                True,                      # statsonly
+                None,                      # G
+                None,                      # P
+                GC.num_cn_nodes,           # population
+                GC.cn_covariate_pattern,   # covPattern
+                False,                     # bayesian_inference
+                None,                      # Ia
+                None,                      # Il
+                None,                      # R
+                None,                      # epi_params
+                False,                     # print_calculations
+                0,                         # use_G
+                'favites',                 # outfile
+            )
         out = GC.nx2favites(cn, 'u')
         f = gopen(expanduser("%s/contact_network.txt.gz" % GC.out_dir),'wb',9)
         f.write('\n'.join(out).encode()); f.write(b'\n')
