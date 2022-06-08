@@ -8,7 +8,8 @@ from ContactNetworkGenerator import ContactNetworkGenerator
 import FAVITES_GlobalContext as GC
 from gzip import open as gopen
 from os import chdir
-from os.path import expanduser
+from os.path import abspath, expanduser, isfile
+import json
 import math
 import random
 
@@ -611,6 +612,12 @@ class ContactNetworkGenerator_CCMnetPy(ContactNetworkGenerator):
             assert False, "Error loading NumPy. Install with: pip3 install numpy"
 
         # check user args
+        if hasattr(GC, "cn_config_file"):
+            assert isfile(GC.cn_config_file), "CCMnet_py config file not found: %s" % GC.cn_config_file
+            GC.cn_config_file = abspath(expanduser(GC.cn_config_file))
+        if hasattr(GC, "cn_config_dict"):
+            assert 'G' in GC.cn_config_dict, "CCMnet_py config dict must have 'G' key"
+            GC.cn_config_dict['G'] = abspath(expanduser(GC.cn_config_dict['G']))
         if hasattr(GC, "num_cn_nodes"):
             assert isinstance(GC.num_cn_nodes, int), "num_cn_nodes must be an integer"
             assert GC.num_cn_nodes >= 2, "Contact network must have at least 2 nodes"
@@ -651,8 +658,8 @@ class ContactNetworkGenerator_CCMnetPy(ContactNetworkGenerator):
             assert GC.cn_mcmc_burnin > 0, "cn_mcmc_burnin must be a positive integer"
 
     def get_edge_list():
-        if hasattr(GC, "cn_params_dict"):
-            cn = CCMnet_constr_py(**GC.cn_params_dict)
+        if hasattr(GC, "cn_config_dict"):
+            cn = CCMnet_constr_py(**GC.cn_config_dict)
         elif hasattr(GC, "cn_config_file"):
             cn = CCMnet_constr_py(config_file=GC.cn_config_file)
         else:

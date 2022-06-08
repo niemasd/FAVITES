@@ -10,6 +10,10 @@ from warnings import warn
 from os import environ,getcwd
 from os.path import abspath,expanduser,isdir
 
+# for parsing booleans in JSON
+true = True
+false = False
+
 def parseArgs():
     '''
     Parse user arguments. As a developer, if you create any of your own module

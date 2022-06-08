@@ -37,8 +37,7 @@ def read_config(config, verbose):
         modules[module]() # instantiate to force check of abstract methods
         for req in sorted(module_implementations[module][config[module]]['req']):
             assert req in config, "Parameter %r of %s_%s module is not in the configuration file!" % (req, module, config[module])
-            reqs[req] = config[req]
-    GC.init(reqs)
+    GC.init(config)
     GC.VERBOSE = verbose
 
 def init(mod_dir):

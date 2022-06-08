@@ -47,7 +47,7 @@
         },
 
         "CCMnetPy": {
-            "req": ["num_cn_nodes", "cn_network_stats", "cn_prob_dists", "cn_prob_dist_params", "cn_covariate_pattern", "cn_mcmc_burnin"]
+            "req": []
         },
 
         "Communities": {
