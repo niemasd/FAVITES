@@ -16,7 +16,7 @@ except ImportError:
     import queue as Q
 
 # useful constants
-FAVITES_VERSION = "1.2.9"
+FAVITES_VERSION = "1.2.10"
 C_INT_MAX = 2147483647
 CITATION_ART = 'Huang W., Li L., Myers J.R., Marth G.T. (2012). "ART: a next-generation sequencing read simulator". Bioinformatics. 28(4), 593-594.'
 CITATION_CCMNET = 'Goyal R., Blitzstein J., De Gruttola V. (2014). "Sampling networks from their posterior predictive distribution". Network Science. 2(1), 107-131.'

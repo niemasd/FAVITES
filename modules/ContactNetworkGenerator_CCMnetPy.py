@@ -2,7 +2,7 @@
 '''
 Niema Moshiri 2021
 
-"ContactNetworkGenerator" module, where the graph is generated using CCMnet_py (https://github.com/ravigoyalgit/CCMnet_py) Version_0.1_12_14_21.
+"ContactNetworkGenerator" module, where the graph is generated using CCMnet_py (https://github.com/ravigoyalgit/CCMnet_py) Version_0.2_6_8_22.
 '''
 from ContactNetworkGenerator import ContactNetworkGenerator
 import FAVITES_GlobalContext as GC
@@ -102,10 +102,10 @@ def calc_f_degree(g_net_stat, proposal_edge, g_proposal_edge, covPattern, bayesi
 
 def calc_f(Network_stats,g_net_stat, g2_net_stat, proposal_edge, g_proposal_edge, covPattern, bayesian_inference, P_net_stat, g, f_g_g2_bool):
     
-    if Network_stats[0] == "mixing" and len(Network_stats) == 1:
+    if Network_stats[0].strip().lower() == "mixing" and len(Network_stats) == 1:
         prob_g_g2 = calc_f_mixing(g_net_stat, proposal_edge, g_proposal_edge, covPattern, bayesian_inference, P_net_stat)
 
-    if Network_stats[0] == "degree" and len(Network_stats) == 1:
+    if Network_stats[0].strip().lower() == "degree" and len(Network_stats) == 1:
         prob_g_g2 = calc_f_degree(g_net_stat, proposal_edge, g_proposal_edge, covPattern, bayesian_inference, P_net_stat, g, f_g_g2_bool)
 
     return prob_g_g2
@@ -125,10 +125,10 @@ def calc_network_stat_degree(g):
 
 def calc_network_stat(g, Network_stats):
 
-    if Network_stats[0] == "mixing" and len(Network_stats) == 1:
+    if Network_stats[0].strip().lower() == "mixing" and len(Network_stats) == 1:
         g_net_stat = calc_network_stat_mixing(g)
 
-    if Network_stats[0] == "degree" and len(Network_stats) == 1:
+    if Network_stats[0].strip().lower() == "degree" and len(Network_stats) == 1:
         g_net_stat = calc_network_stat_degree(g)
 
     return g_net_stat
@@ -173,10 +173,10 @@ def calc_network_stat_degree_2(proposal_edge, g_net_stat, g2_net_stat, g_proposa
 
 def calc_network_stat_2(Network_stats, proposal_edge, g_net_stat, g2_net_stat, g_proposal_edge, covPattern, g):
 
-    if Network_stats[0] == "mixing" and len(Network_stats) == 1:
+    if Network_stats[0].strip().lower() == "mixing" and len(Network_stats) == 1:
         g2_net_stat = calc_network_stat_mixing_2(proposal_edge, g_net_stat, g2_net_stat, g_proposal_edge, covPattern)
 
-    if Network_stats[0] == "degree" and len(Network_stats) == 1:
+    if Network_stats[0].strip().lower() == "degree" and len(Network_stats) == 1:
         g2_net_stat = calc_network_stat_degree_2(proposal_edge, g_net_stat, g2_net_stat, g_proposal_edge, covPattern, g)
 
     return g2_net_stat
@@ -192,6 +192,13 @@ def calc_probs_mixing(g_net_stat, g2_net_stat, proposal_edge, covPattern, Prob_D
         
         g_val = int(round(g_net_stat[cov0][cov1]))
         entry_id = sum(range(cov1+1)) + cov0 
+
+#        print("x_g:", x_g)
+#        print("x_g2:", x_g2)
+#        print("cov0:", cov0)
+#        print("cov1:", cov1)
+#        print("g_val", g_val)
+#        print("entry_id", entry_id)
 
         if x_g > x_g2:
             #removed edge
@@ -255,18 +262,18 @@ def calc_probs_degree(g_net_stat, g2_net_stat, proposal_edge, covPattern, Prob_D
 
 def calc_probs(g_net_stat, g2_net_stat, proposal_edge, covPattern, Network_stats, Prob_Distr, Prob_Distr_Params, g, g_proposal_edge):
 
-    if Network_stats[0] == "mixing" and len(Network_stats) == 1:
+    if Network_stats[0].strip().lower() == "mixing" and len(Network_stats) == 1:
         prob_g, prob_g2 = calc_probs_mixing(g_net_stat, g2_net_stat, proposal_edge, covPattern, Prob_Distr, Prob_Distr_Params)
 
-    if Network_stats[0] == "degree" and len(Network_stats) == 1:
+    if Network_stats[0].strip().lower() == "degree" and len(Network_stats) == 1:
         prob_g, prob_g2 = calc_probs_degree(g_net_stat, g2_net_stat, proposal_edge, covPattern, Prob_Distr, Prob_Distr_Params, g, g_proposal_edge)
 
     return prob_g, prob_g2
 
 def save_stats(g_net_stat, results, counter, Network_stats):
-    if Network_stats[0] == "mixing" and len(Network_stats) == 1:
+    if Network_stats[0].strip().lower() == "mixing" and len(Network_stats) == 1:
         results[counter] = g_net_stat[np.triu_indices(g_net_stat.shape[0])]
-    if Network_stats[0] == "degree" and len(Network_stats) == 1:
+    if Network_stats[0].strip().lower() == "degree" and len(Network_stats) == 1:
         results[counter] = g_net_stat
 
 def bayes_inf_MH_prob_calc(MH_prob, g, proposal_edge, Pnet, Ia, Il, R, epi_params):
@@ -305,6 +312,7 @@ def bayes_inf_MH_prob_calc(MH_prob, g, proposal_edge, Pnet, Ia, Il, R, epi_param
 
 def bayes_inf_MH_prob_calc_2(MH_prob, g, proposal_edge, Pnet, Ia, Il, R, epi_params):
 
+#    print("Bayes MH_prob: ", MH_prob)
     beta_a_val = epi_params[0]
     beta_l_val = epi_params[1]
 
@@ -319,6 +327,7 @@ def bayes_inf_MH_prob_calc_2(MH_prob, g, proposal_edge, Pnet, Ia, Il, R, epi_par
         else:
             p_edge1 = math.exp(MH_prob) / (1 + math.exp(MH_prob));
 
+#    print("Bayes p_edge1: ", p_edge1)
 
     if Pnet.has_edge(proposal_edge[0], proposal_edge[1]): 
         #Reject the toggle
@@ -336,15 +345,18 @@ def bayes_inf_MH_prob_calc_2(MH_prob, g, proposal_edge, Pnet, Ia, Il, R, epi_par
             if (Ia_j < Ia_i):
                 time_a = min(Il_j,Ia_i)-Ia_j;
                 time_l = max(min(R_j,Ia_i),Il_j) - Il_j;
+#                muij = math.exp(-beta_a_val*time_a) * math.exp(-beta_l_val*time_l);
                 muij = math.exp(-beta_l_val*time_l);
                 
             else:
                 time_a = min(Il_i,Ia_j)-Ia_i;
                 time_l = max(min(R_i,Ia_j),Il_i) - Il_i;
+#                muij = math.exp(-beta_a_val*time_a) * math.exp(-beta_l_val*time_l);
                 muij = math.exp(-beta_l_val*time_l);
         
             p_noinfect = (muij*p_edge1)/((1-p_edge1) + muij*p_edge1);
             
+#            print("Bayes p_noinfect: ", p_noinfect)
 
             if g.has_edge(proposal_edge[0], proposal_edge[1]):
                 if p_noinfect > .999999:
@@ -361,6 +373,7 @@ def bayes_inf_MH_prob_calc_2(MH_prob, g, proposal_edge, Pnet, Ia, Il, R, epi_par
                 else:
                     MH_prob = math.log(p_noinfect/(1 - p_noinfect))
 
+#            print("Bayes MH_prob END: ", MH_prob)
 
     return MH_prob 
 
@@ -371,28 +384,60 @@ def generate_net(population, P, covPattern):
 
     return Pnet
 
-def CCMnet_constr_py(Network_stats,
-                          Prob_Distr,
-                          Prob_Distr_Params, 
-                          samplesize,
-                          burnin, 
-                          interval,
-                          statsonly, 
-                          G,
-                          P,
-                          population, 
-                          covPattern,
-                          bayesian_inference,
-                          Ia, 
-                          Il, 
-                          R, 
-                          epi_params,
-                          print_calculations,
-                          use_G,
-                          outfile):
-    Prob_Distr_Params = np.array(Prob_Distr_Params)                                                    
 
+def pad_deg_dist(deg_dict,small_prob, num_nodes):
+        '''
+        Given the nonzero values of a degree distribution, pad all remaining degree sizes with a small probability. 
+        '''
+        deg_dict = { int(k) : v for k,v in deg_dict.items() }
+        deg_dist = []
+        for k in range(num_nodes):
+                if k not in deg_dict or (k in deg_dict and deg_dict[k] == 0):
+                        # need to avoid zero values in deg dist for computational reasons
+                        deg_dist.append(small_prob)
+                else:
+                        deg_dist.append(deg_dict[k]+small_prob)
+        return deg_dist
+
+
+def readconfig(CCMconfig):
+    ccmc = json.load(open(CCMconfig))
+    deg_dist = pad_deg_dist(ccmc["degree_distribution"],ccmc["small_prob"],ccmc["population"])
+    Prob_Distr_Params = [ccmc["Prob_Distr_Params"][0], np.array(deg_dist)]
+    return ccmc["Network_stats"],ccmc["Prob_Distr"],Prob_Distr_Params, ccmc["samplesize"],ccmc["burnin"], ccmc["interval"],ccmc["statsonly"], ccmc["G"],ccmc["P"],ccmc["population"], ccmc["covPattern"],ccmc["bayesian_inference"],ccmc["Ia"], ccmc["Il"], ccmc["R"], ccmc["epi_params"],ccmc["print_calculations"],ccmc["use_G"],ccmc["outfile"]
+
+
+def CCMnet_constr_py(Network_stats=["Degree"],
+                                                    Prob_Distr=["MultinomialPoisson"],
+                                                    Prob_Distr_Params=[0,[]],
+                                                    samplesize=1,
+                                                    burnin=1000, 
+                                                    interval=1,
+                                                    statsonly=True, 
+                                                    G=None,
+                                                    P=None,
+                                                    population=0, 
+                                                    covPattern=[],
+                                                    bayesian_inference=0,
+                                                    Ia=[], 
+                                                    Il=[], 
+                                                    R=[], 
+                                                    epi_params=[],
+                                                    print_calculations=False,
+                                                    use_G=0,
+                                                    outfile="favites",
+                                                    config_file=None,
+                                                    degree_distribution=None,
+                                                    small_prob=None):
+
+    if config_file:
+        Network_stats,Prob_Distr,Prob_Distr_Params, samplesize,burnin, interval,statsonly, G,P,population, covPattern,bayesian_inference,Ia, Il, R, epi_params,print_calculations,use_G,outfile = readconfig(config_file)
+    if degree_distribution:
+        deg_dist = pad_deg_dist(degree_distribution,small_prob,population)
+        Prob_Distr_Params = [Prob_Distr_Params[0], np.array(deg_dist)]
     if use_G == 1:
+        if isinstance(G,str):
+            G = pd.read_csv(G)
         G_list = [tuple(r) for r in G.to_numpy().tolist()]
         g = generate_net(population, G_list, covPattern)
     else:
@@ -406,6 +451,8 @@ def CCMnet_constr_py(Network_stats,
         print("g statistics:", g_net_stat)
 
     if bayesian_inference == 1:
+        if isinstance(P,str):
+            P = pd.read_csv(P)
         P_list = [tuple(r) for r in P.to_numpy().tolist()]
         Pnet = generate_net(population, P_list, covPattern)
         P_net_stat = calc_network_stat(Pnet, Network_stats)
@@ -494,6 +541,50 @@ def CCMnet_constr_py(Network_stats,
     else:
         return g_df, results
 
+def R_python_interface_test(Network_stats,
+                                                    Prob_Distr,
+                                                    Prob_Distr_Params, 
+                                                    samplesize,
+                                                    burnin, 
+                                                    interval,
+                                                    statsonly,
+                                                    G, 
+                                                    P,
+                                                    population, 
+                                                    covPattern,
+                                                    bayesian_inference,
+                                                    Ia, 
+                                                    Il, 
+                                                    R, 
+                                                    epi_params,
+                                                    print_calculations):
+
+    print("Network_stats:", Network_stats, " Type:", type(Network_stats))
+    print("Prob_Distr:", Prob_Distr, " Type:", type(Prob_Distr))
+    print("Prob_Distr_Params:", Prob_Distr_Params, " Type:", type(Prob_Distr_Params))
+    print("Prob_Distr_Params[0]:", Prob_Distr_Params[0], " Type:", type(Prob_Distr_Params[0]))
+    print("Prob_Distr_Params[0][1]:", Prob_Distr_Params[0][1], " Type:", type(Prob_Distr_Params[0][1]))
+    #print("Prob_Distr_Params[0][171][4]:", Prob_Distr_Params[0][171][4], " Type:", type(Prob_Distr_Params[0][171][4]))
+    #print("Prob_Distr_Params[0][171][3]:", Prob_Distr_Params[0][171][3], " Type:", type(Prob_Distr_Params[0][171][3]))
+    #print("Prob_Distr_Params[0][170][4]:", Prob_Distr_Params[0][170][4], " Type:", type(Prob_Distr_Params[0][170][4]))
+    #print("Prob_Distr_Params[0][170][3]:", Prob_Distr_Params[0][170][3], " Type:", type(Prob_Distr_Params[0][170][3]))
+    print("samplesize:", samplesize, " Type:", type(samplesize))
+    print("burnin:", burnin, " Type:", type(burnin))
+    print("interval:", interval, " Type:", type(interval))
+    print("statsonly:", statsonly, " Type:", type(statsonly))
+    print("G:", G, " Type:", type(G))
+    print("P:", P, " Type:", type(P))
+    print("population:", population, " Type:", type(population))
+    print("covPattern:", covPattern, " Type:", type(covPattern))
+    print("bayesian_inference:", bayesian_inference, " Type:", type(bayesian_inference))
+    print("Ia:", Ia, " Type:", type(Ia))
+    print("Il:", Il, " Type:", type(Il))    
+    print("R:", R, " Type:", type(R))
+    print("epi_params:", epi_params, " Type:", type(epi_params))
+    print("print_calculations:", print_calculations, " Type:", type(print_calculations))
+
+    return(Network_stats)
+
 class ContactNetworkGenerator_CCMnetPy(ContactNetworkGenerator):
     def cite():
         return GC.CITATION_CCMNET
@@ -520,40 +611,44 @@ class ContactNetworkGenerator_CCMnetPy(ContactNetworkGenerator):
             assert False, "Error loading NumPy. Install with: pip3 install numpy"
 
         # check user args
-        assert isinstance(GC.num_cn_nodes, int), "num_cn_nodes must be an integer"
-        assert GC.num_cn_nodes >= 2, "Contact network must have at least 2 nodes"
-        assert isinstance(GC.cn_network_stats, list), "cn_network_stats must be a list"
-        assert isinstance(GC.cn_prob_dists, list), "cn_prob_dists must be a list"
-        assert isinstance(GC.cn_prob_dist_params, list), "cn_prob_dist_params must be a list"
-        assert len(GC.cn_network_stats) == len(GC.cn_prob_dists) == len(GC.cn_prob_dist_params), "cn_network_stats, cn_prob_dists, and cn_prob_dist_params must have the same length"
-        for i in range(len(GC.cn_network_stats)):
-            assert isinstance(GC.cn_network_stats[i], str), "All elements in cn_network_stats must be strings"
-            GC.cn_network_stats[i] = GC.cn_network_stats[i].strip().lower()
-            assert isinstance(GC.cn_prob_dists[i], str), "All elements in cn_prob_dists must be strings"
-            GC.cn_prob_dists[i] = GC.cn_prob_dists[i].replace('_','').replace('-','').strip().lower()
-            if GC.cn_prob_dists[i] == 'multinomialpoisson':
-                assert isinstance(GC.cn_prob_dist_params[i], list) and len(GC.cn_prob_dist_params[i]) == 2, "cn_prob_dist_params for Multinomial Poisson must be a list with 2 elements"
-                GC.cn_prob_dist_params[i][0] = float(GC.cn_prob_dist_params[i][0])
-                assert GC.cn_prob_dist_params[i][0] > 0, "First item in cn_prob_dist_params for Multinomial Poisson is the mean number of edges, which must be positive"
-                assert len(GC.cn_prob_dist_params[i][1]) == GC.num_cn_nodes, "Length of second item in cn_prob_dist_params for Multinomial Poisson must be equal to the number of nodes in the contact network"
-                if GC.cn_network_stats[i] == 'degree' or GC.cn_network_stats[i] == 'mixing':
-                    for j in range(GC.num_cn_nodes):
-                        GC.cn_prob_dist_params[i][1][j] = float(GC.cn_prob_dist_params[i][1][j])
-                elif GC.cn_network_stats[i] == 'density':
-                    assert False, "Density is not yet supported"
-                elif GC.cn_network_stats[i] == 'degmixing':
-                    assert False, "Degmixing is not yet supported"
-                elif GC.cn_network_stats[i] == 'triangles':
-                    assert False, "Triangles is not yet supported"
+        if hasattr(GC, "num_cn_nodes"):
+            assert isinstance(GC.num_cn_nodes, int), "num_cn_nodes must be an integer"
+            assert GC.num_cn_nodes >= 2, "Contact network must have at least 2 nodes"
+            if hasattr(GC, "cn_covariate_pattern"):
+                assert len(GC.cn_covariate_pattern) == GC.num_cn_nodes, "Length of cn_covariate_pattern must be equal to the number of nodes in the contact network"
+        if hasattr(GC, "cn_network_stats") and hasattr(GC, "cn_prob_dists") and hasattr(GC, "cn_prob_dist_params"):
+            assert isinstance(GC.cn_network_stats, list), "cn_network_stats must be a list"
+            assert isinstance(GC.cn_prob_dists, list), "cn_prob_dists must be a list"
+            assert isinstance(GC.cn_prob_dist_params, list), "cn_prob_dist_params must be a list"
+            assert len(GC.cn_network_stats) == len(GC.cn_prob_dists) == len(GC.cn_prob_dist_params), "cn_network_stats, cn_prob_dists, and cn_prob_dist_params must have the same length"
+            for i in range(len(GC.cn_network_stats)):
+                assert isinstance(GC.cn_network_stats[i], str), "All elements in cn_network_stats must be strings"
+                GC.cn_network_stats[i] = GC.cn_network_stats[i].strip().lower()
+                assert isinstance(GC.cn_prob_dists[i], str), "All elements in cn_prob_dists must be strings"
+                GC.cn_prob_dists[i] = GC.cn_prob_dists[i].replace('_','').replace('-','').strip().lower()
+                if GC.cn_prob_dists[i] == 'multinomialpoisson':
+                    assert isinstance(GC.cn_prob_dist_params[i], list) and len(GC.cn_prob_dist_params[i]) == 2, "cn_prob_dist_params for Multinomial Poisson must be a list with 2 elements"
+                    GC.cn_prob_dist_params[i][0] = float(GC.cn_prob_dist_params[i][0])
+                    assert GC.cn_prob_dist_params[i][0] > 0, "First item in cn_prob_dist_params for Multinomial Poisson is the mean number of edges, which must be positive"
+                    assert len(GC.cn_prob_dist_params[i][1]) == GC.num_cn_nodes, "Length of second item in cn_prob_dist_params for Multinomial Poisson must be equal to the number of nodes in the contact network"
+                    if GC.cn_network_stats[i] == 'degree' or GC.cn_network_stats[i] == 'mixing':
+                        for j in range(GC.num_cn_nodes):
+                            GC.cn_prob_dist_params[i][1][j] = float(GC.cn_prob_dist_params[i][1][j])
+                    elif GC.cn_network_stats[i] == 'density':
+                        assert False, "Density is not yet supported"
+                    elif GC.cn_network_stats[i] == 'degmixing':
+                        assert False, "Degmixing is not yet supported"
+                    elif GC.cn_network_stats[i] == 'triangles':
+                        assert False, "Triangles is not yet supported"
+                    else:
+                        assert False, "Invalid network_stats value: %s" % GC.cn_network_stats[i]
+                elif GC.cn_prob_dists[i] == 'normal':
+                    assert False, "Normal distribution is not yet supported in cn_prob_dists"
                 else:
-                    assert False, "Invalid network_stats value: %s" % GC.cn_network_stats[i]
-            elif GC.cn_prob_dists[i] == 'normal':
-                assert False, "Normal distribution is not yet supported in cn_prob_dists"
-            else:
-                assert False, "Invalid cn_prob_dists value: %s" % GC.cn_prob_dists[i]
-        assert len(GC.cn_covariate_pattern) == GC.num_cn_nodes, "Length of cn_covariate_pattern must be equal to the number of nodes in the contact network"
-        GC.cn_mcmc_burnin = int(GC.cn_mcmc_burnin)
-        assert GC.cn_mcmc_burnin > 0, "cn_mcmc_burnin must be a positive integer"
+                    assert False, "Invalid cn_prob_dists value: %s" % GC.cn_prob_dists[i]
+        if hasattr(GC, "cn_mcmc_burnin"):
+            GC.cn_mcmc_burnin = int(GC.cn_mcmc_burnin)
+            assert GC.cn_mcmc_burnin > 0, "cn_mcmc_burnin must be a positive integer"
 
     def get_edge_list():
         cn = CCMnet_constr_py(
