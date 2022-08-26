@@ -132,7 +132,7 @@ def format_output():
     out_lines.append('}')
     return '\n'.join(out_lines)
 def save_file():
-    f = filedialog.asksaveasfile(mode='w', defaultextension=".json")
+    f = asksaveasfile(mode='w', defaultextension=".json")
     if f is None:
         return
     f.write(format_output())
