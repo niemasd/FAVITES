@@ -79,9 +79,9 @@ class TreeNode_Simple(TreeNode):
         c2 = TreeNode_Simple(time=self.time, seq=self.seq, contact_network_node=self.contact_network_node)
         self.add_child(c1)
         self.add_child(c2)
-        self.contact_network_node.remove_virus(self)
         self.contact_network_node.add_virus(c1)
         self.contact_network_node.add_virus(c2)
+        self.contact_network_node.remove_virus(self)
         return c1,c2
 
     def get_children(self):
