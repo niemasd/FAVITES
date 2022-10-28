@@ -58,7 +58,7 @@ RUN wget https://github.com/tjunier/newick_utils/archive/refs/heads/master.zip &
     rm -rf master.zip newick_utils-master
 
 # Set up msms
-RUN wget http://www.mabs.at/ewing/msms/msms3.2rc-b163.zip && unzip msms3.2rc-b163.zip && \
+RUN wget https://www.mabs.at/fileadmin/user_upload/p_mabs/msms3.2rc-b163.zip && unzip msms*.zip && \
     mv msms/lib/* /usr/local/lib && mv msms/bin/* /usr/local/bin && chmod a+x /usr/local/bin/msms && rm -rf msms*
 
 # Set up SimPhy
